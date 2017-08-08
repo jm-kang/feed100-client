@@ -4,15 +4,29 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>registration</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+<ion-toolbar>
+  <ion-buttons start>
+    <button ion-button class="back-and-close-button" (click)="back()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
 <ion-content padding>
+  <div text-center>
+    <img class="login-and-registration-logo-icon" src="assets/img/logo-icon.png" />
+    <h6>회원가입</h6>
+  </div>
 
+  <button ion-button block class="button-company-registration" (click)="openCompanyRegistrationFormPage()">
+    <span class="split-button" text-left>
+      <img src="assets/img/company-logo.png" />
+    </span>
+    기업 회원가입
+  </button>
+  <button ion-button block class="button-user-registration" (click)="openUserRegistrationFormPage()">
+    <span class="split-button" text-left>
+      <img src="assets/img/user-logo.png" />
+    </span>
+    유저 회원가입
+  </button>
 </ion-content>

@@ -1,3 +1,23 @@
 page-user-sns-registration-form {
+    h6 {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: #A2A3A3;
+    }
+    
+    .button-registration {
+        background-color: #FE6B01;
+    }
 
+    .button-registration.activated {
+        background-color: #FE6B01;
+    }
+
+    // ion-item > input input 활성화되었을때
+    .underline-input .item-md.item-input.item-input-has-focus .input,
+    .underline-input .item-md.item-input.input-has-focus .input,
+    .underline-input .item-ios.item-input.item-input-has-focus .input,
+    .underline-input .item-ios.item-input.input-has-focus .input {
+        border-bottom: 1px solid #FE6B01;
+    }
 }

@@ -1,18 +1,25 @@
-<!--
-  Generated template for the LoginPage page.
+<ion-slides pager fullscreen scroll="false">
+  <ion-slide *ngFor="let loginSlide of loginSlides">
+    <div class="login-slide-background" >
+        <img [src]="loginSlide.loginTopImg" />
+        <h5 middle [innerHTML]="loginSlide.title"></h5>
+        <p margin-top middle [innerHTML]="loginSlide.content"></p>
+      </div>
+  </ion-slide>
+</ion-slides>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<div col-12 class="login-button-group">
+  <button ion-button offset-1 col-10 class="button-company-login login" (click)="openCompanyLoginFormPage()">
+    <span class="split-button" text-left>
+      <img src="assets/img/company-logo.png" />
+    </span>
+    기업 로그인
+  </button>
+  <button ion-button offset-1 col-10 class="button-user-login" (click)="openUserLoginFormPage()">
+    <span class="split-button" text-left>
+      <img src="assets/img/user-logo.png" />
+    </span>
+    유저 로그인
+  </button>
+  <p class="registration-wrapper" text-center>아직 회원이 아니신가요? <button ion-button clear (click)="openRegistrationPage()">회원가입</button></p>
+</div>

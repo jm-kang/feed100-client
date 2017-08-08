@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { CompanyTabsPage } from '../../company/company-tabs/company-tabs';
+
 /**
  * Generated class for the CompanyLoginFormPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
  */
 
 @IonicPage()
@@ -14,6 +13,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'company-login-form.html',
 })
 export class CompanyLoginFormPage {
+  username: string = "";
+  password: string = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -22,4 +23,11 @@ export class CompanyLoginFormPage {
     console.log('ionViewDidLoad CompanyLoginFormPage');
   }
 
+  back() {
+    this.navCtrl.pop();
+  }
+
+  localLogin() {
+    this.navCtrl.push(CompanyTabsPage);
+  }
 }

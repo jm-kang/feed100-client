@@ -3,10 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-// import { AboutPage } from '../pages/about/about';
-// import { HomePage } from '../pages/home/home';
-// import { TabsPage } from '../pages/tabs/tabs';
-
 // common //
 import { LoginPageModule } from '../pages/common/login/login.module';
   import { RegistrationPageModule } from '../pages/common/registration/registration.module';
@@ -27,6 +23,7 @@ import { TutorialPageModule } from '../pages/common/tutorial/tutorial.module';
 // common //
 
 // company //
+import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tabs.module'
 import { CompanyHomePageModule } from '../pages/company/company-home/company-home.module';
   import { CompanyAlarmPageModule } from '../pages/company/company-alarm/company-alarm.module';
   import { CompanyConfigurePageModule } from '../pages/company/company-configure/company-configure.module';
@@ -54,6 +51,7 @@ import { CompanyInterviewPageModule } from '../pages/company/company-interview/c
 // company //
 
 // user //
+import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
 import { UserHomePageModule } from '../pages/user/user-home/user-home.module';
   import { UserAlarmPageModule } from '../pages/user/user-alarm/user-alarm.module';
   import { UserConfigurePageModule } from '../pages/user/user-configure/user-configure.module';
@@ -87,13 +85,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
-  declarations: [
-    MyApp,
-    // AboutPage,
-    // ContactPage,
-    // HomePage,
-    // TabsPage
-  ],
+  declarations: [MyApp],
   imports: [
     LoginPageModule,
       RegistrationPageModule,
@@ -111,6 +103,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     TermsPageModule,
     TutorialPageModule,
 
+    CompanyTabsPageModule,
     CompanyHomePageModule,
       CompanyAlarmPageModule,
       CompanyConfigurePageModule,
@@ -136,6 +129,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       CompanyProjectInterviewDetailPageModule,
       CompanyProjectInterviewWritingEditorPageModule,
 
+    UserTabsPageModule,
     UserHomePageModule,
       UserAlarmPageModule,
       UserConfigurePageModule,
@@ -168,12 +162,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    // AboutPage,
-    // HomePage,
-    // TabsPage
-  ],
+  entryComponents: [MyApp],
   providers: [
     StatusBar,
     SplashScreen,

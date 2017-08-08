@@ -1,3 +1,83 @@
 page-login {
+    .swiper-slide {
+        background-color: #fff;
+    }
+    .slide-zoom {
+        height: 100%;
+        font-size: 1.3rem;
+        color: #838485;
+    }
 
+    .login-slide-background {
+        position: relative;
+        top: 14%;
+    }
+
+    .swiper-slide img {
+        width: 30%;
+    }
+
+    .login-button-group {
+        top: 58%;
+    }
+
+    div.swiper-pagination {
+        top:50%;
+        bottom:inherit;
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: #FE6B01 !important;
+    }
+
+    .registration-wrapper {
+        font-size: 1.2rem;
+        color: #929293;
+    }
+
+    .button-clear {
+        padding: 0;
+        margin: -7px 0 0 20px;
+        font-size: 1.3rem;
+        font-weight: 500;
+        color: #414142;
+        height: 100% !important;
+    }
+
+    .login-button-group {
+        position: absolute;
+        z-index: 999;
+    }
+
+    .button-company-login {
+        background-color: #FDBA02;
+    }
+
+    .button-company-login.activated {
+        background-color: #FDBA02;
+    }
+
+    .button-user-login {
+        background-color: #FE6B01;
+    }
+
+    .button-user-login.activated {
+        background-color: #FE6B01;
+    }
+}
+
+.button {
+    box-shadow: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border-radius: 100px;
+}
+
+.split-button {
+    position: absolute;
+    left: 20px;
+}
+
+.split-button img{
+    width: 8%;
 }

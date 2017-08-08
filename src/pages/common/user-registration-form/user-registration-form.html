@@ -4,15 +4,60 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-registration-form</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+<ion-toolbar>
+  <ion-buttons start>
+    <button ion-button class="back-and-close-button" (click)="back()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-toolbar>
 <ion-content padding>
+  <div text-center>
+    <img class="login-and-registration-logo-icon" src="assets/img/logo-icon.png" />
+    <h6>회원가입</h6>
+  </div>
 
+  <ion-list no-lines class="underline-input">
+    <ion-item>
+      <ion-input placeholder="이메일을 입력해주세요" type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="비밀번호 (8자 이상)" type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="비밀번호 확인" type="password" [(ngModel)]="checkingPassword"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="닉네임" type="text" [(ngModel)]="nickname"></ion-input>
+    </ion-item>
+    <ion-item class="agree-checkbox">
+      <ion-label>
+        <button ion-button clear (click)="openTermsPage()">이용약관</button>
+        <span class="relative-span"> 및 </span>
+        <button ion-button clear (click)="openPrivateInfoPolicyPage()">개인정보 취급방침</button>
+        <span class="relative-span">에 동의해주세요.</span>
+      </ion-label>
+      <ion-checkbox class="agree-check" checked="false" [(ngModel)]="isCheck"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+  
+
+  <button ion-button block class="button-registration" (click)="localRegister()">
+    <span class="split-button" text-left>
+      <img src="assets/img/user-logo.png" />
+    </span>
+    유저 회원가입
+  </button>
+
+  <div class="space-20"></div>
+  <div class="line-or"><span class="or">or</span></div>
+  <div class="space-20"></div>
+  <div text-center>
+    <button ion-button class="button-kakao" (click)="kakaoRegister()">
+      <img src="assets/img/kakao-logo.png" />
+    </button>
+    <button ion-button class="button-facebook" (click)="facebookRegister()">
+      <img src="assets/img/facebook-logo.png" />
+    </button>
+  </div>
 </ion-content>

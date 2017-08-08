@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { CompanyRegistrationFormPage } from '../company-registration-form/company-registration-form';
+import { UserRegistrationFormPage } from '../user-registration-form/user-registration-form';
+
 /**
  * Generated class for the RegistrationPage page.
  *
@@ -20,6 +23,18 @@ export class RegistrationPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegistrationPage');
+  }
+
+  back() {
+    this.navCtrl.pop();
+  }
+
+  openCompanyRegistrationFormPage() {
+    this.navCtrl.push(CompanyRegistrationFormPage);
+  }
+
+  openUserRegistrationFormPage() {
+    this.navCtrl.push(UserRegistrationFormPage);
   }
 
 }
