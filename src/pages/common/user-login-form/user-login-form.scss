@@ -1,3 +1,165 @@
 page-user-login-form {
+    h6 {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: #A2A3A3;
+    }
 
+    .button-kakao,
+    .button-facebook {
+        border-radius: 50%;
+        width: 5rem;
+        height: 5rem;
+        padding: 11px;
+    }
+
+    .button-kakao img,
+    .button-facebook img {
+        width: 100%;
+    }
+
+    .button-login {
+        background-color: #FE6B01;
+    }
+
+    .button-login.activated {
+        background-color: #FE6B01;
+    }
+
+    .button-kakao {
+        background-color: #FCE500;
+    }
+
+    .button-kakao.activated {
+        background-color: #FCE500;
+    }
+
+    .button-facebook {
+        background-color: #39579A;
+    }
+
+    .button-facebook.activated {
+        background-color: #39579A;
+    }
+
+    // ion-item > input input 활성화되었을때
+    .round-background-input .item-md.item-input.item-input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-md.item-input.input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-ios.item-input.item-input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-ios.item-input.input-has-focus .item-inner .input-wrapper {
+        border: 1px solid #FE6B01;
+        background-color: #F9F9F9;
+    }
+}
+.toolbar-background, .item {
+    background-color: transparent !important;
+}
+
+.space-20 {
+    margin-top: 20px;
+}
+
+.line-or {
+    width: 100%;
+    border-bottom: 0.55px solid #ddd;
+    color: #ccc;
+    text-align: center;
+}
+
+.or {
+    position: absolute;
+    margin-top: -0.9rem;
+    background-color: #fff;
+    width: 30px;
+    margin-left: -15px;
+}
+
+// round 뒷배경이 있는 인풋
+    // ion-item > input에서 텍스트 입력하는 부분 css
+    .round-background-input .text-input-md,
+    .round-background-input .text-input-ios {
+        margin: 10px 25px;
+        font-size: 1.3rem;
+    }
+
+    .round-background-input .input-wrapper {
+        background-color: #F1F2F3;
+        border-radius: 100px;
+    }
+
+    // ion-item > input에서 주변 페딩 제거
+    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
+    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
+    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
+    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
+    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner,
+    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    // ion-item > input 아이템 위아래 간격과 아이템 인풋 사이즈 수정
+    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
+    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
+    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty {
+        margin-top: 8px;
+        min-height: 4rem;
+    }
+// end
+
+// underline이 있는 인풋
+    // ion-item > input에서 텍스트 입력하는 부분 css
+    .underline-input .text-input-md,
+    .underline-input .text-input-ios {
+        margin: 10px 5px;
+        font-size: 1.3rem;
+    }
+    
+    // ion-item > input에서 주변 페딩 제거
+    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
+    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
+    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
+    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
+    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner,
+    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    // ion-item > input 아이템 위아래 간격과 아이템 인풋 사이즈 수정
+    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
+    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
+    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
+    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty {
+        margin-top: 8px;
+        min-height: 4rem;
+    }
+
+    .underline-input .input {
+        border-bottom: 1px solid #F1F2F3;
+    }
+// end
+
+// ion-item > input 안드로이드에 자동으로 파란 밑줄 그어지는 부분 제거 css
+.item-md.item-input.item-input-has-focus .item-inner,
+.item-md.item-input.input-has-focus .item-inner,
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: transparent;
+    box-shadow: inset 0 -1px 0 0 transparent;
+}
+
+.back-and-close-button {
+    color: rgb(66, 66, 66);
+}
+
+.login-and-registration-logo-icon {
+    width: 25%;
+    position: relative;
+    margin-top: 13%;
 }

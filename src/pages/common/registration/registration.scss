@@ -1,3 +1,23 @@
 page-registration {
+    h6 {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: #A2A3A3;
+    }
 
+    .button-company-registration {
+        background-color: #FDBA02;
+    }
+
+    .button-company-registration.activated {
+        background-color: #FDBA02;
+    }
+
+    .button-user-registration {
+        background-color: #FE6B01;
+    }
+
+    .button-user-registration.activated {
+        background-color: #FE6B01;
+    }
 }

@@ -1,3 +1,24 @@
 page-company-login-form {
+    h6 {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        color: #A2A3A3;
+    }
 
+    .button-login {
+        background-color: #FDBA02;
+    }
+
+    .button-login.activated {
+        background-color: #FDBA02;
+    }
+    
+    // ion-item > input input 활성화되었을때
+    .round-background-input .item-md.item-input.item-input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-md.item-input.input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-ios.item-input.item-input-has-focus .item-inner .input-wrapper,
+    .round-background-input .item-ios.item-input.input-has-focus .item-inner .input-wrapper {
+        border: 1px solid #FDBA02;
+        background-color: #F9F9F9;
+    }
 }

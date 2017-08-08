@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+
+import { UserTabsPage } from '../../user/user-tabs/user-tabs';
+import { UserSnsRegistrationFormPage } from '../user-sns-registration-form/user-sns-registration-form'
 
 /**
  * Generated class for the UserLoginFormPage page.
@@ -14,12 +17,30 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'user-login-form.html',
 })
 export class UserLoginFormPage {
+  username: string = "";
+  password: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserLoginFormPage');
+  }
+
+  back() {
+    this.navCtrl.pop();
+  }
+
+  localLogin() {
+    this.navCtrl.push(UserTabsPage);
+  }
+
+  kakaoLogin() {
+    this.navCtrl.push(UserSnsRegistrationFormPage);
+  }
+
+  facebookLogin() {
+    this.navCtrl.push(UserSnsRegistrationFormPage);
   }
 
 }
