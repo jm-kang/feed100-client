@@ -18,6 +18,7 @@ import { LoginPageModule } from '../pages/common/login/login.module';
 import { AppIntroPageModule } from '../pages/common/app-intro/app-intro.module';
 import { ContactPageModule } from '../pages/common/contact/contact.module';
 import { FaqPageModule } from '../pages/common/faq/faq.module';
+import { FullSizeImagePageModule } from '../pages/common/full-size-image/full-size-image.module';
 import { ManualPageModule } from '../pages/common/manual/manual.module';
 import { NoticePageModule } from '../pages/common/notice/notice.module';
 import { PrivateInfoPolicyPageModule } from '../pages/common/private-info-policy/private-info-policy.module';
@@ -48,6 +49,7 @@ import { CompanyMypagePageModule } from '../pages/company/company-mypage/company
   import { CompanyAccountModificationFormPageModule } from '../pages/company/company-account-modification-form/company-account-modification-form.module';
 import { CompanyInterviewPageModule } from '../pages/company/company-interview/company-interview.module';
   import { CompanyProjectInterviewPageModule } from '../pages/company/company-project-interview/company-project-interview.module';
+  import { CompanyProjectInterviewDetailPageModule } from '../pages/company/company-project-interview-detail/company-project-interview-detail.module';
   import { CompanyProjectInterviewWritingEditorPageModule } from '../pages/company/company-project-interview-writing-editor/company-project-interview-writing-editor.module';
 // company //
 
@@ -77,7 +79,7 @@ import { UserMypagePageModule } from '../pages/user/user-mypage/user-mypage.modu
   import { UserAccountModificationFormPageModule } from '../pages/user/user-account-modification-form/user-account-modification-form.module';
   import { UserProfileModificationFormPageModule } from '../pages/user/user-profile-modification-form/user-profile-modification-form.module';
 import { UserInterviewPageModule } from '../pages/user/user-interview/user-interview.module';
-  import { UserProjectInterviewPageModule } from '../pages/user/user-project-interview/user-project-interview.module';
+  import { UserProjectInterviewDetailPageModule } from '../pages/user/user-project-interview-detail/user-project-interview-detail.module';
   import { UserProjectInterviewWritingEditorPageModule } from '../pages/user/user-project-interview-writing-editor/user-project-interview-writing-editor.module';
 // user //
 
@@ -131,6 +133,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       CompanyAccountModificationFormPageModule,
     CompanyInterviewPageModule,
       CompanyProjectInterviewPageModule,
+      CompanyProjectInterviewDetailPageModule,
       CompanyProjectInterviewWritingEditorPageModule,
 
     UserHomePageModule,
@@ -158,7 +161,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
       UserAccountModificationFormPageModule,
       UserProfileModificationFormPageModule,
     UserInterviewPageModule,
-      UserProjectInterviewPageModule,
+      UserProjectInterviewDetailPageModule,
       UserProjectInterviewWritingEditorPageModule,
 
     BrowserModule,
