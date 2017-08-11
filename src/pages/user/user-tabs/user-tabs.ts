@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { UserAlarmPage } from '../user-alarm/user-alarm';
+import { UserConfigurePage } from '../user-configure/user-configure';
 import { UserHomePage } from '../user-home/user-home';
 import { UserProjectPage } from '../user-project/user-project';
 import { UserNewsfeedPage } from '../user-newsfeed/user-newsfeed';
@@ -19,6 +21,8 @@ import { UserInterviewPage } from '../user-interview/user-interview';
   templateUrl: 'user-tabs.html',
 })
 export class UserTabsPage {
+  alarmNum = "5";
+  isInterview = "2";
 
   tab1Root = UserHomePage;
   tab2Root = UserProjectPage;
@@ -26,10 +30,20 @@ export class UserTabsPage {
   tab4Root = UserMypagePage;
   tab5Root = UserInterviewPage;
 
-  constructor() {}
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserTabsPage');
   }
+
+  openUserAlarmPage() {
+    this.navCtrl.push(UserAlarmPage);
+  }
+
+  openUserConfigurePage() {
+    this.navCtrl.push(UserConfigurePage);
+  }
+  
 
 }
