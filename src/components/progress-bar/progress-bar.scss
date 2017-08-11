@@ -1,0 +1,18 @@
+progress-bar {
+ 
+    .progress-outer {
+        width: 100%;
+        text-align: center;
+        background-color: rgba(175, 176, 177, 0.4);
+        border: 0;
+        color: #fff;
+    }
+ 
+    .progress-inner {
+        height: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        background-color: #E69966;
+    }
+ 
+}

@@ -74,8 +74,16 @@ page-login {
 }
 
 .split-button {
-    position: absolute;
-    left: 20px;
+    position:absolute;
+    top:0;right:0;bottom:0;left:20;
+    display:flex;
+    align-items:center;
+    justify-content:left;
+    padding-left:20px;
+    display:-webkit-flex;
+    -webkit-align-item:center;
+    -webkit-justify-content:left;
+    color: #fff;
 }
 
 .split-button img{

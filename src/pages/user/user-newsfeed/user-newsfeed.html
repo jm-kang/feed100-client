@@ -4,15 +4,14 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-newsfeed</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<div text-center *ngIf = "!newsfeeds.length" class="empty-inner">
+  <ion-icon name="warning" color="danger"></ion-icon>
+  <p>준비중입니다!</p>
+</div>
+<div *ngIf="newsfeeds.length" [virtualScroll]="newsfeeds">
+  <ion-card *virtualItem="let newsfeed" class="newsfeed-card" (click)="openUserNewsfeedStoryPage()">
+    <img [src]="newsfeed.newsfeedMainImage" />
+    <ion-card-content text-left [innerHTML]="newsfeed.newsfeedName">
+    </ion-card-content>
+  </ion-card>
+</div>
