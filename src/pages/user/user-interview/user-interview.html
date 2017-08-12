@@ -25,7 +25,7 @@
     <p>- 인터뷰를 안할시 처벌 규정</p>
   </div>
   <ion-list>
-    <ion-item class="interview-item" *ngFor="let project of projects">
+    <ion-item class="interview-item" *ngFor="let project of projects" (click)="openUserProjectInterviewDetailPage()">
       <ion-avatar item-start>
         <img [src]="project.avatarImage">
       </ion-avatar>

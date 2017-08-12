@@ -6,7 +6,8 @@ page-user-login-form {
     }
 
     .button-kakao,
-    .button-facebook {
+    .button-facebook,
+    .button-google {
         border-radius: 50%;
         width: 6rem;
         height: 6rem;
@@ -14,7 +15,8 @@ page-user-login-form {
     }
 
     .button-kakao img,
-    .button-facebook img {
+    .button-facebook img,
+    .button-google img {
         width: 100%;
     }
 
@@ -40,6 +42,14 @@ page-user-login-form {
 
     .button-facebook.activated {
         background-color: #39579A;
+    }
+
+    .button-google {
+        background-color: #EB4335;
+    }
+
+    .button-google.activated {
+        background-color: #EB4335;
     }
 
     // ion-item > input input 활성화되었을때

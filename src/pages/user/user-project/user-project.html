@@ -22,9 +22,9 @@
     <ion-icon name="warning" color="danger"></ion-icon>
     <p>준비중입니다!</p>
   </div>
-  <ion-grid *ngIf="projects.length" [virtualScroll]="projects">
+  <ion-grid *ngIf="projects.length">
     <ion-row>
-      <ion-card *virtualItem="let project" class="project-card" (click)="accessProjectCard()">
+      <ion-card *ngFor="let project of projects" class="project-card" (click)="accessProjectCard()">
         <div class="project-card-main-image-wrapper">
           <img [src]="project.projectMainImage" />
           <div class="project-card-overlay-wrapper">
@@ -49,9 +49,9 @@
     </ion-row>
   </ion-grid>
 
-   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="endScroll">
+   <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="endScroll">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll> 
+  </ion-infinite-scroll>  -->
 </ion-content> 

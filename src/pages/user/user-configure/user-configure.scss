@@ -1,3 +1,36 @@
 page-user-configure {
+    .header {
+        border-bottom : 1px solid #e7e7e7;
+        background-color: #fff;
+    }
 
+    .content-ios {
+        background-color: #f0f0f0 !important;
+    }
+}
+
+.config-list .list-header {
+    color: #FE6B01 !important;
+    font-size: 1.2rem !important;
+}
+
+.config-list .list-header-ios {
+    color: #787878 !important;
+}
+
+.config-list .list-header-md {
+    margin-bottom: 0;
+}
+
+.config-list .item-ios.item-block {
+    background-color: #fff !important;
+}
+
+.config-list .item {
+    color: #383838;
+    font-size: 1.4rem;
+}
+
+.config-list .item.item-block .item-inner {
+    border-bottom-color: #e7e7e7;
 }
