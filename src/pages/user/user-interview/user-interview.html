@@ -5,14 +5,38 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>user-interview</ion-title>
+    <ion-title>인터뷰</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
+  <div class="tab-top-notice">
+    공지사항
+    <button class="accordion-button" float-right (click)="accordion()">
+      <ion-icon name="ios-arrow-down" *ngIf="!activeAccordion"></ion-icon>
+      <ion-icon name="ios-arrow-up" *ngIf="activeAccordion"></ion-icon>
+    </button>
+  </div>
+  <div class="shadow" *ngIf="!activeAccordion"></div>
+  <div class="subNotice" *ngIf="activeAccordion">
+    <p>- 인터뷰를 할때 지켜야할 약속</p>
+    <p>- 인터뷰 진행 방식</p>
+    <p>- 인터뷰를 안할시 처벌 규정</p>
+  </div>
+  <ion-list>
+    <ion-item class="interview-item" *ngFor="let project of projects">
+      <ion-avatar item-start>
+        <img [src]="project.avatarImage">
+      </ion-avatar>
+      <h2 [innerHTML]="project.projectName"></h2>
+      <p [innerHTML]="project.companyInterviewNum"></p>
+      <div item-end class="interview-item-end">
+        <ion-note [innerHTML]="project.progressState"></ion-note>
+        <div class="badge-new" *ngIf="project.isNew">N</div>
+        <div class="blank-badge-new" *ngIf="!project.isNew">0</div>
+      </div>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

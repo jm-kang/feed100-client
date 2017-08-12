@@ -1,3 +1,111 @@
 page-user-interview {
+    .header {
+        border-bottom : 1px solid #e7e7e7;
+    }
 
+    .tab-top-notice {
+        text-align: center;
+        color: #787878;
+        background-color: #fff;
+        padding: 14px;
+    }
+
+    .shadow {
+        width: 100%;
+        height: 4px;
+        background: #e7e7e7; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(#e7e7e7, transparent); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#e7e7e7, transparent); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#e7e7e7, transparent); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#e7e7e7, transparent); /* Standard syntax */ 
+    }
+
+    .accordion-button {
+        background-color: transparent;
+        color: #787878;
+    }
+
+    .subNotice {
+        border-top: 1px solid #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+        background-color: #f7f7f7;
+        color: #787878;
+        padding: 10px 16px;
+        text-align: left;
+        font-size: 1.2rem;
+    }
 }
+
+.badge-new {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    padding: 1px 6px;
+    border-radius: 50px;
+    text-align: center;
+    width: fit-content;
+    background-color: #FE6B01;
+    color: #fff;
+    position: relative;
+    margin-top: 4px;
+    float: right;
+}
+
+.blank-badge-new {
+    font-size: 0;
+    line-height: 1.6rem;
+    padding: 1px 6px;
+    border-radius: 50px;
+    text-align: center;
+    width: fit-content;
+    position: relative;
+    margin-top: 4px;
+    float: right;
+}
+
+.interview-item-end {
+    // margin-top: 0 !important;
+    // margin-bottom: 0 !important;
+    // height: 100%;
+}
+
+.interview-item {
+    border: 0 !important;
+}
+
+.interview-item .item-inner {
+    border-bottom: 1px solid #e7e7e7 !important;
+}
+
+.interview-item ion-avatar {
+    min-height: 50px;
+    min-width: 50px;
+    margin: 6px 16px 6px 0 !important;
+}
+
+.interview-item img {
+    border: 0.5px solid #e7e7e7;
+    height: 50px !important;
+    width: 50px !important;
+}
+
+.interview-item .label {
+    margin: 6px 8px 6px 0;
+}
+
+.interview-item h2 {
+    font-size: 1.3rem;
+    color: #383838;
+}
+
+.interview-item p {
+    font-size: 1.1rem;
+    color: #787878;
+}
+
+.interview-item ion-note {
+    font-size: 1.1rem;
+    align-self: flex-start;
+    color: #a8a8a8;
+    display: block;
+    margin-top: 1px;
+  }

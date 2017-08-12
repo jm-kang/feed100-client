@@ -16,12 +16,13 @@ page-user-home {
         color: #fff;
     }
 
-    .feed100-intro-slide-wrapper h1 {
-        font-size: 1.3rem;
+    .feed100-intro-slide-wrapper h5 {
+        font-size: 2.5rem;
     }
 
     .feed100-intro-slide-wrapper p {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
+        line-height: 1.4;
     }
 
     .feed100-intro-slides .swiper-pagination-bullet {
@@ -48,7 +49,9 @@ page-user-home {
         // margin: 10px 15px;
     }
 
-    
+    .header {
+        background-color: #fff;
+    }
 }
 
 .empty-inner {
@@ -140,22 +143,30 @@ page-user-home {
 
     .project-card ion-avatar,
     .project-card ion-label, {
-        margin-top: 0 !important;
+        margin-top: 0.1rem !important;
+    }
+
+    .project-card .label-md {
+        margin: 3px 8px 3px 0;
     }
 
     .project-card ion-label p {
         font-size: 1.1rem;
     }
 
+    .project-card .item {
+        margin-bottom: 10px;
+    }
+
     .project-card .card-content {
         padding: 10px 16px;
         height: 75px;
-        line-height: 1.3;
+        line-height: 1.4;
     }
 
     .project-card .project-card-name,
     .project-card .project-card-summary {
-        font-size: 12px;
+        font-size: 13px;
         color: #383838;
     }
 
@@ -165,42 +176,6 @@ page-user-home {
 
     .project-card .project-card-summary {
         color: #727272;
-    }
-// css end
-
-
-// 탭 헤더의 타이틀 이미지를 위한 css
-    .tabs-header .toolbar-title.toolbar-title-ios,
-    .tabs-header .toolbar-title.toolbar-title-md {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-flow: row nowrap;
-        -ms-flex-flow: row nowrap;
-        flex-flow: row nowrap;
-        -webkit-flex-shrink: 0;
-        -ms-flex-negative: 0;
-        flex-shrink: 0;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-        -webkit-box-pack: center;
-        width: 100%;
-        height: 100%;
-    }
-
-    .tabs-header .toolbar-title.toolbar-title-ios {
-        -webkit-justify-content: center;
-        -ms-flex-pack: center;
-        justify-content: center;
-    }
-
-    .tabs-header .toolbar-title img {
-        height: 1em;
     }
 // css end
 
