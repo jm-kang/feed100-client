@@ -83,6 +83,10 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { Facebook } from '@ionic-native/facebook';
 
 @NgModule({
   declarations: [MyApp],
@@ -158,15 +162,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         UserProjectInterviewDetailPageModule,
         UserProjectInterviewWritingEditorPageModule,
 
+    HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    HttpServiceProvider,
+    Facebook
   ]
 })
 export class AppModule {}
