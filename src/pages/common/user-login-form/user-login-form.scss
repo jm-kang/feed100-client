@@ -8,9 +8,9 @@ page-user-login-form {
     .button-kakao,
     .button-facebook {
         border-radius: 50%;
-        width: 5rem;
-        height: 5rem;
-        padding: 11px;
+        width: 6rem;
+        height: 6rem;
+        padding: 12px;
     }
 
     .button-kakao img,
@@ -82,31 +82,23 @@ page-user-login-form {
         font-size: 1.3rem;
     }
 
+    
+
     .round-background-input .input-wrapper {
         background-color: #F1F2F3;
         border-radius: 100px;
     }
 
     // ion-item > input에서 주변 페딩 제거
-    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
-    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
-    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
-    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
-    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner,
-    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner {
+    .round-background-input .item, {
         padding-left: 0;
         padding-right: 0;
+        margin-top: 8px;
+        min-height: 3.1em;
     }
 
-    // ion-item > input 아이템 위아래 간격과 아이템 인풋 사이즈 수정
-    .round-background-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
-    .round-background-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
-    .round-background-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .round-background-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty {
-        margin-top: 8px;
-        min-height: 4rem;
+    .round-background-input .item .item-inner {
+        padding-right: 0;
     }
 // end
 
@@ -119,23 +111,9 @@ page-user-login-form {
     }
     
     // ion-item > input에서 주변 페딩 제거
-    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
-    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
-    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
-    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid .item-inner,
-    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner,
-    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty .item-inner {
+    .underline-input .item {
         padding-left: 0;
         padding-right: 0;
-    }
-
-    // ion-item > input 아이템 위아래 간격과 아이템 인풋 사이즈 수정
-    .underline-input .item.item-block.item-md.item-input.ng-untouched.ng-pristine.ng-valid,
-    .underline-input .item.item-block.item-ios.item-input.ng-untouched.ng-pristine.ng-valid,
-    .underline-input .item.item-block.item-md.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty,
-    .underline-input .item.item-block.item-ios.item-input.ng-valid.input-has-value.item-input-has-value.ng-touched.ng-dirty {
         margin-top: 8px;
         min-height: 4rem;
     }

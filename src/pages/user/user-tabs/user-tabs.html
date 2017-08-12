@@ -13,10 +13,10 @@
           </ion-icon>              
         </button>
       </ion-buttons>
-      <ion-title>
+      <!-- <ion-title>
         <img *ngIf="titleImage" [src]="titleImage" />  
         {{titleText}}
-      </ion-title>
+      </ion-title> -->
       <ion-buttons end>
         <button ion-button (click)="openUserConfigurePage()">
           <ion-icon name="settings"></ion-icon>
@@ -26,9 +26,14 @@
 </ion-header>
 
 <ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="홈" tabIcon="md-home" (ionSelect)="this.titleImage ='assets/img/logo-flat.png'" (ionSelect)="this.titleText =''"></ion-tab>
+  <!-- <ion-tab [root]="tab1Root" tabTitle="홈" tabIcon="md-home" (ionSelect)="this.titleImage ='assets/img/logo-flat.png'" (ionSelect)="this.titleText =''"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="프로젝트" tabIcon="ios-globe-outline" (ionSelect)="this.titleImage =''" (ionSelect)="this.titleText='프로젝트'"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="뉴스피드" tabIcon="ios-paper-outline" (ionSelect)="this.titleImage =''" (ionSelect)="this.titleText='뉴스피드'"></ion-tab>
   <ion-tab [root]="tab4Root" tabTitle="인터뷰" tabIcon="ios-chatbubbles-outline" (ionSelect)="this.titleImage =''" (ionSelect)="this.titleText='인터뷰'" tabBadge="{{isInterview}}"></ion-tab>
-  <ion-tab [root]="tab5Root" tabTitle="마이페이지" tabIcon="ios-contact" (ionSelect)="this.titleImage =''" (ionSelect)="this.titleText='마이페이지'"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="마이페이지" tabIcon="ios-contact" (ionSelect)="this.titleImage =''" (ionSelect)="this.titleText='마이페이지'"></ion-tab> -->
+  <ion-tab [root]="tab1Root" tabTitle="홈" tabIcon="md-home"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="프로젝트" tabIcon="ios-globe-outline"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="뉴스피드" tabIcon="ios-paper-outline"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="인터뷰" tabIcon="ios-chatbubbles-outline" tabBadge="{{isInterview}}"></ion-tab>
+  <ion-tab [root]="tab5Root" tabTitle="마이페이지" tabIcon="ios-contact"></ion-tab>
 </ion-tabs>

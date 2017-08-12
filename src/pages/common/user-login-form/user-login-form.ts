@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 
 import { UserTabsPage } from '../../user/user-tabs/user-tabs';
 import { UserSnsRegistrationFormPage } from '../user-sns-registration-form/user-sns-registration-form'
@@ -20,7 +20,7 @@ export class UserLoginFormPage {
   username: string = "";
   password: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public viewCtrl: ViewController) {
   }
 
   ionViewDidLoad() {
@@ -28,7 +28,7 @@ export class UserLoginFormPage {
   }
 
   back() {
-    this.navCtrl.pop();
+    this.viewCtrl.dismiss();
   }
 
   localLogin() {

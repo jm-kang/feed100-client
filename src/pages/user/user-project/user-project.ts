@@ -18,6 +18,7 @@ import { UserProjectParticipationConditionFormPage } from '../user-project-parti
   templateUrl: 'user-project.html',
 })
 export class UserProjectPage {
+  endScroll:boolean = true;
   projects = [
   ];
 
@@ -78,6 +79,10 @@ export class UserProjectPage {
 
       console.log('Async operation has ended');
       infiniteScroll.complete();
+
+      if(this.projects.length == this.mockProjects.length) {
+        this.endScroll = false;
+      }
     }, 500);
   }
 

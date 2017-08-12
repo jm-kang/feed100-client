@@ -1,5 +1,10 @@
 page-user-newsfeed {
-    .empty-inner .icon {
-        font-size: 10rem;
+    .newsfeed-card {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    .header {
+        background-color: #fff;
     }
 }

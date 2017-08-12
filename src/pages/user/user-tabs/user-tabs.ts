@@ -27,8 +27,8 @@ export class UserTabsPage {
   tab1Root = UserHomePage;
   tab2Root = UserProjectPage;
   tab3Root = UserNewsfeedPage;
-  tab4Root = UserMypagePage;
-  tab5Root = UserInterviewPage;
+  tab4Root = UserInterviewPage;
+  tab5Root = UserMypagePage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
