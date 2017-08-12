@@ -19,9 +19,9 @@
     <ion-icon name="warning" color="danger"></ion-icon>
     <p>준비중입니다!</p>
   </div>
-  <ion-grid *ngIf="newsfeeds.length" [virtualScroll]="newsfeeds">
+  <ion-grid *ngIf="newsfeeds.length">
     <ion-row>
-      <ion-col col-6 *virtualItem="let newsfeed">
+      <ion-col col-6 *ngFor="let newsfeed of newsfeeds" margin-bottom>
         <ion-card class="newsfeed-card" (click)="openUserNewsfeedStoryPage()">
           <img [src]="newsfeed.newsfeedMainImage" />
           <ion-card-content text-left [innerHTML]="newsfeed.newsfeedName">
@@ -31,9 +31,9 @@
     </ion-row>
   </ion-grid>
 
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="endScroll">
+  <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="endScroll">
     <ion-infinite-scroll-content
       loadingSpinner="bubbles">
     </ion-infinite-scroll-content>
-  </ion-infinite-scroll> 
+  </ion-infinite-scroll>  -->
 </ion-content>

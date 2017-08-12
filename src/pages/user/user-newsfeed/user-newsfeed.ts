@@ -16,11 +16,34 @@ import { UserNewsfeedStoryPage } from '../user-newsfeed-story/user-newsfeed-stor
   templateUrl: 'user-newsfeed.html',
 })
 export class UserNewsfeedPage {
-  endScroll:boolean = true;
+  // endScroll:boolean = true;
 
-  newsfeeds = [];
+  // newsfeeds = [];
 
-  mockNewsfeeds = [
+  // mockNewsfeeds = [
+  //   {
+  //     newsfeedMainImage: 'assets/img/newsfeed-main-image1.png',
+  //     newsfeedName: 'Singled [Out] : 선택의 시대에 싱글 여성에 관한 영화',
+  //   },
+  //   {
+  //     newsfeedMainImage: 'assets/img/newsfeed-main-image2.png',
+  //     newsfeedName: '무연 커피 소다 | 운전 가능',
+  //   },
+  //   {
+  //     newsfeedMainImage: 'assets/img/newsfeed-main-image3.png',
+  //     newsfeedName: '레오나르도 다빈치, 베르메르 & 렘브란트 액션 피규어',
+  //   },
+  //   {
+  //     newsfeedMainImage: 'assets/img/newsfeed-main-image4.png',
+  //     newsfeedName: '백색 방랑자 : 기후 변화 사운드 트랙',
+  //   },
+  //   {
+  //     newsfeedMainImage: 'assets/img/newsfeed-main-image5.png',
+  //     newsfeedName: 'Salem Cinema의 디지털 프로젝션 업그레이드 챌린지',
+  //   }
+  // ];
+
+  newsfeeds = [
     {
       newsfeedMainImage: 'assets/img/newsfeed-main-image1.png',
       newsfeedName: 'Singled [Out] : 선택의 시대에 싱글 여성에 관한 영화',
@@ -58,30 +81,30 @@ export class UserNewsfeedPage {
     //   }
     // }
     // console.log('constructor');
-    for (let i = 0; i < 5; i++) {
-      this.newsfeeds.push( this.mockNewsfeeds[i] );
-    }
+    // for (let i = 0; i < 5; i++) {
+    //   this.newsfeeds.push( this.mockNewsfeeds[i] );
+    // }
   }
 
-  doInfinite(infiniteScroll) {
-    console.log('Begin async operation');
+  // doInfinite(infiniteScroll) {
+  //   console.log('Begin async operation');
 
-    setTimeout(() => {
-      let originalnewsfeedsLength = this.newsfeeds.length;
-      for (let i = originalnewsfeedsLength; i < originalnewsfeedsLength + 4; i++) {
-        if(i < this.mockNewsfeeds.length) {
-          this.newsfeeds.push( this.mockNewsfeeds[i] );
-        }
-      }
+  //   setTimeout(() => {
+  //     let originalnewsfeedsLength = this.newsfeeds.length;
+  //     for (let i = originalnewsfeedsLength; i < originalnewsfeedsLength + 4; i++) {
+  //       if(i < this.mockNewsfeeds.length) {
+  //         this.newsfeeds.push( this.mockNewsfeeds[i] );
+  //       }
+  //     }
 
-      console.log('Async operation has ended');
-      infiniteScroll.complete();
+  //     console.log('Async operation has ended');
+  //     infiniteScroll.complete();
 
-      if(this.newsfeeds.length == this.mockNewsfeeds.length) {
-        this.endScroll = false;
-      }
-    }, 500);
-  }
+  //     if(this.newsfeeds.length == this.mockNewsfeeds.length) {
+  //       this.endScroll = false;
+  //     }
+  //   }, 500);
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedPage');

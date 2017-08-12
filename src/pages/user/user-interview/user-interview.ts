@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
+
 /**
  * Generated class for the UserInterviewPage page.
  *
@@ -55,5 +57,8 @@ export class UserInterviewPage {
       this.activeAccordion = true;
     }
   }
-
+  
+  openUserProjectInterviewDetailPage() {
+    this.navCtrl.push(UserProjectInterviewDetailPage);
+  }
 }

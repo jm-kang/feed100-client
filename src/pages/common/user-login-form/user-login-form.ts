@@ -86,41 +86,8 @@ export class UserLoginFormPage {
     );
   }
 
-  kakaoLogin() {
-    KakaoTalk.login(
-    (result) => {
-    console.log('Successful login!');
-    console.log(result.id);
-    this.httpService.SNSLogin('kakao', result.id, this.role)
-    .subscribe(
-    (data) => {
-      if(data.success == true) {
-        this.storage.set('accessToken', data.data.accessToken);
-        this.storage.set('refreshToken', data.data.refreshToken);
-        this.navCtrl.push(UserTabsPage);
-      }
-      else if(data.success == false) {
-        switch(data.message) {
-          case 'app_id is unregistered':
-            this.navCtrl.push(UserSnsRegistrationFormPage, {
-              "provider" : "kakao",
-              "app_id" : result.id
-            });
-            break;
-        }
-      }
-    },
-    (err) => {
-      console.log(err);
-      this.showBasicAlert('오류가 발생했습니다.');
-    }
-    );
-  },
-    (message) => {
-    console.log('Error logging in');
-    console.log(message);
-    }
-  );
+  googleLogin() {
+    this.navCtrl.push(UserSnsRegistrationFormPage);
   }
 
   facebookLogin() {
@@ -159,6 +126,43 @@ export class UserLoginFormPage {
       this.showBasicAlert('오류가 발생했습니다.');
     });
 
+  }
+
+  kakaoLogin() {
+    KakaoTalk.login(
+    (result) => {
+    console.log('Successful login!');
+    console.log(result.id);
+    this.httpService.SNSLogin('kakao', result.id, this.role)
+    .subscribe(
+    (data) => {
+      if(data.success == true) {
+        this.storage.set('accessToken', data.data.accessToken);
+        this.storage.set('refreshToken', data.data.refreshToken);
+        this.navCtrl.push(UserTabsPage);
+      }
+      else if(data.success == false) {
+        switch(data.message) {
+          case 'app_id is unregistered':
+            this.navCtrl.push(UserSnsRegistrationFormPage, {
+              "provider" : "kakao",
+              "app_id" : result.id
+            });
+            break;
+        }
+      }
+    },
+    (err) => {
+      console.log(err);
+      this.showBasicAlert('오류가 발생했습니다.');
+    }
+    );
+  },
+    (message) => {
+    console.log('Error logging in');
+    console.log(message);
+    }
+  );
   }
 
   showBasicAlert(subTitle) {
