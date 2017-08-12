@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.potenbrothers.feed100" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
@@ -82,10 +82,20 @@
     <allow-navigation href="http://192.168.0.8:8100" />
     <allow-navigation href="http://192.168.0.15:8100" />
     <allow-navigation href="http://172.30.1.26:8100" />
-    <allow-navigation href="http://192.168.0.16:8100" />
+    <allow-navigation href="http://192.168.0.46:8100" />
+    <allow-navigation href="http://192.168.0.21:8100" />
+    <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="1641054049532599" />
+        <variable name="APP_NAME" value="FEED100" />
+    </plugin>
+    <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
+        <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
+    </plugin>
+    <plugin name="cordova-plugin-http" spec="^1.2.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />

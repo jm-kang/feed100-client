@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 import { CompanyTabsPage } from '../../company/company-tabs/company-tabs';
 import { TermsPage } from '../terms/terms';
 import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy';
+
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the CompanyRegistrationFormPage page.
@@ -18,13 +21,20 @@ import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy
   templateUrl: 'company-registration-form.html',
 })
 export class CompanyRegistrationFormPage {
-  username: string = "";
-  password: string = "";
-  checkingPassword: string = "";
-  nickname: string = "";
+  username: string = '';
+  password: string = '';
+  checkingPassword: string = '';
+  nickname: string = '';
   isCheck: boolean = false;
+  role: string = 'company';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    public httpService: HttpServiceProvider,
+    public storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -46,14 +56,60 @@ export class CompanyRegistrationFormPage {
   }
 
   localRegister() {
-    this.navCtrl.push(CompanyTabsPage);
+    if(!this.username) {
+      this.showBasicAlert('이메일을 입력해주세요.');
+      return;
+    }
+    if(!this.password) {
+      this.showBasicAlert('비밀번호를 입력해주세요.');
+      return;
+    }
+    if(!this.checkingPassword) {
+      this.showBasicAlert('비밀번호 확인을 입력해주세요.');
+      return;
+    }
+    if(!this.nickname) {
+      this.showBasicAlert('기업명 / 팀명을 입력해주세요.');
+      return;
+    }
+    if(!this.isCheck) {
+      this.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
+      return;
+    }
+    this.httpService.localRegister(this.username, this.password, this.role, this.nickname)
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.storage.set('accessToken', data.data.accessToken);
+          this.storage.set('refreshToken', data.data.refreshToken);
+          this.navCtrl.push(CompanyTabsPage);
+        }
+        else if(data.success == false) {
+          switch(data.message) {
+            case 'username is already registered':
+              this.showBasicAlert('이미 등록되어있는 이메일입니다.');
+              break;
+            case 'nickname is already registered':
+              this.showBasicAlert('이미 등록되어있는 기업명 / 팀명입니다.');
+              break;
+          }
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
-  kakaoRegister() {
-    this.navCtrl.push(CompanyTabsPage);
+  showBasicAlert(subTitle) {
+    let alert = this.alertCtrl.create ({
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+
+    alert.present();
   }
 
-  facebookRegister() {
-    this.navCtrl.push(CompanyTabsPage);
-  }
 }
