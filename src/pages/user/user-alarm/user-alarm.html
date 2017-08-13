@@ -5,14 +5,31 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>user-alarm</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button class="back-and-close-button" (click)="back()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>알림</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-item class="interview-item" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.link)">
+      <ion-avatar item-start>
+        <img [src]="alarm.avatarImage">
+      </ion-avatar>
+      <h2><span class="alarm-tag">[{{alarm.alarmTag}}]</span> {{alarm.alarmTitle}}</h2>
+      <p [innerHTML]="alarm.alarmContent"></p>
+      <div item-end class="interview-item-end">
+        <div class="badge-wrapper">
+          <div class="badge-new-dot" *ngIf="alarm.isNew">N</div>
+          <div class="blank-badge-new-dot" *ngIf="!alarm.isNew">0</div>
+        </div>
+        <ion-note class="alarm-date" [innerHTML]="alarm.alarmRegistrationDate"></ion-note>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -13,16 +13,6 @@ page-user-interview {
         padding: 14px;
     }
 
-    // .shadow {
-    //     width: 100%;
-    //     height: 4px;
-    //     background: #e7e7e7; /* For browsers that do not support gradients */
-    //     background: -webkit-linear-gradient(#e7e7e7, transparent); /* For Safari 5.1 to 6.0 */
-    //     background: -o-linear-gradient(#e7e7e7, transparent); /* For Opera 11.1 to 12.0 */
-    //     background: -moz-linear-gradient(#e7e7e7, transparent); /* For Firefox 3.6 to 15 */
-    //     background: linear-gradient(#e7e7e7, transparent); /* Standard syntax */ 
-    // }
-
     .accordion-button {
         background-color: transparent;
         color: #787878;
@@ -39,39 +29,42 @@ page-user-interview {
         text-align: left;
         font-size: 1.2rem;
     }
+
+    .badge-new {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+        padding: 1px 6px;
+        border-radius: 50px;
+        text-align: center;
+        width: fit-content;
+        background-color: #FE6B01;
+        color: #fff;
+        position: relative;
+        margin-top: 4px;
+        float: right;
+    }
+
+    .blank-badge-new {
+        font-size: 0;
+        line-height: 1.6rem;
+        padding: 1px 6px;
+        border-radius: 50px;
+        text-align: center;
+        width: fit-content;
+        position: relative;
+        margin-top: 4px;
+        float: right;
+    }
+
+    .interview-item ion-note {
+        font-size: 1.1rem;
+        align-self: flex-start;
+        color: #a8a8a8;
+        display: block;
+        margin-top: 1px;
+    }
 }
 
-.badge-new {
-    font-size: 1.1rem;
-    line-height: 1.6rem;
-    padding: 1px 6px;
-    border-radius: 50px;
-    text-align: center;
-    width: fit-content;
-    background-color: #FE6B01;
-    color: #fff;
-    position: relative;
-    margin-top: 4px;
-    float: right;
-}
-
-.blank-badge-new {
-    font-size: 0;
-    line-height: 1.6rem;
-    padding: 1px 6px;
-    border-radius: 50px;
-    text-align: center;
-    width: fit-content;
-    position: relative;
-    margin-top: 4px;
-    float: right;
-}
-
-.interview-item-end {
-    // margin-top: 0 !important;
-    // margin-bottom: 0 !important;
-    // height: 100%;
-}
 
 .interview-item {
     border: 0 !important;
@@ -98,7 +91,7 @@ page-user-interview {
 }
 
 .interview-item h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: #383838;
 }
 
@@ -106,11 +99,3 @@ page-user-interview {
     font-size: 1.1rem;
     color: #787878;
 }
-
-.interview-item ion-note {
-    font-size: 1.1rem;
-    align-self: flex-start;
-    color: #a8a8a8;
-    display: block;
-    margin-top: 1px;
-  }

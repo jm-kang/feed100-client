@@ -1,3 +1,68 @@
 page-user-alarm {
+    .header {
+        border-bottom : 1px solid #e7e7e7;
+    }
 
+
+    .interview-item ion-avatar {
+        min-height: 40px;
+        min-width: 40px;
+        margin: 6px 16px 6px 0 !important;
+    }
+
+    .interview-item img {
+        border: 0.5px solid #e7e7e7;
+        height: 40px !important;
+        width: 40px !important;
+    }
+
+    .interview-item h2 {
+        font-size: 1.1rem;
+        color: #787878;
+    }
+
+    .interview-item p {
+        color: #383838;
+    }
+
+    .alarm-tag {
+        color: #FE6B01;
+        font-weight: bold;    
+    }
+
+    .alarm-date {
+        font-size: 1.1rem;
+        align-self: flex-start;
+        color: #a8a8a8;
+        display: block;
+        padding-bottom: 5px;
+        margin-top: 3px;
+    }
+
+    .badge-wrapper {
+        height: auto;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .badge-new-dot {
+        font-size: 0;
+        line-height: 5px;
+        padding: 1px 3.5px;
+        border-radius: 50px;
+        width: fit-content;
+        background-color: #FE6B01;
+        position: relative;
+        float: right;
+    }
+
+    .blank-badge-new-dot {
+        font-size: 0;
+        line-height: 5px;
+        padding: 1px 3.5px;
+        border-radius: 50px;
+        text-align: center;
+        width: fit-content;
+        position: relative;
+    }
 }
