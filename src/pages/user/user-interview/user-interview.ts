@@ -21,24 +21,24 @@ export class UserInterviewPage {
   projects = [
     {
       avatarImage: "assets/img/company-avatar-image1.png",
-      projectName: "Anchor Labs",
+      projectName: "ANCHOR CABLE",
       companyInterviewNum: "2차 인터뷰",
       progressState: "3일 남음",
-      isNew:"3",
+      isNew: true,
     },
     {
       avatarImage: "assets/img/company-avatar-image2.png",
-      projectName: "Anchor Labs",
+      projectName: "AQUA+",
       companyInterviewNum: "1차 인터뷰",
       progressState: "1일 남음",
-      isNew:"2",
+      isNew: false,
     },
     {
       avatarImage: "assets/img/company-avatar-image3.png",
-      projectName: "Anchor Labs",
+      projectName: "PolarSeal Heated Tops",
       companyInterviewNum: "-",
       progressState: "종료",
-      isNew:"",
+      isNew: false,
     }
     
   ];
