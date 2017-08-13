@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.0.132:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -46,6 +46,7 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <preference name="KeychainAccessibility" value="WhenUnlocked" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -86,6 +87,10 @@
     <allow-navigation href="http://192.168.0.21:8100" />
     <allow-navigation href="http://192.168.0.90:8100" />
     <allow-navigation href="http://172.30.1.28:8100" />
+    <allow-navigation href="http://172.30.1.50:8100" />
+    <allow-navigation href="http://192.168.35.100:8100" />
+    <allow-navigation href="http://192.168.10.52:8100" />
+    <allow-navigation href="http://192.168.0.132:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
@@ -96,6 +101,9 @@
     </plugin>
     <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
         <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
+    </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i" />
     </plugin>
     <plugin name="cordova-plugin-http" spec="^1.2.0" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
