@@ -88,6 +88,8 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 
 @NgModule({
   declarations: [MyApp],
@@ -176,7 +178,9 @@ import { GooglePlus } from '@ionic-native/google-plus';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HttpServiceProvider,
     Facebook,
-    GooglePlus
+    GooglePlus,
+    Push,
+    UniqueDeviceID
   ]
 })
 export class AppModule {}

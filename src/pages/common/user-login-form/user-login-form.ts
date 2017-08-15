@@ -40,12 +40,6 @@ export class UserLoginFormPage {
   }
 
   ionViewDidLoad() {
-    this.storage.get('accessToken').then((val) => {
-      console.log('accessToken', val);
-    });
-    this.storage.get('refreshToken').then((val) => {
-      console.log('refreshToken', val);
-    });
     console.log('ionViewDidLoad UserLoginFormPage');
   }
 
