@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 import { UserProjectPage } from  '../user-project/user-project';
 import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
@@ -7,6 +7,8 @@ import { UserProfileModificationFormPage } from '../user-profile-modification-fo
 import { UserProjectHomePage } from '../user-project-home/user-project-home';
 import { UserProjectRewardFormPage } from '../user-project-reward-form/user-project-reward-form';
 import { UserProjectStoryPage } from '../user-project-story/user-project-story';
+
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
 /**
  * Generated class for the UserMypagePage page.
@@ -21,18 +23,18 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
   templateUrl: 'user-mypage.html',
 })
 export class UserMypagePage {
-  avatarImage: String = "assets/img/user-avatar-image.png";
-  level: number = 2;
-  levelClass: String = "연구원";
-  nickname: String = "AgustMD";
-  point: number = 12000;
-  exp: number = 46000;
-  maxExp: number = 50000;
-  expPercent: number = 82;
-  proceedingProjectNum: number = 0;
-  rewardProjectNum: number = 0;
-  endProjectNum: number = 0;
-  segmentProjectCondition: String = "";
+  avatarImage: String = '';
+  level = 0;
+  levelClass: String = '';
+  nickname: String = '';
+  point = 0;
+  exp = 0;
+  maxExp = 0;
+  expPercent = '';
+  proceedingProjectNum = 0;
+  rewardProjectNum = 0;
+  endProjectNum = 0;
+  segmentProjectCondition: String = '';
 
   // 진행중인 프로젝트
   proceedingProjects = [
@@ -110,7 +112,12 @@ export class UserMypagePage {
     },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public appCtrl: App) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
+    public httpService: HttpServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
     this.proceedingProjectNum = this.proceedingProjects.length;
     this.rewardProjectNum = this.rewardProjects.length;
@@ -121,8 +128,55 @@ export class UserMypagePage {
     this.navCtrl.parent.select(1);
   }
 
-  ionViewDidLoad() {
+  ionViewDidload() {
     console.log('ionViewDidLoad UserMypagePage');
+    // this.httpService.getUserInfo()
+    // .subscribe(
+    //   (data) => {
+    //     if(data.success == true) {
+    //       this.avatarImage = data.data.avatar_image;
+    //       this.level = data.data.level;
+    //       this.levelClass = data.data.level_class;
+    //       this.nickname = data.data.nickname;
+    //       this.point = data.data.point;
+    //       this.exp = data.data.experience_point;
+    //       this.maxExp = data.data.required_experience_point;
+    //       this.expPercent = ((this.exp / this.maxExp) * 100).toFixed(1);
+    //     }
+    //     else if(data.success == false) {
+    //       console.log(data.message);
+    //       if(data.message == 'jwt expired') {
+    //         this.showBasicAlert('액세스 토큰 만료. 재발급 필요');
+    //         this.httpService.refreshTokens()
+    //         .subscribe(
+    //           (data) => {
+    //             console.log(data.message);
+    //             if(data.success == true) {
+    //               return 'refresh success';
+    //             }
+    //             else if(data.success == false) {
+    //               this.httpService.logout()
+    //               .then(() => {
+    //                 this.navCtrl.popToRoot();
+    //               });
+    //             }
+    //           }
+    //         )
+    //       }
+    //       else {
+    //         this.httpService.logout()
+    //         .then(() => {
+    //           this.navCtrl.popToRoot();
+    //         });
+    //       }
+
+    //     }
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.showBasicAlert('오류가 발생했습니다.');
+    //   }
+    // );
   }
 
   openUserAccountModificationFormPage() {
@@ -146,6 +200,16 @@ export class UserMypagePage {
   }
 
   openUserProjectStoryPage() {
-    this.appCtrl.getRootNav().push(UserProjectStoryPage);
+    this.navCtrl.push(UserProjectStoryPage);
   }
+
+  showBasicAlert(subTitle) {
+    let alert = this.alertCtrl.create ({
+      subTitle: subTitle,
+      buttons: ['OK']
+    });
+
+    alert.present();
+  }
+
 }
