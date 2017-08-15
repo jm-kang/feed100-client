@@ -82,7 +82,8 @@ export class CompanyRegistrationFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.push(CompanyTabsPage);
+          // this.navCtrl.push(CompanyTabsPage);
+          this.navCtrl.setRoot(CompanyTabsPage, {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

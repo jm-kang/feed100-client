@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
 import { UserProjectHomePage } from '../user-project-home/user-project-home';
 import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
@@ -95,7 +95,11 @@ export class UserProjectPage {
     },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController, 
+    public appCtrl: App) {
     // for (let i = 0; i < 2; i++) {
     //   this.projects.push( this.mockProjects[i] );
     // }
@@ -132,7 +136,7 @@ export class UserProjectPage {
     // 프로젝트 스토리 이동 (인원이 다 찼거나 프로젝트 기간이 끝난 경우)
     // 프로젝트 참여조건 페이지 이동 (프로젝트 기간이고 인원이 다 차지 않은 경우)
     // 프로젝트 홈 페이지 이동 (프로젝트에 참여했고 프로젝트 기간인 경우)
-    this.openUserProjectParticipationConditionFormPage();
+    this.openUserProjectStoryPage();
   }
 
   openUserProjectHomePage() {
@@ -146,7 +150,7 @@ export class UserProjectPage {
   }
 
   openUserProjectStoryPage() {
-    this.navCtrl.push(UserProjectStoryPage);
+    this.appCtrl.getRootNav().push(UserProjectStoryPage);
   }
 
   openUserProjectParticipationConditionFormPage() {

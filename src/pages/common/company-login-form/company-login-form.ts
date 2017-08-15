@@ -56,7 +56,8 @@ export class CompanyLoginFormPage {
           this.storage.get('refreshToken').then((val) => {
             console.log('refreshToken', val);
           });
-          this.navCtrl.push(CompanyTabsPage);
+          // this.navCtrl.push(CompanyTabsPage);
+          this.navCtrl.setRoot(CompanyTabsPage, {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

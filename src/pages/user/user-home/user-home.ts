@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, Content, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
 import { AppIntroPage } from '../../common/app-intro/app-intro';
 import { TutorialPage } from '../../common/tutorial/tutorial'
@@ -62,7 +62,7 @@ export class UserHomePage {
       projectMainImage: 'assets/img/project-main-image1.png',
       avatarImage: 'assets/img/company-avatar-image1.png',
       nickname: 'Anchor Labs',
-      projectName: 'ANCHOR CABLE lorem ipsum',
+      projectName: 'ANCHOR CABLE',
       projectSummary: '세계 최초의 스테인레스 스틸 마그네틱 CROSS DEVICE 충전 케이블 및 평생 보증.',
       participantNum: '30',
       maxParticipantNum: '30',
@@ -156,7 +156,11 @@ export class UserHomePage {
 
   tab2Root = UserProjectPage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController, 
+    public appCtrl: App) {
   }
 
   ionViewDidLoad() {
@@ -218,7 +222,7 @@ export class UserHomePage {
     // 프로젝트 스토리 이동 (인원이 다 찼거나 프로젝트 기간이 끝난 경우)
     // 프로젝트 참여조건 페이지 이동 (프로젝트 기간이고 인원이 다 차지 않은 경우)
     // 프로젝트 홈 페이지 이동 (프로젝트에 참여했고 프로젝트 기간인 경우)
-    this.openUserProjectParticipationConditionFormPage();
+    this.openUserProjectStoryPage();
   }
 
   openUserProfileModificationFormPage() {
@@ -227,7 +231,7 @@ export class UserHomePage {
   }
 
   openUserProjectStoryPage() {
-    this.navCtrl.push(UserProjectStoryPage);
+    this.appCtrl.getRootNav().push(UserProjectStoryPage);
   }
 
   openUserProjectParticipationConditionFormPage() {
@@ -236,6 +240,6 @@ export class UserHomePage {
   }
 
   openUserNewsfeedStoryPage() {
-    this.navCtrl.push(UserNewsfeedStoryPage);
+    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage);
   }
 }

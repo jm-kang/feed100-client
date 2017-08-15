@@ -1,3 +1,218 @@
 page-user-newsfeed-story {
+    .story-slide .title {
+        color: #FDBA02;
+        margin-top: -0.3rem;
+    }
 
+
+    .progress-inner {
+        background-color: #FDBA02;
+    }
+
+    .story-content-slide img {
+        position: absolute;
+        display: block;
+        top: 0;
+    }
+
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    .newsfeed-view-wrapper {
+        color: #e8e8e8;
+    }
+
+    .newsfeed-view-wrapper span {
+        padding-right: 8px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        display:-webkit-flex;
+        -webkit-align-item:center;
+        -webkit-justify-content:center;
+        color: #fff;
+    }
+
+    .story-comment-slide ion-list {
+        padding-top: 0 !important;
+    }
+
+    .story-comment-slide .list-header {
+        border: 0;
+        color: #fff;
+        padding:0;
+        padding-bottom: 16px;
+        border-bottom: 0.55px solid #484848;
+    }
+
+    .story-comment-slide .list-header .label {
+        margin:0;
+    }
+
+    .story-comment-slide .list-header ion-icon {
+        padding-right: 8px;
+        // color: #fff;
+    }
+
+    .story-comment-slide .list-header p {
+        color: #fff;
+        font-weight: 400;
+    }
+
+    .story-comment-slide .list-header .button {
+        height: auto;
+    }
+
+    .comment-slide-buttons .button {
+        background-color: transparent;
+    }
+
+    .comment-textarea-wrapper {
+        display: inline-flex;
+        width: 100%;
+        padding: 0 16px 0 8px;;
+    }
+
+    .comment-textarea-wrapper ion-textarea {
+        background-color: #fff;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+        
+    }
+
+    .comment-textarea-wrapper ion-textarea textarea {
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-top: 9px;
+        margin-bottom: 9px;
+        font-size: 1.3rem;
+    }
+
+    .comment-textarea-wrapper button {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        background-color: #FDBA02;
+        margin:0;
+        width: 50px;
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 500;
+    }
+
+    .newsfeed-comment-wrapper {
+        -webkit-align-items: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+    }
+
+    .newsfeed-comment-wrapper {
+        padding-left: 0;
+    }
+
+    .newsfeed-comment-wrapper:last-child {
+        border-bottom: 0 !important;
+    }
+
+    .newsfeed-comment-wrapper ion-avatar {
+        min-width: 1.8em;
+        min-height: 1.8em;
+        margin-right: 12px !important;
+        margin-top: 12px !important;
+    }
+
+    .newsfeed-comment-wrapper img {
+        width: 1.8em;
+        height: 1.8em;
+    }
+
+    .newsfeed-comment-wrapper h5 {
+        color: #fff;
+        font-weight: 500;
+        font-size: 1.4rem;
+    }
+
+    .newsfeed-comment-wrapper p {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-top: 8px;
+        margin-bottom: 16px;
+        line-height: 1.4;
+    }
+
+    .newsfeed-comment-wrapper h6 {
+        color: #d8d8d8;
+        font-size: 1.1rem;
+    }
+
+    .newsfeed-comment-wrapper .item-inner {
+        border-bottom: 0.55px solid #484848 !important;
+    }
+
+    .newsfeed-comment-wrapper .item-inner .label {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .comment-top-wrapper {
+        margin-top: 55px;
+        padding-bottom: 0 !important;
+    }
+
+    .comment-top-wrapper .item {
+        padding-left: 0;
+    }
+}
+.slide-title-wrapper {
+    position: absolute;
+    right: 0;
+    top: 55px;
+}
+
+.slide-title-wrapper.last-slide-title-wrapper {
+    position: relative;
+    text-align: left !important;
+}
+
+
+.avatar-span {
+    min-width: 1.4em;
+    min-height: 1.4em;
+    display: block;
+    line-height: 1;
+    margin-top: 10%;
+}
+
+.avatar-span .avatar-span-image {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 1.4em;
+    height: 1.4em;
+    border: 1px solid #d8d8d8;
+
+    background-size: cover;
+    background-position: center;
+
+    margin: 0 auto;
+}
+
+.avatar-span-wrapper.item .label {
+    margin-right: 0 !important;
+}
+
+.story-name {
+    font-size: 2rem;
+    margin-top: 2rem;
+    color: #fff;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.avatar-span-wrapper h3 {
+    color: #a8a8a8;
+    font-weight: 500;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+    margin-top: 0px !important;
 }

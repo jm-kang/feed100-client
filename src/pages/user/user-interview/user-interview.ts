@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
 
@@ -43,7 +43,7 @@ export class UserInterviewPage {
     
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App ) {
   }
 
   ionViewDidLoad() {
@@ -59,6 +59,6 @@ export class UserInterviewPage {
   }
   
   openUserProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage);
+    this.appCtrl.getRootNav().push(UserProjectInterviewDetailPage);
   }
 }

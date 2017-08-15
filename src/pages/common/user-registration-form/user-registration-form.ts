@@ -89,7 +89,8 @@ export class UserRegistrationFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.push(UserTabsPage);
+          // this.navCtrl.push(UserTabsPage);
+          this.navCtrl.setRoot(UserTabsPage, {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {
@@ -122,7 +123,8 @@ export class UserRegistrationFormPage {
           this.storage.set('refreshToken', data.data.refreshToken);
           this.googlePlus.logout()
           .then(() => {
-            this.navCtrl.push(UserTabsPage);
+            // this.navCtrl.push(UserTabsPage);
+            this.navCtrl.setRoot(UserTabsPage, {}, {animate: true, direction: 'forward'});
           });
         }
         else if(data.success == false) {
@@ -160,7 +162,8 @@ export class UserRegistrationFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.push(UserTabsPage);
+          // this.navCtrl.push(UserTabsPage);
+          this.navCtrl.setRoot(UserTabsPage, {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {
