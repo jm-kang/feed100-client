@@ -1,3 +1,228 @@
 page-user-project-story {
+    ion-buttons[start] {
+        order: 1;
+    }
 
+    .progress-inner {
+        background-color: #FE6B01;
+    }
+
+    .project-last-slide-wrapper {
+        margin-bottom: 32px;
+    }
+
+    .project-last-slide-wrapper .summary {
+        width: 80%;
+        font-size: 1.2rem;
+        color: #c8c8c8;
+        margin: 0 auto;
+    }
+
+    .slide-title-wrapper.last-slide-title-wrapper {
+        position: absolute;
+        left: 0;
+    }
+
+    .project-last-slide-buttons {
+        margin-top:10px;
+    }
+
+    .project-last-slide-buttons button {
+        font-size: 1.3rem;
+        height: 3em;
+        font-weight: 500;
+    }
+
+    .story-name {
+        font-size: 2.7rem;
+    }
 }
+
+.story-slide .title {
+    color: #FE6B01;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.story-main-image-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+}
+
+.story-main-image {
+    width: 100%;
+    height: 100%;
+    background-size: auto 100%;
+    background-position: center;
+
+    -webkit-filter: opacity(20%);
+    filter: opacity(20%);
+}
+
+.story-slide {
+    background-color: transparent;
+}
+
+.story-slide .story-first-slide {
+    -webkit-align-items: flex-end;
+    -ms-flex-align: flex-end;
+    align-items: flex-end;
+}
+
+.story-slide .story-first-slide .slide-zoom {
+    text-align: left;
+}
+
+.story-slide .story-first-slide h2 {
+    font-size: 2.7rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.story-slide .story-first-slide .summary {
+    font-size: 1.3rem;
+    color: #d8d8d8;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 75%;
+}
+
+.story-slide .story-first-slide h5 {
+    font-size: 1.3rem;
+    color: #8e9093;
+    margin-top: 20px;
+    
+}
+
+.story-slide .story-first-slide h6 {
+    font-size: 1rem;
+    margin-top: 5px;
+    color: #787878;
+    margin-bottom: 40px;
+}
+
+.story-slide .story-first-slide .project-state-wrapper {
+    color: #a8a8a8;
+    font-size: 1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:baseline;
+
+    display:-webkit-flex;
+    -webkit-align-item:center;
+    -webkit-justify-content:baseline;
+    color: #fff;
+}
+
+.story-slide .story-first-slide .project-state-icon img {
+    width: 21px;
+}
+
+.story-slide .story-first-slide .project-state-wrapper span {
+    padding-right: 7px;
+}
+
+.story-slide .story-first-slide .project-state-content {
+    position: relative;
+    top: -1px;
+}
+
+.story-footer .bar-item-wrapper ion-avatar {
+    min-width: 26px;
+    min-height: 26px;
+}
+
+.story-footer .bar-item-wrapper ion-icon,
+.story-footer .bar-item-wrapper p {
+    color: #8e9093;
+}
+
+.story-footer .bar-item-wrapper ion-icon {
+    margin-right: 10px;
+}
+
+.bar-end-buttons p {
+    font-size: 1.3rem;
+    padding-left: 5px;
+}
+
+.story-footer .bar-item-wrapper img {
+    width: 26px;
+    height: 26px;
+    border: 1px solid #e7e7e7;
+}
+
+.story-footer .bar-item-wrapper .item-inner {
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.story-footer .bar-button {
+    color: #fff;
+    
+}
+
+.story-footer.footer-md::before {
+    height: 0;
+}
+
+.story-footer .toolbar-background{
+    border: 0;
+}
+
+.story-footer .page-num p{
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.story-footer .page-num ion-icon {
+    margin-top: 8px;
+    height: 26px;
+    min-height: 26px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.item-flex {
+    display: -webkit-inline-box;
+    width: auto;
+}
+
+.item-flex .item-inner{
+    border: 0 !important;
+    display: -webkit-box;
+    margin-left: 0 !important;
+}
+
+.item-flex .item-inner .input-wrapper {
+    height: 100%;
+}
+
+.story-content-slide .story-content-slide-content {
+    position: absolute;
+    bottom: 0;
+    padding: 10px 16px 10px 16px;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 0;
+    height: 0;
+    overflow: hidden;
+} 
+.video-container iframe,.video-container object,.video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+} 
+

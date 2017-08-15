@@ -8,7 +8,6 @@ page-user-mypage {
     }
 
     .avatar-image img {
-        background-color: #eee;
         width: 60px;
         height: 60px;
     }
@@ -109,4 +108,8 @@ page-user-mypage {
         font-size: 1.1rem;
         margin-top: 2px;
     }
+}
+
+.avatar-image img {
+    background-color: #eee;
 }

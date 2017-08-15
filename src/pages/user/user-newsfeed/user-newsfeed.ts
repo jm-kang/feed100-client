@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserNewsfeedStoryPage } from '../user-newsfeed-story/user-newsfeed-story';
 
@@ -66,7 +66,7 @@ export class UserNewsfeedPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App ) {
     // if(this.mockNewsfeeds.length < 11) {
     //   for (let i = 0; i < this.mockNewsfeeds.length; i++) {
     //     this.newsfeeds.push( this.mockNewsfeeds[i] );
@@ -111,7 +111,7 @@ export class UserNewsfeedPage {
   }
 
   openUserNewsfeedStoryPage() {
-    this.navCtrl.push(UserNewsfeedStoryPage);
+    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage);
   }
 
 }

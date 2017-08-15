@@ -21,8 +21,8 @@ import { UserInterviewPage } from '../user-interview/user-interview';
   templateUrl: 'user-tabs.html',
 })
 export class UserTabsPage {
-  alarmNum = "5";
-  isInterview = "2";
+  alarmNum: number = 5;
+  isInterview: number = 2;
 
   tab1Root = UserHomePage;
   tab2Root = UserProjectPage;

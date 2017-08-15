@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
 import { UserProjectPage } from  '../user-project/user-project';
 import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
@@ -22,16 +22,16 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 })
 export class UserMypagePage {
   avatarImage: String = "assets/img/user-avatar-image.png";
-  level = 2;
+  level: number = 2;
   levelClass: String = "연구원";
   nickname: String = "AgustMD";
-  point = 12000;
-  exp = 46000;
-  maxExp = 50000;
-  expPercent = 82;
-  proceedingProjectNum = 0;
-  rewardProjectNum = 0;
-  endProjectNum = 0;
+  point: number = 12000;
+  exp: number = 46000;
+  maxExp: number = 50000;
+  expPercent: number = 82;
+  proceedingProjectNum: number = 0;
+  rewardProjectNum: number = 0;
+  endProjectNum: number = 0;
   segmentProjectCondition: String = "";
 
   // 진행중인 프로젝트
@@ -110,7 +110,7 @@ export class UserMypagePage {
     },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public appCtrl: App) {
     this.segmentProjectCondition = "proceedingProject";
     this.proceedingProjectNum = this.proceedingProjects.length;
     this.rewardProjectNum = this.rewardProjects.length;
@@ -146,6 +146,6 @@ export class UserMypagePage {
   }
 
   openUserProjectStoryPage() {
-    this.navCtrl.push(UserProjectStoryPage);
+    this.appCtrl.getRootNav().push(UserProjectStoryPage);
   }
 }

@@ -4,15 +4,114 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<div class="story-main-image-wrapper">
+  <div class="story-main-image" [style.backgroundImage]="'url(' + newsfeedMainImage + ')'"></div>
+</div>
+<ion-content class="story-slide">
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextSlide()">
+          <h1 class="title">뉴스피드 스토리 ></h1>
+        </button>
+      </ion-buttons>
+      <h2 [innerHTML]="newsfeedName"></h2>
+      <div class="project-state-wrapper">
+        <span class="project-state-icon">
+          <img src="assets/img/views.png" />
+        </span>
+        <span class="project-state-content">
+          {{newsfeedViewNum}}
+        </span>
+      </div>
+      <p class="summary" [innerHTML]="newsfeedSummary"></p>
+      <h5>{{newsfeedRegistrationDate}} 에 작성됨</h5>
+      <h6>* 이 스토리는 {{newsfeedSource}} 게시물입니다.</h6>
+    </ion-slide>
+    <ion-slide class="story-content-slide" *ngFor="let newsfeedStorySlide of newsfeedStorySlides">
+      <img [src]="newsfeedStorySlide.storyImage"/>
+      <div class="video-container" *ngIf="newsfeedStorySlide.storyVideo">
+        <iframe width="100%" [src]="newsfeedStorySlide.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p text-left class="story-content-slide-content" [innerHTML]="newsfeedStorySlide.storyContent"></p>
+    </ion-slide>
+    <ion-slide class="story-comment-slide" style="overflow-y: scroll; display: block;">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper"> 
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 스토리 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div padding class="comment-top-wrapper">
+        <h2 class="story-name" [innerHTML]="newsfeedName"></h2>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+          </span>
+          <h3>by. {{nickname}}</h3>
+        </ion-item>
+      </div>
 
-  <ion-navbar>
-    <ion-title>user-newsfeed-story</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+      <ion-list padding>
+        <ion-list-header>
+          <ion-buttons class="comment-slide-buttons">
+            <button padding-right ion-button (click)="clickLike()">
+              <ion-icon *ngIf="!isLike" color="white" name="ios-heart-outline"></ion-icon>
+              <ion-icon *ngIf="isLike" color="primary" name="ios-heart"></ion-icon>
+              <p>{{newsfeedLikeNum}}</p>
+            </button>
+            <button ion-button (click)="slideToComment()">
+              <ion-icon color="white" name="ios-text-outline"></ion-icon>
+              <p>{{newsfeedCommentNum}}</p>
+            </button>
+          </ion-buttons>
+        </ion-list-header>
+        <ion-item class="newsfeed-comment-wrapper" *ngFor="let newsfeedComment of newsfeedComments">
+          <ion-avatar item-start class="avatar-image">
+            <img [src]="newsfeedComment.avatarImage" />
+          </ion-avatar>
+          <h5 [innerHTML]="newsfeedComment.nickname"></h5>
+          <p [innerHTML]="newsfeedComment.commentContent"></p>
+          <h6 [innerHTML]="newsfeedComment.commentRegistrationDate"></h6>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ion-footer class="story-footer">
+  <progress-bar *ngIf="!isLastSlide" [progress]="progressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item *ngIf="isFirstSlide" start class="bar-item-wrapper item-flex">
+      <ion-avatar item-start>
+        <img [src]="avatarImage">
+      </ion-avatar>
+      by. {{nickname}}
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide && !isLastSlide" start class="bar-item-wrapper item-flex page-num">
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentPageNum}} / {{totalPageNum}}</p>
+    </ion-item>
+    <ion-buttons class="bar-end-buttons" *ngIf="!isLastSlide" end>
+      <button ion-button (click)="clickLike()">
+        <ion-icon *ngIf="!isLike" name="ios-heart-outline"></ion-icon>
+        <ion-icon *ngIf="isLike" color="primary" name="ios-heart"></ion-icon>
+        <p>{{newsfeedLikeNum}}</p>
+      </button>
+      <button ion-button (click)="slideToComment()">
+        <ion-icon name="ios-text-outline"></ion-icon>
+        <p>{{newsfeedCommentNum}}</p>
+      </button>
+    </ion-buttons>
+
+    <div class="comment-textarea-wrapper" *ngIf="isLastSlide">
+      <!-- <ion-item>  -->
+        <ion-textarea rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></ion-textarea>
+        <button ion-buttom (click)="writeNewsfeedComment()">작성</button>    
+    </div>
+  </ion-navbar>
+</ion-footer>
