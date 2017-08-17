@@ -231,6 +231,7 @@ export class UserHomePage {
   }
 
   openUserProjectStoryPage() {
+    console.log('openUserProjectStoryPage');
     this.appCtrl.getRootNav().push(UserProjectStoryPage);
   }
 

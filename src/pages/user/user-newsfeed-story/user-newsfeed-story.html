@@ -65,13 +65,17 @@
             </button>
           </ion-buttons>
         </ion-list-header>
+        <div text-center *ngIf = "!newsfeedCommentNum" class="empty-inner">
+          <ion-icon name="md-text" color="primary"></ion-icon>
+          <p>첫 번째 댓글을 등록해보세요!</p>
+        </div>
         <ion-item class="newsfeed-comment-wrapper" *ngFor="let newsfeedComment of newsfeedComments">
           <ion-avatar item-start class="avatar-image">
-            <img [src]="newsfeedComment.avatarImage" />
+            <img [src]="newsfeedComment.avatar_image" />
           </ion-avatar>
           <h5 [innerHTML]="newsfeedComment.nickname"></h5>
-          <p [innerHTML]="newsfeedComment.commentContent"></p>
-          <h6 [innerHTML]="newsfeedComment.commentRegistrationDate"></h6>
+          <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
+          <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date"></h6>
         </ion-item>
       </ion-list>
     </ion-slide>
@@ -111,7 +115,7 @@
     <div class="comment-textarea-wrapper" *ngIf="isLastSlide">
       <!-- <ion-item>  -->
         <ion-textarea rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></ion-textarea>
-        <button ion-buttom (click)="writeNewsfeedComment()">작성</button>    
+        <button (click)="writeNewsfeedComment()">작성</button>    
     </div>
   </ion-navbar>
 </ion-footer>

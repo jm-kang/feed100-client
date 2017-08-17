@@ -57,7 +57,7 @@ export class CompanyLoginFormPage {
             console.log('refreshToken', val);
           });
           // this.navCtrl.push(CompanyTabsPage);
-          this.navCtrl.setRoot(CompanyTabsPage, {}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot(CompanyTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

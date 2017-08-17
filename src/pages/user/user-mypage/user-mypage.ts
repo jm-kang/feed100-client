@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
+// import { LoginPage } from  '../../common/login/login';
 import { UserProjectPage } from  '../user-project/user-project';
 import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
 import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
@@ -116,7 +117,6 @@ export class UserMypagePage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
-    public alertCtrl: AlertController,
     public httpService: HttpServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
     this.proceedingProjectNum = this.proceedingProjects.length;
@@ -128,55 +128,33 @@ export class UserMypagePage {
     this.navCtrl.parent.select(1);
   }
 
-  ionViewDidload() {
+  ionViewDidLoad() {
     console.log('ionViewDidLoad UserMypagePage');
-    // this.httpService.getUserInfo()
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.avatarImage = data.data.avatar_image;
-    //       this.level = data.data.level;
-    //       this.levelClass = data.data.level_class;
-    //       this.nickname = data.data.nickname;
-    //       this.point = data.data.point;
-    //       this.exp = data.data.experience_point;
-    //       this.maxExp = data.data.required_experience_point;
-    //       this.expPercent = ((this.exp / this.maxExp) * 100).toFixed(1);
-    //     }
-    //     else if(data.success == false) {
-    //       console.log(data.message);
-    //       if(data.message == 'jwt expired') {
-    //         this.showBasicAlert('액세스 토큰 만료. 재발급 필요');
-    //         this.httpService.refreshTokens()
-    //         .subscribe(
-    //           (data) => {
-    //             console.log(data.message);
-    //             if(data.success == true) {
-    //               return 'refresh success';
-    //             }
-    //             else if(data.success == false) {
-    //               this.httpService.logout()
-    //               .then(() => {
-    //                 this.navCtrl.popToRoot();
-    //               });
-    //             }
-    //           }
-    //         )
-    //       }
-    //       else {
-    //         this.httpService.logout()
-    //         .then(() => {
-    //           this.navCtrl.popToRoot();
-    //         });
-    //       }
-
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    this.httpService.getUserInfo()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.avatarImage = data.data.avatar_image;
+          this.level = data.data.level;
+          this.levelClass = data.data.level_class;
+          this.nickname = data.data.nickname;
+          this.point = data.data.point;
+          this.exp = data.data.experience_point;
+          this.maxExp = data.data.required_experience_point;
+          this.expPercent = ((this.exp / this.maxExp) * 100).toFixed(1);
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   openUserAccountModificationFormPage() {
@@ -201,15 +179,6 @@ export class UserMypagePage {
 
   openUserProjectStoryPage() {
     this.navCtrl.push(UserProjectStoryPage);
-  }
-
-  showBasicAlert(subTitle) {
-    let alert = this.alertCtrl.create ({
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-
-    alert.present();
   }
 
 }

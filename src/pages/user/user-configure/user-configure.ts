@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 
 import { LoginPage } from '../../common/login/login';
 import { UserPointExchangePage } from '../user-point-exchange/user-point-exchange';
@@ -14,6 +14,7 @@ import { NoticePage } from '../../common/notice/notice';
 import { ContactPage } from '../../common/contact/contact';
 import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
 import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
 /**
  * Generated class for the UserConfigurePage page.
@@ -34,8 +35,9 @@ export class UserConfigurePage {
     public navCtrl: NavController,
     public navParams: NavParams, 
     public modalCtrl: ModalController,
-    public viewCtrl: ViewController
-  ) {
+    public viewCtrl: ViewController,
+    public httpService: HttpServiceProvider,
+    public alertCtrl: AlertController) {
     this.viewCtrl.showBackButton(true);
   }
 
@@ -106,6 +108,24 @@ export class UserConfigurePage {
   }
 
   logout() {
-    this.navCtrl.push(LoginPage);
+    let confirm = this.alertCtrl.create({
+    message: '정말 로그아웃하시겠습니까?',
+    buttons: [
+      {
+        text: '아니오',
+        handler: () => {
+          console.log('Disagree clicked');
+        }
+      },
+      {
+        text: '예',
+        handler: () => {
+          console.log('Agree clicked');
+          this.httpService.logout(this.navCtrl);
+        }
+      }
+    ]
+    });
+    confirm.present();
   }
 }

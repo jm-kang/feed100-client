@@ -163,6 +163,15 @@ page-user-newsfeed-story {
     .comment-top-wrapper .item {
         padding-left: 0;
     }
+
+    .empty-inner {
+        font-size: 1.8rem;
+        color: #fff;
+    }
+
+    .empty-inner ion-icon {
+        color: #d8d8d8;
+    }
 }
 .slide-title-wrapper {
     position: absolute;
