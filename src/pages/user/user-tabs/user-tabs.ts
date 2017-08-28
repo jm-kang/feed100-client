@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { StatusBar } from '@ionic-native/status-bar';
+
 import { UserAlarmPage } from '../user-alarm/user-alarm';
 import { UserConfigurePage } from '../user-configure/user-configure';
 import { UserHomePage } from '../user-home/user-home';
@@ -30,11 +32,15 @@ export class UserTabsPage {
   tab4Root = UserInterviewPage;
   tab5Root = UserMypagePage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserTabsPage');
+  }
+
+  ionViewDidEnter() {
+    this.statusBar.show();
   }
 
   openUserAlarmPage() {

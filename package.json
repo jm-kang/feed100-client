@@ -57,7 +57,7 @@
         "@ionic/app-scripts": "2.1.3",
         "@ionic/cli-plugin-cordova": "1.6.2",
         "@ionic/cli-plugin-ionic-angular": "1.4.1",
-        "ionic": "3.8.1",
+        "ionic": "3.9.2",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",
@@ -80,10 +80,10 @@
             "cordova-plugin-googleplus": {
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i"
             },
+            "cordova-plugin-uniquedeviceid": {},
             "phonegap-plugin-push": {
-                "SENDER_ID": "889490373924"
-            },
-            "cordova-plugin-uniquedeviceid": {}
+                "SNEDER_ID": "889490373924"
+            }
         },
         "platforms": [
             "android",

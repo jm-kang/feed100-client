@@ -17,7 +17,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item class="interview-item" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.link)">
+    <ion-item tappable class="interview-item" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.link)">
       <ion-avatar item-start>
         <img [src]="alarm.avatarImage">
       </ion-avatar>

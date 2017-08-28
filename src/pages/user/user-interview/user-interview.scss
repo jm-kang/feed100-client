@@ -63,24 +63,38 @@ page-user-interview {
         display: block;
         margin-top: 1px;
     }
+    .item-flex .item-inner .input-wrapper {
+        height: inherit !important;
+    }
+
+    .item-flex {
+        display: flex;
+    }
+
+    .list {
+        margin-top: 0;
+    }
 }
 
 
 .interview-item {
     border: 0 !important;
+    width: 100% !important;
 }
 
 .interview-item .item-inner {
     border-bottom: 1px solid #e7e7e7 !important;
+    display: flex !important;
+
 }
 
-.interview-item ion-avatar {
+.interview-item .avatar-span {
     min-height: 50px;
     min-width: 50px;
     margin: 6px 16px 6px 0 !important;
 }
 
-.interview-item img {
+.interview-item .avatar-span .avatar-span-image {
     border: 0.5px solid #e7e7e7;
     height: 50px !important;
     width: 50px !important;

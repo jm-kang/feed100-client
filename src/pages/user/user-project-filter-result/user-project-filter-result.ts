@@ -1,20 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
+
+import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { UserProjectSideMenuPage } from '../user-project-side-menu/user-project-side-menu';
-import { UserProjectStoryPage } from '../user-project-story/user-project-story';
-import { UserProjectLinkPage } from '../user-project-link/user-project-link';
-import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
-import { UserProjectFilterPage } from '../user-project-filter/user-project-filter';
-import { UserProjectFilterResultPage } from '../user-project-filter-result/user-project-filter-result';
-
-
 /**
- * Generated class for the UserProjectHomePage page.
+ * Generated class for the UserProjectFilterResultPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -22,28 +14,17 @@ import { UserProjectFilterResultPage } from '../user-project-filter-result/user-
 
 @IonicPage()
 @Component({
-  selector: 'page-user-project-home',
-  templateUrl: 'user-project-home.html',
+  selector: 'page-user-project-filter-result',
+  templateUrl: 'user-project-filter-result.html',
 })
-export class UserProjectHomePage {
+export class UserProjectFilterResultPage {
   @ViewChild("contentRef") contentHandle: Content;
 
-  projectMainImage: String = "assets/img/project-main-image2.png";
-  avatarImage: String = "assets/img/company-avatar-image4.png";
-  nickname: String = "우리 회사 이름";
-  projectName: String = "프로젝트 이름 프로젝트 이름";
-  projectSummary: String = "우리 프로젝트는 어마어마하며, 정말 엄청나게 대단한 프로젝트입니다."
   participantNum: number;
   maxParticipantNum: number = 30;
-  progressPercent: number = 80;
-  progressState: String = "2일 남음";
-  isLink: boolean = true;
-  isInterview: number = 2;
-  filterFeedback: String = "defaultSelectOption";
-  
+
   feedbacks = [
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image.png",
       nickname: "우와우와굳",
@@ -57,7 +38,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 1,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image2.png",
       nickname: "갓준모",
@@ -71,8 +51,7 @@ export class UserProjectHomePage {
       nonEmpathyNum: 0,
     },
     {
-      priority: 0,
-      isBest: false, 
+      isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
@@ -85,7 +64,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -94,15 +72,11 @@ export class UserProjectHomePage {
       hashTags: [
         {option: 'Shes a Baby', value: 'selcetOption5'},
         {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
       ],
       empathyNum: 5,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -116,7 +90,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -130,7 +103,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -144,7 +116,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -158,7 +129,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -172,7 +142,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -186,7 +155,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -200,7 +168,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -214,7 +181,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -228,7 +194,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -242,7 +207,6 @@ export class UserProjectHomePage {
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
@@ -257,18 +221,60 @@ export class UserProjectHomePage {
     },
   ];
 
+  feedbackResults = [
+    {
+      isBest: true,
+      avatarImage: "assets/img/user-avatar-image.png",
+      nickname: "우와우와굳",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "같으며, 거선의 것은 눈이 용기가 이성은 든 크고 있다. 청춘의 속에서 청춘 가장 것이다. 얼음에 생생하며, 투명하되 찾아다녀도, 인간이 피고 현저하게 운다. 품에 가지에 웅대한 운다. 그러므로 예가 찬미를 꽃이 것이 철환하였는가? 영락과 이상의 끝까지 구하지 꽃 무엇이 같지 이상의 있으랴? 두기 인간은 열락의 이상은 듣는다. 인생을 품었기 위하여서, 행복스럽고 그들은 공자는 그들에게 이상의 위하여서. 우리 그것을 산야에 하였으며, 이 천자만홍이 꽃 청춘 운다.",
+      hashTags: [
+        {option: '기능', value:'selcetOption1'},
+        {option: '개선사항', value:'selcetOption2'},
+      ],
+      empathyNum: 9,
+      nonEmpathyNum: 1,
+    },
+    {
+      isBest: false,
+      avatarImage: "assets/img/user-avatar-image2.png",
+      nickname: "갓준모",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "나는 갓준모. 로비로 나와",
+      hashTags: [
+        {option: '전지전능', value: 'selcetOption3'},
+        {option: '로비', value: 'selcetOption4'},
+      ],
+      empathyNum: 8,
+      nonEmpathyNum: 0,
+    },
+    {
+      isBest: false,
+      avatarImage: "assets/img/user-avatar-image3.png",
+      nickname: "지코",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
+      hashTags: [
+        {option: 'Shes a Baby', value: 'selcetOption5'},
+        {option: '설현', value: 'selcetOption6'},
+      ],
+      empathyNum: 7,
+      nonEmpathyNum: 4,
+    },
+  ];
 
   filters = [
-    {option: '기능', value:'selcetOption1'},
-    {option: '개선사항', value:'selcetOption2'},
-    {option: '전지전능', value:'selcetOption3'},
-    {option: '로비', value: 'selcetOption4'},
-    {option: 'Shes a Baby', value: 'selcetOption5'},
-    {option: '설현', value: 'selcetOption6'},
+    {option: '기능', value:'selcetOption1', isActiveFilter: false},
+    {option: '개선사항', value:'selcetOption2', isActiveFilter: false},
+    {option: 'Shes a Baby', value: 'selcetOption5', isActiveFilter: false},
+    {option: '전지전능', value:'selcetOption3', isActiveFilter: false},
+    {option: '로비', value: 'selcetOption4', isActiveFilter: false},
+    {option: '설현', value: 'selcetOption6', isActiveFilter: false},
   ];
 
+  filterResults = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public statusBar: StatusBar, public appCtrl: App, public modalCtrl: ModalController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController, public statusBar: StatusBar) {
     this.participantNum = this.feedbacks.length;
     // 베스트 피드백 조건 
     // 현재 피드백의 순위가 전체 참여 가능 인원의 10퍼센트 이하 
@@ -307,63 +313,66 @@ export class UserProjectHomePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProjectHomePage');
+    console.log('ionViewDidLoad UserProjectFilterResultPage');
   }
 
   ionViewDidEnter() {
-    this.statusBar.hide(); 
+    for(let i=0; i < this.filterResults.length; i++) {
+      this.filters.push(this.filterResults[i]);
+    }
+    this.filterResults.splice(0, this.filterResults.length);
+    if(!this.navParams.get('filters').length) {
+      this.filterResults.push(this.navParams.get('filters'));
+      for(let i=0; i < this.filters.length; i++) {
+        if(this.filters[i].value == this.navParams.get('filters').value) {
+          this.filters.splice(i,1);
+        }
+      }
+      let index: number = this.filters.indexOf(this.navParams.get('filters'));
+      this.filters.splice(index,1);
+    } else {
+      for( let i=0; i < this.navParams.get('filters').length; i++) {
+        this.filterResults.push(this.navParams.get('filters')[i]);
+        for(let j = 0; j < this.filters.length; j++) {
+          if(this.filters[j].value == this.filterResults[i].value) {
+            this.filters.splice(j,1);
+          }
+        }
+      }
+    }
+    this.statusBar.show();
   }
 
   dismiss() {
-    this.statusBar.show();
     this.viewCtrl.dismiss();
-    // this.navCtrl.goToRoot;
-
-    // this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
-  openUserProjectSideMenuPage() {
-    this.statusBar.show();
-    this.navCtrl.push(UserProjectSideMenuPage);
+  activeAllFilter() {
+    for(let i=0; i < this.filters.length; i++) {
+        this.filterResults.push(this.filters[i]);
+      }
+      this.filters.splice(0, this.filters.length);
   }
 
-  openUserProjectStoryPage() {
-    this.statusBar.show();
-    this.navCtrl.push(UserProjectStoryPage);
+  activeFilter(filter) {
+    this.filterResults.push(filter);
+    let index: number = this.filters.indexOf(filter);
+    this.filters.splice(index, 1);
   }
 
-  openUserProjectLinkPage() {
-    this.statusBar.show();
-    let userProjectLinkModal = this.modalCtrl.create(UserProjectLinkPage);
-    userProjectLinkModal.present();
+  inactiveFilter(filter) {
+    this.filters.push(filter);
+    let index: number = this.filterResults.indexOf(filter);
+    this.filterResults.splice(index, 1);
+    if(this.filterResults.length == 0) {
+      for(let i=0; i < this.filters.length; i++) {
+        this.filterResults.push(this.filters[i]);
+      }
+      this.filters.splice(0, this.filters.length);
+    }
   }
 
   openUserProjectFeedbackPage() {
-    this.statusBar.show();
     this.navCtrl.push(UserProjectFeedbackPage);
   }
-
-  openUserProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage);
-  }
-
-  hashTagClick(option) {
-    console.log(option);
-    this.filterFeedback = option;
-    this.selectChange();
-  }
-
-  selectChange() {
-    console.log("filtering");
-  }
-
-  openUserProjectFilterPage() {
-    this.navCtrl.push(UserProjectFilterPage);
-  }
-
-  openUserProjectFilterResultPage(filters) {
-    let userProjectFilterResultModal = this.modalCtrl.create(UserProjectFilterResultPage, {filters: filters});
-    userProjectFilterResultModal.present();
-  }
 }
-

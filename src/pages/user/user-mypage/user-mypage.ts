@@ -23,6 +23,7 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
   templateUrl: 'user-mypage.html',
 })
 export class UserMypagePage {
+  // avatarImage: String = '';
   avatarImage: String = '';
   level = 0;
   levelClass: String = '';

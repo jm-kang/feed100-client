@@ -75,16 +75,16 @@
 <ion-footer class="story-footer">
   <progress-bar [progress]="progressPercent"></progress-bar>
   <ion-navbar hideBackButton="true">
-    <ion-buttons start>
+    <ion-buttons class="story-back-button" start>
       <button ion-button (click)="back()">
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item *ngIf="isFirstSlide" start class="bar-item-wrapper item-flex">
-      <ion-avatar item-start>
-        <img [src]="avatarImage">
-      </ion-avatar>
-      {{nickname}}
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      </span>
+      <h3>{{nickname}}</h3>
     </ion-item>
     <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
       <ion-icon name="ios-browsers-outline" item-start></ion-icon>

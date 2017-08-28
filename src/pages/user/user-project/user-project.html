@@ -24,7 +24,7 @@
   </div>
   <ion-grid *ngIf="projects.length">
     <ion-row>
-      <ion-card *ngFor="let project of projects" class="project-card" (click)="accessProjectCard()">
+      <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard()">
         <div class="project-card-main-image-wrapper">
           <img [src]="project.projectMainImage" />
           <div class="project-card-overlay-wrapper">
@@ -39,10 +39,10 @@
           <span class="project-card-name">{{project.projectName}} : </span>
           <span class="project-card-summary" [innerHTML]="project.projectSummary"></span>
         </ion-card-content>
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="project.avatarImage">
-          </ion-avatar>
+        <ion-item float-left class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + project.avatarImage + ')'"></div>
+          </span>
           <p>by. {{project.nickname}}</p>
         </ion-item>
       </ion-card>

@@ -1,3 +1,22 @@
 page-user-project-feedback {
+    ion-buttons[start] {
+        order: 1;
+    }
+    .toolbar-ios {
+        padding-top: calc(20px + 4px);
+        min-height: calc(44px + 20px);
+    }
 
+    .toolbar {
+        border-bottom: 1px solid #e8e8e8;
+    }
+    
+    .title-ios {
+        padding-top: 20px;
+        height: calc(44px + 20px);
+        min-height: calc(44px + 20px);
+    }
+    .bar-buttons.bar-buttons-md {
+        width: 30px;
+    }
 }

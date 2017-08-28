@@ -27,7 +27,7 @@ export class UserInterviewPage {
       isNew: true,
     },
     {
-      avatarImage: "assets/img/company-avatar-image2.png",
+      avatarImage: "assets/img/company-avatar-image4.png",
       projectName: "AQUA+",
       companyInterviewNum: "1차 인터뷰",
       progressState: "1일 남음",

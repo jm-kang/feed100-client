@@ -24,10 +24,14 @@
     <p>- 인터뷰를 안할시 처벌 규정</p>
   </div>
   <ion-list>
-    <ion-item class="interview-item" *ngFor="let project of projects" (click)="openUserProjectInterviewDetailPage()">
+    <!-- <ion-item tappable class="interview-item" *ngFor="let project of projects" (click)="openUserProjectInterviewDetailPage()">
       <ion-avatar item-start>
         <img [src]="project.avatarImage">
-      </ion-avatar>
+      </ion-avatar> -->
+    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let project of projects" (click)="openUserProjectInterviewDetailPage()">
+      <span item-start class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + project.avatarImage + ')'"></div>
+      </span>
       <h2 [innerHTML]="project.projectName"></h2>
       <p [innerHTML]="project.companyInterviewNum"></p>
       <div item-end class="interview-item-end">

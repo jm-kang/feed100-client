@@ -133,18 +133,23 @@ page-user-home {
         min-height: auto;
     }
 
-    .project-card ion-avatar,
-    .project-card ion-avatar img {
-        min-width: auto;
-        min-height: auto;
-        width: 1.1rem;
-        height: 1.1rem;
+    .project-card .avatar-span {
+        min-width: 1.5rem;
+        min-height: 1.5rem;
     }
 
-    .project-card ion-avatar,
-    .project-card ion-label, {
-        margin-top: 0.1rem !important;
+    .project-card .avatar-span .avatar-span-image {
+        width: 1.5rem;
+        height: 1.5rem;
     }
+
+    // .project-card .avatar-span {
+    //     margin-top: 0.1rem !important;
+    // }
+
+    // .project-card ion-label {
+    //     margin-top: 0.2rem !important;
+    // }
 
     .project-card .label-md {
         margin: 3px 8px 3px 0;

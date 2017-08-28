@@ -115,14 +115,14 @@ page-user-newsfeed-story {
         border-bottom: 0 !important;
     }
 
-    .newsfeed-comment-wrapper ion-avatar {
+    .newsfeed-comment-wrapper .avatar-span {
         min-width: 1.8em;
         min-height: 1.8em;
         margin-right: 12px !important;
         margin-top: 12px !important;
     }
 
-    .newsfeed-comment-wrapper img {
+    .newsfeed-comment-wrapper .avatar-span .avatar-span-image {
         width: 1.8em;
         height: 1.8em;
     }
@@ -163,6 +163,10 @@ page-user-newsfeed-story {
     .comment-top-wrapper .item {
         padding-left: 0;
     }
+
+    .item-block .item-inner {
+        border-bottom : 0 !important;
+    }
 }
 .slide-title-wrapper {
     position: absolute;
@@ -201,6 +205,16 @@ page-user-newsfeed-story {
     margin-right: 0 !important;
 }
 
+.story-footer .avatar-span {
+    min-width: 26px;
+    min-height: 26px;
+}
+
+.story-footer .avatar-span .avatar-span-image {
+    min-width: 26px;
+    min-height: 26px;
+}
+
 .story-name {
     font-size: 2rem;
     margin-top: 2rem;
@@ -213,6 +227,6 @@ page-user-newsfeed-story {
     color: #a8a8a8;
     font-weight: 500;
     font-size: 1.4rem;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     margin-top: 0px !important;
 }

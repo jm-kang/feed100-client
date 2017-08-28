@@ -36,6 +36,14 @@ page-user-project-story {
     .story-name {
         font-size: 2.7rem;
     }
+
+    .item-block .item-inner {
+        border-bottom : 0 !important;
+    }
+}
+
+.story-back-button.bar-buttons-md {
+    display: none;
 }
 
 .story-slide .title {
@@ -191,7 +199,6 @@ page-user-project-story {
 }
 
 .item-flex .item-inner{
-    border: 0 !important;
     display: -webkit-box;
     margin-left: 0 !important;
 }

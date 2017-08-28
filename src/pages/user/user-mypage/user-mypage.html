@@ -12,10 +12,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-item class="mypage-profile-wrapper" margin-top>
-    <ion-avatar item-start class="avatar-image">
-      <img [src]="avatarImage">
-    </ion-avatar>
+  <ion-item margin-top class="mypage-profile-wrapper avatar-span-wrapper item-flex">
+    <span item-start class="avatar-image avatar-span">
+       <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div> 
+    </span>
     <p>Lv{{level}}  {{levelClass}}</p>
     <h5>
       {{nickname}}
@@ -56,7 +56,7 @@
     </ion-segment-button>
   </ion-segment>
 
-  <div [ngSwitch]="segmentProjectCondition">
+  <div class="outer-content" [ngSwitch]="segmentProjectCondition">
     <div *ngSwitchCase="'proceedingProject'">
       <div text-center *ngIf = "!proceedingProjects.length" class="empty-inner">
         <p>진행중인 프로젝트가 없습니다!</p>
@@ -64,7 +64,7 @@
       </div>
       <ion-grid *ngIf="proceedingProjects.length">
         <ion-row>
-          <ion-card *ngFor="let proceedingProject of proceedingProjects" class="project-card" (click)="openUserProjectHomePage()">
+          <ion-card tappable *ngFor="let proceedingProject of proceedingProjects" class="project-card" (click)="openUserProjectHomePage()">
           <div class="project-card-main-image-wrapper">
             <img [src]="proceedingProject.projectMainImage" />
             <div class="project-card-overlay-wrapper">
@@ -78,11 +78,11 @@
           <ion-card-content text-left>
             <span class="project-card-name">{{proceedingProject.projectName}} : </span>
             <span class="project-card-summary" [innerHTML]="proceedingProject.projectSummary"></span>
-          </ion-card-content>
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="proceedingProject.avatarImage">
-            </ion-avatar>
+          </ion-card-content>  
+          <ion-item float-left class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span">
+              <div class="avatar-span-image" [style.backgroundImage]="'url(' + proceedingProject.avatarImage + ')'"></div>
+            </span>
             <p>by. {{proceedingProject.nickname}}</p>
           </ion-item>
         </ion-card>
@@ -90,14 +90,14 @@
       </ion-grid>
     </div>
 
-    <div *ngSwitchCase="'rewardProject'">
+    <div class="outer-content" *ngSwitchCase="'rewardProject'">
       <div text-center *ngIf = "!rewardProjects.length" class="empty-inner">
         <p>보상받을 프로젝트가 없습니다!</p>
         <button ion-button clear (click)="openProjectPage()">프로젝트 둘러보러 가기 ></button>
       </div>
       <ion-grid *ngIf="rewardProjects.length">
         <ion-row>
-          <ion-card *ngFor="let rewardProject of rewardProjects" class="project-card" (click)="openUserProjectRewardPage()">
+          <ion-card tappable *ngFor="let rewardProject of rewardProjects" class="project-card" (click)="openUserProjectRewardPage()">
           <div class="project-card-main-image-wrapper">
             <img [src]="rewardProject.projectMainImage" />
             <div class="project-card-overlay-wrapper">
@@ -112,10 +112,10 @@
             <span class="project-card-name">{{rewardProject.projectName}} : </span>
             <span class="project-card-summary" [innerHTML]="rewardProject.projectSummary"></span>
           </ion-card-content>
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="rewardProject.avatarImage">
-            </ion-avatar>
+          <ion-item float-left class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span">
+              <div class="avatar-span-image" [style.backgroundImage]="'url(' + rewardProject.avatarImage + ')'"></div>
+            </span>
             <p>by. {{rewardProject.nickname}}</p>
           </ion-item>
         </ion-card>
@@ -123,14 +123,14 @@
       </ion-grid>
     </div>
 
-    <div *ngSwitchCase="'endProject'">
+    <div class="outer-content" *ngSwitchCase="'endProject'">
       <div text-center *ngIf = "!endProjects.length" class="empty-inner">
         <p>종료된 프로젝트가 없습니다!</p>
         <button ion-button clear (click)="openProjectPage()">프로젝트 둘러보러 가기 ></button>
       </div>
       <ion-grid *ngIf="endProjects.length">
         <ion-row>
-          <ion-card *ngFor="let endProject of endProjects" class="project-card" (click)="openUserProjectStoryPage()">
+          <ion-card tappable *ngFor="let endProject of endProjects" class="project-card" (click)="openUserProjectStoryPage()">
           <div class="project-card-main-image-wrapper">
             <img [src]="endProject.projectMainImage" />
             <div class="project-card-overlay-wrapper">
@@ -145,10 +145,10 @@
             <span class="project-card-name">{{endProject.projectName}} : </span>
             <span class="project-card-summary" [innerHTML]="endProject.projectSummary"></span>
           </ion-card-content>
-          <ion-item>
-            <ion-avatar item-start>
-              <img [src]="endProject.avatarImage">
-            </ion-avatar>
+          <ion-item float-left class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span">
+              <div class="avatar-span-image" [style.backgroundImage]="'url(' + endProject.avatarImage + ')'"></div>
+            </span>
             <p>by. {{endProject.nickname}}</p>
           </ion-item>
         </ion-card>

@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component,ViewChild } from '@angular/core';
+import { Nav, IonicPage, NavController, NavParams, MenuController, ViewController } from 'ionic-angular';
+
+import { UserProjectHomePage } from '../user-project-home/user-project-home';
+import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
+import { UserProjectHistoryPage } from '../user-project-history/user-project-history';
+import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
+
+import { StatusBar } from '@ionic-native/status-bar';
 
 /**
  * Generated class for the UserProjectSideMenuPage page.
@@ -15,8 +22,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class UserProjectSideMenuPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public statusBar: StatusBar
+  ) { }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSideMenuPage');
