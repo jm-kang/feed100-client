@@ -64,6 +64,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectFeedbackFormPageModule } from '../pages/user/user-project-feedback-form/user-project-feedback-form.module';
     import { UserProjectFeedbackModificationEditorPageModule } from '../pages/user/user-project-feedback-modification-editor/user-project-feedback-modification-editor.module';
     import { UserProjectFeedbackWritingEditorPageModule } from '../pages/user/user-project-feedback-writing-editor/user-project-feedback-writing-editor.module';
+    import { UserProjectFeedbackPopoverPageModule } from '../pages/user/user-project-feedback-popover/user-project-feedback-popover.module';
     import { UserProjectHistoryPageModule } from '../pages/user/user-project-history/user-project-history.module';
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
     import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
@@ -94,6 +95,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @NgModule({
   declarations: [MyApp],
@@ -153,6 +155,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
         UserProjectFeedbackFormPageModule,
         UserProjectFeedbackModificationEditorPageModule,
         UserProjectFeedbackWritingEditorPageModule,
+        UserProjectFeedbackPopoverPageModule,
         UserProjectHistoryPageModule,
         UserProjectHomePageModule,
         UserProjectLinkPageModule,
@@ -188,7 +191,8 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
     Facebook,
     GooglePlus,
     Push,
-    UniqueDeviceID
+    UniqueDeviceID,
+    PhotoViewer
   ]
 })
 export class AppModule {}

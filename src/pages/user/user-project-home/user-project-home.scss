@@ -324,15 +324,15 @@ page-user-project-home {
     padding-top: 8px;
 }
 
-.feedback-card .empathy-wrapper {
+.empathy-wrapper {
     font-size: 1.1rem;
 }
 
-.feedback-card .empathy-wrapper .text-empathy {
+.empathy-wrapper .text-empathy {
     color: #FE6B01;
 }
 
-.feedback-card .empathy-wrapper .text-nonempathy {
+.empathy-wrapper .text-nonempathy {
     color: #787878;
     padding-left: 8px;
 }
@@ -363,7 +363,7 @@ page-user-project-home {
     margin-bottom: 2px;
 }
 
-.feedback-card .best-badge {
+.best-badge {
     padding: 1px 8px;
     background-color: #FE6B01;
     border-radius: 50px;
@@ -373,7 +373,7 @@ page-user-project-home {
     top: -0.55px;
 }
 
-.feedback-card .best-badge span {
+.best-badge span {
     font-size: 8px;
     font-weight: bold;
     color: #fff;
@@ -396,5 +396,5 @@ page-user-project-home {
 .hashtag-wrapper span.button {
     margin-top: 8px;
     height: 2em;
-    border: 0.55px solid #FF8A3B;
+    border: 1px solid #FF8A3B;
 }
