@@ -217,4 +217,21 @@ page-user-project-feedback {
         color: #5b5b5b;
         background-color: #e8e8e8;
     }
+
+    .open-opinion-editor {
+        width: 100%;
+        bottom: 0;
+    }
+
+    .open-opinion-editor button {
+        width: 100%;
+        text-align: center;
+        border-radius: 0;
+        border-top: 1px solid #eee;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        font-size: 12px;
+        height: 40px;
+        font-weight: bold;
+    }
 }

@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverCo
 import { StatusBar } from '@ionic-native/status-bar';
 import { UserProjectFeedbackPopoverPage } from '../user-project-feedback-popover/user-project-feedback-popover';
 import { UserProjectFilterResultPage } from '../user-project-filter-result/user-project-filter-result';
+import { UserProjectOpinionWritingEditorPage } from '../user-project-opinion-writing-editor/user-project-opinion-writing-editor';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 /**
@@ -230,5 +231,10 @@ export class UserProjectFeedbackPage {
   openUserProjectFilterResultPage(filters) {
     let userProjectFilterResultModal = this.modalCtrl.create(UserProjectFilterResultPage, {filters: filters});
     userProjectFilterResultModal.present();
+  }
+
+  openUserProjectOpinionWritingEditorPage() {
+    let userProjectOpinionWritingEditorModal = this.modalCtrl.create(UserProjectOpinionWritingEditorPage);
+    userProjectOpinionWritingEditorModal.present();
   }
 }
