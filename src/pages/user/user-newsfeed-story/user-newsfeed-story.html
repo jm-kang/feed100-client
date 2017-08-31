@@ -25,7 +25,7 @@
         </span>
       </div>
       <p class="summary" [innerHTML]="newsfeedSummary"></p>
-      <h5>{{newsfeedRegistrationDate}} 에 작성됨</h5>
+      <h5>{{newsfeedRegistrationDate | amDateFormat: 'YYYY-MM-DD HH:mm'}} 에 작성됨</h5>
       <h6>* 이 스토리는 {{newsfeedSource}} 게시물입니다.</h6>
     </ion-slide>
     <ion-slide class="story-content-slide" *ngFor="let newsfeedStorySlide of newsfeedStorySlides">
@@ -75,7 +75,7 @@
           </ion-avatar>
           <h5 [innerHTML]="newsfeedComment.nickname"></h5>
           <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
-          <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date"></h6>
+          <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date | amLocale:'ko' | amTimeAgo"></h6>
         </ion-item>
       </ion-list>
     </ion-slide>

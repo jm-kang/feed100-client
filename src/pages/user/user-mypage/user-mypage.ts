@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
 // import { LoginPage } from  '../../common/login/login';
 import { UserProjectPage } from  '../user-project/user-project';
@@ -117,11 +117,9 @@ export class UserMypagePage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
+    public appCtrl: App,
     public httpService: HttpServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
-    this.proceedingProjectNum = this.proceedingProjects.length;
-    this.rewardProjectNum = this.rewardProjects.length;
-    this.endProjectNum = this.endProjects.length;
   }
 
   openUserProjectPage() {
@@ -142,6 +140,12 @@ export class UserMypagePage {
           this.exp = data.data.experience_point;
           this.maxExp = data.data.required_experience_point;
           this.expPercent = ((this.exp / this.maxExp) * 100).toFixed(1);
+          this.proceedingProjects = data.data.proceeding_projects;
+          this.rewardProjects = data.data.reward_projects;
+          this.endProjects = data.data.end_projects;
+          this.proceedingProjectNum = this.proceedingProjects.length;
+          this.rewardProjectNum = this.rewardProjects.length;
+          this.endProjectNum = this.endProjects.length;
         }
         else if(data.success == false) {
           this.httpService.apiRequestErrorHandler(data, this.navCtrl)
@@ -177,8 +181,8 @@ export class UserMypagePage {
     userProjectRewardFormModal.present();
   }
 
-  openUserProjectStoryPage() {
-    this.navCtrl.push(UserProjectStoryPage);
+  openUserProjectStoryPage(project_id) {
+    this.appCtrl.getRootNav().push(UserProjectStoryPage, { "project_id" : project_id });
   }
 
 }

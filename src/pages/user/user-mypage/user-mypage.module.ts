@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UserMypagePage } from './user-mypage';
-
+import { PipesModule } from '../../../pipes/pipes.module';
+import { MomentModule } from 'angular2-moment';
 import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
@@ -10,6 +11,8 @@ import { ComponentsModule } from '../../../components/components.module';
   ],
   imports: [
     ComponentsModule,
+    PipesModule,
+    MomentModule,
     IonicPageModule.forChild(UserMypagePage),
   ],
 })

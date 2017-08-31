@@ -31,11 +31,12 @@ export class HttpServiceProvider {
   }
 
   getServerUrl() {
+    // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
 
   localLogin(username, password, role) {
-    let url = this.getServerUrl + '/auth/login';
+    let url = this.getServerUrl() + '/auth/login';
     let data = {
       "username" : username,
       "password" : password,
@@ -254,6 +255,32 @@ export class HttpServiceProvider {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
   }
+
+  getProjects() {
+    let url = this.getServerUrl() + '/api/projects';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getProject(project_id) {
+    let url = this.getServerUrl() + '/api/project/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+
 
   showBasicAlert(subTitle) {
     let alert = this.alertCtrl.create ({

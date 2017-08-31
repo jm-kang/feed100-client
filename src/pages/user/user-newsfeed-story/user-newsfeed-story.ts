@@ -75,7 +75,7 @@ export class UserNewsfeedStoryPage {
           this.httpService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
-          })
+          });
         }
       },
       (err) => {
