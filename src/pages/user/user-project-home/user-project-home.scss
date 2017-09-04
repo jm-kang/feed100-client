@@ -1,5 +1,398 @@
 page-user-project-home {
     .project-card-main-image-wrapper {
         z-index: 1;
+        display: grid;
+        border-bottom: 0.55px solid #d7d7d7;
     }
+
+    .toolbar-content .title {
+        padding-top: 0 !important;
+    }
+
+    .bar-button-menutoggle {
+        margin: 0;
+    }
+
+    ion-navbar {
+        padding: 0 16px !important;        
+    }
+
+    .shadow-header-top {
+        position: absolute;
+        height: 64px;
+        width: 100%;
+        background: rgba(38,38,38,0.8); /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(rgba(38,38,38,0.8), transparent); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(38,38,38,0.8), transparent); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(38,38,38,0.8), transparent); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(38,38,38,0.8), transparent); /* Standard syntax */
+    }
+
+    .bar-buttons-ios .dismiss-button ion-icon {
+        font-weight: bold;
+    }
+
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    ion-navbar ion-buttons ion-icon {
+        color: #fff;
+        font-size: 1.5em !important;
+    }
+
+    // .bar-button {
+    //     color: #fff;
+    // }
+
+    .project-card-overlay {
+        padding-bottom: 10px;
+        background: rgba(38,38,38,0.3); /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(transparent, rgba(38,38,38,0.3)); /* Standard syntax */
+    }
+
+    ion-content {
+        position: relative !important;
+    }
+
+    .scroll-content {
+        margin-top: 0 !important;
+    }
+
+    
+    .project-card-overlay-item {
+        padding: 3px 16px;
+        border-radius: 50px;
+        border: 0.55px solid #eee;
+        margin: 0 auto;
+        color: #595959;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: rgba(255,255,255,0.9);
+    }
+
+    .project-card-overlay-item ion-icon {
+        padding-right: 5px;
+    }
+
+    // .project-home-content .progress-state {
+    //     color: #585858;
+    //     position: absolute;
+    //     bottom: -11.5px;
+    //     right: 16px;
+    //     font-size: 13px;
+    //     font-weight: 500;
+    //     background-color: #fff;
+    //     padding: 3px 16px;
+    //     border-radius: 2px;
+    //     -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    //     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    // }
+
+    // 프로젝트 내용
+    
+    .item.item-block .item-inner {
+        border-bottom: 0;
+    }
+
+    
+
+    .summary {
+        font-size: 1.3rem;
+        color: #686868;
+        line-height: 1.4;
+        margin-bottom: 23px;
+        margin-top: 8px;
+        font-weight: 500;
+    }
+
+    .outer-content {
+        height: 100%;
+        padding-top: 1px;
+        display: inline-table;
+    }
+
+    .outer-content .card {
+        margin-top: 0;
+    }
+
+    .empty-inner p {
+        font-size: 1.6rem;
+        color: #c8c8c8;
+    }
+
+    .empty-inner ion-icon {
+        color: #c8c8c8;
+    }
+}
+
+.project-home-content-wrapper {
+    background-color: rgba(38,38,38,0.2);
+}
+
+.project-header-wrapper ion-title {
+    display: none;
+}
+
+.project-header-title-wrapper {
+    margin: 0 auto;
+}
+
+.project-header-title-wrapper span {
+    color: #595959;
+    font-size: 1.3rem;
+}
+
+.project-home-content h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #383838;
+    font-weight: bold;
+}
+
+
+.project-home-content .avatar-span-wrapper h3 {
+    font-size: 1.2rem;
+    color: #888;
+}
+
+.project-home-content .avatar-span-wrapper {
+    padding-left : 0;
+}
+
+.project-home-content .avatar-span {
+    min-height: 1.2em;
+    min-width: 1.2em;
+    margin-right: 8px;
+}
+
+.project-home-content .avatar-span .avatar-span-image {
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.project-home-content {
+    padding: 25px !important;
+    display: block;
+    position: relative;
+    background-color: #fff;
+}
+
+.slice-tag {
+    color: #000;
+    font-weight: bold;
+}
+
+.project-home-content .participant-wrapper {
+    margin-bottom: 3px;
+}
+
+.project-home-content .participant-wrapper span {
+    font-size: 1.2rem;
+    color: #585858;
+    font-weight: bold;
+}
+
+.project-home-content .participant-wrapper span small {
+    color: #a8a8a8;
+    font-weight: normal;
+}
+
+.project-home-content .open-link-button {
+    width: 100%;
+    margin: 0;
+    margin-top: 25px;
+    height: 3.4rem;
+    font-size: 1.3rem;
+}
+
+ .shadow-top {
+    position: absolute;
+    height: 10px;
+    bottom: -10px;
+    right: 0;
+    width: 100%;
+    z-index: 1;
+    background: rgba(38,38,38,0.1); /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(rgba(38,38,38,0.1), transparent); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(rgba(38,38,38,0.1), transparent); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(rgba(38,38,38,0.1), transparent); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(rgba(38,38,38,0.1), transparent); /* Standard syntax */
+}
+
+.feedbacks-header {
+    margin: 0;
+    padding: 16px 17px 20px 17px;
+    display: flex;
+}
+
+.feedbacks-header .header-name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: relative;
+    color: #888;
+    top: 5px;
+}
+
+.feedbacks-header .button {
+    height: auto;
+    margin: 0;
+    position: absolute;
+    right: 17px;
+    padding: 0;
+    background: #dfdfdf;
+    color: #FE6B01;
+    padding: 4px 12px;
+}
+
+.feedbacks-header .button ion-icon {
+    padding-right: 8px;
+    color: #a8a8a8;
+}
+
+
+.feedbacks-header .button.activated {
+    background: #FE6B01;
+    color: #fff;
+}
+
+.feedbacks-header .button.activated ion-icon {
+    color: #fff;
+}
+
+.radio-md .radio-inner {
+    top: 3px;
+}
+
+.radio-md .radio-icon {
+    height: 16px;
+    width: 16px;
+    
+}
+
+.feedback-card {
+    margin: 5px 12px 20px 12px ;
+}
+
+.feedback-card .card-header {
+    padding: 10px 18px 5px 18px;
+}
+
+.feedback-card .feedback-content {
+    padding: 0 18px 18px 18px;
+    font-size: 1.2rem;
+    color: #383838;
+}
+
+.feedback-card .avatar-span-wrapper {
+    padding-left: 0;
+    width: 100% !important;
+}
+
+.feedback-card .avatar-span-wrapper .item-inner {
+    display: block;
+}
+
+.feedback-card .avatar-span-wrapper h3 {
+    color: #383838;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.feedback-card .avatar-span-wrapper p {
+    color: #787878;
+    font-size: 1.1rem;
+}
+
+.feedback-card .avatar-span {
+    min-height: 3.5rem;
+    min-width: 3.5rem;
+    margin-right: 8px;
+}
+
+.feedback-card .avatar-span .avatar-span-image {
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.feedback-card .hashtag-wrapper {
+    padding-top: 8px;
+}
+
+.empathy-wrapper {
+    font-size: 1.1rem;
+}
+
+.empathy-wrapper .text-empathy {
+    color: #FE6B01;
+}
+
+.empathy-wrapper .text-nonempathy {
+    color: #787878;
+    padding-left: 8px;
+}
+
+.project-home-content-wrapper .fab {
+    bottom: 10px;
+    right: 10px;
+    background-color: #FF8C3E;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.project-home-content-wrapper .fab ion-icon {
+    font-size: 3.7rem;
+}
+
+.project-home-content-wrapper ion-badge {
+    position: absolute;
+    padding: 4px 6px;
+    top: -10px;
+    right: 5px;
+    font-size: 1.2rem;
+    background-color: #f53d3d;
+}
+
+.feedback-card h3 {
+    position: initial;
+    margin-bottom: 2px;
+}
+
+.best-badge {
+    padding: 1px 8px;
+    background-color: #FE6B01;
+    border-radius: 50px;
+    display: inline-flex;
+    position: relative;
+    margin-right: 3px;
+    top: -0.55px;
+}
+
+.best-badge span {
+    font-size: 8px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.feedback-card .feedback-more-button {
+    font-weight: bold;
+    color: #383838;
+    margin-top: 8px;
+    font-size: 1.1rem;
+}
+
+.hashtag-wrapper span {
+    font-size: 1.1rem;
+    margin: 0;
+    margin-right: 8px;
+    // border: 0;
+}
+
+.hashtag-wrapper span.button {
+    margin-top: 8px;
+    height: 2em;
+    border: 1px solid #FF8A3B;
 }

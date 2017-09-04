@@ -16,9 +16,6 @@ import { HttpServiceProvider } from '../providers/http-service/http-service';
 })
 export class MyApp {
   rootPage:any = LoginPage;
-  // rootPage:any = UserConfigurePage;
-  // rootPage:any = UserNewsfeedStoryPage;
-  // rootPage:any = UserTabsPage;
 
   constructor(
     platform: Platform, 

@@ -4,15 +4,115 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project-feedback-form</ion-title>
+<ion-content class="slide-question-content">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button (click)="back()" icon-only>
+        <ion-icon name="arrow-back"></ion-icon>              
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title-wrapper">
+        <span class="project-header-title" text-center>
+          {{projectName | slice:0:20}}
+        </span>
+        <span class="slice-tag" *ngIf="projectName.length > 20"> ...</span>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
   </ion-navbar>
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+  </div>
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+    <ion-slide>
+      <div class="q-mark-wrapper">
+        <span class="q-mark">Q</span>
+        <span class="q-mark-number">1</span>
+      </div>
+      <div class="question">프로젝트 스토리를 요약하면?</div>
+      <div class="question-summary">프로젝트 스토리를 이해하셨나요? 프로젝트 스토리는 50자 이내로 요약해주세요. 확실히 이해하시고 쓰시면 큰 도움이 됩니다!</div>
+      <div class="underline-input-button-wrapper">
+          <button ion-button clear class="underline-input" (click)="openUserProjectStorySummaryWritingEditorPage()">
+            <span [innerHTML]="storySummaryContent | slicetextarea:0:100:4 "></span>
+          </button>
+          <div text-right>
+            <button ion-button clear class="underline-button" (click)="openUserProjectStorySummaryWritingEditorPage()">작성하기</button>
+          </div>
+      </div>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear *ngIf="!isFirstQuestionWrited" disabled>
+            <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="isFirstQuestionWrited" (click)="goNextSlide()">
+            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="q-mark-wrapper">
+        <span class="q-mark">Q</span>
+        <span class="q-mark-number">2</span>
+      </div>
+      <div class="question">이 프로젝트에 대해 어떻게 생각하시나요?</div>
+      <div class="question-summary">프로젝트에 대해 어떻게 생각하셨나요? 주어진 해시태그를 이용하여 피드백을 작성해주세요.</div>
+      <div class="feedback-images small-feedback-images">
+        <span *ngFor="let feedbackImage of feedbackImages | slice:0:6; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper">
+          <img class="feedback-image" [src]="feedbackImage.img" (load)="onFeedbackLoad($event.target, i)" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top" [style.max-height]="feedbackImage.maxHeight" [style.max-width]="feedbackImage.maxWidth"/>
+        </span>
+      </div>
+      <div class="feedback-images small-feedback-images" *ngIf="feedbackImages.length > 6">
+        <span *ngFor="let feedbackImage of feedbackImages | slice:6:12; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper">
+          <img class="feedback-image" [src]="feedbackImage.img" preload (load)="onFeedbackLoad($event.target, i+6)" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top" [style.max-height]="feedbackImage.maxHeight" [style.max-width]="feedbackImage.maxWidth"/>
+        </span>
+      </div>
 
-</ion-header>
+      <div class="underline-input-button-wrapper">
+        <button ion-button clear class="underline-input" (click)="openUserProjectFeedbackWritingEditorPage()">
+          <div [innerHTML]="feedbackContent | slicetextarea:0:100:4 "></div>
+          <div *ngIf="feedbackHashtags.length > 0" class="feedback-hashtags-wrapper">
+            <span class="feedback-hashtag" *ngFor="let feedbackHashtag of feedbackHashtags">#{{feedbackHashtag.value}}</span>
+          </div>
+        </button>
+        <div text-right>
+          <button ion-button clear class="underline-button" (click)="openUserProjectFeedbackWritingEditorPage()">작성하기</button>
+        </div>
+      </div>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear *ngIf="!isSecondQuestionWrited" disabled>
+            <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="isSecondQuestionWrited" (click)="goNextSlide()">
+            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      <div class="q-mark-wrapper">
+        <span class="q-mark">Q</span>
+        <span class="q-mark-number">3</span>
+      </div>
+      <div class="question">프로젝트 첫인상 평가를 남겨주세요</div>
+      <div class="question-summary">스토리를 보신 후 이 프로젝트에 대한 첫인상을 평가해주세요. 솔직한 평가일수록 프로젝트에 큰 도움이 될 수 있습니다!</div>
+      <rating [(ngModel)]="rate" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event)"></rating>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear *ngIf="!isThirdQuestionWrited" disabled>
+            <ion-icon color="light" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="isThirdQuestionWrited" (click)="openUserProjectHomePage()">
+            <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+  </ion-slides>
 
-
-<ion-content padding>
-
+  
 </ion-content>

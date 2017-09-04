@@ -21,5 +21,17 @@ export class UserProjectRewardFormPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectRewardFormPage');
   }
+  dismiss() {
+    // this.statusBar.show();
+    // console.log(JSON.stringify(this.appCtrl.getRootNavs()[0].setRoot(LoginPage)));
+    // this.viewCtrl.dismiss();;
+    // this.viewCtrl.dismiss();
+    // console.log(this.navCtrl.popToRoot());
+    // this.appCtrl.getRootNavs()[0].setRoot(LoginPage);
+    // this.navCtrl.goToRoot;
+    // for (let i = 0; i < this.appCtrl.getRootNavs().length; i ++) {
 
+    // }
+    // this.appCtrl.getRootNav().setRoot(LoginPage);
+  }
 }

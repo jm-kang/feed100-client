@@ -70,9 +70,9 @@
           <p>첫 번째 댓글을 등록해보세요!</p>
         </div>
         <ion-item class="newsfeed-comment-wrapper" *ngFor="let newsfeedComment of newsfeedComments">
-          <ion-avatar item-start class="avatar-image">
-            <img [src]="newsfeedComment.avatar_image" />
-          </ion-avatar>
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newsfeedComment.avatar_image + ')'"></div>
+          </span>
           <h5 [innerHTML]="newsfeedComment.nickname"></h5>
           <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
           <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date | amLocale:'ko' | amTimeAgo"></h6>
@@ -85,16 +85,16 @@
 <ion-footer class="story-footer">
   <progress-bar *ngIf="!isLastSlide" [progress]="progressPercent"></progress-bar>
   <ion-navbar hideBackButton="true">
-    <ion-buttons start>
+    <ion-buttons start class="story-back-button">
       <button ion-button (click)="back()">
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item *ngIf="isFirstSlide" start class="bar-item-wrapper item-flex">
-      <ion-avatar item-start>
-        <img [src]="avatarImage">
-      </ion-avatar>
-      by. {{nickname}}
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      </span>
+      <h3>by. {{nickname}}</h3>
     </ion-item>
     <ion-item *ngIf="!isFirstSlide && !isLastSlide" start class="bar-item-wrapper item-flex page-num">
       <ion-icon name="ios-browsers-outline" item-start></ion-icon>

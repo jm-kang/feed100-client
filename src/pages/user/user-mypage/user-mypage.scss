@@ -2,22 +2,28 @@ page-user-mypage {
     .header {
         border-bottom : 1px solid #EEE;
     }
-    .avatar-image {
+    .mypage-profile-wrapper .avatar-span{
         min-width: 60px;
         min-height: 60px;
     }
 
-    .avatar-image img {
+    .mypage-profile-wrapper .avatar-span .avatar-span-image {
         width: 60px;
         height: 60px;
     }
 
     .mypage-profile-wrapper {
-        -webkit-box-align: baseline;
-        -webkit-align-items: baseline;
-        -ms-flex-align: baseline;
-        align-items: baseline;
+        -webkit-box-align: inherit;
+        -webkit-align-items: inherit;
+        -ms-flex-align: inherit;
+        align-items: inherit;
         margin-top: 20px !important;
+        width: 100%;
+    }
+
+    .mypage-profile-wrapper .label {
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .mypage-profile-wrapper .item-inner {
@@ -78,7 +84,7 @@ page-user-mypage {
         text-align: left;
         border: 0;
         border-radius: 0 !important;
-        border-bottom: 1px solid #727272;
+        border-bottom: 1px solid #d8d8d8;
         height: auto;
         padding: 20px 0 12px 10px;
         color: #383838;

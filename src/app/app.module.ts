@@ -40,6 +40,8 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
     import { CompanyProjectStorySummaryPageModule } from '../pages/company/company-project-story-summary/company-project-story-summary.module';
     import { CompanyProjectUserInfoPageModule } from '../pages/company/company-project-user-info/company-project-user-info.module';
     import { CompanyProjectUserProfilePageModule } from '../pages/company/company-project-user-profile/company-project-user-profile.module';
+    import { CompanyProjectSearchPageModule } from '../pages/company/company-project-search/company-project-search.module';
+    import { CompanyProjectSearchResultPageModule } from '../pages/company/company-project-search-result/company-project-search-result.module';
   import { CompanyNewsfeedPageModule } from '../pages/company/company-newsfeed/company-newsfeed.module';
     import { CompanyNewsfeedStoryPageModule } from '../pages/company/company-newsfeed-story/company-newsfeed-story.module';
   import { CompanyMypagePageModule } from '../pages/company/company-mypage/company-mypage.module';
@@ -62,6 +64,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectFeedbackFormPageModule } from '../pages/user/user-project-feedback-form/user-project-feedback-form.module';
     import { UserProjectFeedbackModificationEditorPageModule } from '../pages/user/user-project-feedback-modification-editor/user-project-feedback-modification-editor.module';
     import { UserProjectFeedbackWritingEditorPageModule } from '../pages/user/user-project-feedback-writing-editor/user-project-feedback-writing-editor.module';
+    import { UserProjectFeedbackPopoverPageModule } from '../pages/user/user-project-feedback-popover/user-project-feedback-popover.module';
     import { UserProjectHistoryPageModule } from '../pages/user/user-project-history/user-project-history.module';
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
     import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
@@ -71,6 +74,8 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectSideMenuPageModule } from '../pages/user/user-project-side-menu/user-project-side-menu.module';
     import { UserProjectStoryPageModule } from '../pages/user/user-project-story/user-project-story.module';
     import { UserProjectStorySummaryWritingEditorPageModule } from '../pages/user/user-project-story-summary-writing-editor/user-project-story-summary-writing-editor.module';
+    import { UserProjectSearchPageModule } from '../pages/user/user-project-search/user-project-search.module';
+    import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
     import { UserNewsfeedStoryPageModule } from '../pages/user/user-newsfeed-story/user-newsfeed-story.module';
   import { UserMypagePageModule } from '../pages/user/user-mypage/user-mypage.module';
@@ -90,6 +95,8 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 @NgModule({
   declarations: [MyApp],
@@ -127,6 +134,8 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
         CompanyProjectStorySummaryPageModule,
         CompanyProjectUserInfoPageModule,
         CompanyProjectUserProfilePageModule,
+        CompanyProjectSearchPageModule,
+        CompanyProjectSearchResultPageModule,
       CompanyNewsfeedPageModule,
         CompanyNewsfeedStoryPageModule,
       CompanyMypagePageModule,
@@ -147,6 +156,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
         UserProjectFeedbackFormPageModule,
         UserProjectFeedbackModificationEditorPageModule,
         UserProjectFeedbackWritingEditorPageModule,
+        UserProjectFeedbackPopoverPageModule,
         UserProjectHistoryPageModule,
         UserProjectHomePageModule,
         UserProjectLinkPageModule,
@@ -156,6 +166,8 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
         UserProjectSideMenuPageModule,
         UserProjectStoryPageModule,
         UserProjectStorySummaryWritingEditorPageModule,
+        UserProjectSearchPageModule,
+        UserProjectSearchResultPageModule,
       UserNewsfeedPageModule,
         UserNewsfeedStoryPageModule,
       UserMypagePageModule,
@@ -180,7 +192,8 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
     Facebook,
     GooglePlus,
     Push,
-    UniqueDeviceID
+    UniqueDeviceID,
+    PhotoViewer
   ]
 })
 export class AppModule {}

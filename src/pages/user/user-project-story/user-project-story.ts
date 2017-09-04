@@ -139,12 +139,12 @@ export class UserProjectStoryPage {
     }
   }
 
-  openProjectLinkPage() {
+  openUserProjectLinkPage() {
     let projectLinkModal = this.modalCtrl.create(UserProjectLinkPage);
     projectLinkModal.present();
   }
 
-  openProjectFeedbackFormPage() {
+  openUserProjectFeedbackFormPage() {
     this.navCtrl.push(UserProjectFeedbackFormPage);
   }
 }

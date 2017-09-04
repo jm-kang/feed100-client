@@ -1,3 +1,83 @@
 page-user-project-story-summary-writing-editor {
+    
+}
 
+.editor-modal{
+    background-color: rgba(0,0,0,0.7);
+}
+
+.editor-header {
+    background-color: #fff;
+
+    border-bottom: 1px solid #eee;
+    position: relative;
+
+    ion-buttons {
+        margin: 0 8px;
+    }
+
+    ion-buttons .button-inner {
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    .dismiss-button {
+        color: rgb(64,64,64);
+    }
+
+    .complete-button {
+        color: #ff6400;
+    }
+
+    .toolbar-title-md {
+        display: -webkit-box !important;
+        font-size: 1.7rem;
+        font-weight: 600;
+    }
+
+    .title-ios {
+        padding-top: 20px;
+        height: calc(44px + 20px);
+        min-height: calc(44px + 20px);
+    }
+
+    .toolbar-ios {
+        padding: 4px;
+        padding-top: calc(24px);
+        min-height: calc(64px);
+    }
+}
+
+.editor-content {
+    height: 100%;
+    textarea {
+        resize: none;
+        background-color: #fff;
+        height: 40vh;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ff6400;
+        font-size: 1.3rem;
+        margin: 0;
+        width: calc(100% - 32px);
+        margin: 16px;
+        margin-bottom: 3px;
+        outline: none;
+
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .content-length-wrapper {
+        margin: 0 16px;
+        text-align: right;
+        color: #787878;
+        font-size: 1.3rem;
+        padding-right: 16px;
+    }
 }

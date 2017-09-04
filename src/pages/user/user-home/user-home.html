@@ -14,7 +14,7 @@
 <ion-content class="outer-content">
   <ion-slides class="feed100-intro-slides" pager scroll="true" loop autoplay="5000" effect="fade" speed="1000">
     <ion-slide *ngFor="let feed100IntroSlide of feed100IntroSlides">
-      <div (click)="openPageWrapper(feed100IntroSlide.link)">
+      <div tappable (click)="openPageWrapper(feed100IntroSlide.link)">
         <img class="feed100-intro-slide-bg" [src]="feed100IntroSlide.bg" />
         <div class="feed100-intro-slide-wrapper">
           <span>
@@ -35,7 +35,7 @@
   </div>
   <ion-slides *ngIf = "proceedingProjects.length" pager=false loop="false" spaceBetween="-23">
     <ion-slide *ngFor="let proceedingProject of proceedingProjects">
-      <ion-card class="project-card" (click)="accessProjectCard(proceedingProject.project_id)">
+      <ion-card tappable class="project-card" (click)="accessProjectCard(proceedingProject.project_id)">
         <div class="project-card-main-image-wrapper">
           <img [src]="proceedingProject.project_main_image" />
           <div class="project-card-overlay-wrapper">
@@ -50,10 +50,10 @@
           <span class="project-card-name">{{proceedingProject.project_name}} : </span>
           <span class="project-card-summary" [innerHTML]="proceedingProject.project_summary"></span>
         </ion-card-content>
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="proceedingProject.avatar_image">
-          </ion-avatar>
+        <ion-item float-left class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + proceedingProject.avatar_image + ')'"></div>
+          </span>
           <p>by. {{proceedingProject.nickname}}</p>
         </ion-item>
       </ion-card>
@@ -68,7 +68,7 @@
   </div>
   <ion-slides *ngIf = "newProjects.length" pager=false loop="false" spaceBetween="-23">
     <ion-slide *ngFor="let newProject of newProjects">
-      <ion-card class="project-card" (click)="accessProjectCard(newProject.project_id)">
+      <ion-card tappable class="project-card" (click)="accessProjectCard(newProject.project_id)">
         <div class="project-card-main-image-wrapper">
           <img [src]="newProject.project_main_image" />
           <div class="project-card-overlay-wrapper">
@@ -83,10 +83,10 @@
           <span class="project-card-name">{{newProject.project_name}} : </span>
           <span class="project-card-summary" [innerHTML]="newProject.project_summary"></span>
         </ion-card-content>
-        <ion-item>
-          <ion-avatar item-start>
-            <img [src]="newProject.avatar_image">
-          </ion-avatar>
+        <ion-item float-left class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newProject.avatar_image + ')'"></div>
+          </span>
           <p>by. {{newProject.nickname}}</p>
         </ion-item>
       </ion-card>
@@ -101,7 +101,7 @@
   </div>
   <ion-slides *ngIf = "newNewsfeeds.length" pager=false loop="false" spaceBetween="-23" slidesPerView="2">
     <ion-slide *ngFor="let newNewsfeed of newNewsfeeds">
-      <ion-card class="newsfeed-card" (click)="openUserNewsfeedStoryPage(newNewsfeed.newsfeed_id)">
+      <ion-card tappable class="newsfeed-card" (click)="openUserNewsfeedStoryPage(newNewsfeed.newsfeed_id)">
         <img [src]="newNewsfeed.newsfeed_main_image" />
         <ion-card-content text-left [innerHTML]="newNewsfeed.newsfeed_name">
         </ion-card-content>
