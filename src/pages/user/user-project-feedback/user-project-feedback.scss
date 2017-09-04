@@ -234,4 +234,17 @@ page-user-project-feedback {
         height: 40px;
         font-weight: bold;
     }
+
+    .empty-inner p {
+        font-size: 1.6rem;
+        color: #c8c8c8;
+    }
+
+    .empty-inner ion-icon {
+        color: #c8c8c8;
+    }
+
+    .opinions ion-list {
+        margin: -1px 0 56px;
+    }
 }

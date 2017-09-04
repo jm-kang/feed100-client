@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the CompanyProjectFilterResultPage page.
+ * Generated class for the CompanyProjectSearchResultPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-company-project-filter-result',
-  templateUrl: 'company-project-filter-result.html',
+  selector: 'page-company-project-search-result',
+  templateUrl: 'company-project-search-result.html',
 })
-export class CompanyProjectFilterResultPage {
+export class CompanyProjectSearchResultPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectFilterResultPage');
+    console.log('ionViewDidLoad CompanyProjectSearchResultPage');
   }
 
 }

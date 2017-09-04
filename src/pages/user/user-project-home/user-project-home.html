@@ -62,18 +62,9 @@
   </div>
 
   <div class="outer-content">
-    <!-- <ion-item class="feedbacks-header">
-        <ion-label>FEEDBACKS {{participantNum}}</ion-label>
-      
-        <ion-select class="filter-selector" [(ngModel)]="filterFeedback" (ionChange)="selectChange()" interface="popover">
-          <ion-option value="defaultSelectOption" checked="true">Filter</ion-option>   
-          <ion-option [value]="filter.value" *ngFor="let filter of filters" [selected]="filter.value == filterFeedback">{{filter.option}}</ion-option>
-        </ion-select>
-      
-    </ion-item> -->
     <div class="feedbacks-header">
       <span class="header-name">피드백 {{participantNum}}</span>
-      <button ion-button (click)="openUserProjectFilterPage()"><ion-icon name="md-funnel"></ion-icon>Filter</button>
+      <button ion-button (click)="openUserProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button>
     </div>
     <div text-center *ngIf = "!feedbacks.length" class="empty-inner">
       <ion-icon name="text"></ion-icon>
@@ -104,8 +95,8 @@
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>
         <div class="hashtag-wrapper">
-          <span tappable ion-button outline *ngFor="let hashTag of feedback.hashTags" (click)="openUserProjectFilterResultPage(hashTag)" >
-            #{{hashTag.option}}
+          <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
+            #{{feedbackHashtag.value}}
           </span>
         </div>
       </ion-card-content>

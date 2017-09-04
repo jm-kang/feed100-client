@@ -1,12 +1,9 @@
 <!--
-  Generated template for the UserProjectFilterResultPage page.
+  Generated template for the UserProjectSearchResultPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-
-
-
 <ion-content #contentRef (ionScroll)="scrollingFun($event)">
   <ion-header>
 
@@ -16,29 +13,36 @@
           <ion-icon name="close"></ion-icon>              
         </button>
       </ion-buttons>
+      
+        <div class="active-button-wrapper hashtags-chooser-wraaper">
+          <ion-buttons>
+            <button clear *ngIf="searchResults.length == 0" ion-button class="inactive-button">필터를 등록해주세요.</button>
+            <button color="light" *ngFor="let searchResult of searchResults" ion-button class="active-button" (click)="inactiveHashtag(searchResult)">
+              #{{searchResult.value}} <ion-icon name="close-circle"></ion-icon>
+            </button>
+          </ion-buttons>
+        </div>
+      
+      
     </ion-navbar>
 
   </ion-header>
-  <div class="filter-wrapper">
-    <div class="active-button-wrapper">
+  <div class="search-wrapper">
+    <div class="inactive-button-wrapper hashtags-chooser-wraaper" *ngIf="projectHashtags.length > 0">
       <ion-buttons>
-        <button ion-button clear class="inactive-all all-button" *ngIf="filters.length" (click)="activeAllFilter()">All</button>
-        <button ion-button clear class="active-all all-button" *ngIf="!filters.length">All</button>
-        <button color="light" *ngFor="let filterResult of filterResults" ion-button class="active-button" (click)="inactiveFilter(filterResult)">
-          #{{filterResult.option}} <ion-icon name="close-circle"></ion-icon>
-        </button>
-      </ion-buttons>
-    </div>
-    <div class="inactive-button-wrapper" *ngIf="filters.length">
-      <ion-buttons>
-        <button *ngFor="let filter of filters" ion-button clear class="inactive-button" (click)="activeFilter(filter)">
-          #{{filter.option}}
+        <button ion-button clear class="inactive-all all-button" (click)="activeAllHashtag()">ALL</button>
+        <button *ngFor="let projectHashtag of projectHashtags" ion-button clear class="inactive-button" (click)="activeHashtag(projectHashtag)">
+          #{{projectHashtag.value}}
         </button>
       </ion-buttons>
     </div>
     <div class="shadow-top"></div>
   </div>
-  <div class="filter-result-content outer-content">
+  <div class="search-result-content outer-content empty-search-result" *ngIf="feedbackResults.length == 0">
+    <ion-icon name="md-alert"></ion-icon>
+    <div>해시태그 목록이 없습니다.</div>
+  </div>
+  <div class="search-result-content outer-content" *ngIf="feedbackResults.length > 0">
     <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
       <ion-card-header>
         <ion-item class="avatar-span-wrapper item-flex">

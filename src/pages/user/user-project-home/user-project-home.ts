@@ -9,8 +9,8 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 import { UserProjectLinkPage } from '../user-project-link/user-project-link';
 import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
-import { UserProjectFilterPage } from '../user-project-filter/user-project-filter';
-import { UserProjectFilterResultPage } from '../user-project-filter-result/user-project-filter-result';
+import { UserProjectSearchPage } from '../user-project-search/user-project-search';
+import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
 
 
 /**
@@ -39,232 +39,255 @@ export class UserProjectHomePage {
   progressState: String = "2일 남음";
   isLink: boolean = true;
   isInterview: number = 2;
-  filterFeedback: String = "defaultSelectOption";
   
   feedbacks = [
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image.png",
       nickname: "우와우와굳",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "같으며, 거선의 것은 눈이 용기가 이성은 든 크고 있다. 청춘의 속에서 청춘 가장 것이다. 얼음에 생생하며, 투명하되 찾아다녀도, 인간이 피고 현저하게 운다. 품에 가지에 웅대한 운다. 그러므로 예가 찬미를 꽃이 것이 철환하였는가? 영락과 이상의 끝까지 구하지 꽃 무엇이 같지 이상의 있으랴? 두기 인간은 열락의 이상은 듣는다. 인생을 품었기 위하여서, 행복스럽고 그들은 공자는 그들에게 이상의 위하여서. 우리 그것을 산야에 하였으며, 이 천자만홍이 꽃 청춘 운다.",
-      hashTags: [
-        {option: '기능', value:'selcetOption1'},
-        {option: '개선사항', value:'selcetOption2'},
+      feedbackHashtags: [
+        {value: '기능'},
+        {value: '개선사항'},
       ],
       empathyNum: 9,
       nonEmpathyNum: 1,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image2.png",
       nickname: "갓준모",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "나는 갓준모. 로비로 나와",
-      hashTags: [
-        {option: '전지전능', value: 'selcetOption3'},
-        {option: '로비', value: 'selcetOption4'},
+      feedbackHashtags: [
+        {value: '전지전능'},
+        {value: '로비'},
       ],
       empathyNum: 8,
       nonEmpathyNum: 0,
     },
     {
-      priority: 0,
-      isBest: false, 
+      isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 7,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 5,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 4,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 3,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 2,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
     {
-      priority: 0,
       isBest: false,
       avatarImage: "assets/img/user-avatar-image3.png",
       nickname: "지코",
       feedbackRegistrationDate: "2017.5.1",
       feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      hashTags: [
-        {option: 'Shes a Baby', value: 'selcetOption5'},
-        {option: '설현', value: 'selcetOption6'},
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
       ],
       empathyNum: 1,
       nonEmpathyNum: 4,
     },
   ];
 
+  feedbackResults = [
+    {
+      isBest: true,
+      avatarImage: "assets/img/user-avatar-image.png",
+      nickname: "우와우와굳",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "같으며, 거선의 것은 눈이 용기가 이성은 든 크고 있다. 청춘의 속에서 청춘 가장 것이다. 얼음에 생생하며, 투명하되 찾아다녀도, 인간이 피고 현저하게 운다. 품에 가지에 웅대한 운다. 그러므로 예가 찬미를 꽃이 것이 철환하였는가? 영락과 이상의 끝까지 구하지 꽃 무엇이 같지 이상의 있으랴? 두기 인간은 열락의 이상은 듣는다. 인생을 품었기 위하여서, 행복스럽고 그들은 공자는 그들에게 이상의 위하여서. 우리 그것을 산야에 하였으며, 이 천자만홍이 꽃 청춘 운다.",
+      feedbackHashtags: [
+        {value: '기능'},
+        {value: '개선사항'},
+      ],
+      empathyNum: 9,
+      nonEmpathyNum: 1,
+    },
+    {
+      isBest: false,
+      avatarImage: "assets/img/user-avatar-image2.png",
+      nickname: "갓준모",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "나는 갓준모. 로비로 나와",
+      feedbackHashtags: [
+        {value: '전지전능'},
+        {value: '로비'},
+      ],
+      empathyNum: 8,
+      nonEmpathyNum: 0,
+    },
+    {
+      isBest: false,
+      avatarImage: "assets/img/user-avatar-image3.png",
+      nickname: "지코",
+      feedbackRegistrationDate: "2017.5.1",
+      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
+      feedbackHashtags: [
+        {value: 'Shes a Baby'},
+        {value: '설현'},
+      ],
+      empathyNum: 7,
+      nonEmpathyNum: 4,
+    },
+  ];
 
-  filters = [
-    {option: '기능', value:'selcetOption1'},
-    {option: '개선사항', value:'selcetOption2'},
-    {option: '전지전능', value:'selcetOption3'},
-    {option: '로비', value: 'selcetOption4'},
-    {option: 'Shes a Baby', value: 'selcetOption5'},
-    {option: '설현', value: 'selcetOption6'},
+
+  projectHashtags = [
+    {value: '기능', isActiveHashtag: false},
+    {value: '개선사항', isActiveHashtag: false},
+    {value: 'Shes a Baby', isActiveHashtag: false},
+    {value: '전지전능', isActiveHashtag: false},
+    {value: '로비', isActiveHashtag: false},
+    {value: '설현', isActiveHashtag: false},
   ];
 
 
@@ -293,15 +316,15 @@ export class UserProjectHomePage {
       // console.log("top: " + e.scrollingFun);
       document.querySelector(".project-header-wrapper")['style'].background = 'transparent';
       document.querySelector(".project-header-wrapper")['style'].borderBottom = '0';
-      document.querySelector(".dismiss-button ion-icon")['style'].color = '#fff';
-      document.querySelector(".menu-button ion-icon")['style'].color = '#fff';
+      document.querySelector(".project-header-wrapper .dismiss-button ion-icon")['style'].color = '#fff';
+      document.querySelector(".project-header-wrapper .menu-button ion-icon")['style'].color = '#fff';
       document.querySelector(".project-header-wrapper ion-title")['style'].display = 'none';
     } else {
       // console.log("bottom: " + e.scrollingFun);
       document.querySelector(".project-header-wrapper")['style'].background = '#fff';
       document.querySelector(".project-header-wrapper")['style'].borderBottom = '0.55px solid #e8e8e8';
-      document.querySelector(".dismiss-button ion-icon")['style'].color = '#383838';
-      document.querySelector(".menu-button ion-icon")['style'].color = '#383838';
+      document.querySelector(".project-header-wrapper .menu-button ion-icon")['style'].color = '#383838';
+      document.querySelector(".project-header-wrapper .dismiss-button ion-icon")['style'].color = '#383838';
       document.querySelector(".project-header-wrapper ion-title")['style'].display = 'flex';
     }
   }
@@ -339,7 +362,6 @@ export class UserProjectHomePage {
   }
 
   openUserProjectFeedbackPage() {
-    this.statusBar.show();
     this.navCtrl.push(UserProjectFeedbackPage);
   }
 
@@ -347,23 +369,13 @@ export class UserProjectHomePage {
     this.navCtrl.push(UserProjectInterviewDetailPage);
   }
 
-  hashTagClick(option) {
-    console.log(option);
-    this.filterFeedback = option;
-    this.selectChange();
+  openUserProjectSearchPage() {
+    this.navCtrl.push(UserProjectSearchPage);
   }
 
-  selectChange() {
-    console.log("filtering");
-  }
-
-  openUserProjectFilterPage() {
-    this.navCtrl.push(UserProjectFilterPage);
-  }
-
-  openUserProjectFilterResultPage(filters) {
-    let userProjectFilterResultModal = this.modalCtrl.create(UserProjectFilterResultPage, {filters: filters});
-    userProjectFilterResultModal.present();
+  openUserProjectSearchResultPage(hashtags) {
+    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, {hashtags: hashtags});
+    userProjectSearchResultModal.present();
   }
 }
 

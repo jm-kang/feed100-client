@@ -1,4 +1,4 @@
-page-user-project-filter {
+page-user-project-search {
     ion-buttons[start] {
         order: 1;
     }
@@ -78,13 +78,13 @@ page-user-project-filter {
         padding: 0 16px 9px 16px;
     }
 
-    .hashtag-wrapper .filter-info {
+    .hashtag-wrapper .search-info {
         font-size: 1.3rem;
         color: #73777F;
         padding: 0 16px 3px 16px;
     }
 
-    .hashtag-wrapper .filter-info.padding-bottom {
+    .hashtag-wrapper .search-info.padding-bottom {
         padding-bottom: 35px;
     }
     

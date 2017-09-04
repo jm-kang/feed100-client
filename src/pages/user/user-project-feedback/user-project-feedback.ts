@@ -3,7 +3,7 @@ import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { UserProjectFeedbackPopoverPage } from '../user-project-feedback-popover/user-project-feedback-popover';
-import { UserProjectFilterResultPage } from '../user-project-filter-result/user-project-filter-result';
+import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
 import { UserProjectOpinionWritingEditorPage } from '../user-project-opinion-writing-editor/user-project-opinion-writing-editor';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -28,7 +28,8 @@ export class UserProjectFeedbackPage {
   projectName: String = "프로젝트 이름 프로젝트 이름";
   avatarImage: String = "assets/img/user-avatar-image.png"
   nickname: String = "우와우와굳";
-  isMyFeedback: boolean = true;
+  // 피드백 추가
+  // isMyFeedback: boolean = true;
   isBest: boolean = true;
   empathyNum: number = 2;
   nonEmpathyNum: number = 2;
@@ -36,9 +37,9 @@ export class UserProjectFeedbackPage {
   feedbackRegistrationDate: String = "22시간 전";
   segmentOpinionsCondition: String = '';
   
-  hashTags = [
-    {option: '기능', value:'selcetOption1'},
-    {option: '개선사항', value:'selcetOption2'},
+  feedbackHashtags = [
+    {value: '기능'},
+    {value: '개선사항'},
   ];
 
   // height, width, left, top은 건드리지 않고 default ""로 놔야함
@@ -158,7 +159,7 @@ export class UserProjectFeedbackPage {
   }
   
   // 슬라이드 이미지 5:4 비율
-  onLoad(img) {
+  onLoad(img, i) {
     let tempHeight: any;
     let tempWidth: any;
     let tempLeft: any;
@@ -166,27 +167,23 @@ export class UserProjectFeedbackPage {
     if(img.width/5 >= img.height/4) {
       tempHeight = this.slideHeight + 'px';
       tempWidth = img.width*(this.slideHeight/img.height) + 'px';
-      tempTop = 'inherit';
+      tempTop = 'initial';
       tempLeft = "-" + ((img.width*(this.slideHeight/img.height))-this.mobWidth)/2 + 'px';
       
     } else {
       tempWidth = this.mobWidth + 'px';
       tempHeight = img.height*(this.mobWidth/img.width) + 'px';
-      tempLeft = 'inherit';
+      tempLeft = 'initial';
       tempTop = "-" + ((img.height*(this.mobWidth/img.width))-this.slideHeight)/2 + 'px';
     }
-    for(let i=0; i < this.feedbackImages.length; i++) {
-      if(this.feedbackImages[i].width == "") {
-        this.feedbackImages[i].width = tempWidth;
-        this.feedbackImages[i].height = tempHeight;
-        this.feedbackImages[i].left = tempLeft;
-        this.feedbackImages[i].top = tempTop;
-        break;
-      }
-    }
+
+    this.feedbackImages[i].width = tempWidth;
+    this.feedbackImages[i].height = tempHeight;
+    this.feedbackImages[i].left = tempLeft;
+    this.feedbackImages[i].top = tempTop;
   }
 
-  onOpinionLoad(img) {
+  onOpinionLoad(img, i) {
     let tempHeight: any;
     let tempWidth: any;
     let tempLeft: any;
@@ -195,42 +192,39 @@ export class UserProjectFeedbackPage {
     let tempMaxWidth: any;
     if(img.width >= img.height) {
       tempHeight = img.width + 'px';
-      tempWidth = img.width*(img.width/img.height) + 'px';
-      tempTop = 'inherit';
-      tempLeft = "-" + ((img.width*(img.width/img.height))-img.width)/2 + 'px';
+      tempTop = 'initial';
+      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
-      tempMaxWidth = 'inherit';
+      tempMaxWidth = 'initial';
     } else {
       tempWidth = img.height + 'px';
-      tempHeight = img.height*(img.height/img.width) + 'px';
-      tempLeft = 'inherit';
-      tempTop = "-" + ((img.height*(img.height/img.width))-img.height)/2 + 'px';
+      tempLeft = 'initial';
+      tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';
-      tempMaxHeight = 'inherit';
+      tempMaxHeight = 'initial';
     }
-    for(let i=0; i < this.opinions.length; i++) {
-      if(this.opinions[i].width == "") {
-        this.opinions[i].width = tempWidth;
-        this.opinions[i].height = tempHeight;
-        this.opinions[i].left = tempLeft;
-        this.opinions[i].top = tempTop;
-        this.opinions[i].maxHeight = tempMaxHeight;
-        this.opinions[i].maxWidth = tempMaxWidth;
-        break;
-      }
-    }
+
+    console.log(JSON.stringify(this.opinions[i]));
+    console.log("index: " + i);
+
+    this.opinions[i].width = tempWidth;
+    this.opinions[i].height = tempHeight;
+    this.opinions[i].left = tempLeft;
+    this.opinions[i].top = tempTop;
+    this.opinions[i].maxHeight = tempMaxHeight;
+    this.opinions[i].maxWidth = tempMaxWidth;
   }
 
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(UserProjectFeedbackPopoverPage);
-    popover.present({
-      ev: myEvent
-    });
-  }
+  // presentPopover(myEvent) {
+  //   let popover = this.popoverCtrl.create(UserProjectFeedbackPopoverPage);
+  //   popover.present({
+  //     ev: myEvent
+  //   });
+  // }
 
-  openUserProjectFilterResultPage(filters) {
-    let userProjectFilterResultModal = this.modalCtrl.create(UserProjectFilterResultPage, {filters: filters});
-    userProjectFilterResultModal.present();
+  openUserProjectSearchResultPage(hashtags) {
+    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, {hashtags: hashtags});
+    userProjectSearchResultModal.present();
   }
 
   openUserProjectOpinionWritingEditorPage() {

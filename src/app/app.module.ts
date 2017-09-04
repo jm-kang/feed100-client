@@ -40,8 +40,8 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
     import { CompanyProjectStorySummaryPageModule } from '../pages/company/company-project-story-summary/company-project-story-summary.module';
     import { CompanyProjectUserInfoPageModule } from '../pages/company/company-project-user-info/company-project-user-info.module';
     import { CompanyProjectUserProfilePageModule } from '../pages/company/company-project-user-profile/company-project-user-profile.module';
-    import { CompanyProjectFilterPageModule } from '../pages/company/company-project-filter/company-project-filter.module';
-    import { CompanyProjectFilterResultPageModule } from '../pages/company/company-project-filter-result/company-project-filter-result.module';
+    import { CompanyProjectSearchPageModule } from '../pages/company/company-project-search/company-project-search.module';
+    import { CompanyProjectSearchResultPageModule } from '../pages/company/company-project-search-result/company-project-search-result.module';
   import { CompanyNewsfeedPageModule } from '../pages/company/company-newsfeed/company-newsfeed.module';
     import { CompanyNewsfeedStoryPageModule } from '../pages/company/company-newsfeed-story/company-newsfeed-story.module';
   import { CompanyMypagePageModule } from '../pages/company/company-mypage/company-mypage.module';
@@ -74,8 +74,8 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectSideMenuPageModule } from '../pages/user/user-project-side-menu/user-project-side-menu.module';
     import { UserProjectStoryPageModule } from '../pages/user/user-project-story/user-project-story.module';
     import { UserProjectStorySummaryWritingEditorPageModule } from '../pages/user/user-project-story-summary-writing-editor/user-project-story-summary-writing-editor.module';
-    import { UserProjectFilterPageModule } from '../pages/user/user-project-filter/user-project-filter.module';
-    import { UserProjectFilterResultPageModule } from '../pages/user/user-project-filter-result/user-project-filter-result.module';
+    import { UserProjectSearchPageModule } from '../pages/user/user-project-search/user-project-search.module';
+    import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
     import { UserNewsfeedStoryPageModule } from '../pages/user/user-newsfeed-story/user-newsfeed-story.module';
   import { UserMypagePageModule } from '../pages/user/user-mypage/user-mypage.module';
@@ -96,6 +96,7 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 
 @NgModule({
   declarations: [MyApp],
@@ -133,8 +134,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
         CompanyProjectStorySummaryPageModule,
         CompanyProjectUserInfoPageModule,
         CompanyProjectUserProfilePageModule,
-        CompanyProjectFilterPageModule,
-        CompanyProjectFilterResultPageModule,
+        CompanyProjectSearchPageModule,
+        CompanyProjectSearchResultPageModule,
       CompanyNewsfeedPageModule,
         CompanyNewsfeedStoryPageModule,
       CompanyMypagePageModule,
@@ -165,8 +166,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
         UserProjectSideMenuPageModule,
         UserProjectStoryPageModule,
         UserProjectStorySummaryWritingEditorPageModule,
-        UserProjectFilterPageModule,
-        UserProjectFilterResultPageModule,
+        UserProjectSearchPageModule,
+        UserProjectSearchResultPageModule,
       UserNewsfeedPageModule,
         UserNewsfeedStoryPageModule,
       UserMypagePageModule,

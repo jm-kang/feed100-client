@@ -41,6 +41,10 @@ page-user-project-home {
         font-size: 1.5em !important;
     }
 
+    // .bar-button {
+    //     color: #fff;
+    // }
+
     .project-card-overlay {
         padding-bottom: 10px;
         background: rgba(38,38,38,0.3); /* For browsers that do not support gradients */
@@ -181,12 +185,6 @@ page-user-project-home {
     color: #000;
     font-weight: bold;
 }
-
-.item.item-radio ion-label {
-    font-size: 1.3rem !important;
-    color: #383838;
-}
-
 
 .project-home-content .participant-wrapper {
     margin-bottom: 3px;

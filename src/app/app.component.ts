@@ -4,9 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/common/login/login';
-import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
-import { UserProjectStoryPage } from '../pages/user/user-project-story/user-project-story';
-import { UserNewsfeedStoryPage } from '../pages/user/user-newsfeed-story/user-newsfeed-story';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
@@ -16,9 +13,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage:any = LoginPage;
-  // rootPage:any = UserNewsfeedStoryPage;
-  rootPage:any = UserTabsPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private push: Push, private uniqueDeviceID: UniqueDeviceID) {
     platform.ready().then(() => {
