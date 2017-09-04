@@ -83,7 +83,7 @@ export class CompanyRegistrationFormPage {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
           // this.navCtrl.push(CompanyTabsPage);
-          this.navCtrl.setRoot(CompanyTabsPage, {}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot(CompanyTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

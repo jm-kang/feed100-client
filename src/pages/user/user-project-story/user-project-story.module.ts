@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UserProjectStoryPage } from './user-project-story';
-
-import { ComponentsModule } from '../../../components/components.module';
 import { PipesModule } from '../../../pipes/pipes.module';
+import { MomentModule } from 'angular2-moment';
+import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +12,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
   imports: [
     ComponentsModule,
     PipesModule,
+    MomentModule,
     IonicPageModule.forChild(UserProjectStoryPage),
   ],
 })

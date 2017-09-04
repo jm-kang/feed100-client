@@ -16,42 +16,30 @@
   <div text-left class="tab-top-notice">
     다양한 프로젝트에 참여해보세요!
   </div>
-
-  <!-- <div *ngFor="let project of projects"> -->
-  <div text-center *ngIf="!projects.length" class="empty-inner">
-    <ion-icon name="warning" color="danger"></ion-icon>
-    <p>준비중입니다!</p>
-  </div>
   <ion-grid *ngIf="projects.length">
     <ion-row>
-      <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard()">
+      <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard(project.project_id)">
         <div class="project-card-main-image-wrapper">
-          <img [src]="project.projectMainImage" />
+          <img [src]="project.project_main_image" />
           <div class="project-card-overlay-wrapper">
             <span class="project-card-overlay">
-              <span float-left class="project-card-overlay-item" [innerHTML]="project.progressState"></span>
-              <span float-right class="project-card-overlay-item">{{project.participantNum}} / {{project.maxParticipantNum}}</span>
+              <span float-left class="project-card-overlay-item" [innerHTML]="project.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
+              <span float-right class="project-card-overlay-item">{{project.participant_num}} / {{project.max_participant_num}}</span>
             </span>
           </div>
         </div>
-        <progress-bar [progress]="project.progressPercent"></progress-bar> 
+        <progress-bar [progress]="project.participant_num | divide : project.max_participant_num"></progress-bar> 
         <ion-card-content text-left>
-          <span class="project-card-name">{{project.projectName}} : </span>
-          <span class="project-card-summary" [innerHTML]="project.projectSummary"></span>
+          <span class="project-card-name">{{project.project_name}} : </span>
+          <span class="project-card-summary" [innerHTML]="project.project_summary"></span>
         </ion-card-content>
         <ion-item float-left class="avatar-span-wrapper item-flex">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + project.avatarImage + ')'"></div>
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + project.avatar_image + ')'"></div>
           </span>
           <p>by. {{project.nickname}}</p>
         </ion-item>
       </ion-card>
     </ion-row>
   </ion-grid>
-
-   <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="endScroll">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>  -->
 </ion-content> 

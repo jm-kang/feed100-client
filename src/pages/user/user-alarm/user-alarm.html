@@ -17,18 +17,18 @@
 
 <ion-content>
   <ion-list>
-    <ion-item tappable class="interview-item" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.link)">
+    <ion-item tappable class="interview-item" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.alarm_link, alarm.project_id, alarm.alarm_id)">
       <ion-avatar item-start>
-        <img [src]="alarm.avatarImage">
+        <img [src]="alarm.project_main_image">
       </ion-avatar>
-      <h2><span class="alarm-tag">[{{alarm.alarmTag}}]</span> {{alarm.alarmTitle}}</h2>
-      <p [innerHTML]="alarm.alarmContent"></p>
+      <h2><span class="alarm-tag">[{{alarm.alarm_tag}}]</span> {{alarm.project_name}}</h2>
+      <p [innerHTML]="alarm.alarm_content"></p>
       <div item-end class="interview-item-end">
         <div class="badge-wrapper">
-          <div class="badge-new-dot" *ngIf="alarm.isNew">N</div>
-          <div class="blank-badge-new-dot" *ngIf="!alarm.isNew">0</div>
+          <div class="badge-new-dot" *ngIf="!alarm.alarm_is_read">N</div>
+          <div class="blank-badge-new-dot" *ngIf="alarm.alarm_is_read">0</div>
         </div>
-        <ion-note class="alarm-date" [innerHTML]="alarm.alarmRegistrationDate"></ion-note>
+        <ion-note class="alarm-date" [innerHTML]="alarm.alarm_registration_date | amLocale:'ko' | amTimeAgo"></ion-note>
       </div>
     </ion-item>
   </ion-list>

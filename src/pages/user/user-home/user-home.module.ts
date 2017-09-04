@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { UserHomePage } from './user-home';
-
-// import { ProgressBarComponent } from '../../../components/progress-bar/progress-bar';
+import { PipesModule } from '../../../pipes/pipes.module';
+import { MomentModule } from 'angular2-moment';
 import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
@@ -10,9 +10,10 @@ import { ComponentsModule } from '../../../components/components.module';
     UserHomePage,
     // ProgressBarComponent,
   ],
-  imports: [
-    // ProgressBarComponent,
+  imports: [ 
     ComponentsModule,
+    PipesModule,
+    MomentModule,
     IonicPageModule.forChild(UserHomePage),
   ],
 })

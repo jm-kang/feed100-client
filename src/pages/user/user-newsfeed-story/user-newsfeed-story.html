@@ -25,7 +25,7 @@
         </span>
       </div>
       <p class="summary" [innerHTML]="newsfeedSummary"></p>
-      <h5>{{newsfeedRegistrationDate}} 에 작성됨</h5>
+      <h5>{{newsfeedRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
       <h6>* 이 스토리는 {{newsfeedSource}} 게시물입니다.</h6>
     </ion-slide>
     <ion-slide class="story-content-slide" *ngFor="let newsfeedStorySlide of newsfeedStorySlides">
@@ -65,13 +65,17 @@
             </button>
           </ion-buttons>
         </ion-list-header>
+        <div text-center *ngIf = "!newsfeedCommentNum" class="empty-inner">
+          <ion-icon name="md-text" color="primary"></ion-icon>
+          <p>첫 번째 댓글을 등록해보세요!</p>
+        </div>
         <ion-item class="newsfeed-comment-wrapper" *ngFor="let newsfeedComment of newsfeedComments">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newsfeedComment.avatarImage + ')'"></div>
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newsfeedComment.avatar_image + ')'"></div>
           </span>
           <h5 [innerHTML]="newsfeedComment.nickname"></h5>
-          <p [innerHTML]="newsfeedComment.commentContent"></p>
-          <h6 [innerHTML]="newsfeedComment.commentRegistrationDate"></h6>
+          <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
+          <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date | amLocale:'ko' | amTimeAgo"></h6>
         </ion-item>
       </ion-list>
     </ion-slide>
@@ -111,7 +115,7 @@
     <div class="comment-textarea-wrapper" *ngIf="isLastSlide">
       <!-- <ion-item>  -->
         <ion-textarea rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></ion-textarea>
-        <button ion-buttom (click)="writeNewsfeedComment()">작성</button>    
+        <button (click)="writeNewsfeedComment()">작성</button>    
     </div>
   </ion-navbar>
 </ion-footer>

@@ -167,6 +167,15 @@ page-user-newsfeed-story {
     .item-block .item-inner {
         border-bottom : 0 !important;
     }
+
+    .empty-inner {
+        font-size: 1.8rem;
+        color: #fff;
+    }
+
+    .empty-inner ion-icon {
+        color: #d8d8d8;
+    }
 }
 .slide-title-wrapper {
     position: absolute;
