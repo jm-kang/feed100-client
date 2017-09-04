@@ -14,3 +14,20 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-spinner {
+    width: 100px;
+    height: 100px;
+}
+
+ion-spinner {
+    svg:nth-child(1) {
+        left: 25px !important;
+    }
+    svg:nth-child(2) {
+        left: 0px !important;
+    }
+    svg:nth-child(3) {
+        left: -25px !important;
+    }
+}

@@ -25,9 +25,6 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
   templateUrl: 'user-tabs.html',
 })
 export class UserTabsPage {
-  alarmNum: number = 5;
-  isInterview: number = 2;
-
   tab1Root = UserHomePage;
   tab2Root = UserProjectPage;
   tab3Root = UserNewsfeedPage;
@@ -39,14 +36,50 @@ export class UserTabsPage {
     public navParams: NavParams, 
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
-    public httpSerivce: HttpServiceProvider) {
+    public httpService: HttpServiceProvider) {
+  }
+
+  getAlarmNum() {
+    return this.httpService.alarmNum;
+  }
+
+  getInterviewNum() {
+    return this.httpService.interviewNum;
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserTabsPage');
+    let loading = this.httpService.presentLoading();
+
+    this.httpService.getAlarmAndInterviewNum()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.httpService.alarmNum = data.data.alarm_num;
+          this.httpService.interviewNum = data.data.interview_num;
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserTabsPage');
     let isLogin = this.navParams.get('isLogin');
     if(isLogin) {
-            // to check if we have permission
+      // to check if we have permission
       this.push.hasPermission()
         .then((res: any) => {
           if (res.isEnabled) {
@@ -77,7 +110,7 @@ export class UserTabsPage {
       pushObject.on('notification').subscribe((notification: any) => { 
         console.log('Received a notification', notification);
         if(notification.additionalData.foreground) {
-          this.httpSerivce.showBasicAlert(notification.message);
+          this.httpService.showBasicAlert(notification.message);
         }
       });
       
@@ -88,15 +121,15 @@ export class UserTabsPage {
         this.uniqueDeviceID.get()
         .then((uuid: any) => {
           console.log('uuid:', uuid);
-          this.httpSerivce.registerDeviceToken(uuid, registration.registrationId)
+          this.httpService.registerDeviceToken(uuid, registration.registrationId)
           .subscribe(
             (data) => {
               console.log(data);
-              this.httpSerivce.showBasicAlert('device token 등록 성공');
+              this.httpService.showBasicAlert('device token 등록 성공');
             },
             (err) => {
               console.log(err);
-              this.httpSerivce.showBasicAlert('device token 등록 실패');
+              this.httpService.showBasicAlert('device token 등록 실패');
             }
           );
           

@@ -108,24 +108,10 @@ export class UserConfigurePage {
   }
 
   logout() {
-    let confirm = this.alertCtrl.create({
-    message: '정말 로그아웃하시겠습니까?',
-    buttons: [
-      {
-        text: '아니오',
-        handler: () => {
-          console.log('Disagree clicked');
-        }
-      },
-      {
-        text: '예',
-        handler: () => {
-          console.log('Agree clicked');
-          this.httpService.logout(this.navCtrl);
-        }
+    this.httpService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+      () => {
+        this.httpService.logout(this.navCtrl);
       }
-    ]
-    });
-    confirm.present();
+    );
   }
 }

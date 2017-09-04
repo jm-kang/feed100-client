@@ -55,7 +55,7 @@
       </div>
       <ion-grid *ngIf="proceedingProjects.length">
         <ion-row>
-          <ion-card *ngFor="let proceedingProject of proceedingProjects" class="project-card" (click)="openUserProjectHomePage()">
+          <ion-card *ngFor="let proceedingProject of proceedingProjects" class="project-card" (click)="accessProjectCard(proceedingProject.project_id)">
           <div class="project-card-main-image-wrapper">
             <img [src]="proceedingProject.project_main_image" />
             <div class="project-card-overlay-wrapper">
@@ -88,7 +88,7 @@
       </div>
       <ion-grid *ngIf="rewardProjects.length">
         <ion-row>
-          <ion-card *ngFor="let rewardProject of rewardProjects" class="project-card" (click)="openUserProjectRewardPage()">
+          <ion-card *ngFor="let rewardProject of rewardProjects" class="project-card" (click)="accessProjectCard(rewardProject.project_id)">
           <div class="project-card-main-image-wrapper">
             <img [src]="rewardProject.project_main_image" />
             <div class="project-card-overlay-wrapper">
@@ -121,7 +121,7 @@
       </div>
       <ion-grid *ngIf="endProjects.length">
         <ion-row>
-          <ion-card *ngFor="let endProject of endProjects" class="project-card" (click)="openUserProjectStoryPage(endProject.project_id)">
+          <ion-card *ngFor="let endProject of endProjects" class="project-card" (click)="accessProjectCard(endProject.project_id)">
           <div class="project-card-main-image-wrapper">
             <img [src]="endProject.project_main_image" />
             <div class="project-card-overlay-wrapper">

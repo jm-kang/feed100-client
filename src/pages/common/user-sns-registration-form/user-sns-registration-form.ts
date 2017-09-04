@@ -59,54 +59,50 @@ export class UserSnsRegistrationFormPage {
 
   SNSRegister() {
     if(!this.provider || !this.app_id) {
-      this.showBasicAlert('오류가 발생했습니다.');
+      this.httpService.showBasicAlert('오류가 발생했습니다.');
     }
     if(!this.username) {
-      this.showBasicAlert('이메일을 입력해주세요.');
+      this.httpService.showBasicAlert('이메일을 입력해주세요.');
       return;
     }
     if(!this.nickname) {
-      this.showBasicAlert('닉네임을 입력해주세요.');
+      this.httpService.showBasicAlert('닉네임을 입력해주세요.');
       return;
     }
     if(!this.isCheck) {
-      this.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
+      this.httpService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
       return;
     }
+
+    let loading = this.httpService.presentLoading();
+
     this.httpService.SNSRegister(this.username, this.role, this.nickname, this.provider, this.app_id)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          // this.navCtrl.push(UserTabsPage);
           this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {
             case 'username is already registered':
-              this.showBasicAlert('이미 등록되어있는 이메일입니다.');
+              this.httpService.showBasicAlert('이미 등록되어있는 이메일입니다.');
               break;
             case 'nickname is already registered':
-              this.showBasicAlert('이미 등록되어있는 닉네임입니다.');
+              this.httpService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
               break;
           }
         }
       },
       (err) => {
         console.log(err);
-        this.showBasicAlert('오류가 발생했습니다.');
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-  }
-
-  showBasicAlert(subTitle) {
-    let alert = this.alertCtrl.create ({
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-
-    alert.present();
   }
 
 }

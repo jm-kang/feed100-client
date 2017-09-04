@@ -52,8 +52,13 @@ export class UserProjectStoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryPage');
+    let loading = this.httpService.presentLoading();
     let project_id = this.navParams.get('project_id');
+
     this.httpService.getProject(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {

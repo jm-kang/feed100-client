@@ -16,11 +16,6 @@
   <div text-left class="tab-top-notice">
     다양한 프로젝트에 참여해보세요!
   </div>
-
-  <div text-center *ngIf="!projects.length" class="empty-inner">
-    <ion-icon name="warning" color="danger"></ion-icon>
-    <p>준비중입니다!</p>
-  </div>
   <ion-grid *ngIf="projects.length">
     <ion-row>
       <ion-card *ngFor="let project of projects" class="project-card" (click)="accessProjectCard(project.project_id)">

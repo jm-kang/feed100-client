@@ -31,7 +31,12 @@ export class UserNewsfeedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedPage');
+    let loading = this.httpService.presentLoading();
+
     this.httpService.getNewsfeeds()
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {

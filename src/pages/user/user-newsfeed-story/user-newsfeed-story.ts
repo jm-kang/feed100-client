@@ -50,8 +50,13 @@ export class UserNewsfeedStoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedStoryPage');
+    let loading = this.httpService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
+
     this.httpService.getNewsfeed(newsfeed_id)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {
@@ -115,8 +120,13 @@ export class UserNewsfeedStoryPage {
   }
 
   clickLike() {
+    let loading = this.httpService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
+
     this.httpService.newsfeedLike(newsfeed_id)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {
@@ -148,11 +158,16 @@ export class UserNewsfeedStoryPage {
 
   writeNewsfeedComment() {
     if(this.newsfeedComment != '') {
+      let loading = this.httpService.presentLoading();
       let newsfeed_comment_content = this.newsfeedComment;
       this.newsfeedComment = '';
       this.newsfeedComments = [];
       let newsfeed_id = this.navParams.get('newsfeed_id');
+      
       this.httpService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
+      .finally(() => {
+        loading.dismiss();
+      })
       .subscribe(
         (data) => {
           if(data.success == true) {

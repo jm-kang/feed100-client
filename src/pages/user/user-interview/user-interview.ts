@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
 
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 /**
  * Generated class for the UserInterviewPage page.
  *
@@ -18,32 +19,39 @@ import { UserProjectInterviewDetailPage } from '../user-project-interview-detail
 export class UserInterviewPage {
   activeAccordion: boolean = false;
 
-  projects = [
-    {
-      avatarImage: "assets/img/company-avatar-image1.png",
-      projectName: "ANCHOR CABLE",
-      companyInterviewNum: "2차 인터뷰",
-      progressState: "3일 남음",
-      isNew: true,
-    },
-    {
-      avatarImage: "assets/img/company-avatar-image2.png",
-      projectName: "AQUA+",
-      companyInterviewNum: "1차 인터뷰",
-      progressState: "1일 남음",
-      isNew: false,
-    },
-    {
-      avatarImage: "assets/img/company-avatar-image3.png",
-      projectName: "PolarSeal Heated Tops",
-      companyInterviewNum: "-",
-      progressState: "종료",
-      isNew: false,
-    }
-    
-  ];
+  interviews = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App ) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public appCtrl: App,
+    public httpService: HttpServiceProvider) {
+  }
+
+  ionViewDidEnter() {
+    let loading = this.httpService.presentLoading();
+    
+    this.httpService.getInterviews()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.interviews = data.data;
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   ionViewDidLoad() {
@@ -58,7 +66,12 @@ export class UserInterviewPage {
     }
   }
   
-  openUserProjectInterviewDetailPage() {
-    this.appCtrl.getRootNav().push(UserProjectInterviewDetailPage);
+  openUserProjectInterviewDetailPage(project_participant_id, progressState) {
+    if(progressState == '종료') {
+      this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
+    }
+    else {
+      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_participant_id" : project_participant_id});
+    }
   }
 }

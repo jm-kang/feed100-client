@@ -41,7 +41,6 @@ export class UserLoginFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserLoginFormPage');
-    
   }
 
   back() {
@@ -50,45 +49,55 @@ export class UserLoginFormPage {
 
   localLogin() {
     if(!this.username) {
-      this.showBasicAlert('이메일을 입력해주세요.');
+      this.httpService.showBasicAlert('이메일을 입력해주세요.');
       return;
     }
     if(!this.password) {
-      this.showBasicAlert('비밀번호를 입력해주세요.');
+      this.httpService.showBasicAlert('비밀번호를 입력해주세요.');
       return;
     }
+
+    let loading = this.httpService.presentLoading();
+
     this.httpService.localLogin(this.username, this.password, this.role)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
       (data) => {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          // this.navCtrl.push(UserTabsPage);
           this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {
             case 'username is unregistered':
-              this.showBasicAlert('이메일을 정확히 입력해주세요.');
+              this.httpService.showBasicAlert('이메일을 정확히 입력해주세요.');
               break;
             case 'password is not correct':
-              this.showBasicAlert('비밀번호를 정확히 입력해주세요.');
+              this.httpService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
               break;
           }
         }
       },
       (err) => {
         console.log(err);
-        this.showBasicAlert('오류가 발생했습니다.');
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }
 
   googleLogin() {
+    let loading = this.httpService.presentLoading();
+
     this.googlePlus.login({})
     .then(res => {
       console.log(res);
       this.httpService.SNSLogin('google', res.userId, this.role)
+      .finally(() => {
+        loading.dismiss();
+      })
       .subscribe(
       (data) => {
         if(data.success == true) {
@@ -96,7 +105,6 @@ export class UserLoginFormPage {
           this.storage.set('refreshToken', data.data.refreshToken);
           this.googlePlus.logout()
           .then(() => {
-            // this.navCtrl.push(UserTabsPage);
             this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
           });
         }
@@ -113,28 +121,33 @@ export class UserLoginFormPage {
       },
       (err) => {
         console.log(err);
-        this.showBasicAlert('오류가 발생했습니다.');
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
       }
       );
     })
     .catch(err => {
       console.error(err);
-      this.showBasicAlert('오류가 발생했습니다.');
+      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      loading.dismiss();
     });
   }
 
   facebookLogin() {
+    let loading = this.httpService.presentLoading();
+
     this.fb.login(['public_profile', 'email'])
     .then((res: FacebookLoginResponse) => {
       console.log('Logged into Facebook!', res);
       console.log(res.authResponse.userID);
       this.httpService.SNSLogin('facebook', res.authResponse.userID, this.role)
+      .finally(() => {
+        loading.dismiss();
+      })
       .subscribe(
       (data) => {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          // this.navCtrl.push(UserTabsPage);
           this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
@@ -150,20 +163,20 @@ export class UserLoginFormPage {
       },
       (err) => {
         console.log(err);
-        this.showBasicAlert('오류가 발생했습니다.');
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
       }
       );
-
     })
     .catch(e => {
       console.log('Error logging into Facebook', e);
-      this.showBasicAlert('오류가 발생했습니다.');
+      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      loading.dismiss();
     });
 
   }
 
   kakaoLogin() {
-    this.showBasicAlert('준비중입니다!');
+    this.httpService.showBasicAlert('준비중입니다!');
   //   KakaoTalk.login(
   //   (result) => {
   //   console.log('Successful login!');
@@ -198,15 +211,6 @@ export class UserLoginFormPage {
   //   console.log(message);
   //   }
   // );
-  }
-
-  showBasicAlert(subTitle) {
-    let alert = this.alertCtrl.create ({
-      subTitle: subTitle,
-      buttons: ['OK']
-    });
-
-    alert.present();
   }
 
 }

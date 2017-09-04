@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
-import { App, AlertController } from 'ionic-angular';
+import { App, AlertController, LoadingController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { LoginPage } from  '../../pages/common/login/login';
@@ -11,6 +11,7 @@ import { LoginPage } from  '../../pages/common/login/login';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/finally';
 
 /*
   Generated class for the HttpServiceProvider provider.
@@ -20,19 +21,22 @@ import 'rxjs/add/operator/mergeMap';
 */
 @Injectable()
 export class HttpServiceProvider {
+  alarmNum = 0;
+  interviewNum = 0;
 
   constructor(
     public http: Http, 
     public storage: Storage, 
     public app: App,
     public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
     public statusBar: StatusBar,
     public uniqueDeviceID: UniqueDeviceID) {
   }
 
   getServerUrl() {
-    // return 'http://localhost:3000';
-    return 'http://www.feed100.me';
+    return 'http://localhost:3000';
+    // return 'http://www.feed100.me';
   } 
 
   localLogin(username, password, role) {
@@ -87,6 +91,8 @@ export class HttpServiceProvider {
   }
 
   logout(navCtrl) {
+    let loading = this.presentLoading();
+
     this.uniqueDeviceID.get()
     .then((uuid: any) => {
       this.deleteDeviceToken(uuid)
@@ -100,23 +106,28 @@ export class HttpServiceProvider {
               this.app.getRootNavs()[0].setRoot(LoginPage);
               this.statusBar.show();
               this.showBasicAlert('로그아웃되었습니다.');
+              loading.dismiss();
             })
             .catch((err) => { // modal이 없고 base 노드인 경우
               console.log('popAll Error: ', err);
               this.app.getRootNavs()[0].setRoot(LoginPage);
               this.statusBar.show();
               this.showBasicAlert('로그아웃되었습니다.');
+              loading.dismiss();
             })
           });
         },
         (err) => {
-          console.log(JSON.stringify(err));
+          console.log(err);
+          this.showBasicAlert('오류가 발생했습니다.');
+          loading.dismiss();
         }
       )
     })
     .catch((error: any) => {
       console.log(error);
       this.showBasicAlert('오류가 발생했습니다.');
+      loading.dismiss();
     });
 
   }
@@ -193,6 +204,81 @@ export class HttpServiceProvider {
 
   getUserInfo() {
     let url = this.getServerUrl() + '/api/user';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getUserHome() {
+    let url = this.getServerUrl() + '/api/user/home';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+
+  }
+
+  getUserAndProjectAndParticipation(project_id) {
+    let url = this.getServerUrl() + '/api/user/project/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getAlarms() {
+    let url = this.getServerUrl() + '/api/user/alarms';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  alarmRead(alarm_id) {
+    let url = this.getServerUrl() + '/api/user/alarm/read';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "alarm_id" : alarm_id
+    }
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getAlarmAndInterviewNum() {
+    let url = this.getServerUrl() + '/api/user/alarm&interview/num';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getInterviews() {
+    let url = this.getServerUrl() + '/api/user/interviews';
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
 
@@ -280,8 +366,6 @@ export class HttpServiceProvider {
     });
   }
 
-
-
   showBasicAlert(subTitle) {
     let alert = this.alertCtrl.create ({
       subTitle: subTitle,
@@ -290,5 +374,35 @@ export class HttpServiceProvider {
 
     alert.present();
   }
+
+  showConfirmAlert(message, handler) {
+    let confirm = this.alertCtrl.create({
+    message: message,
+    buttons: [
+      {
+        text: '아니오',
+        handler: () => {
+          console.log('Disagree clicked');
+        }
+      },
+      {
+        text: '예',
+        handler: handler
+      }
+    ]
+    });
+    confirm.present();
+  }
+
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      spinner: "dots"
+    });
+
+    loading.present();
+
+    return loading;
+  }
+
 
 }
