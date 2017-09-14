@@ -9,13 +9,20 @@ import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
 import { UserProjectStoryPage } from '../pages/user/user-project-story/user-project-story';
 import { UserNewsfeedStoryPage } from '../pages/user/user-newsfeed-story/user-newsfeed-story';
 import { UserConfigurePage } from '../pages/user/user-configure/user-configure';
+import { UserProjectHomePage } from '../pages/user/user-project-home/user-project-home';
+import { UserProjectFeedbackPage } from '../pages/user/user-project-feedback/user-project-feedback';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
+import { UserProjectInterviewDetailPage } from '../pages/user/user-project-interview-detail/user-project-interview-detail'
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = LoginPage;
+  // rootPage:any = UserTabsPage;
+  // rootPage:any = UserProjectInterviewDetailPage;
+  // rootPage:any = UserProjectFeedbackPage;
+  // rootPage:any = UserProjectHomePage;
 
   constructor(
     platform: Platform, 

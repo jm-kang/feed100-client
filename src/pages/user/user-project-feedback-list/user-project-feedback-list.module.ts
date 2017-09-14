@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { UserProjectSideMenuPage } from './user-project-side-menu';
+import { UserProjectFeedbackListPage } from './user-project-feedback-list';
 
 import { PipesModule } from '../../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    UserProjectSideMenuPage,
+    UserProjectFeedbackListPage,
   ],
   imports: [
     PipesModule,
-    IonicPageModule.forChild(UserProjectSideMenuPage),
+    IonicPageModule.forChild(UserProjectFeedbackListPage),
   ],
 })
-export class UserProjectSideMenuPageModule {}
+export class UserProjectFeedbackListPageModule {}

@@ -65,6 +65,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectFeedbackModificationEditorPageModule } from '../pages/user/user-project-feedback-modification-editor/user-project-feedback-modification-editor.module';
     import { UserProjectFeedbackWritingEditorPageModule } from '../pages/user/user-project-feedback-writing-editor/user-project-feedback-writing-editor.module';
     import { UserProjectFeedbackPopoverPageModule } from '../pages/user/user-project-feedback-popover/user-project-feedback-popover.module';
+    import { UserProjectFeedbackListPageModule } from '../pages/user/user-project-feedback-list/user-project-feedback-list.module';
     import { UserProjectHistoryPageModule } from '../pages/user/user-project-history/user-project-history.module';
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
     import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
@@ -159,6 +160,7 @@ import { File } from '@ionic-native/file'
         UserProjectFeedbackModificationEditorPageModule,
         UserProjectFeedbackWritingEditorPageModule,
         UserProjectFeedbackPopoverPageModule,
+        UserProjectFeedbackListPageModule,
         UserProjectHistoryPageModule,
         UserProjectHomePageModule,
         UserProjectLinkPageModule,

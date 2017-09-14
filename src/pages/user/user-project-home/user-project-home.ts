@@ -11,6 +11,7 @@ import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-f
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
 import { UserProjectSearchPage } from '../user-project-search/user-project-search';
 import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
+import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-project-feedback-list';
 
 import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
@@ -189,6 +190,10 @@ export class UserProjectHomePage {
       { "hashtags" : hashtags,
       "project_id" : this.project_id });
     userProjectSearchResultModal.present();
+  }
+
+  openUserProjectFeedbackListPage() {
+    this.navCtrl.push(UserProjectFeedbackListPage);
   }
 }
 

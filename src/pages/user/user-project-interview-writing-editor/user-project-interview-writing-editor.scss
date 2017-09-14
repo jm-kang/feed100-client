@@ -1,3 +1,69 @@
 page-user-project-interview-writing-editor {
+    .toolbar-title {
+        padding: 0;
+        font-size: 1.4rem !important;
+    }
 
+    .title-ios {
+        padding-right: 34px;
+        padding-left: 34px;
+    }
+}
+
+.editor-notice {
+    background-color: rgba(255,255,255,0.9);
+    position: absolute;
+    width: 100%;
+    .item {
+        -webkit-box-align: baseline;
+        -webkit-align-items: baseline;
+        -ms-flex-align: baseline;
+        align-items: baseline;
+    }
+
+    .notice-content {
+        white-space: initial;
+        font-size: 1.2rem;
+        color: #383838;
+    }
+
+    .small-feedback-images .feedback-image-wrapper {
+        width: 6rem;
+        height: 6rem;
+        min-width: 6rem;
+        min-height: 6rem;
+        overflow: hidden;
+        margin: 0;
+        margin-top: 16px;
+    }
+
+    .small-feedback-images .image-box:nth-child(1) {
+        margin-left: 0;
+    }
+
+    .small-feedback-images .feedback-image {
+        max-width: 6rem;
+    }
+
+    .item-inner {
+        border-bottom: 0 !important;
+    }
+
+    .button {
+        color: #a8a8a8;
+    }
+
+    ion-avatar {
+        min-width: 30px;
+        min-height: 30px;
+    }
+
+    ion-avatar img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.editor-content.have-editor-notice {
+    padding-top: 50px;
 }

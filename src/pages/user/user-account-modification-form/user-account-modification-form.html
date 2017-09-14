@@ -4,15 +4,50 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-content class="account-modification-page-content" #contentRef (ionScroll)="scrollingFun($event)">
+  <ion-header class="account-modification-page-header">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button class="back-and-close-button" ion-button (click)="dismiss()" icon-only>
+          <ion-icon name="close"></ion-icon>              
+        </button>
+      </ion-buttons>
+      <ion-title>
+        계정 설정
+      </ion-title>
+      <ion-buttons end>
+        <button class="modify-button" ion-button (click)="modifyAccount()">
+          수정
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  <div class="account-modification-wrapper outer-content">
+    <div class="account-modification-profile-box">
+      <span class="avatar-image-background-wrapper">
+        <img class="avatar-image-background" [src]="avatarImage" (load)="onAvatarImageLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+      </span>
+    </div>
+    <div class="avatar-wrapper">
+      <span class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      </span>
+      <h3 text-center>{{nickname}} <ion-icon name="md-create" tappable (click)="modifyNickname(nickname)"></ion-icon></h3>
+    </div>
 
-  <ion-navbar>
-    <ion-title>user-account-modification-form</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+    <ion-list class="account-modification-list"> 
+      <ion-item>
+        <ion-label color="semiDark" stacked>이메일</ion-label>
+        <ion-label class="email" color="dark">{{email}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>자기소개</ion-label>
+        <ion-textarea value="asdasd" rows="3" [(ngModel)]="feedbackContent" placeholder="자신을 소개해주세요!"></ion-textarea>
+        
+        <!-- <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (feedbackContent | textcount)? '#787878' : '#2C908F'}">
+          <span>{{feedbackContent | textcount}}</span> / <span>{{minTextLength}}</span>
+        </div> -->
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

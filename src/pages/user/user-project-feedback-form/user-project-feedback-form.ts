@@ -120,18 +120,16 @@ export class UserProjectFeedbackFormPage {
     let tempTop: any;
     let tempMaxHeight: any;
     let tempMaxWidth: any;
-    console.log("index[" + i + "] > width: " + img.width + "height: " + img.height);
-
     if(img.width >= img.height) {
-      console.log('img.width >= img.height: ' + img.width + ' * ' + img.height);
       tempHeight = img.width + 'px';
+      tempWidth = 'auto';
       tempTop = 'initial';
       tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
       tempMaxWidth = 'initial';
     } else {
-      console.log('img.width < img.height: ' + img.width + ' * ' + img.height);
       tempWidth = img.height + 'px';
+      tempHeight = 'auto';
       tempLeft = 'initial';
       tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';

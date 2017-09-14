@@ -4,15 +4,74 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-content class="editor-modal" #contentRef (ionScroll)="scrollingFun($event)">
+  <ion-header class="editor-header">
+    <ion-navbar>
+      <ion-buttons start>
+        <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
+          취소
+        </button>
+      </ion-buttons>
+      <ion-title>
+        <span class="project-header-title">
+          {{projectName | slice:0:15}}
+        </span>
+        <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
+      </ion-title>
+      <ion-buttons end>
+        <button [disabled]="minTextLength > (interviewContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+          완료
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
 
-  <ion-navbar>
-    <ion-title>user-project-interview-writing-editor</ion-title>
-  </ion-navbar>
+  <div class="editor-notice editor-company-interview-wrapper">
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="assets/img/editor-notice-icon.png" />
+      </ion-avatar>
+      <div *ngIf="isFold">
+        <div>
+          <span class="notice-content" [innerHTML]="companyInterviewContent | slicetext:20"></span>
+        </div>
+      </div>
+      <div *ngIf="!isFold" class="editor-content">
+        <span class="notice-content" [innerHTML]="companyInterviewContent"></span>
+        <div class="feedback-images small-feedback-images">
+          <span class="image-box" *ngFor="let companyImage of companyImages; let i = index">
+            <span class="feedback-image-wrapper" tappable (click)="photoView()">
+              <img class="feedback-image" [src]="companyImage.img" (load)="onCompanyImageLoad($event.target, i)" [style.height]="companyImage.height" [style.width]="companyImage.width" [style.left]="companyImage.left" [style.top]="companyImage.top" [style.max-height]="companyImage.maxHeight" [style.max-width]="companyImage.maxWidth"/>
+            </span>
+          </span>
+        </div>
+      </div>
+      <button item-end ion-button clear (click)="fold()">
+        <ion-icon *ngIf="isFold" item-end name="ios-arrow-down"></ion-icon>
+        <ion-icon *ngIf="!isFold" item-end name="ios-arrow-up"></ion-icon>
+      </button>
+    </ion-item>
+    <div class="shadow-top"></div>
+  </div>
 
-</ion-header>
-
-
-<ion-content padding>
-
+  <div class="outer-content editor-content have-editor-notice" style="height: 100%">
+    <textarea class="height30" [(ngModel)]="interviewContent" [placeholder]="contentPlaceholder"></textarea>
+    <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (interviewContent | textcount)? '#787878' : '#2C908F'}">
+      <span>{{interviewContent | textcount}}</span> / <span>{{minTextLength}}</span>
+    </div>
+  
+    <div class="feedback-images small-feedback-images">
+      <span class="add-image-button-box image-box">
+        <span class="feedback-image-wrapper add-image-button" tappable (click)="addImage()">
+          <ion-icon name="md-add"></ion-icon>
+        </span>
+      </span>
+      <span class="image-box" *ngFor="let interviewImage of interviewImages; let i = index">
+        <button class="delete-image-button" ion-button clear (click)="deleteImage(content, i)"><img src="assets/img/delete-button.png" /></button>
+        <span class="feedback-image-wrapper">
+          <img class="feedback-image" [src]="interviewImage.img" (load)="onInterviewImageLoad($event.target, i)" [style.height]="interviewImage.height" [style.width]="interviewImage.width" [style.left]="interviewImage.left" [style.top]="interviewImage.top" [style.max-height]="interviewImage.maxHeight" [style.max-width]="interviewImage.maxWidth"/>
+        </span>
+      </span>
+    </div>
+  </div>
 </ion-content>
