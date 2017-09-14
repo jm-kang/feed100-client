@@ -14,7 +14,7 @@
       </ion-buttons>
       <ion-title>토론 참여하기</ion-title>
       <ion-buttons end>
-        <button [disabled]="minTextLength > (opinionContent | textcount) || tempEmpathy == ''" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        <button [disabled]="minTextLength > (opinionContent | textcount) || tempEmpathy == ''" class="complete-button" ion-button (click)="moveFiles()" icon-only>
           완료
         </button>
       </ion-buttons>

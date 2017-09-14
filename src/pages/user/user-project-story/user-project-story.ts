@@ -62,7 +62,6 @@ export class UserProjectStoryPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          console.log(data.data.isLink);
           this.isLink = (data.data.project_link != null) ? true : false;
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;

@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://10.3.97.51:8100" />
+    <content original-src="index.html" src="http://10.3.130.160:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -106,20 +106,24 @@
     <allow-navigation href="http://172.30.1.36:8100" />
     <allow-navigation href="http://192.168.0.32:8100" />
     <allow-navigation href="http://192.168.0.7:8100" />
-    <allow-navigation href="http://192.168.0.30:8100" />
-    <allow-navigation href="http://10.3.97.51:8100" />
-    <allow-navigation href="http://169.254.204.220:8100" />
-    <allow-navigation href="http://192.168.0.18:8100" />
-    <allow-navigation href="http://192.168.1.14:8100" />
+    <allow-navigation href="http://192.168.0.17:8100" />
+    <allow-navigation href="http://172.20.10.5:8100" />
+    <allow-navigation href="http://192.168.0.25:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.10" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+    </plugin>
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
     <plugin name="cordova-plugin-device" spec="^1.1.4" />
     <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
         <variable name="APP_ID" value="1641054049532599" />
         <variable name="APP_NAME" value="FEED100" />
     </plugin>
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
+    <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
     <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
         <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
     </plugin>

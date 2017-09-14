@@ -20,18 +20,18 @@
       </span>
     </ion-title>
     <ion-buttons end>
-      <!-- 피드백 추가 -->
-      <!-- <button ion-button *ngIf="isMyFeedback" (click)="presentPopover($event)">
+        <!-- 피드백 추가  -->
+       <!-- <button ion-button *ngIf="isMyFeedback" (click)="presentPopover($event)">
         <ion-icon name="more"></ion-icon>
       </button>
-      <button ion-button *ngIf="!isMyFeedback"></button> -->
+      <button ion-button *ngIf="!isMyFeedback"></button>   -->
       <button ion-button></button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-slides pager [style.height.px]="slideHeight">
+  <ion-slides *ngIf="feedbackImages.length" pager [style.height.px]="slideHeight">
     <ion-slide (click)="photoView(feedbackImage.img)" tappable class="feedback-image-slide" *ngFor="let feedbackImage of feedbackImages; let i = index">
       <img middle [src]="feedbackImage.img" (load)="onLoad($event.target, i)" class="feedback-image" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top"/>
     </ion-slide>
@@ -51,12 +51,12 @@
           <span><span class="text-nonempathy">비공감</span> {{nonEmpathyNum}}</span>
         </span>
       </h3>
-      <p [innerHTML]="feedbackRegistrationDate"></p>
+      <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
     </ion-item>
     <p class="feedback-comment" [innerHTML]="feedback"></p>
     <div class="hashtag-wrapper">
-      <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
-        #{{feedbackHashtag.value}}
+      <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+        #{{feedbackHashtag}}
       </span>
     </div>
   </div>
@@ -78,39 +78,39 @@
     <ion-list *ngSwitchCase="'all'">
       <div text-center *ngIf = "!opinions.length" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
-        <p>처음으로 토론장에 참여해보세요!</p>
+        <p>처음으로 토론에 참여해보세요!</p>
       </div>
       <div *ngFor="let opinion of opinions; let i = index">
-        <ion-item *ngIf="opinion.isEmpathy" class="empathy-opinion">
+        <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatarImage + ')'"></div>
+            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
             {{opinion.nickname}}
             <span class="empathy-tag opinion-tag">공감</span>
           </h3>
-          <p class="registration-date" [innerHTML]="opinion.opinionRegistrationDate"></p>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinionContent}}
+            {{opinion.opinion}}
           </div>
-          <span (click)="photoView(opinion.opinionImage)" item-end tappable class="opinion-image-wrapper">
-              <img class="opinion-image" [src]="opinion.opinionImage" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          <span (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
           </span> 
         </ion-item>
-        <ion-item *ngIf="!opinion.isEmpathy" class="non-empathy-opinion">
+        <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatarImage + ')'"></div>
+            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
             {{opinion.nickname}}
             <span class="non-empathy-tag opinion-tag">비공감</span>
           </h3>
-          <p class="registration-date" [innerHTML]="opinion.opinionRegistrationDate"></p>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinionContent}}
+            {{opinion.opinion}}
           </div>
-          <span (click)="photoView(opinion.opinionImage)" item-end tappable class="opinion-image-wrapper">
-              <img class="opinion-image" [src]="opinion.opinionImage" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
           </span> 
         </ion-item>
       </div>
@@ -119,23 +119,23 @@
     <ion-list *ngSwitchCase="'empathy'">
       <div text-center *ngIf = "!opinions.length" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
-        <p>처음으로 토론장에 참여해보세요!</p>
+        <p>처음으로 토론에 참여해보세요!</p>
       </div>
       <div *ngFor="let opinion of opinions; let j = index">
-        <ion-item *ngIf="opinion.isEmpathy" class="empathy-opinion">
+        <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatarImage + ')'"></div>
+            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
             {{opinion.nickname}}
             <span class="empathy-tag opinion-tag">공감</span>
           </h3>
-          <p class="registration-date" [innerHTML]="opinion.opinionRegistrationDate"></p>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinionContent}}
+            {{opinion.opinion}}
           </div>
-          <span (click)="photoView(opinion.opinionImage)" item-end tappable class="opinion-image-wrapper">
-              <img class="opinion-image" [src]="opinion.opinionImage" (load)="onOpinionLoad($event.target, j)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, j)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
           </span> 
         </ion-item>
       </div>
@@ -144,29 +144,31 @@
     <ion-list *ngSwitchCase="'nonEmpathy'">
       <div text-center *ngIf = "!opinions.length" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
-        <p>처음으로 토론장에 참여해보세요!</p>
+        <p>처음으로 토론에 참여해보세요!</p>
       </div>
       <div *ngFor="let opinion of opinions; let k = index">
-        <ion-item *ngIf="!opinion.isEmpathy" class="non-empathy-opinion">
+        <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatarImage + ')'"></div>
+            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
             {{opinion.nickname}}
             <span class="non-empathy-tag opinion-tag">비공감</span>
           </h3>
-          <p class="registration-date" [innerHTML]="opinion.opinionRegistrationDate"></p>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinionContent}}
+            {{opinion.opinion}}
           </div>
-          <span (click)="photoView(opinion.opinionImage)" item-end tappable class="opinion-image-wrapper">
-              <img class="opinion-image" [src]="opinion.opinionImage" (load)="onOpinionLoad($event.target, k)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, k)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
           </span> 
         </ion-item>
       </div>
     </ion-list>
   </div>
   <ion-fab bottom class="open-opinion-editor">
-    <button ion-fab color="primary" (click)="openUserProjectOpinionWritingEditorPage()">토론 참여하기</button>
+    <button *ngIf="isMyFeedback" ion-fab color="primary">내가 작성한 피드백입니다.</button>
+    <button *ngIf="isMyOpinion && !isMyFeedback" ion-fab color="primary">이미 참여한 토론입니다.</button>
+    <button *ngIf="!isMyFeedback && !isMyOpinion" ion-fab color="primary" (click)="openUserProjectOpinionWritingEditorPage(nickname, feedback_id)">토론 참여하기</button>
   </ion-fab>
 </ion-content>

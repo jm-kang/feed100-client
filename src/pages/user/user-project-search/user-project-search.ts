@@ -18,17 +18,10 @@ import { UserProjectSearchResultPage } from '../user-project-search-result/user-
   templateUrl: 'user-project-search.html',
 })
 export class UserProjectSearchPage {
-  projectMainImage: String = "assets/img/project-main-image2.png";
-  projectName: String = "프로젝트 이름 프로젝트 이름";
+  projectMainImage: String = "";
+  projectName: String = "";
 
-  projectHashtags = [
-    {value: '기능', isActiveHashtag: false},
-    {value: '개선사항', isActiveHashtag: false},
-    {value: 'Shes a Baby', isActiveHashtag: false},
-    {value: '전지전능', isActiveHashtag: false},
-    {value: '로비', isActiveHashtag: false},
-    {value: '설현', isActiveHashtag: false},
-  ];
+  projectHashtags = [];
 
   searchResults = [];
 
@@ -37,6 +30,9 @@ export class UserProjectSearchPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSearchPage');
+    this.projectHashtags = this.navParams.get('project_hashtags');
+    this.projectMainImage = this.navParams.get('project_main_image');
+    this.projectName = this.navParams.get('project_name');
   }
 
   ionViewDidEnter() {
@@ -47,8 +43,11 @@ export class UserProjectSearchPage {
     this.navCtrl.pop(); 
   }
 
-  openUserProjectSearchResultPage(hashtags) {
-    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, {hashtags: hashtags});  
+  openUserProjectSearchResultPage() {
+    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
+      { "searchResults" : JSON.parse(JSON.stringify(this.searchResults)),
+        "projectHashtags" : JSON.parse(JSON.stringify(this.projectHashtags)),
+        "feedbacks" : JSON.parse(JSON.stringify(this.navParams.get('feedbacks')))} );  
     userProjectSearchResultModal.present();
   }
 
@@ -58,8 +57,8 @@ export class UserProjectSearchPage {
   }
 
   inactiveHashtag(hashtag) {
-    hashtag.isActiveHashtag = false;
     let index: number = this.searchResults.indexOf(hashtag);
+    hashtag.isActiveHashtag = false;
     console.log('index' + index);
     this.searchResults.splice(index, 1);
   }
@@ -71,7 +70,7 @@ export class UserProjectSearchPage {
       this.projectHashtags[i].isActiveHashtag = true;
     }
 
-    this.openUserProjectSearchResultPage(this.searchResults);
+    this.openUserProjectSearchResultPage();
   }
 
   activeAllHashtag() {

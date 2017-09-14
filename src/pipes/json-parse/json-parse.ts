@@ -1,19 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 /**
- * Generated class for the DividePipe pipe.
+ * Generated class for the JsonParsePipe pipe.
  *
  * See https://angular.io/docs/ts/latest/guide/pipes.html for more info on
  * Angular Pipes.
  */
 @Pipe({
-  name: 'divide',
+  name: 'jsonParse',
 })
-export class DividePipe implements PipeTransform {
+export class JsonParsePipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(value1, value2, ...args) {
-    return (100 * (value1 / value2)).toFixed(1);
+  transform(value: string, ...args) {
+    return JSON.parse(value);
   }
 }
