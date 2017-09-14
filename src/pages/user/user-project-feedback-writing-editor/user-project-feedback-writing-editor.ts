@@ -191,16 +191,15 @@ export class UserProjectFeedbackWritingEditorPage {
     let tempMaxWidth: any;
 
     if(img.width >= img.height) {
-      console.log('img.width >= img.height: ' + img.width + ' * ' + img.height);
       tempHeight = img.width + 'px';
+      tempWidth = 'auto';
       tempTop = 'initial';
-      console.log("tempWidth: " + img.width*(img.width/img.height));
       tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
       tempMaxWidth = 'initial';
     } else {
-      console.log('img.width < img.height: ' + img.width + ' * ' + img.height);
       tempWidth = img.height + 'px';
+      tempHeight = 'auto';
       tempLeft = 'initial';
       tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';

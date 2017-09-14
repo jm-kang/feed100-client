@@ -28,7 +28,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="project-home-content-wrapper" #contentRef (ionScroll)="scrollingFun($event)">
+<ion-content class="project-home-content-wrapper" #contentRef (ionScroll)="scrollingFun($event)" (ionScrollStart)="scrollingFun($event)">
   <div tappable class="project-card-main-image-wrapper" (click)="openUserProjectStoryPage()">
     <div class="shadow-header-top"></div>
     <img [src]="projectMainImage" />
@@ -63,8 +63,9 @@
 
   <div class="outer-content">
     <div class="feedbacks-header">
-      <span class="header-name">피드백 {{participantNum}}</span>
-      <button ion-button (click)="openUserProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button>
+      <span class="header-name user-ui">피드백 {{participantNum}}</span>
+      <!-- <button ion-button (click)="openUserProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button> -->
+      <button ion-button class="feedback-list-button" (click)="openUserProjectFeedbackListPage()">토론하러 가기<ion-icon name="ios-arrow-forward"></ion-icon></button>
     </div>
     <div text-center *ngIf = "!feedbacks.length" class="empty-inner">
       <ion-icon name="text"></ion-icon>

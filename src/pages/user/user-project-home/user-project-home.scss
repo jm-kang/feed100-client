@@ -237,6 +237,10 @@ page-user-project-home {
     top: 5px;
 }
 
+.feedbacks-header .header-name.user-ui {
+    top: 1px;   
+}
+
 .feedbacks-header .button {
     height: auto;
     margin: 0;
@@ -262,6 +266,17 @@ page-user-project-home {
 .feedbacks-header .button.activated ion-icon {
     color: #fff;
 }
+
+.feedbacks-header .feedback-list-button {
+    font-size: 1.3rem;
+    padding: 3px 16px;
+}
+
+.feedbacks-header .feedback-list-button ion-icon {
+    margin-left: 5px;
+    padding-right: 0;
+}
+
 
 .radio-md .radio-inner {
     top: 3px;

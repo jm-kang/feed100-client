@@ -69,12 +69,14 @@ export class UserProjectOpinionWritingEditorPage {
 
     if(img.width >= img.height) {
       tempHeight = img.width + 'px';
+      tempWidth = 'auto';
       tempTop = 'initial';
       tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
       tempMaxWidth = 'initial';
     } else {
       tempWidth = img.height + 'px';
+      tempHeight = 'auto';
       tempLeft = 'initial';
       tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';

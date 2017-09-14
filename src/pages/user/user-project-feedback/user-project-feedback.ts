@@ -136,8 +136,6 @@ export class UserProjectFeedbackPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public statusBar: StatusBar, private el:ElementRef, public modalCtrl: ModalController, public popoverCtrl: PopoverController, private photoViewer: PhotoViewer) {
     this.mobWidth = (window.screen.width);
     this.slideHeight = this.mobWidth * 4 / 5;
-    console.log(this.mobWidth);
-    console.log(this.slideHeight);
   }
   
 
@@ -192,18 +190,19 @@ export class UserProjectFeedbackPage {
     let tempMaxWidth: any;
     if(img.width >= img.height) {
       tempHeight = img.width + 'px';
+      tempWidth = 'auto';
       tempTop = 'initial';
       tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
       tempMaxWidth = 'initial';
     } else {
       tempWidth = img.height + 'px';
+      tempHeight = 'auto';
       tempLeft = 'initial';
       tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';
       tempMaxHeight = 'initial';
     }
-
     console.log(JSON.stringify(this.opinions[i]));
     console.log("index: " + i);
 

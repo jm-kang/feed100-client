@@ -1,0 +1,149 @@
+<!--
+  Generated template for the UserProjectFeedbackListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="feedback-list-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="pop-button" ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        {{projectName | slicetext:20}}
+      </span>
+    </ion-title>
+  </ion-navbar>
+  <ion-segment [(ngModel)]="segmentFeedbacksCondition" (ionChange)="changeSegment()" color="primary" >
+    <ion-segment-button value="all">
+      전체보기 {{feedbacks.length}}
+    </ion-segment-button>
+    <ion-segment-button value="nonParticipationFeedback">
+      비참여 {{nonParticipationFeedbackNum}}
+    </ion-segment-button>
+    <ion-segment-button value="participationFeedback">
+      참여 {{participationFeedbackNum}}
+    </ion-segment-button>
+  </ion-segment>
+   <div class="shadow-top"></div>
+</ion-header>
+
+<ion-content class="feedback-list-content outer-content">
+  <div [ngSwitch]="segmentFeedbacksCondition" class="feedback-list">
+    <ion-list *ngSwitchCase="'all'">
+      <div *ngFor="let feedback of feedbacks">
+        <ion-card class="feedback-card"> 
+          <ion-card-header>
+            <ion-item class="avatar-span-wrapper item-flex">
+              <span item-start class="avatar-image avatar-span">
+                <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatarImage + ')'"></div>
+              </span>
+              <h3>
+                <span class="best-badge" *ngIf="feedback.isBest">
+                  <span>BEST</span>
+                </span>{{feedback.nickname}}
+                <span float-right class="empathy-wrapper">
+                  <span><span class="text-empathy">공감</span> {{feedback.empathyNum}}</span>
+                  <span><span class="text-nonempathy">비공감</span> {{feedback.nonEmpathyNum}}</span>
+                </span>
+              </h3>
+              <p [innerHTML]="feedback.feedbackRegistrationDate"></p>
+            </ion-item>
+          </ion-card-header>
+          <ion-card-content class="feedback-content">
+            <div tappable (click)="openUserProjectFeedbackPage()">
+              {{feedback.feedbackContent | slicetext:100}}
+              <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+            </div>
+            <div class="hashtag-wrapper">
+              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
+                #{{feedbackHashtag.value}}
+              </span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'nonParticipationFeedback'">
+      <div text-center *ngIf = "participationFeedbackNum == 0" class="empty-inner">
+        <ion-icon name="quote"></ion-icon>
+        <p>모든 토론에 참여하셨습니다!</p>
+      </div>
+      <div *ngFor="let feedback of feedbacks">
+        <ion-card class="feedback-card" *ngIf="!feedback.isMyOpinion"> 
+          <ion-card-header>
+            <ion-item class="avatar-span-wrapper item-flex">
+              <span item-start class="avatar-image avatar-span">
+                <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatarImage + ')'"></div>
+              </span>
+              <h3>
+                <span class="best-badge" *ngIf="feedback.isBest">
+                  <span>BEST</span>
+                </span>{{feedback.nickname}}
+                <span float-right class="empathy-wrapper">
+                  <span><span class="text-empathy">공감</span> {{feedback.empathyNum}}</span>
+                  <span><span class="text-nonempathy">비공감</span> {{feedback.nonEmpathyNum}}</span>
+                </span>
+              </h3>
+              <p [innerHTML]="feedback.feedbackRegistrationDate"></p>
+            </ion-item>
+          </ion-card-header>
+          <ion-card-content class="feedback-content">
+            <div tappable (click)="openUserProjectFeedbackPage()">
+              {{feedback.feedbackContent | slicetext:100}}
+              <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+            </div>
+            <div class="hashtag-wrapper">
+              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
+                #{{feedbackHashtag.value}}
+              </span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'participationFeedback'">
+      <div text-center *ngIf = "participationFeedbackNum == 0" class="empty-inner">
+        <ion-icon name="quote"></ion-icon>
+        <p>아직 토론에 참여하시지 않으셨군요!<br>지금 바로 토론에 참여하여 포인트를 얻어보세요!</p>
+      </div>
+      <div *ngFor="let feedback of feedbacks">
+        <ion-card class="feedback-card" *ngIf="feedback.isMyOpinion"> 
+          <ion-card-header>
+            <ion-item class="avatar-span-wrapper item-flex">
+              <span item-start class="avatar-image avatar-span">
+                <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatarImage + ')'"></div>
+              </span>
+              <h3>
+                <span class="best-badge" *ngIf="feedback.isBest">
+                  <span>BEST</span>
+                </span>{{feedback.nickname}}
+                <span float-right class="empathy-wrapper">
+                  <span><span class="text-empathy">공감</span> {{feedback.empathyNum}}</span>
+                  <span><span class="text-nonempathy">비공감</span> {{feedback.nonEmpathyNum}}</span>
+                </span>
+              </h3>
+              <p [innerHTML]="feedback.feedbackRegistrationDate"></p>
+            </ion-item>
+          </ion-card-header>
+          <ion-card-content class="feedback-content">
+            <div tappable (click)="openUserProjectFeedbackPage()">
+              {{feedback.feedbackContent | slicetext:100}}
+              <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+            </div>
+            <div class="hashtag-wrapper">
+              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
+                #{{feedbackHashtag.value}}
+              </span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>
