@@ -96,6 +96,8 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file'
 
 
 @NgModule({
@@ -193,7 +195,9 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
     GooglePlus,
     Push,
     UniqueDeviceID,
-    PhotoViewer
+    PhotoViewer,
+    Camera,
+    File,
   ]
 })
 export class AppModule {}

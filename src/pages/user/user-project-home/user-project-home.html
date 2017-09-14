@@ -51,10 +51,10 @@
     </ion-item>
     <p class="summary">{{projectSummary}}</p>
     <div class="participant-wrapper">
-      <span>{{progressState}}</span>
-      <span float-right>{{participantNum}} / {{maxParticipantNum}} <small>({{progressPercent}}%)</small></span>
+      <span>{{progressState | amLocale:'ko' | amTimeAgo | progressState}}</span>
+      <span float-right>{{participantNum}} / {{maxParticipantNum}} <small>({{participantNum | divide : maxParticipantNum}}%)</small></span>
     </div>
-    <progress-bar [progress]="progressPercent"></progress-bar>
+    <progress-bar [progress]="participantNum | divide : maxParticipantNum"></progress-bar>
     <div *ngIf="isLink">
       <button class="open-link-button" ion-button (click)="openUserProjectLinkPage()">링크</button>
     </div>
@@ -64,46 +64,46 @@
   <div class="outer-content">
     <div class="feedbacks-header">
       <span class="header-name">피드백 {{participantNum}}</span>
-      <button ion-button (click)="openUserProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button>
+      <button ion-button (click)="openUserProjectSearchPage()"><ion-icon name="search"></ion-icon>토론하기</button>
     </div>
     <div text-center *ngIf = "!feedbacks.length" class="empty-inner">
       <ion-icon name="text"></ion-icon>
-      <p>등록된 피드백이 없습니다.</p>
+      <p>BEST 피드백이 없습니다.</p>
     </div>
     <ion-card class="feedback-card" *ngFor="let feedback of feedbacks"> 
       <ion-card-header>
         <ion-item class="avatar-span-wrapper item-flex">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatarImage + ')'"></div>
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="best-badge" *ngIf="feedback.isBest">
+            <span class="best-badge" *ngIf="feedback.is_best">
               <span>BEST</span>
             </span>{{feedback.nickname}}
             <span float-right class="empathy-wrapper">
-              <span><span class="text-empathy">공감</span> {{feedback.empathyNum}}</span>
-              <span><span class="text-nonempathy">비공감</span> {{feedback.nonEmpathyNum}}</span>
+              <span><span class="text-empathy">공감</span> {{feedback.empathy_num}}</span>
+              <span><span class="text-nonempathy">비공감</span> {{feedback.non_empathy_num}}</span>
             </span>
           </h3>
-          <p [innerHTML]="feedback.feedbackRegistrationDate"></p>
+          <p [innerHTML]="feedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
         </ion-item>
       </ion-card-header>
       <ion-card-content class="feedback-content">
-        <div tappable (click)="openUserProjectFeedbackPage()">
-          {{feedback.feedbackContent | slice:0:100}}
-          <span class="slice-tag" *ngIf="feedback.feedbackContent.length > 100"> ...</span>
+        <div tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
+          {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
+          <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>
         <div class="hashtag-wrapper">
-          <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.feedbackHashtags" (click)="openUserProjectSearchResultPage(feedbackHashtag)" >
-            #{{feedbackHashtag.value}}
-          </span>
+        <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+          #{{feedbackHashtag}}
+        </span> 
         </div>
       </ion-card-content>
     </ion-card>
   </div>
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="openUserProjectInterviewDetailPage()"><ion-icon name="text"></ion-icon></button>
-    <ion-badge item-end *ngIf="isInterview > 0">N</ion-badge>
+    <ion-badge item-end>{{interview_num}}</ion-badge>
   </ion-fab>
 </ion-content> 

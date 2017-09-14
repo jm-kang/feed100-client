@@ -8,6 +8,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { LoginPage } from  '../../pages/common/login/login';
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { File, FileEntry } from '@ionic-native/file';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
@@ -31,12 +34,15 @@ export class HttpServiceProvider {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public statusBar: StatusBar,
-    public uniqueDeviceID: UniqueDeviceID) {
+    public uniqueDeviceID: UniqueDeviceID,
+    public camera: Camera,
+    public file: File) {
   }
 
   getServerUrl() {
-    // return 'http://localhost:3000';
-    return 'http://www.feed100.me';
+    // return 'http://192.168.0.25:3000';
+    return 'http://localhost:3000';
+    // return 'http://www.feed100.me';
   } 
 
   localLogin(username, password, role) {
@@ -365,6 +371,127 @@ export class HttpServiceProvider {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
+
+  getProjectHome(project_id) {
+    let url = this.getServerUrl() + '/api/project/home/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  projectParticipation(project_id, project_participation_objective_conditions) {
+    let url = this.getServerUrl() + '/api/project/participation';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "project_id" : project_id,
+      "project_participation_objective_conditions" : project_participation_objective_conditions,
+    }
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+
+  }
+
+  getFeedback(project_id, feedback_id) {
+    let url = this.getServerUrl() + '/api/project/' + project_id + '/feedback/' + feedback_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  selectImage() {
+    return new Promise(
+      (resolve, reject) => {
+        const options: CameraOptions = {
+          quality: 100,
+          destinationType: this.camera.DestinationType.FILE_URI,
+          encodingType: this.camera.EncodingType.JPEG,
+          mediaType: this.camera.MediaType.PICTURE,
+          sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+        }
+
+        this.camera.getPicture(options).then((imageFileUrl) => {
+          this.file.resolveLocalFilesystemUrl(imageFileUrl)
+          .then(entry => (<FileEntry>entry).file((file) => {
+            resolve(file);
+          }
+          ))
+          .catch(err => console.log(err));
+        }, (err) => {
+          console.log(err);
+        });
+      }
+    )
+  }
+
+  readFile(file) {
+    return new Promise(
+      (resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const formData = new FormData();
+          const imgBlob = new Blob([reader.result], {type: file.type});
+          formData.append('ex_filename', imgBlob);
+          resolve(formData);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    )
+  }
+
+  uploadFile(formData) {
+    let url = this.getServerUrl() + '/api/upload/tmp';
+    let headers = new Headers();
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, formData, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  moveFiles(images) {
+    let url = this.getServerUrl() + '/api/move';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, { "images" : images }, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  registerOpinion(feedback_id, is_empathy, opinion, opinion_image) {
+    let url = this.getServerUrl() + '/api/project/feedback/opinion';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "feedback_id" : feedback_id,
+      "is_empathy" : is_empathy,
+      "opinion" : opinion,
+      "opinion_image" : opinion_image
+    }
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
 
   showBasicAlert(subTitle) {
     let alert = this.alertCtrl.create ({

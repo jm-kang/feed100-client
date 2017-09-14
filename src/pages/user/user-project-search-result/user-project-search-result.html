@@ -18,7 +18,7 @@
           <ion-buttons>
             <button clear *ngIf="searchResults.length == 0" ion-button class="inactive-button">필터를 등록해주세요.</button>
             <button color="light" *ngFor="let searchResult of searchResults" ion-button class="active-button" (click)="inactiveHashtag(searchResult)">
-              #{{searchResult.value}} <ion-icon name="close-circle"></ion-icon>
+              #{{searchResult}} <ion-icon name="close-circle"></ion-icon>
             </button>
           </ion-buttons>
         </div>
@@ -32,7 +32,7 @@
       <ion-buttons>
         <button ion-button clear class="inactive-all all-button" (click)="activeAllHashtag()">ALL</button>
         <button *ngFor="let projectHashtag of projectHashtags" ion-button clear class="inactive-button" (click)="activeHashtag(projectHashtag)">
-          #{{projectHashtag.value}}
+          #{{projectHashtag}}
         </button>
       </ion-buttons>
     </div>
@@ -40,31 +40,31 @@
   </div>
   <div class="search-result-content outer-content empty-search-result" *ngIf="feedbackResults.length == 0">
     <ion-icon name="md-alert"></ion-icon>
-    <div>해시태그 목록이 없습니다.</div>
+    <div>검색 결과가 없습니다.</div>
   </div>
   <div class="search-result-content outer-content" *ngIf="feedbackResults.length > 0">
     <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
       <ion-card-header>
         <ion-item class="avatar-span-wrapper item-flex">
           <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedbackResult.avatarImage + ')'"></div>
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedbackResult.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="best-badge" *ngIf="feedbackResult.isBest">
+            <span class="best-badge" *ngIf="feedbackResult.is_best">
               <span>BEST</span>
             </span>{{feedbackResult.nickname}}
             <span float-right class="empathy-wrapper">
-              <span><span class="text-empathy">공감</span> {{feedbackResult.empathyNum}}</span>
-              <span><span class="text-nonempathy">비공감</span> {{feedbackResult.nonEmpathyNum}}</span>
+              <span><span class="text-empathy">공감</span> {{feedbackResult.empathy_num}}</span>
+              <span><span class="text-nonempathy">비공감</span> {{feedbackResult.non_empathy_num}}</span>
             </span>
           </h3>
-          <p [innerHTML]="feedbackResult.feedbackRegistrationDate"></p>
+          <p [innerHTML]="feedbackResult.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
         </ion-item>
       </ion-card-header>
       <ion-card-content class="feedback-content">
-        <div tappable (click)="openUserProjectFeedbackPage()">
-          {{feedbackResult.feedbackContent | slice:0:100}}
-          <span class="slice-tag" *ngIf="feedbackResult.feedbackContent.length > 100"> ...</span>
+        <div tappable (click)="openUserProjectFeedbackPage(feedbackResult.project_participant_id)">
+          {{(feedbackResult.project_feedback | jsonParse)[0] | slice:0:100}}
+          <span class="slice-tag" *ngIf="(feedbackResult.project_feedback | jsonParse)[0].length > 100"> ...</span>
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>
       </ion-card-content>

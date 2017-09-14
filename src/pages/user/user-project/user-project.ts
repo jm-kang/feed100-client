@@ -58,7 +58,7 @@ export class UserProjectPage {
         console.log(JSON.stringify(err));
         this.httpService.showBasicAlert('오류가 발생했습니다.')
       }
-    )
+    );
 
   }
 

@@ -12,6 +12,7 @@ import { UserProjectInterviewDetailPage } from '../user-project-interview-detail
 import { UserProjectSearchPage } from '../user-project-search/user-project-search';
 import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
 
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
 /**
  * Generated class for the UserProjectHomePage page.
@@ -28,258 +29,20 @@ import { UserProjectSearchResultPage } from '../user-project-search-result/user-
 export class UserProjectHomePage {
   @ViewChild("contentRef") contentHandle: Content;
 
-  projectMainImage: String = "assets/img/project-main-image2.png";
-  avatarImage: String = "assets/img/company-avatar-image4.png";
-  nickname: String = "우리 회사 이름";
-  projectName: String = "프로젝트 이름 프로젝트 이름";
-  projectSummary: String = "우리 프로젝트는 어마어마하며, 정말 엄청나게 대단한 프로젝트입니다."
-  participantNum: number;
-  maxParticipantNum: number = 30;
-  progressPercent: number = 80;
-  progressState: String = "2일 남음";
-  isLink: boolean = true;
-  isInterview: number = 2;
+  project_id;
+
+  projectMainImage: String = "";
+  avatarImage: String = "";
+  nickname: String = "";
+  projectName: String = "";
+  projectSummary: String = ""
+  participantNum: number = 0;
+  maxParticipantNum: number = 0;
+  progressState: String = "";
+  isLink: boolean = false;
+  interview_num: number = 0;
   
-  feedbacks = [
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image.png",
-      nickname: "우와우와굳",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "같으며, 거선의 것은 눈이 용기가 이성은 든 크고 있다. 청춘의 속에서 청춘 가장 것이다. 얼음에 생생하며, 투명하되 찾아다녀도, 인간이 피고 현저하게 운다. 품에 가지에 웅대한 운다. 그러므로 예가 찬미를 꽃이 것이 철환하였는가? 영락과 이상의 끝까지 구하지 꽃 무엇이 같지 이상의 있으랴? 두기 인간은 열락의 이상은 듣는다. 인생을 품었기 위하여서, 행복스럽고 그들은 공자는 그들에게 이상의 위하여서. 우리 그것을 산야에 하였으며, 이 천자만홍이 꽃 청춘 운다.",
-      feedbackHashtags: [
-        {value: '기능'},
-        {value: '개선사항'},
-      ],
-      empathyNum: 9,
-      nonEmpathyNum: 1,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image2.png",
-      nickname: "갓준모",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "나는 갓준모. 로비로 나와",
-      feedbackHashtags: [
-        {value: '전지전능'},
-        {value: '로비'},
-      ],
-      empathyNum: 8,
-      nonEmpathyNum: 0,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 7,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 5,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 4,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 3,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 2,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 1,
-      nonEmpathyNum: 4,
-    },
-  ];
-
-  feedbackResults = [
-    {
-      isBest: true,
-      avatarImage: "assets/img/user-avatar-image.png",
-      nickname: "우와우와굳",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "같으며, 거선의 것은 눈이 용기가 이성은 든 크고 있다. 청춘의 속에서 청춘 가장 것이다. 얼음에 생생하며, 투명하되 찾아다녀도, 인간이 피고 현저하게 운다. 품에 가지에 웅대한 운다. 그러므로 예가 찬미를 꽃이 것이 철환하였는가? 영락과 이상의 끝까지 구하지 꽃 무엇이 같지 이상의 있으랴? 두기 인간은 열락의 이상은 듣는다. 인생을 품었기 위하여서, 행복스럽고 그들은 공자는 그들에게 이상의 위하여서. 우리 그것을 산야에 하였으며, 이 천자만홍이 꽃 청춘 운다.",
-      feedbackHashtags: [
-        {value: '기능'},
-        {value: '개선사항'},
-      ],
-      empathyNum: 9,
-      nonEmpathyNum: 1,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image2.png",
-      nickname: "갓준모",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "나는 갓준모. 로비로 나와",
-      feedbackHashtags: [
-        {value: '전지전능'},
-        {value: '로비'},
-      ],
-      empathyNum: 8,
-      nonEmpathyNum: 0,
-    },
-    {
-      isBest: false,
-      avatarImage: "assets/img/user-avatar-image3.png",
-      nickname: "지코",
-      feedbackRegistrationDate: "2017.5.1",
-      feedbackContent: "믿을 수가 없어, 난생 처음인 걸. 이만큼 쏟아부었던 적. 퉁명스러운 말투 숨겨놓은 그 마음을. 입맞춤으로 눈치챘어. 특별해 좀 인정해. 온갖 참견이 너만 지목해. It's okay 내가 이제. 하루 종일 돌봐줄. She's a baby 알고 보면 애기. 혼자 두면 큰일 나요 All day. 때찌때찌 털끝 하나 건드렸담 봐. Let her sleep well yeah",
-      feedbackHashtags: [
-        {value: 'Shes a Baby'},
-        {value: '설현'},
-      ],
-      empathyNum: 7,
-      nonEmpathyNum: 4,
-    },
-  ];
-
+  feedbacks = [];
 
   projectHashtags = [
     {value: '기능', isActiveHashtag: false},
@@ -291,19 +54,26 @@ export class UserProjectHomePage {
   ];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public statusBar: StatusBar, public appCtrl: App, public modalCtrl: ModalController ) {
-    this.participantNum = this.feedbacks.length;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public statusBar: StatusBar, 
+    public appCtrl: App, 
+    public modalCtrl: ModalController,
+    public httpService: HttpServiceProvider) {
+    // this.participantNum = this.feedbacks.length;
     // 베스트 피드백 조건 
     // 현재 피드백의 순위가 전체 참여 가능 인원의 10퍼센트 이하 
     // 현재 참여자수(피드백수)가 최대 전체 참여 가능 인원의 반 이상 
     // 현재 피드백의 공감수가 현재 참여자수의 반 초과 
-    if(this.participantNum >= this.maxParticipantNum/2) {
-      for(let i = 0; i < this.maxParticipantNum; i ++) {
-        if(this.maxParticipantNum/10 > i && this.feedbacks[i].empathyNum > this.participantNum/2) {
-          this.feedbacks[i].isBest = true;
-        }
-      }
-    }
+    // if(this.participantNum >= this.maxParticipantNum/2) {
+    //   for(let i = 0; i < this.maxParticipantNum; i ++) {
+    //     if(this.maxParticipantNum/10 > i && this.feedbacks[i].empathyNum > this.participantNum/2) {
+    //       this.feedbacks[i].isBest = true;
+    //     }
+    //   }
+    // }
   }
 
   scrollingFun(e) {
@@ -335,24 +105,61 @@ export class UserProjectHomePage {
 
   ionViewDidEnter() {
     this.statusBar.hide(); 
+    
+    let loading = this.httpService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.httpService.getProjectHome(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectMainImage = data.data.project_main_image;
+          this.avatarImage = data.data.avatar_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.projectSummary = data.data.project_summary;
+          this.participantNum = data.data.participant_num;
+          this.maxParticipantNum = data.data.max_participant_num;
+          this.progressState = data.data.project_end_date;
+          this.isLink = (data.data.project_link != null) ? true : false;
+          this.interview_num = data.data.interview_num;
+
+          this.projectHashtags = JSON.parse(data.data.project_hashtags);
+
+          this.feedbacks = data.data.feedbacks;
+        
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   dismiss() {
     this.statusBar.show();
     this.viewCtrl.dismiss();
-    // this.navCtrl.goToRoot;
-
-    // this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 
   openUserProjectSideMenuPage() {
     this.statusBar.show();
-    this.navCtrl.push(UserProjectSideMenuPage);
+    this.navCtrl.push(UserProjectSideMenuPage, { "project_id" : this.project_id });
   }
 
   openUserProjectStoryPage() {
     this.statusBar.show();
-    this.navCtrl.push(UserProjectStoryPage);
+    this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id });
   }
 
   openUserProjectLinkPage() {
@@ -361,20 +168,26 @@ export class UserProjectHomePage {
     userProjectLinkModal.present();
   }
 
-  openUserProjectFeedbackPage() {
-    this.navCtrl.push(UserProjectFeedbackPage);
+  openUserProjectFeedbackPage(feedback_id) {
+    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
   openUserProjectInterviewDetailPage() {
     this.navCtrl.push(UserProjectInterviewDetailPage);
   }
 
-  openUserProjectSearchPage() {
-    this.navCtrl.push(UserProjectSearchPage);
-  }
+  // openUserProjectSearchPage() {
+  //   this.navCtrl.push(UserProjectSearchPage, 
+  //     { "project_hashtags" : JSON.parse(JSON.stringify(this.projectHashtags)),
+  //       "project_main_image" : this.projectMainImage,
+  //       "project_name" : this.projectName,
+  //       "feedbacks" : JSON.parse(JSON.stringify(this.feedbacks)) });
+  // }
 
   openUserProjectSearchResultPage(hashtags) {
-    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, {hashtags: hashtags});
+    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
+      { "hashtags" : hashtags,
+      "project_id" : this.project_id });
     userProjectSearchResultModal.present();
   }
 }
