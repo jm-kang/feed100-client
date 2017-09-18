@@ -15,6 +15,7 @@ import { IonicPage, NavController, NavParams, ViewController, Content } from 'io
 })
 export class UserProjectStorySummaryWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
+  minTextLength: number = 20;
   storySummaryContent: String = '';
   contentPlaceholder: String = '스토리를 보신후 느낀점을 자세하게 이야기해주세요. 성실히 작성된 이야기일수록 기업에게 많은 도움이 됩니다 ^^';
 

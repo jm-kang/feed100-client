@@ -40,7 +40,7 @@ export class HttpServiceProvider {
   }
 
   getServerUrl() {
-    // return 'http://192.168.0.25:3000';
+    // return 'http://172.30.1.22:3000';
     return 'http://localhost:3000';
     // return 'http://www.feed100.me';
   } 
@@ -384,6 +384,30 @@ export class HttpServiceProvider {
     });
   }
 
+  getSideMenuData(project_id) {
+    let url = this.getServerUrl() + '/api/project/side-menu/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getProjectParticipation(project_id) {
+    let url = this.getServerUrl() + '/api/project/participation/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
   projectParticipation(project_id, project_participation_objective_conditions) {
     let url = this.getServerUrl() + '/api/project/participation';
     let headers = new Headers();
@@ -397,7 +421,25 @@ export class HttpServiceProvider {
       headers.append('x-access-token', accessToken);
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
+  }
 
+  projectFeedback(project_id, project_story_summary, project_feedback, project_feedback_hashtags, project_feedback_images, project_first_impression_rate) {
+    let url = this.getServerUrl() + '/api/project/feedback';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "project_id" : project_id,
+      "project_story_summary" : project_story_summary,
+      "project_feedback" : project_feedback,
+      "project_feedback_hashtags" : project_feedback_hashtags,
+      "project_feedback_images" : project_feedback_images,
+      "project_first_impression_rate" : project_first_impression_rate
+    }
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
   }
 
   getFeedback(project_id, feedback_id) {

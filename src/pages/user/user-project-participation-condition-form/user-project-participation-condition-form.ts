@@ -26,86 +26,7 @@ export class UserProjectParticipationConditionFormPage {
   projectName: String = "";
   projectMainImage: String = "";
 
-  participationConditionSlides;
-
-  // participationConditionSlides = [
-  //   {
-  //     participationConditionQuestion: "이런 조건을 만족하고 싶습니다.",
-  //     participationConditionOptions: [
-  //       {
-  //         participationConditionOption: "첫번째",
-  //       },
-  //       {
-  //         participationConditionOption: "두번째",
-  //       },
-  //       {
-  //         participationConditionOption: "세번째",
-  //       },
-  //       {
-  //         participationConditionOption: "네번째",
-  //       },
-  //       {
-  //         participationConditionOption: "다섯번째",
-  //       },
-  //       {
-  //         participationConditionOption: "여섯번째",
-  //       },
-  //       {
-  //         participationConditionOption: "일곱번째",
-  //       },
-  //       {
-  //         participationConditionOption: "여덟번째",
-  //       }
-  //     ],
-  //     value: "",
-  //   },
-  //   {
-  //     participationConditionQuestion: "두번째 조건은 이것을 만족해야되요.",
-  //     participationConditionOptions: [
-  //       {
-  //         participationConditionOption: "첫번째2",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "두번째2",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "세번째2",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "네번째2",
-          
-  //       }
-  //     ],
-  //     value: "",
-  //   },
-  //   {
-  //     participationConditionQuestion: "마지막 조건은 원하시는 것을 골라주세요.",
-  //     participationConditionOptions: [
-  //       {
-  //         participationConditionOption: "첫번째3",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "두번째3",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "세번째3",
-          
-  //       },
-  //       {
-  //         participationConditionOption: "네번째3",
-          
-  //       }
-  //     ],
-  //     value: "",
-  //   },
-  // ];
-
-  
+  participationConditionSlides = [{"options" : "", "value" : ""}];
 
   constructor(
     public navCtrl: NavController, 
@@ -119,30 +40,32 @@ export class UserProjectParticipationConditionFormPage {
     let loading = this.httpService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProject(this.project_id)
+    this.httpService.getProjectParticipation(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          // this.isLink = (data.data.project_link != null) ? true : false;
-          // this.projectMainImage = data.data.project_main_image;
-          // this.avatarImage = data.data.avatar_image;
-          // this.nickname = data.data.nickname;
-          // this.projectName = data.data.project_name;
-          // this.projectViewNum = data.data.project_view_num;
-          // this.participantNum = data.data.participant_num;
-          // this.maxParticipantNum = data.data.max_participant_num;
-          // this.progressState = data.data.project_end_date;
-          // this.projectSummary = data.data.project_summary;
-          // this.projectRegistrationDate = data.data.project_registration_date;
-          // this.projectStorySlides = JSON.parse(data.data.project_story);
-
-          // this.totalPageNum = this.projectStorySlides.length + 1;
-          this.projectName = data.data.project_name;
-          this.projectMainImage = data.data.project_main_image;
-          this.participationConditionSlides = JSON.parse(data.data.project_participation_objective_conditions);
+          if(data.data) {
+            this.projectName = data.data.project_name;
+            this.projectMainImage = data.data.project_main_image;
+            this.participationConditionSlides = JSON.parse(data.data.project_participation_objective_conditions);
+          }
+          else {
+            if(data.message == "project is not proceeding") {
+              this.dismiss();
+              this.httpService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+            }
+            else if(data.message == "project is max") {
+              this.dismiss();
+              this.httpService.showBasicAlert('이런! 인원이 초과되었습니다.');
+            }
+            else if(data.message == "is not approved") {
+              this.dismiss();
+              this.httpService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
+            }
+          }
         }
         else if(data.success == false) {
           this.httpService.apiRequestErrorHandler(data, this.navCtrl)
@@ -177,30 +100,13 @@ export class UserProjectParticipationConditionFormPage {
     this.slides.slideNext(500);
   }
 
-  // slideChanged() {
-  //   if(this.slides.getActiveIndex() == 0) {
-  //     if(!this.isFirstQuestionWrited) {
-  //       this.slides.lockSwipeToNext(true);  
-  //     } else {
-  //       this.slides.lockSwipeToNext(false);  
-  //     }
-  //   }
-  //   if(this.slides.getActiveIndex() == 1) {
-  //     if(!this.isSecondQuestionWrited) {
-  //       this.slides.lockSwipeToNext(true);  
-  //     } else {
-  //       this.slides.lockSwipeToNext(false);  
-  //     }
-  //   }
-  // }
-
   ionRadioChange(i) {
     this.slides.lockSwipeToNext(false);
   }
 
   slideChanged() {
     let index = this.slides.getActiveIndex();
-    if(!this.participationConditionSlides[index].value) {
+    if(this.participationConditionSlides[index] && !this.participationConditionSlides[index].value) {
       this.slides.lockSwipeToNext(true);
     } else {
       this.slides.lockSwipeToNext(false);  
@@ -208,14 +114,19 @@ export class UserProjectParticipationConditionFormPage {
   }
 
   openUserProjectStoryPage() {
+    let loading = this.httpService.presentLoading();
+    
     this.httpService.projectParticipation(this.project_id, this.participationConditionSlides)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
         (data) => {
         if(data.success == true) {
           if(data.data) {
             this.httpService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.', 
               () => {
-                this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id });
+                this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id, "isFeedback" : true });
                 this.dismiss();
               }
             );

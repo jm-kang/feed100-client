@@ -9,6 +9,7 @@ import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-
 
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
 /**
  * Generated class for the UserProjectSideMenuPage page.
@@ -25,39 +26,48 @@ import { StatusBar } from '@ionic-native/status-bar';
 export class UserProjectSideMenuPage {
   @ViewChild("contentRef") contentHandle: Content;
 
-  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름";
-  avatarImage: String = "assets/img/user-avatar-image.png";
-  nickname: String = "스윙스";
+  project_id;
+  feedback_id;
+
+  projectName: String = "";
+  avatarImage: String = "";
+  nickname: String = "";
   level: number = 1;
-  levelClass: String = "연구원";
+  levelClass: String = "";
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
   width: any =  "";
   left: any =  "";
   top: any =  "";
-  maxOpinionPoint: number = 5000;
-  isBest: boolean = true;
+  isBest: boolean = false;
 
-  empathyNum: number = 5;
-  nonEmpathyNum: number = 2;
+  empathyNum: number = 0;
+  nonEmpathyNum: number = 0;
   
-  feedbackNum: number = 17;
-  myOpinionNum: number = 8;
+  feedbackNum: number = 0;
+  myOpinionNum: number = 0;
 
-  totalInterviewNum: number = 2;
-  interviewNum: number = 2;
+  completedInterviewNum: number = 0;
+  interviewNum: number = 0;
 
-  projectPoint: number = 20000;
-  feedbackPoint: number = 1500;
-  opinionPoint: number = 300;
-  interviewPoint: number = 5000;
+  feedbackReward: number = 1000;
+  opinionReward: number = 100;
+  interviewReward: number = 1000;
+  bestFeedbackReward: number = 10000;
+
+  feedbackPoint: number = 0;
+  opinionPoint: number = 0;
+  maxOpinionPoint: number = 0;
+  interviewPoint: number = 0;
+  projectPoint: number = 0;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public statusBar: StatusBar,
+    public httpService: HttpServiceProvider
   ) {}
   
   back() {
@@ -66,6 +76,50 @@ export class UserProjectSideMenuPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSideMenuPage');
+    let loading = this.httpService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.httpService.getSideMenuData(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectName = data.data.project.project_name;
+          this.avatarImage = data.data.avatar_image;
+          this.nickname = data.data.nickname;
+          this.level = data.data.level;
+          this.levelClass = data.data.levelClass;
+          this.isBest = data.data.feedback.is_best;
+          this.empathyNum = data.data.feedback.empathy_num;
+          this.nonEmpathyNum = data.data.feedback.non_empathy_num;
+          this.feedbackNum = data.data.project.participant_num;
+          this.myOpinionNum = data.data.my_opinion_num;
+          this.completedInterviewNum = data.data.project.completed_interview_num;
+          this.interviewNum = data.data.project.interview_num;
+
+          this.feedback_id = data.data.feedback.project_participant_id;
+
+          this.feedbackPoint = this.feedbackReward + ((this.isBest) ? this.bestFeedbackReward : 0);
+          this.opinionPoint = this.opinionReward * this.myOpinionNum;
+          this.maxOpinionPoint = this.opinionReward * this.feedbackNum;
+          this.interviewPoint = this.interviewReward * this.completedInterviewNum;
+          this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint;
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   scrollingFun(e) {
@@ -118,15 +172,15 @@ export class UserProjectSideMenuPage {
   }
 
   openProjectFeedbackPage() {
-    this.navCtrl.push(UserProjectFeedbackPage);
+    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.feedback_id });
   }
 
   openProjectFeedbackListPage() {
-    this.navCtrl.push(UserProjectFeedbackListPage);
+    this.navCtrl.push(UserProjectFeedbackListPage, { "project_id" : this.project_id });
   }
 
   openProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage);
+    this.navCtrl.push(UserProjectInterviewDetailPage, { "project_id" : this.project_id });
   }
 
 }

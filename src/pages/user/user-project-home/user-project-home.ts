@@ -174,7 +174,7 @@ export class UserProjectHomePage {
   }
 
   openUserProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage);
+    this.navCtrl.push(UserProjectInterviewDetailPage, { "project_id" : this.project_id });
   }
 
   // openUserProjectSearchPage() {
@@ -193,7 +193,7 @@ export class UserProjectHomePage {
   }
 
   openUserProjectFeedbackListPage() {
-    this.navCtrl.push(UserProjectFeedbackListPage);
+    this.navCtrl.push(UserProjectFeedbackListPage, { "project_id" : this.project_id });
   }
 }
 

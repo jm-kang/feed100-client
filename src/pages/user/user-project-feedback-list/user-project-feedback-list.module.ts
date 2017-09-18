@@ -3,6 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { UserProjectFeedbackListPage } from './user-project-feedback-list';
 
 import { PipesModule } from '../../../pipes/pipes.module';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { PipesModule } from '../../../pipes/pipes.module';
   ],
   imports: [
     PipesModule,
+    MomentModule,
     IonicPageModule.forChild(UserProjectFeedbackListPage),
   ],
 })

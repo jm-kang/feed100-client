@@ -145,8 +145,8 @@ export class UserHomePage {
     faqModal.present();
   }
 
-  openUserNewsfeedStoryPage() {
-    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage);
+  openUserNewsfeedStoryPage(newsfeed_id) {
+    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage, { "newsfeed_id" : newsfeed_id });
   }
 
   // 진행중
