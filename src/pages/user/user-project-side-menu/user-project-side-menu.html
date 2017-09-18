@@ -47,9 +47,9 @@
         </span>
       </div>
       <div text-right>
-        <h5 *ngIf="interviewNum == 0">인터뷰에 답을 하지 않으면 포인트를 받을수 없습니다.</h5> 
-        <h5 *ngIf="interviewNum > 0">{{interviewNum}}개의 인터뷰를 작성하지않아 포인트가 차감되었습니다.</h5>
-        <h5 *ngIf="interviewNum > 0">인터뷰를 작성해주세요.</h5> 
+        <h5 *ngIf="interviewNum == 0">인터뷰에 응답하지 않으면 포인트를 받을 수 없습니다.</h5> 
+        <h5 *ngIf="interviewNum > 0">{{interviewNum}}개의 인터뷰에 응답하지 않아 포인트를 받을 수 없습니다.</h5>
+        <h5 *ngIf="interviewNum > 0">인터뷰에 응답해주세요.</h5> 
       </div>
     </div>
 
@@ -66,7 +66,6 @@
         </span>
       </div>
       <div text-right>
-        <h5 *ngIf="feedbackNum == 0">아직 피드백에 토론이 달리지 않았습니다..</h5>
         <h5>공감 {{empathyNum}}&ensp;|&ensp;비곰감 {{nonEmpathyNum}}</h5>
         <button clear ion-button class="item-link-button" (click)="openProjectFeedbackPage()">내 피드백 확인하기 <ion-icon name="ios-arrow-forward"></ion-icon></button>
       </div>
@@ -76,7 +75,7 @@
     <div class="side-menu-item">
       <div class="div-flex">
         <span class="item-title absolute-item-title">토론장 보상금액
-          <h5 class="max-point">(Max {{maxOpinionPoint}} P)</h5>
+          <h5 class="max-point">(Max {{maxOpinionPoint}}P)</h5>
         </span>
         <span class="item-point-box">
           <span class="project-point">{{opinionPoint}}</span><span class="point-tag">p</span>
@@ -94,7 +93,7 @@
       <div class="div-flex">
         <span class="item-title absolute-item-title">인터뷰 보상금액
           <h5 class="best-badge warn-clear-badge" *ngIf="interviewNum > 0">
-            <span>{{interviewNum}}개의 새로운 글</span>
+            <span>{{interviewNum}}개의 새로운 인터뷰</span>
           </h5>
         </span>
         <span class="item-point-box">
@@ -102,7 +101,7 @@
         </span>
       </div>
       <div text-right>
-        <h5>{{totalInterviewNum}}개의 인터뷰에 참여</h5>
+        <h5>{{completedInterviewNum}}개의 인터뷰에 참여</h5>
         <button clear ion-button class="item-link-button" (click)="openProjectInterviewDetailPage()">인터뷰하러 가기 <ion-icon name="ios-arrow-forward"></ion-icon></button>
       </div>
     </div>

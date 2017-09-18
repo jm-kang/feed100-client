@@ -45,10 +45,7 @@ export class UserProjectFeedbackPage {
 
   segmentOpinionsCondition: String = '';
   
-  feedbackHashtags = [
-    {value: '기능'},
-    {value: '개선사항'},
-  ];
+  feedbackHashtags = [];
 
   feedbackImages = [
   ];

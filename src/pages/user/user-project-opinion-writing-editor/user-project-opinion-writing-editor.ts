@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
-// import { File } from '@ionic-native/file';
 
 import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 

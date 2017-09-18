@@ -66,12 +66,12 @@ export class UserInterviewPage {
     }
   }
   
-  openUserProjectInterviewDetailPage(project_participant_id, progressState) {
+  openUserProjectInterviewDetailPage(project_id, progressState) {
     if(progressState == '종료') {
       this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
     }
     else {
-      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_participant_id" : project_participant_id});
+      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id });
     }
   }
 }

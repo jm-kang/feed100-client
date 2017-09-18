@@ -15,7 +15,7 @@
       </ion-buttons>
       <ion-title>스토리 요약</ion-title>
       <ion-buttons end>
-        <button class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        <button [disabled]="minTextLength > (storySummaryContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
           완료
         </button>
       </ion-buttons>
@@ -23,9 +23,9 @@
 
   </ion-header>
   <div class="outer-content editor-content">
-   <textarea [(ngModel)]="storySummaryContent" [placeholder]="contentPlaceholder"></textarea>
-   <div class="content-length-wrapper">
-     {{storySummaryContent | textcount}}
+    <textarea [(ngModel)]="storySummaryContent" [placeholder]="contentPlaceholder"></textarea>
+    <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (storySummaryContent | textcount)? '#787878' : '#2C908F'}">
+      <span>{{storySummaryContent | textcount}}</span> / <span>{{minTextLength}}</span>
    </div>
   </div>
 </ion-content>

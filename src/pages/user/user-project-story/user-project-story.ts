@@ -21,9 +21,11 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
 })
 export class UserProjectStoryPage {
   @ViewChild(Slides) slides: Slides;
+  
+  project_id;
 
   isFirstSlide: boolean = true;
-  isFeedback: boolean = true;
+  isFeedback: boolean = false;
   isLink: boolean = true;
 
   projectMainImage: String = "";
@@ -53,9 +55,10 @@ export class UserProjectStoryPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryPage');
     let loading = this.httpService.presentLoading();
-    let project_id = this.navParams.get('project_id');
+    this.project_id = this.navParams.get('project_id');
+    this.isFeedback = this.navParams.get('isFeedback');
 
-    this.httpService.getProject(project_id)
+    this.httpService.getProject(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -108,22 +111,6 @@ export class UserProjectStoryPage {
       this.currentPageNum = this.slides.getActiveIndex();
     };
 
-    // let originalStory = this.projectStorySlides[this.slides.getActiveIndex()-1].storyContent;
-    // console.log(originalStory);
-    // this.projectStorySlides[this.slides.getActiveIndex()-1].storyContent = '';
-    // let originalStoryLen = originalStory.length;
-    // console.log(originalStoryLen);
-    // let currentStoryLen = 0;
-    // let storyInterval = setInterval(() => {
-    //   if(originalStoryLen <= currentStoryLen) {
-    //     clearInterval(storyInterval);
-    //   }
-    //   else {
-    //     this.projectStorySlides[this.slides.getActiveIndex()-1].storyContent += originalStory[currentStoryLen];
-    //     currentStoryLen += 1;
-    //   }
-    // }, 80);
-
     this.progressPercent = 100 * ( this.currentPageNum / (this.totalPageNum) );
   }
 
@@ -139,11 +126,11 @@ export class UserProjectStoryPage {
   }
 
   openUserProjectLinkPage() {
-    let projectLinkModal = this.modalCtrl.create(UserProjectLinkPage);
+    let projectLinkModal = this.modalCtrl.create(UserProjectLinkPage, { "project_id" : this.project_id });
     projectLinkModal.present();
   }
 
   openUserProjectFeedbackFormPage() {
-    this.navCtrl.push(UserProjectFeedbackFormPage);
+    this.navCtrl.push(UserProjectFeedbackFormPage, { "project_id" : this.project_id});
   }
 }

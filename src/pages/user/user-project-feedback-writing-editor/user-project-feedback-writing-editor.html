@@ -24,10 +24,7 @@
     <ion-buttons>
       <button *ngIf="projectHashtags.length == 0 && isActiveNewHashtag" ion-button clear class="inactive-button">모든 해시태그를 선택하셨습니다.</button>
       <button *ngFor="let projectHashtag of projectHashtags" ion-button clear class="inactive-button" (click)="activeHashtag(projectHashtag)">
-        #{{projectHashtag.value}}
-      </button>
-      <button *ngIf="!isActiveNewHashtag" ion-button clear class="inactive-button" (click)="newHashtagPrompt()">
-       #기타
+        #{{projectHashtag}}
       </button>
     </ion-buttons>
   </div>
@@ -36,7 +33,7 @@
       <ion-buttons>
         <button clear *ngIf="feedbackHashtags.length == 0" ion-button class="inactive-button">[필수!] 해시태그를 등록해주세요.</button>
         <button clear color="light" *ngFor="let feedbackHashtag of feedbackHashtags" ion-button class="active-button" (click)="inactiveHashtag(feedbackHashtag)">
-          #{{feedbackHashtag.value}} <ion-icon name="ios-close"></ion-icon>
+          #{{feedbackHashtag}} <ion-icon name="ios-close"></ion-icon>
         </button>
       </ion-buttons>
     </div>

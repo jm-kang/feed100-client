@@ -15,6 +15,7 @@ page-user-project-feedback-form {
     ion-navbar {
         background-color: transparent;
         position: absolute;
+        z-index: 10;
     }
 
     .bar-button, .project-header-title-wrapper span {

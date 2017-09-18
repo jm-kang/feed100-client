@@ -75,7 +75,7 @@
         <button ion-button clear class="underline-input" (click)="openUserProjectFeedbackWritingEditorPage()">
           <div [innerHTML]="feedbackContent | slicetextarea:0:100:4 "></div>
           <div *ngIf="feedbackHashtags.length > 0" class="feedback-hashtags-wrapper">
-            <span class="feedback-hashtag" *ngFor="let feedbackHashtag of feedbackHashtags">#{{feedbackHashtag.value}}</span>
+            <span class="feedback-hashtag" *ngFor="let feedbackHashtag of feedbackHashtags">#{{feedbackHashtag}}</span>
           </div>
         </button>
         <div text-right>

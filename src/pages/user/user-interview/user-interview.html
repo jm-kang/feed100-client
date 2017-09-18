@@ -24,7 +24,7 @@
     <p>- 인터뷰를 안할시 처벌 규정</p>
   </div>
   <ion-list>
-    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openUserProjectInterviewDetailPage(interview.project_participant_id, progressState.innerHTML)">
+    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openUserProjectInterviewDetailPage(interview.project_id, progressState.innerHTML)">
       <span item-start class="avatar-image avatar-span">
         <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
       </span>
