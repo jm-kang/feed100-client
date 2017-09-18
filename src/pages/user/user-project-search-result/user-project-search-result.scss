@@ -38,8 +38,13 @@ page-user-project-search-result {
         background-color: #fff;
     }
 
-    .outer-content {
+    .search-result-content-wrapper {
+        background-color: #F0F0F0;
         height: 100%;
+    }
+
+    .outer-content {
+        height: fit-content;
         background-color: #F0F0F0;
         padding-top: 20px;
     }

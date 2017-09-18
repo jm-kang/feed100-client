@@ -148,7 +148,7 @@ page-user-project-reward-form {
                 border-bottom: 1px solid #d9d9d9;
             }
 
-            .reward-item:nth-last-child(1) {
+            .reward-item:nth-child(4) {
                 .item-title {
                     color: #383838 !important;
                     margin-top: 3rem !important;
@@ -157,6 +157,27 @@ page-user-project-reward-form {
                     color: #383838 !important;    
                     .project-point {
                         font-size: 5rem !important;
+                    }
+                }
+            }
+
+            .reward-item:nth-last-child(1) {
+                padding-top: 0;
+                font-size: 1.4rem;
+                .item-title {
+                    font-weight: normal;
+                    margin-top: 0;
+                    font-size: inherit;
+                }
+                .item-point-box {
+                    .project-point {
+                        font-weight: normal;
+                        font-size: inherit !important;
+                    }
+                    .point-tag {
+                        font-size: inherit;
+                        font-weight: 300;
+                        margin-left: 5px;
                     }
                 }
             }

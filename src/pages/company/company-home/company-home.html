@@ -5,14 +5,109 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>company-home</ion-title>
+    <ion-title>
+      <img src="assets/img/logo-flat.png" />
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
+<ion-content class="outer-content">
+  <ion-slides class="feed100-intro-slides" pager scroll="true" loop autoplay="5000" effect="fade" speed="1000">
+    <ion-slide *ngFor="let feed100IntroSlide of feed100IntroSlides">
+      <div tappable (click)="openPageWrapper(feed100IntroSlide.link)">
+        <img class="feed100-intro-slide-bg" [src]="feed100IntroSlide.bg" />
+        <div class="feed100-intro-slide-wrapper">
+          <span>
+            <h5 [innerHTML]="feed100IntroSlide.title"></h5>
+            <p [innerHTML]="feed100IntroSlide.content"></p>
+          </span>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
 
+  <div class="home-group-title">
+    진행중인 프로젝트
+  </div>
+  <div text-center *ngIf = "!proceedingProjects.length" class="empty-inner">
+    <p>진행중인 프로젝트가 없습니다!</p>
+    <button ion-button clear (click)="openCompanyProjectRegistrationPage()">프로젝트 등록하기 ></button>
+  </div>
+  <ion-slides *ngIf = "proceedingProjects.length" pager=false loop="false" spaceBetween="-23">
+    <ion-slide *ngFor="let proceedingProject of proceedingProjects">
+      <ion-card tappable class="project-card" (click)="accessProjectCard(proceedingProject.project_id)">
+        <div class="project-card-main-image-wrapper">
+          <img [src]="proceedingProject.project_main_image" />
+          <div class="project-card-overlay-wrapper">
+            <span class="project-card-overlay">
+              <span float-left class="project-card-overlay-item" [innerHTML]="proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
+              <span float-right class="project-card-overlay-item">{{proceedingProject.participant_num}} / {{proceedingProject.max_participant_num}}</span>
+            </span>
+          </div>
+        </div>
+        <progress-bar [progress]="proceedingProject.participant_num | divide : proceedingProject.max_participant_num"></progress-bar>
+        <ion-card-content text-left>
+          <span class="project-card-name">{{proceedingProject.project_name}} : </span>
+          <span class="project-card-summary" [innerHTML]="proceedingProject.project_summary"></span>
+        </ion-card-content>
+        <ion-item float-left class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + proceedingProject.avatar_image + ')'"></div>
+          </span>
+          <p>by. {{proceedingProject.nickname}}</p>
+        </ion-item>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
 
-<ion-content padding>
+  <div class="home-group-title">
+    새로운 프로젝트
+  </div>
+  <div text-center *ngIf = "!newProjects.length" class="empty-inner">
+    <p>새로운 프로젝트가 없습니다!</p>
+  </div>
+  <ion-slides *ngIf = "newProjects.length" pager=false loop="false" spaceBetween="-23">
+    <ion-slide *ngFor="let newProject of newProjects">
+      <ion-card tappable class="project-card" (click)="accessProjectCard(newProject.project_id)">
+        <div class="project-card-main-image-wrapper">
+          <img [src]="newProject.project_main_image" />
+          <div class="project-card-overlay-wrapper">
+            <span class="project-card-overlay">
+              <span float-left class="project-card-overlay-item" [innerHTML]="newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
+              <span float-right class="project-card-overlay-item">{{newProject.participant_num}} / {{newProject.max_participant_num}}</span>
+            </span>
+          </div>
+        </div>
+        <progress-bar [progress]="newProject.participant_num | divide : newProject.max_participant_num"></progress-bar>
+        <ion-card-content text-left>
+          <span class="project-card-name">{{newProject.project_name}} : </span>
+          <span class="project-card-summary" [innerHTML]="newProject.project_summary"></span>
+        </ion-card-content>
+        <ion-item float-left class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newProject.avatar_image + ')'"></div>
+          </span>
+          <p>by. {{newProject.nickname}}</p>
+        </ion-item>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  
+  <div class="home-group-title">
+    새로운 뉴스피드
+  </div>
+  <div text-center *ngIf = "!newNewsfeeds.length" class="empty-inner">
+    <p>새로운 뉴스피드가 없습니다!</p>
+  </div>
+  <ion-slides *ngIf = "newNewsfeeds.length" pager=false loop="false" spaceBetween="-23" slidesPerView="2">
+    <ion-slide *ngFor="let newNewsfeed of newNewsfeeds">
+      <ion-card tappable class="newsfeed-card" (click)="openCompanyNewsfeedStoryPage(newNewsfeed.newsfeed_id)">
+        <img [src]="newNewsfeed.newsfeed_main_image" />
+        <ion-card-content text-left [innerHTML]="newNewsfeed.newsfeed_name">
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+
 
 </ion-content>

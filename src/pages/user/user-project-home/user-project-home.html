@@ -105,6 +105,6 @@
   </div>
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="openUserProjectInterviewDetailPage()"><ion-icon name="text"></ion-icon></button>
-    <ion-badge item-end>{{interview_num}}</ion-badge>
+    <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
   </ion-fab>
 </ion-content> 

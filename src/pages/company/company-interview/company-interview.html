@@ -5,14 +5,37 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>company-interview</ion-title>
+    <ion-title>인터뷰</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
+<ion-content>
+  <div class="tab-top-notice">
+    공지사항
+    <button class="accordion-button" float-right (click)="accordion()">
+      <ion-icon name="ios-arrow-down" *ngIf="!activeAccordion"></ion-icon>
+      <ion-icon name="ios-arrow-up" *ngIf="activeAccordion"></ion-icon>
+    </button>
+  </div>
+  <div class="subNotice" *ngIf="activeAccordion">
+    <p>- 인터뷰를 할때 지켜야할 약속</p>
+    <p>- 인터뷰 진행 방식</p>
+    <p>- 인터뷰를 안할시 처벌 규정</p>
+  </div>
+  <ion-list>
+    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openUserProjectInterviewDetailPage(interview.project_participant_id, progressState.innerHTML)">
+      <span item-start class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
+      </span>
+      <h2 [innerHTML]="interview.project_name"></h2>
+      <p>{{interview.participant_num}} / {{interview.max_participant_num}}</p>
+      <div item-end class="interview-item-end">
+        <ion-note #progressState [innerHTML]="interview.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></ion-note>
+        <div class="badge-new" *ngIf="!interview.interview_response && (interview.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료'">N</div>
+        <div class="blank-badge-new" *ngIf="interview.interview_response || (interview.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'">0</div>
+      </div>
+    </ion-item>
+  </ion-list>
 
 </ion-content>

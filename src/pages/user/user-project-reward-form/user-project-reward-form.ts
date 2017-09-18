@@ -22,6 +22,7 @@ export class UserProjectRewardFormPage {
   feedbackPoint: number = 1500;
   opinionPoint: number = 300;
   interviewPoint: number = 5000;
+  exp: number = 10000;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }

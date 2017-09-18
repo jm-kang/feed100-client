@@ -5,14 +5,160 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-feedback</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>              
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title-wrapper">
+        <span class="project-header-title">
+          {{projectName | slice:0:15}}
+        </span>
+        <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content>
+  <ion-slides *ngIf="feedbackImages.length" pager [style.height.px]="slideHeight">
+    <ion-slide (click)="photoView(feedbackImage.img)" tappable class="feedback-image-slide" *ngFor="let feedbackImage of feedbackImages; let i = index">
+      <img middle [src]="feedbackImage.img" (load)="onLoad($event.target, i)" class="feedback-image" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top"/>
+    </ion-slide>
+  </ion-slides>  
+  <div class="feedback-wrapper" padding>
+    <ion-item float-left class="avatar-span-wrapper item-flex">
+      <span item-start class="avatar-image avatar-span">
+        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      </span>
+      <h3>
+        <span class="best-badge" *ngIf="isBest">
+          <span>BEST</span>
+        </span>
+        {{nickname}}
+        <span float-right class="empathy-wrapper">
+          <span><span class="text-empathy">공감</span> {{empathyNum}}</span>
+          <span><span class="text-nonempathy">비공감</span> {{nonEmpathyNum}}</span>
+        </span>
+      </h3>
+      <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
+    </ion-item>
+    <p class="feedback-comment" [innerHTML]="feedback"></p>
+    <div class="hashtag-wrapper">
+      <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+        #{{feedbackHashtag}}
+      </span>
+    </div>
+  </div>
+  <div class="shadow-top"></div>
+  <div class="opinions-title" padding>토론장</div>
+  <ion-segment [(ngModel)]="segmentOpinionsCondition" color="primary" >
+    <ion-segment-button value="all">
+      전체보기 {{opinions.length}}
+    </ion-segment-button>
+    <ion-segment-button value="empathy">
+      공감 {{empathyNum}}
+    </ion-segment-button>
+    <ion-segment-button value="nonEmpathy">
+      비공감 {{nonEmpathyNum}}
+    </ion-segment-button>
+  </ion-segment>
 
-<ion-content padding>
+  <div [ngSwitch]="segmentOpinionsCondition" class="opinions">
+    <ion-list *ngSwitchCase="'all'">
+      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <p>아직 등록된 피드백이 없습니다.</p>
+      </div>
+      <div *ngFor="let opinion of opinions; let i = index">
+        <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
+          </span>
+          <h3>
+            {{opinion.nickname}}
+            <span class="empathy-tag opinion-tag">공감</span>
+          </h3>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
+          <div class="opinion-content">
+            {{opinion.opinion}}
+          </div>
+          <span (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span> 
+        </ion-item>
+        <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
+          </span>
+          <h3>
+            {{opinion.nickname}}
+            <span class="non-empathy-tag opinion-tag">비공감</span>
+          </h3>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
+          <div class="opinion-content">
+            {{opinion.opinion}}
+          </div>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span> 
+        </ion-item>
+      </div>
+    </ion-list>
 
+    <ion-list *ngSwitchCase="'empathy'">
+      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <p>아직 공감한 피드백이 없습니다.</p>
+      </div>
+      <div *ngFor="let opinion of opinions; let j = index">
+        <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
+          </span>
+          <h3>
+            {{opinion.nickname}}
+            <span class="empathy-tag opinion-tag">공감</span>
+          </h3>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
+          <div class="opinion-content">
+            {{opinion.opinion}}
+          </div>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, j)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span> 
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'nonEmpathy'">
+      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+        <ion-icon name="chatbubbles"></ion-icon>
+        <p>아직 비공감한 피드백이 없습니다.</p>
+      </div>
+      <div *ngFor="let opinion of opinions; let k = index">
+        <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
+          <span item-start class="avatar-image avatar-span">
+            <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
+          </span>
+          <h3>
+            {{opinion.nickname}}
+            <span class="non-empathy-tag opinion-tag">비공감</span>
+          </h3>
+          <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
+          <div class="opinion-content">
+            {{opinion.opinion}}
+          </div>
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, k)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span> 
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
 </ion-content>
