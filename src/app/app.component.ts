@@ -13,16 +13,28 @@ import { UserProjectHomePage } from '../pages/user/user-project-home/user-projec
 import { UserProjectFeedbackPage } from '../pages/user/user-project-feedback/user-project-feedback';
 import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { UserProjectInterviewDetailPage } from '../pages/user/user-project-interview-detail/user-project-interview-detail'
+import { UserProjectRewardFormPage } from '../pages/user/user-project-reward-form/user-project-reward-form'
+
+import { CompanyProjectHomePage } from '../pages/company/company-project-home/company-project-home';
+import { CompanyProjectFeedbackPage } from '../pages/company/company-project-feedback/company-project-feedback';
+import { CompanyProjectStoryPage } from '../pages/company/company-project-story/company-project-story';
+import { CompanyNewsfeedStoryPage } from '../pages/company/company-newsfeed-story/company-newsfeed-story';
+
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  // rootPage:any = LoginPage;
   // rootPage:any = UserTabsPage;
   // rootPage:any = UserProjectInterviewDetailPage;
   // rootPage:any = UserProjectFeedbackPage;
   // rootPage:any = UserProjectHomePage;
+  // rootPage:any = CompanyTabsPage;
+  // rootPage:any = CompanyProjectHomePage;
+  // rootPage:any = UserProjectRewardFormPage;
+  rootPage:any = CompanyNewsfeedStoryPage;
 
   constructor(
     platform: Platform, 
@@ -35,7 +47,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.verifyLoginState();
+      // this.verifyLoginState();
     });
   }
 

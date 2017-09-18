@@ -13,7 +13,7 @@ page-user-alarm {
     .interview-item img {
         border: 0.5px solid #e7e7e7;
         height: 40px !important;
-        width: 40px !important;
+        // width: 40px !important;
     }
 
     .interview-item h2 {
@@ -64,5 +64,13 @@ page-user-alarm {
         text-align: center;
         width: fit-content;
         position: relative;
+    }
+
+    .item-flex .item-inner .input-wrapper {
+        height: auto;
+    }
+
+    .item-flex {
+        display: inline-flex;
     }
 }

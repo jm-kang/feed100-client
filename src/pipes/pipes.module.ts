@@ -5,6 +5,8 @@ import { TextcountPipe } from './../pipes/textcount/textcount';
 import { DividePipe } from './../pipes/divide/divide';
 import { ProgressStatePipe } from './../pipes/progressState/progressState';
 import { JsonParsePipe } from './../pipes/json-parse/json-parse';
+// 추가
+import { SlicetextPipe } from './../pipes/slicetext/slicetext';
 
 @NgModule({
 	declarations: [YoutubePipe,
@@ -13,6 +15,8 @@ import { JsonParsePipe } from './../pipes/json-parse/json-parse';
     DividePipe,
 	ProgressStatePipe,
     JsonParsePipe,
+    // 추가
+    SlicetextPipe,
     ],
 	imports: [],
 	exports: [YoutubePipe,
@@ -21,6 +25,8 @@ import { JsonParsePipe } from './../pipes/json-parse/json-parse';
     DividePipe,
 	ProgressStatePipe,
     JsonParsePipe,
+    // 추가
+    SlicetextPipe,
     ]
 })
 export class PipesModule {}

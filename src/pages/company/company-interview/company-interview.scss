@@ -1,3 +1,77 @@
 page-company-interview {
+    .header {
+        border-bottom : 1px solid #e7e7e7;
+    }
 
+    .tab-top-notice {
+        text-align: center;
+        color: #787878;
+        background-color: #fff;
+        -moz-box-shadow: 0 3px 3px rgba(181, 181, 181, 0.4);
+        -webkit-box-shadow: 0 3px 3px rgba(181, 181, 181, 0.4);
+        box-shadow: 0 3px 3px rgba(181, 181, 181, 0.4);
+        padding: 14px;
+    }
+
+    .accordion-button {
+        background-color: transparent;
+        color: #787878;
+        position: absolute;
+        right: 10px;
+    }
+
+    .subNotice {
+        border-top: 1px solid #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+        background-color: #f7f7f7;
+        color: #787878;
+        padding: 10px 16px;
+        text-align: left;
+        font-size: 1.2rem;
+    }
+
+    .badge-new {
+        font-size: 1.1rem;
+        line-height: 1.6rem;
+        padding: 1px 6px;
+        border-radius: 50px;
+        text-align: center;
+        width: fit-content;
+        background-color: #FE6B01;
+        color: #fff;
+        position: relative;
+        margin-top: 4px;
+        float: right;
+    }
+
+    .blank-badge-new {
+        font-size: 0;
+        line-height: 1.6rem;
+        padding: 1px 6px;
+        border-radius: 50px;
+        text-align: center;
+        width: fit-content;
+        position: relative;
+        margin-top: 4px;
+        float: right;
+    }
+
+    .interview-item ion-note {
+        font-size: 1.1rem;
+        align-self: flex-start;
+        color: #a8a8a8;
+        display: block;
+        margin-top: 1px;
+    }
+    .item-flex .item-inner .input-wrapper {
+        height: inherit !important;
+    }
+
+    .item-flex {
+        display: flex;
+    }
+
+    .list {
+        margin-top: 0;
+    }
 }
