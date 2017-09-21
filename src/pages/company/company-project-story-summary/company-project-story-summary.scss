@@ -1,3 +1,22 @@
 page-company-project-story-summary {
 
 }
+
+.project-story-summary-header {
+    background-color: #fff;
+    
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    .toolbar-title {
+        -webkit-box-pack: inherit !important;
+        padding: 0;
+        font-size: 1.6rem !important;
+    }
+
+    .title-ios {
+        padding-right: 34px;
+        padding-left: 34px;
+    }
+}

@@ -20,14 +20,13 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
 export class CompanyInterviewPage {
   activeAccordion: boolean = false;
 
-  interviews = [
+  projectInterviews = [
     {
       project_participant_id:1,
       project_main_image: 'assets/img/project-main-image3.png',
       project_name: '프로잭트 이름',
-      ordinal: 1,
-      participant_num: 20,
-      max_participant_num: 30,
+      total_company_interview_num: 10,
+      max_company_interview_num: 60,
       project_end_date: '2017-09-20 00:00:00',
       interview_response: false,
     },
@@ -35,9 +34,8 @@ export class CompanyInterviewPage {
       project_participant_id:2,
       project_main_image: 'assets/img/project-main-image2.png',
       project_name: '프로잭트 이름',
-      ordinal: 1,
-      participant_num: 10,
-      max_participant_num: 30,
+      total_company_interview_num: 2,
+      max_company_interview_num: 60,
       project_end_date: '2017-09-18 00:00:00',
       interview_response: false,
     },
@@ -45,9 +43,8 @@ export class CompanyInterviewPage {
       project_participant_id:3,
       project_main_image: 'assets/img/project-main-image1.png',
       project_name: '프로잭트 이름',
-      ordinal: 1,
-      participant_num: 30,
-      max_participant_num: 30,
+      total_company_interview_num: 30,
+      max_company_interview_num: 60,
       project_end_date: '2017-09-13 00:00:00',
       interview_response: true,
     }
@@ -70,7 +67,7 @@ export class CompanyInterviewPage {
     // .subscribe(
     //   (data) => {
     //     if(data.success == true) {
-    //       this.interviews = data.data;
+    //       this.projectInterviews = data.data;
     //     }
     //     else if(data.success == false) {
     //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)

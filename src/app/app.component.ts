@@ -19,7 +19,11 @@ import { CompanyProjectHomePage } from '../pages/company/company-project-home/co
 import { CompanyProjectFeedbackPage } from '../pages/company/company-project-feedback/company-project-feedback';
 import { CompanyProjectStoryPage } from '../pages/company/company-project-story/company-project-story';
 import { CompanyNewsfeedStoryPage } from '../pages/company/company-newsfeed-story/company-newsfeed-story';
-
+import { CompanyAccountModificationFormPage } from '../pages/company/company-account-modification-form/company-account-modification-form';
+import { CompanyProjectInterviewPage } from '../pages/company/company-project-interview/company-project-interview';
+import { CompanyProjectUserProfilePage } from '../pages/company/company-project-user-profile/company-project-user-profile';
+import { CompanyProjectPriceStatementPage } from '../pages/company/company-project-price-statement/company-project-price-statement';
+import { CompanyProjectStorySummaryPage } from '../pages/company/company-project-story-summary/company-project-story-summary';
 
 
 @Component({
@@ -34,7 +38,9 @@ export class MyApp {
   // rootPage:any = CompanyTabsPage;
   // rootPage:any = CompanyProjectHomePage;
   // rootPage:any = UserProjectRewardFormPage;
-  rootPage:any = CompanyNewsfeedStoryPage;
+  // rootPage:any = CompanyNewsfeedStoryPage;
+  // rootPage:any = CompanyProjectInterviewPage;
+  rootPage:any = CompanyProjectStorySummaryPage;
 
   constructor(
     platform: Platform, 

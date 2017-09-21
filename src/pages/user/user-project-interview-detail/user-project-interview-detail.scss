@@ -43,19 +43,19 @@ page-user-project-interview-detail {
         padding-right: 0;
     }
 
-    .user-interview-card .avatar-span-wrapper {
+    .right-interview-card .avatar-span-wrapper {
         padding-left: 20px;
     }
 
-    .company-interview-card .avatar-span-wrapper {
+    .left-interview-card .avatar-span-wrapper {
         border-left: 10px solid #ff6400;
     }
 
-    .user-interview-card .avatar-span-wrapper {
+    .right-interview-card .avatar-span-wrapper {
         border-right: 10px solid #ff6400;
     }
 
-    .company-interview-card .avatar-span-wrapper::before {
+    .left-interview-card .avatar-span-wrapper::before {
         content: "\A";
         border-style: solid;
         position: relative;
@@ -64,7 +64,7 @@ page-user-project-interview-detail {
         left: -10px;
     }
 
-    .user-interview-card .avatar-span-wrapper::after {
+    .right-interview-card .avatar-span-wrapper::after {
         content: "\A";
         border-style: solid;
         position: relative;
@@ -91,7 +91,7 @@ page-user-project-interview-detail {
         overflow: hidden;
     }
 
-    .user-interview-card .avatar-span {
+    .right-interview-card .avatar-span {
         margin-right: 0 !important;
         margin-left: 8px;
     }

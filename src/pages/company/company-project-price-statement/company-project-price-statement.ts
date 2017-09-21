@@ -15,6 +15,19 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CompanyProjectPriceStatementPage {
 
+  projectMainImage:String = "assets/img/project-main-image1.png";
+  projectRegistrationDate: String = "2017-09-14 00:00:00"
+  projectEndDate: String = "2017-09-21 00:00:00"
+  type: String = "basic";
+  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름";
+  isSale:boolean = true;
+  typePrice:number = 500000;
+  salePrice:number = 300000;
+  particapantNum:number = 30;
+  feedbackNum:number = 30;
+  opinionNum:number = 870;
+  interviewNum:number = 50;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
