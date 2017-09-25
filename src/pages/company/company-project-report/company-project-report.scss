@@ -1,3 +1,53 @@
 page-company-project-report {
 
 }
+
+.project-report-header {
+    background-color: #ff6400;
+    
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    .pop-button {
+        color: #fff;
+    }
+
+    .toolbar-title {
+        color: #fff;
+        -webkit-box-pack: inherit !important;
+        padding: 0;
+        font-size: 1.6rem !important;
+    }
+
+    .title-ios {
+        padding-right: 34px;
+        padding-left: 34px;
+    }
+
+    .segment-button {
+        font-size: 1.2rem;
+        padding: 5px 0;
+        line-height: 2;
+        opacity: 1;
+        height: auto;
+        border: 0;
+        border-radius: 0 !important;
+        color: #929393;
+        background-color: #EDEDEF;
+    }
+
+    .segment-ios .segment-button {
+        padding: 10px 0;
+    }
+
+    .segment-button:hover {
+        color: #ff9a5b !important;
+        background-color: #EDEDEF !important;
+    }
+
+    .segment-activated,.segment-activated:hover {
+        color: #ff6400 !important;
+        background-color: #fff !important;
+    }
+}

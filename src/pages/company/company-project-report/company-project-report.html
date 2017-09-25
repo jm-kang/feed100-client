@@ -4,15 +4,65 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-report</ion-title>
+<ion-header class="project-report-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="pop-button" ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        결과 보고서
+      </span>
+    </ion-title>
   </ion-navbar>
-
+  <ion-segment [(ngModel)]="segmentReport" (ionChange)="changeSegment()" color="primary" >
+    <ion-segment-button value="segmentuUserInfo">
+      <div>
+        <ion-icon name="people"></ion-icon>
+      </div>
+      유저정보
+    </ion-segment-button>
+    <ion-segment-button value="segmentProjectStats">
+      <div>
+        <ion-icon name="pie"></ion-icon>
+      </div>
+      프로젝트통계
+    </ion-segment-button>
+    <ion-segment-button value="segmentBestFeedback">
+      <div>
+        <ion-icon name="medal"></ion-icon>
+      </div>
+      베스트피드백
+    </ion-segment-button>
+    <ion-segment-button value="sergmentStorySummary">
+      <div>
+        <ion-icon name="md-list"></ion-icon>
+      </div>
+      스토리요약
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content #content >
+  <div [ngSwitch]="segmentReport" class="feedback-list">
+    <div *ngSwitchCase="'segmentuUserInfo'">
+      <ion-item>
+        <h3>유저 정보입니다.</h3>
+      </ion-item>
+    </div>
 
+    <div *ngSwitchCase="'segmentProjectStats'">
+      
+    </div>
+
+    <div *ngSwitchCase="'segmentBestFeedback'">
+      
+    </div>
+    <div *ngSwitchCase="'sergmentStorySummary'">
+        
+    </div>
+  </div>
 </ion-content>

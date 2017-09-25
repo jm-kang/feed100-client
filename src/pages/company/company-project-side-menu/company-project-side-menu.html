@@ -4,15 +4,96 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-side-menu</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-</ion-content>
+<ion-header class="side-menu-header">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button class="pop-button" ion-button (click)="back()" icon-only>
+          <ion-icon name="ios-arrow-back"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content #contentRef (ionScroll)="scrollingFun($event)" (ionScrollEnd)="scrollingFun($event)" class="side-menu-content outer-content">
+    <div class="side-menu-profile-box">
+      <span class="avatar-image-background-wrapper">
+        <img class="avatar-image-background" [src]="projectMainImage" (load)="onAvatarImageLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+      </span>
+      
+      <ion-item class="avatar-span-wrapper">
+        <span class="avatar-image avatar-span">
+          <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+        </span>
+        <p text-center>{{nickname}}</p>
+        <h3 text-center [innerHTML]="projectName"></h3>
+      </ion-item>
+      
+    </div>
+    <div class="side-menu-project-info">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6>
+            <ion-item class="project-feedback-item">
+              <ion-avatar item-start>
+                <img src="assets/img/feedback-icon.png" />
+              </ion-avatar>
+              피드백
+              <p>{{maxParticipantNum}}개 중 {{participantNum}}개 작성</p>
+            </ion-item>
+          </ion-col>
+          <ion-col col-6>
+            <ion-item class="project-interview-item">
+              <ion-avatar item-start>
+                <img src="assets/img/editor-interview-icon.png" />
+              </ion-avatar>
+              인터뷰
+              <p>{{maxCompanyInterviewNum}}개 중 {{totalCompanyInterviewNum}}개 작성</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ion-list class="side-menu-list">
+      <!-- =========================결과 보고서=========================== -->
+      <ion-item tappable (click)="openCompanyProjectReportPage()">
+        <ion-avatar item-start>
+          <img src="assets/img/company-side-menu-icon1.png" />
+        </ion-avatar>
+        결과 보고서
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <!-- =========================유저 정보=========================== -->
+      <ion-item tappable (click)="openCompanyProjectUserInfoPage()">
+        <ion-avatar item-start>
+          <img src="assets/img/company-side-menu-icon2.png" />
+        </ion-avatar>
+        유저 정보
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <!-- =========================프로젝트 통계=========================== -->
+      <ion-item tappable (click)="openCompanyProjectStatsPage()">
+        <ion-avatar item-start>
+          <img src="assets/img/company-side-menu-icon3.png" />
+        </ion-avatar>
+        프로젝트 통계
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <!-- =========================스토리 한줄 요약=========================== -->
+      <ion-item tappable (click)="openCompanyProjectStorySummaryPage()">
+        <ion-avatar item-start>
+          <img src="assets/img/company-side-menu-icon4.png" />
+        </ion-avatar>
+        스토리 한줄 요약
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+      <!-- =========================가격 명세서=========================== -->
+      <ion-item tappable (click)="openCompanyProjectPriceStatementPage()">
+        <ion-avatar item-start>
+          <img src="assets/img/company-side-menu-icon5.png" />
+        </ion-avatar>
+        가격 명세서
+        <ion-icon name="ios-arrow-forward" item-end></ion-icon>
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>

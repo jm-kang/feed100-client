@@ -25,19 +25,71 @@ export class CompanyNewsfeedStoryPage {
   progressPercent: number = 0;
   
   isLike: boolean = false;
-  newsfeedMainImage: String = "";
-  avatarImage: String = "";
-  nickname: String = "";
-  newsfeedName: String = "";
-  newsfeedSource: String = "";
-  newsfeedViewNum: number = 0;
-  newsfeedLikeNum: number = 0;
-  newsfeedCommentNum: number = 0;
-  newsfeedSummary: String = ""
-  newsfeedRegistrationDate: String = "";
+  // newsfeedMainImage: String = "";
+  // avatarImage: String = "";
+  // nickname: String = "";
+  // newsfeedName: String = "";
+  // newsfeedSource: String = "";
+  // newsfeedViewNum: number = 0;
+  // newsfeedLikeNum: number = 0;
+  // newsfeedCommentNum: number = 0;
+  // newsfeedSummary: String = ""
+  // newsfeedRegistrationDate: String = "";
+
+  newsfeedMainImage: String = "assets/img/newsfeed-main-image1.png";
+  avatarImage: String = "assets/img/newsfeed-avatar-image1.png";
+  nickname: String = "아밀라아제";
+  newsfeedName: String = "뉴스피드 제목 뉴스피드 제목";
+  newsfeedSource: String = "www.wadiz.com";
+  newsfeedViewNum: number = 200;
+  newsfeedLikeNum: number = 80;
+  newsfeedCommentNum: number = 4;
+  newsfeedSummary: String = "뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명 뉴스피드 설명"
+  newsfeedRegistrationDate: String = "2017-09-18 00:00:00";
   
-  newsfeedStorySlides = [];
-  newsfeedComments = [];
+  newsfeedStorySlides = [
+    {
+      storyImage: '',
+      storyVideo: 'https://www.youtube.com/embed/sbBynX2_TUM',
+      storyContent: '스토리 동영상',
+    },
+    {
+      storyImage: 'assets/img/newsfeed-story-image01.jpeg',
+      storyVideo: '',
+      storyContent: '스토리 내용 스토리 내용 스토리 내용 스토리 내용',
+    },
+    {
+      storyImage: 'assets/img/newsfeed-story-image02.jpeg',
+      storyVideo: '',
+      storyContent: '스토리 내용 스토리 내용 스토리 내용스토리 내용 스토리 내용 스토리 내용스토리 내용 스토리 내용스토리 내용스토리 내용스토리 내용스토리 내용 스토리 내용 스토리 내용 스토리 내용 스토리 내용',
+    }
+  ];
+  newsfeedComments = [
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      newsfeed_comment_content : '나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다.',
+      newsfeed_comment_registration: '2017-09-12 00:00:00',
+    },
+    {
+      avatar_image: 'assets/img/company-avatar-image1.png',
+      nickname: '더콰이엇',
+      newsfeed_comment_content : '나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다.',
+      newsfeed_comment_registration: '2017-09-12 00:00:00',
+    },
+    {
+      avatar_image: 'assets/img/user-avatar-image2.png',
+      nickname: '지코',
+      newsfeed_comment_contet : '나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다.',
+      newsfeed_comment_registration: '2017-09-12 00:00:00',
+    },
+    {
+      avatar_image: 'assets/img/company-avatar-image2.png',
+      nickname: '도끼',
+      newsfeed_comment_content : '나는 그러했다. 나는 그러했다. 나는 그러했다. 나는 그러했다.',
+      newsfeed_comment_registration: '2017-09-12 00:00:00',
+    },
+  ];
 
   newsfeedComment: String = "";
 
