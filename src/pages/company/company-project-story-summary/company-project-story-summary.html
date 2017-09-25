@@ -21,6 +21,30 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="project-story-summary-content">
+  <div class="project-story-summary-title">
+    <ion-item>
+      <span item-start>
+        Q.
+      </span>
+      <h3>이 프로젝트를 한줄로 표현하자면?</h3>
+      <p>한줄 요약은 사용자들 처음 프로젝트를 보고 느낀 인상입니다.</p>
+    </ion-item>
+  </div>
+  <div class="project-story-summary-list">
+    <div text-right class="total-length" *ngIf="projectStorySummarys.length">총 {{projectStorySummarys.length}}개</div>
+    <div text-center *ngIf = "projectStorySummarys.length==0" class="empty-inner">
+      <ion-icon name="analytics"></ion-icon>
+      <p>아직 등록된 한줄 요약이 없습니다.</p>
+    </div>
 
+    <ion-card *ngFor="let projectStorySummary of projectStorySummarys">
+      <ion-item>
+        <span item-start>
+          A.
+        </span>
+        <p>{{projectStorySummary.content}} <span class="card-nickname"> - {{projectStorySummary.nickname}}</span></p>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

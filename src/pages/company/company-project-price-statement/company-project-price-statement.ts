@@ -20,7 +20,7 @@ export class CompanyProjectPriceStatementPage {
   projectEndDate: String = "2017-09-21 00:00:00"
   type: String = "basic";
   projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름";
-  isSale:boolean = true;
+  isSale:boolean = false;
   typePrice:number = 500000;
   salePrice:number = 300000;
   particapantNum:number = 30;
@@ -35,4 +35,7 @@ export class CompanyProjectPriceStatementPage {
     console.log('ionViewDidLoad CompanyProjectPriceStatementPage');
   }
 
+  back() {
+    this.navCtrl.pop();
+  }
 }

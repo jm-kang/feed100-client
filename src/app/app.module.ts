@@ -42,6 +42,8 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
     import { CompanyProjectUserProfilePageModule } from '../pages/company/company-project-user-profile/company-project-user-profile.module';
     import { CompanyProjectSearchPageModule } from '../pages/company/company-project-search/company-project-search.module';
     import { CompanyProjectSearchResultPageModule } from '../pages/company/company-project-search-result/company-project-search-result.module';
+    import { CompanyProjectUserParticipationConditionStatsPageModule } from '../pages/company/company-project-user-participation-condition-stats/company-project-user-participation-condition-stats.module';
+    import { CompanyProjectUserProfileStatsPageModule } from '../pages/company/company-project-user-profile-stats/company-project-user-profile-stats.module';
   import { CompanyNewsfeedPageModule } from '../pages/company/company-newsfeed/company-newsfeed.module';
     import { CompanyNewsfeedStoryPageModule } from '../pages/company/company-newsfeed-story/company-newsfeed-story.module';
   import { CompanyMypagePageModule } from '../pages/company/company-mypage/company-mypage.module';
@@ -139,6 +141,8 @@ import { File } from '@ionic-native/file'
         CompanyProjectUserProfilePageModule,
         CompanyProjectSearchPageModule,
         CompanyProjectSearchResultPageModule,
+        CompanyProjectUserParticipationConditionStatsPageModule,
+        CompanyProjectUserProfileStatsPageModule,
       CompanyNewsfeedPageModule,
         CompanyNewsfeedStoryPageModule,
       CompanyMypagePageModule,

@@ -107,19 +107,19 @@ export class CompanyProjectSideMenuPage {
   }
 
   scrollingFun(e) {
-    if (e.scrollTop < 30) {
-      // console.log("top: " + e.scrollingFun);
-      document.querySelector(".side-menu-header")['style'].background = 'transparent';
-      document.querySelector(".side-menu-header")['style'].borderBottom = '0';
-      document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#fff';
-      document.querySelector(".side-menu-header .project-header-title")['style'].color = '#fff';
-    } else {
-      // console.log("bottom: " + e.scrollingFun);
-      document.querySelector(".side-menu-header")['style'].background = '#fff';
-      document.querySelector(".side-menu-header")['style'].borderBottom = '0.55px solid #e8e8e8';
-      document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#787878';
-      document.querySelector(".side-menu-header .project-header-title")['style'].color = '#383838';
-    }
+    // if (e.scrollTop < 30) {
+    //   // console.log("top: " + e.scrollingFun);
+    //   document.querySelector(".side-menu-header")['style'].background = 'transparent';
+    //   document.querySelector(".side-menu-header")['style'].borderBottom = '0';
+    //   document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#fff';
+    //   document.querySelector(".side-menu-header .project-header-title")['style'].color = '#fff';
+    // } else {
+    //   // console.log("bottom: " + e.scrollingFun);
+    //   document.querySelector(".side-menu-header")['style'].background = '#fff';
+    //   document.querySelector(".side-menu-header")['style'].borderBottom = '0.55px solid #e8e8e8';
+    //   document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#787878';
+    //   document.querySelector(".side-menu-header .project-header-title")['style'].color = '#383838';
+    // }
   }
 
   onAvatarImageLoad(img) {

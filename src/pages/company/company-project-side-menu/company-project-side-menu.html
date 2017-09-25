@@ -32,7 +32,7 @@
     <div class="side-menu-project-info">
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col col-6>
             <ion-item class="project-feedback-item">
               <ion-avatar item-start>
                 <img src="assets/img/feedback-icon.png" />
@@ -41,7 +41,7 @@
               <p>{{maxParticipantNum}}개 중 {{participantNum}}개 작성</p>
             </ion-item>
           </ion-col>
-          <ion-col>
+          <ion-col col-6>
             <ion-item class="project-interview-item">
               <ion-avatar item-start>
                 <img src="assets/img/editor-interview-icon.png" />
@@ -54,12 +54,12 @@
       </ion-grid>
     </div>
     <ion-list class="side-menu-list">
-      <!-- =========================맞춤 보고서=========================== -->
+      <!-- =========================결과 보고서=========================== -->
       <ion-item tappable (click)="openCompanyProjectReportPage()">
         <ion-avatar item-start>
           <img src="assets/img/company-side-menu-icon1.png" />
         </ion-avatar>
-        맞춤 보고서
+        결과 보고서
         <ion-icon name="ios-arrow-forward" item-end></ion-icon>
       </ion-item>
       <!-- =========================유저 정보=========================== -->

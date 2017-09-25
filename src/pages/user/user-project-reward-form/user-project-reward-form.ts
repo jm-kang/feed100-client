@@ -61,6 +61,9 @@ export class UserProjectRewardFormPage {
         this.slides.lockSwipeToNext(false);  
       }
     }
+    if(this.slides.getActiveIndex() == 2) {
+      this.slides.lockSwipes(true);
+    }
   }
 
   onModelChange(newVal, index) {

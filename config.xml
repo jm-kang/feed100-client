@@ -142,4 +142,5 @@
         <variable name="SNEDER_ID" value="889490373924" />
         <variable name="SENDER_ID" value="889490373924" />
     </plugin>
+    <allow-navigation href="http://192.168.35.89:8100" />
 </widget>

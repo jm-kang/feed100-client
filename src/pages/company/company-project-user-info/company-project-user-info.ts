@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CompanyProjectUserProfileStatsPage } from '../company-project-user-profile-stats/company-project-user-profile-stats';
+import { CompanyProjectUserParticipationConditionStatsPage } from '../company-project-user-participation-condition-stats/company-project-user-participation-condition-stats';
 
 /**
  * Generated class for the CompanyProjectUserInfoPage page.
@@ -14,6 +16,49 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'company-project-user-info.html',
 })
 export class CompanyProjectUserInfoPage {
+  participantNum:number = 30;
+  users = [
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      level: 1,
+      level_class: '연구원',
+      opinion_num: 10,
+      reply_interview_num: 3,
+    },
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      level: 1,
+      level_class: '연구원',
+      opinion_num: 10,
+      reply_interview_num: 3,
+    },
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      level: 1,
+      level_class: '연구원',
+      opinion_num: 10,
+      reply_interview_num: 3,
+    },
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      level: 1,
+      level_class: '연구원',
+      opinion_num: 10,
+      reply_interview_num: 3,
+    },
+    {
+      avatar_image: 'assets/img/user-avatar-image.png',
+      nickname: '스윙스',
+      level: 1,
+      level_class: '연구원',
+      opinion_num: 10,
+      reply_interview_num: 3,
+    },
+  ]
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -22,4 +67,16 @@ export class CompanyProjectUserInfoPage {
     console.log('ionViewDidLoad CompanyProjectUserInfoPage');
   }
 
+  back() {
+    this.navCtrl.pop();
+  }
+
+  openCompanyProjectUserProfileStatsPage() {
+    this.navCtrl.push(CompanyProjectUserProfileStatsPage);
+  }
+
+  openCompanyProjectUserParticipationConditionStatsPage() {
+    this.navCtrl.push(CompanyProjectUserParticipationConditionStatsPage);
+  }
+  
 }
