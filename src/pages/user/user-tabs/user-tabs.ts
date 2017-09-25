@@ -47,8 +47,8 @@ export class UserTabsPage {
     return this.httpService.interviewNum;
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserTabsPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserTabsPage');
     let loading = this.httpService.presentLoading();
 
     this.httpService.getAlarmAndInterviewNum()
@@ -64,7 +64,7 @@ export class UserTabsPage {
         else if(data.success == false) {
           this.httpService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },

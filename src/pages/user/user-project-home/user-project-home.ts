@@ -104,7 +104,8 @@ export class UserProjectHomePage {
     console.log('ionViewDidLoad UserProjectHomePage');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectHomePage');
     this.statusBar.hide(); 
     
     let loading = this.httpService.presentLoading();

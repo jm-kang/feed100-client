@@ -220,6 +220,42 @@ export class HttpServiceProvider {
     });
   }
 
+  updateAccount(nickname, introduction) {
+    let url = this.getServerUrl() + '/api/user/account';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "nickname" : nickname,
+      "introduction" : introduction
+    };
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  updateProfile(gender, age, job, region, marriage, interests) {
+    let url = this.getServerUrl() + '/api/user/profile';
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "gender" : gender,
+      "age" : age,
+      "job" : job,
+      "region" : region,
+      "marriage" : marriage,
+      "interests" : interests
+    };
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
   getUserHome() {
     let url = this.getServerUrl() + '/api/user/home';
     let headers = new Headers();
@@ -292,6 +328,34 @@ export class HttpServiceProvider {
     .mergeMap((accessToken) => {
       headers.append('x-access-token', accessToken);
       return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getInterview(project_id) {
+    let url = this.getServerUrl() + '/api/user/interview/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  responseInterview(interview_id, interview_response, interview_response_images) {
+    let url = this.getServerUrl() + '/api/user/interview/' + interview_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "interview_response" : interview_response,
+      "interview_response_images" : interview_response_images
+    };
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
   }
 

@@ -4,6 +4,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { UserProjectInterviewWritingEditorPage } from '../user-project-interview-writing-editor/user-project-interview-writing-editor';
 
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+
 /**
  * Generated class for the UserProjectInterviewDetailPage page.
  *
@@ -18,157 +20,80 @@ import { UserProjectInterviewWritingEditorPage } from '../user-project-interview
 })
 export class UserProjectInterviewDetailPage {
   @ViewChild(Content) content: Content;
+
+  project_id;
+  
   projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름";
   
-  interviews = [
-    {
-      companyInterview: {
-        registrationDate: "2017.6.9",
-        projectMainImage: "assets/img/project-main-image1.png",
-        nickname: "프로젝트 행주",
-        content: "어두운 그대로 내비둬 억지로 밝아질거 뭐있어 딱 촛불 하나정도 저 조명따윈 내게 빛이 될 순 없어 눈뜨고 다시 찾아온 아침 혼자만 또 흐리멍텅한 날씨 습기 가득 찬 왼쪽의 눈으로 바라본 내 꿈만은 선명하길",
-        images: [
-          {
-            img: "assets/img/interview-image1.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image2.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image3.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image4.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image5.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-        ]
-      },
-      userInterview: {
-        registrationDate: "6일 전",
-        avatarImage: "assets/img/user-avatar-image.png",
-        nickname: "스윙스",
-        content: "알게 모르게 난 널 몰입 시킬게 내 최면놀이 빨간머리 촛불들이 꺼지고 니 정신머린 잠들고 내 마이크로폰에 약물들 들이붓고 ay 틀에 박힌 편견을 바꿀 드라마틱한 곡을 써 내 존재는 반칙이야",
-        images: [
-          {
-            img: "assets/img/interview-image4.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image5.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-        ]
-      }
-    },
-    {
-      companyInterview: {
-        registrationDate: "3일 전",
-        projectMainImage: "assets/img/project-main-image1.png",
-        nickname: "프로젝트 행주",
-        content: "어두운 그대로 내비둬 억지로 밝아질거 뭐있어 딱 촛불 하나정도 저 조명따윈 내게 빛이 될 순 없어 눈뜨고 다시 찾아온 아침 혼자만 또 흐리멍텅한 날씨 습기 가득 찬 왼쪽의 눈으로 바라본 내 꿈만은 선명하길",
-        images: [
-          {
-            img: "assets/img/interview-image1.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-          {
-            img: "assets/img/interview-image2.jpeg",
-            maxHeight: "",
-            maxWidth: "",
-            height: "",
-            width: "",
-            left: "",
-            top: "",
-          },
-        ]
-      },
-      userInterview: {
-        registrationDate: "21시간 전",
-        avatarImage: "assets/img/user-avatar-image.png",
-        nickname: "스윙스",
-        content: "알게 모르게 난 널 몰입 시킬게 내 최면놀이 빨간머리 촛불들이 꺼지고 니 정신머린 잠들고 내 마이크로폰에 약물들 들이붓고 ay 틀에 박힌 편견을 바꿀 드라마틱한 곡을 써 내 존재는 반칙이야",
-        images: [
-          
-        ]
-      }
-    },
-    {
-      companyInterview: {
-        registrationDate: "2017.6.9",
-        projectMainImage: "assets/img/project-main-image1.png",
-        nickname: "프로젝트 행주",
-        content: "어두운 그대로 내비둬 억지로 밝아질거 뭐있어 딱 촛불 하나정도 저 조명따윈 내게 빛이 될 순 없어 눈뜨고 다시 찾아온 아침 혼자만 또 흐리멍텅한 날씨 습기 가득 찬 왼쪽의 눈으로 바라본 내 꿈만은 선명하길",
-        images: []
-      },
-      userInterview: {
-        registrationDate: "",
-        avatarImage: "assets/img/user-avatar-image.png",
-        nickname: "스윙스",
-        content: "",
-        images: []
-      }
-    },
-  ]
+  interviews = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private photoViewer: PhotoViewer, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private photoViewer: PhotoViewer, 
+    public modalCtrl: ModalController,
+    public httpService: HttpServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectInterviewDetailPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectInterviewDetailPage');
+    let loading = this.httpService.presentLoading();
+    let project_id = this.navParams.get('project_id');
+    
+    this.httpService.getInterview(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectName = data.data.project_name;
+          let tempInterviews = data.data.interviews;
+          
+          for(let i=0; i<tempInterviews.length; i++) {
+            if(tempInterviews[i].interview_request_images) {
+              tempInterviews[i].interview_request_images = JSON.parse(tempInterviews[i].interview_request_images);
+              for(let j=0; j<tempInterviews[i].interview_request_images.length; j++) {
+                tempInterviews[i].interview_request_images[j] = { img : tempInterviews[i].interview_request_images[j]}; 
+              }
+            }
+            if(tempInterviews[i].interview_response_images) {
+              tempInterviews[i].interview_response_images = JSON.parse(tempInterviews[i].interview_response_images);
+              for(let j=0; j<tempInterviews[i].interview_response_images.length; j++) {
+                tempInterviews[i].interview_response_images[j] = { img : tempInterviews[i].interview_response_images[j]}; 
+              }
+            }
+          }
+          this.interviews = tempInterviews;
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+  }
+
   ionViewDidEnter() {
+    console.log('ionViewDidLoad UserProjectInterviewDetailPage');
     this.content.scrollToBottom();
   }
 
   back() {
+    if(this.navParams.get('instance')) {
+      console.log('back');
+      this.navParams.get('instance').ionViewWillEnter();
+    }
     this.navCtrl.pop();
   }
 
@@ -182,23 +107,25 @@ export class UserProjectInterviewDetailPage {
 
     if(img.width >= img.height) {
       tempHeight = img.width + 'px';
+      tempWidth = 'auto';
       tempTop = 'initial';
       tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
       tempMaxHeight = '100%';
       tempMaxWidth = 'initial';
     } else {
       tempWidth = img.height + 'px';
+      tempHeight = 'auto';
       tempLeft = 'initial';
       tempTop = "-" + (img.height-img.width)/2 + 'px';
       tempMaxWidth = '100%';
       tempMaxHeight = 'initial';
     }
-    this.interviews[count].companyInterview.images[i].width = tempWidth;
-    this.interviews[count].companyInterview.images[i].height = tempHeight;
-    this.interviews[count].companyInterview.images[i].left = tempLeft;
-    this.interviews[count].companyInterview.images[i].top = tempTop;
-    this.interviews[count].companyInterview.images[i].maxHeight = tempMaxHeight;
-    this.interviews[count].companyInterview.images[i].maxWidth = tempMaxWidth;
+    this.interviews[count].interview_request_images[i].width = tempWidth;
+    this.interviews[count].interview_request_images[i].height = tempHeight;
+    this.interviews[count].interview_request_images[i].left = tempLeft;
+    this.interviews[count].interview_request_images[i].top = tempTop;
+    this.interviews[count].interview_request_images[i].maxHeight = tempMaxHeight;
+    this.interviews[count].interview_request_images[i].maxWidth = tempMaxWidth;    
   }
 
   onInterviewDetailUserImageLoad(img, count, i) {
@@ -224,20 +151,31 @@ export class UserProjectInterviewDetailPage {
       tempMaxWidth = '100%';
       tempMaxHeight = 'initial';
     }
-    this.interviews[count].userInterview.images[i].width = tempWidth;
-    this.interviews[count].userInterview.images[i].height = tempHeight;
-    this.interviews[count].userInterview.images[i].left = tempLeft;
-    this.interviews[count].userInterview.images[i].top = tempTop;
-    this.interviews[count].userInterview.images[i].maxHeight = tempMaxHeight;
-    this.interviews[count].userInterview.images[i].maxWidth = tempMaxWidth;
+    this.interviews[count].interview_response_images[i].width = tempWidth;
+    this.interviews[count].interview_response_images[i].height = tempHeight;
+    this.interviews[count].interview_response_images[i].left = tempLeft;
+    this.interviews[count].interview_response_images[i].top = tempTop;
+    this.interviews[count].interview_response_images[i].maxHeight = tempMaxHeight;
+    this.interviews[count].interview_response_images[i].maxWidth = tempMaxWidth;
   }
 
-  photoView() {
-    this.photoViewer.show('https://www.w3schools.com/css/img_fjords.jpg');
+  photoView(url) {
+    this.photoViewer.show(url);
   }
   
-  openUserProjectInterviewWritingEditorPage() {
-    let userProjectInterviewWritingEditorModal = this.modalCtrl.create(UserProjectInterviewWritingEditorPage);
+  openUserProjectInterviewWritingEditorPage(interview_id, interview_request, interview_request_images) {
+    let userProjectInterviewWritingEditorModal = this.modalCtrl.create(UserProjectInterviewWritingEditorPage, 
+      { "projectName" : this.projectName,
+      "interview_id" : interview_id,
+      "interview_request" : interview_request,
+      "interview_request_images" : JSON.parse(JSON.stringify(interview_request_images))
+      }
+    );
     userProjectInterviewWritingEditorModal.present();
+    userProjectInterviewWritingEditorModal.onWillDismiss(
+      () => {
+        this.ionViewWillEnter();
+      }
+    );
   }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
+import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+
 /**
  * Generated class for the UserAccountModificationFormPage page.
  *
@@ -16,20 +18,29 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 export class UserAccountModificationFormPage {
   avatarImage: String = "assets/img/user-avatar-image.png";
   nickname: String = "스윙스";
-  email: String = "swings@gmail.com";
+  username: String = "swings@gmail.com";
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
   width: any =  "";
   left: any =  "";
   top: any =  "";
-  feedbackContent: String = "리스펙 리스펙";
+  introduction: String = "리스펙 리스펙";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public alertCtrl: AlertController,
+    public httpService: HttpServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAccountModificationFormPage');
+    this.avatarImage = this.navParams.get('avatarImage');
+    this.nickname = this.navParams.get('nickname');
+    this.username = this.navParams.get('username');
+    this.introduction = this.navParams.get('introduction');
   }
 
   scrollingFun(e) {
@@ -76,7 +87,7 @@ export class UserAccountModificationFormPage {
 
   modifyNickname(oldNickname) {
     let alert = this.alertCtrl.create({
-      title: '새로운 해시태그를 작성해주세요',
+      title: '새로운 닉네임을 입력해주세요.',
       inputs: [
         {
           name: 'nickname',
@@ -94,7 +105,12 @@ export class UserAccountModificationFormPage {
         {
           text: '완료',
           handler: data => {
-            this.nickname = data.nickname;
+            if(data.nickname.length >= 2 && data.nickname.length <= 8) {
+              this.nickname = data.nickname;
+            }
+            else {
+              this.httpService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
+            }
           }
         }
       ]
@@ -104,5 +120,29 @@ export class UserAccountModificationFormPage {
 
   modifyAccount() {
     console.log("수정 완료");
+    let loading = this.httpService.presentLoading();
+    
+    this.httpService.updateAccount(this.nickname, this.introduction)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.httpService.showBasicAlert('수정이 완료되었습니다.');
+          this.viewCtrl.dismiss("modified");    
+        }
+        else if(data.success == false) {
+          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.modifyAccount();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.httpService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 }

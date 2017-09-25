@@ -19,21 +19,14 @@ import { CompanyProjectHomePage } from '../pages/company/company-project-home/co
 import { CompanyProjectFeedbackPage } from '../pages/company/company-project-feedback/company-project-feedback';
 import { CompanyProjectStoryPage } from '../pages/company/company-project-story/company-project-story';
 import { CompanyNewsfeedStoryPage } from '../pages/company/company-newsfeed-story/company-newsfeed-story';
-import { CompanyAccountModificationFormPage } from '../pages/company/company-account-modification-form/company-account-modification-form';
-import { CompanyProjectInterviewPage } from '../pages/company/company-project-interview/company-project-interview';
-import { CompanyProjectUserProfilePage } from '../pages/company/company-project-user-profile/company-project-user-profile';
-import { CompanyProjectPriceStatementPage } from '../pages/company/company-project-price-statement/company-project-price-statement';
-import { CompanyProjectStorySummaryPage } from '../pages/company/company-project-story-summary/company-project-story-summary';
-import { CompanyProjectStatsPage } from '../pages/company/company-project-stats/company-project-stats';
-import { CompanyProjectReportPage } from '../pages/company/company-project-report/company-project-report';
-import { CompanyProjectUserInfoPage } from './../pages/company/company-project-user-info/company-project-user-info';
-import { CompanyProjectSideMenuPage } from '../pages/company/company-project-side-menu/company-project-side-menu';
+
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage:any = LoginPage;
+  rootPage:any = LoginPage;
   // rootPage:any = UserTabsPage;
   // rootPage:any = UserProjectInterviewDetailPage;
   // rootPage:any = UserProjectFeedbackPage;
@@ -42,9 +35,6 @@ export class MyApp {
   // rootPage:any = CompanyProjectHomePage;
   // rootPage:any = UserProjectRewardFormPage;
   // rootPage:any = CompanyNewsfeedStoryPage;
-  // rootPage:any = CompanyProjectInterviewPage;
-  rootPage:any = CompanyProjectSideMenuPage;
-  // rootPage:any = CompanyProjectUserInfoPage;
 
   constructor(
     platform: Platform, 
@@ -57,7 +47,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      // this.verifyLoginState();
+      this.verifyLoginState();
     });
   }
 

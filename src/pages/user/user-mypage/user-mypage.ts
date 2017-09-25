@@ -29,6 +29,8 @@ export class UserMypagePage {
   level = 0;
   levelClass: String = '';
   nickname: String = '';
+  username;
+  introduction;
   point = 0;
   exp = 0;
   maxExp = 0;
@@ -138,6 +140,8 @@ export class UserMypagePage {
           this.level = data.data.level;
           this.levelClass = data.data.level_class;
           this.nickname = data.data.nickname;
+          this.username = data.data.username;
+          this.introduction = data.data.introduction;
           this.point = data.data.point;
           this.exp = data.data.experience_point;
           this.maxExp = data.data.required_experience_point;
@@ -164,8 +168,20 @@ export class UserMypagePage {
   }
 
   openUserAccountModificationFormPage() {
-    let userAccountModificationFormModal = this.modalCtrl.create(UserAccountModificationFormPage);
+    let userAccountModificationFormModal = this.modalCtrl.create(UserAccountModificationFormPage, {
+      "avatarImage" : this.avatarImage,
+      "nickname" : this.nickname,
+      "username" : this.username,
+      "introduction" : this.introduction
+    });
     userAccountModificationFormModal.present();
+    userAccountModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "modified") {
+          this.ionViewDidLoad();
+        }
+      }
+    );
   }
 
   openUserProjectPage() {
