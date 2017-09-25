@@ -38,11 +38,11 @@
     <ion-list class="account-modification-list"> 
       <ion-item>
         <ion-label color="semiDark" stacked>이메일</ion-label>
-        <ion-label class="email" color="dark">{{email}}</ion-label>
+        <ion-label class="email" color="dark">{{username}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label color="semiDark" stacked>자기소개</ion-label>
-        <ion-textarea value="asdasd" rows="3" [(ngModel)]="feedbackContent" placeholder="자신을 소개해주세요!"></ion-textarea>
+        <ion-textarea value="asdasd" rows="3" [(ngModel)]="introduction" placeholder="자신을 어필할 수 있게 간략하게 소개글을 작성해주세요!"></ion-textarea>
         
         <!-- <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (feedbackContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{feedbackContent | textcount}}</span> / <span>{{minTextLength}}</span>

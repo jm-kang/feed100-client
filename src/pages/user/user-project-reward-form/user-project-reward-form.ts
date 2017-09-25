@@ -23,6 +23,7 @@ export class UserProjectRewardFormPage {
   opinionPoint: number = 300;
   interviewPoint: number = 5000;
   exp: number = 10000;
+  interviewNum = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
@@ -60,6 +61,9 @@ export class UserProjectRewardFormPage {
       } else {
         this.slides.lockSwipeToNext(false);  
       }
+    }
+    if(this.slides.getActiveIndex() == 2) {
+      this.slides.lockSwipes(true);
     }
   }
 

@@ -28,7 +28,9 @@ export class UserInterviewPage {
     public httpService: HttpServiceProvider) {
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserInterviewPage');
+    
     let loading = this.httpService.presentLoading();
     
     this.httpService.getInterviews()
@@ -43,7 +45,7 @@ export class UserInterviewPage {
         else if(data.success == false) {
           this.httpService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -52,6 +54,7 @@ export class UserInterviewPage {
         this.httpService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+
   }
 
   ionViewDidLoad() {
@@ -71,7 +74,7 @@ export class UserInterviewPage {
       this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
     }
     else {
-      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id });
+      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id, "instance" : this.navCtrl.getActive().instance });
     }
   }
 }

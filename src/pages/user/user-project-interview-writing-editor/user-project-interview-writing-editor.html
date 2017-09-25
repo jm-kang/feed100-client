@@ -19,7 +19,7 @@
         <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
       </ion-title>
       <ion-buttons end>
-        <button [disabled]="minTextLength > (interviewContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        <button [disabled]="minTextLength > (interview_response | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
           완료
         </button>
       </ion-buttons>
@@ -33,15 +33,15 @@
       </ion-avatar>
       <div *ngIf="isFold">
         <div>
-          <span class="notice-content" [innerHTML]="companyInterviewContent | slicetext:20"></span>
+          <span class="notice-content" [innerHTML]="interview_request | slicetext:20"></span>
         </div>
       </div>
       <div *ngIf="!isFold" class="editor-content">
-        <span class="notice-content" [innerHTML]="companyInterviewContent"></span>
+        <span class="notice-content" [innerHTML]="interview_request"></span>
         <div class="feedback-images small-feedback-images">
-          <span class="image-box" *ngFor="let companyImage of companyImages; let i = index">
-            <span class="feedback-image-wrapper" tappable (click)="photoView()">
-              <img class="feedback-image" [src]="companyImage.img" (load)="onCompanyImageLoad($event.target, i)" [style.height]="companyImage.height" [style.width]="companyImage.width" [style.left]="companyImage.left" [style.top]="companyImage.top" [style.max-height]="companyImage.maxHeight" [style.max-width]="companyImage.maxWidth"/>
+          <span class="image-box" *ngFor="let image of interview_request_images; let i = index">
+            <span class="feedback-image-wrapper" tappable (click)="photoView(image.img)">
+              <img class="feedback-image" [src]="image.img" (load)="onCompanyImageLoad($event.target, i)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
             </span>
           </span>
         </div>
@@ -55,9 +55,9 @@
   </div>
 
   <div class="outer-content editor-content have-editor-notice" style="height: 100%">
-    <textarea class="height30" [(ngModel)]="interviewContent" [placeholder]="contentPlaceholder"></textarea>
-    <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (interviewContent | textcount)? '#787878' : '#2C908F'}">
-      <span>{{interviewContent | textcount}}</span> / <span>{{minTextLength}}</span>
+    <textarea class="height30" [(ngModel)]="interview_response" [placeholder]="contentPlaceholder"></textarea>
+    <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (interview_response | textcount)? '#787878' : '#2C908F'}">
+      <span>{{interview_response | textcount}}</span> / <span>{{minTextLength}}</span>
     </div>
   
     <div class="feedback-images small-feedback-images">
@@ -66,10 +66,10 @@
           <ion-icon name="md-add"></ion-icon>
         </span>
       </span>
-      <span class="image-box" *ngFor="let interviewImage of interviewImages; let i = index">
-        <button class="delete-image-button" ion-button clear (click)="deleteImage(content, i)"><img src="assets/img/delete-button.png" /></button>
+      <span class="image-box" *ngFor="let image of interview_response_images; let i = index">
+        <button class="delete-image-button" ion-button clear (click)="deleteImage(i)"><img src="assets/img/delete-button.png" /></button>
         <span class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="interviewImage.img" (load)="onInterviewImageLoad($event.target, i)" [style.height]="interviewImage.height" [style.width]="interviewImage.width" [style.left]="interviewImage.left" [style.top]="interviewImage.top" [style.max-height]="interviewImage.maxHeight" [style.max-width]="interviewImage.maxWidth"/>
+          <img class="feedback-image" [src]="image.img" (load)="onInterviewImageLoad($event.target, i)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
         </span>
       </span>
     </div>
