@@ -53,10 +53,10 @@
     <!-- ==========================USER=============================== -->
     <ion-card class="left-interview-card" *ngIf="interview.userInterview.content != ''">
       <ion-item class="avatar-span-wrapper">
-        <span item-start class="avatar-image avatar-span">
+        <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
           <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.userInterview.avatarImage + ')'"></div>
         </span>
-        <h3 [innerHTML]="interview.userInterview.nickname"></h3>
+        <h3 class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()" [innerHTML]="interview.userInterview.nickname"></h3>
         <p>{{interview.userInterview.registrationDate}}</p>
       </ion-item>
       <ion-card-content>

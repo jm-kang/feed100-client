@@ -21,7 +21,7 @@ export class CompanyProjectStatsPage {
     {
       title: '첫인상 평가',
       // 서버에서 데이터 필요한 부분
-      data: [{
+      datasets: [{
         data: [0, 0, 4, 10, 16]
       }],
   
@@ -47,7 +47,7 @@ export class CompanyProjectStatsPage {
     {
       title: '추천 지수 (nps)',
       // 서버에서 데이터 필요한 부분
-      data: [{
+      datasets: [{
         data: [4, 2, 0, 12, 12]
       }],
   
@@ -73,7 +73,7 @@ export class CompanyProjectStatsPage {
     {
       title: '서비스 만족도',
       // 서버에서 데이터 필요한 부분
-      data: [{
+      datasets: [{
         data: [5, 6, 9, 4, 6]
       }],
   
@@ -110,7 +110,7 @@ export class CompanyProjectStatsPage {
   average(index) {
     let average:number = 0;
     let i: number = 0;
-    for(let data of this.stats[index].data[0].data) {
+    for(let data of this.stats[index].datasets[0].data) {
       i = i+1;
       average = data * i + average;
     }

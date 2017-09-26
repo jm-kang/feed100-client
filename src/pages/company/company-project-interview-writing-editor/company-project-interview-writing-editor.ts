@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Content, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Content, ViewController, ModalController } from 'ionic-angular';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 /**
  * Generated class for the CompanyProjectInterviewWritingEditorPage page.
@@ -114,7 +115,7 @@ export class CompanyProjectInterviewWritingEditorPage {
     },
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -177,5 +178,10 @@ export class CompanyProjectInterviewWritingEditorPage {
 
   addImage() {
     console.log("addImage(): 이미지 추가 버튼");
+  }
+
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
   }
 }

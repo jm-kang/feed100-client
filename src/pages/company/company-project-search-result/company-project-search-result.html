@@ -47,13 +47,14 @@
       <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
         <ion-card-header>
           <ion-item class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span">
+            <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
               <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedbackResult.avatar_image + ')'"></div>
             </span>
             <h3>
               <span class="best-badge" *ngIf="feedbackResult.is_best">
                 <span>BEST</span>
-              </span>{{feedbackResult.nickname}}
+              </span>
+              <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{feedbackResult.nickname}}</span>
               <span float-right class="empathy-wrapper">
                 <span><span class="text-empathy">공감</span> {{feedbackResult.empathy_num}}</span>
                 <span><span class="text-nonempathy">비공감</span> {{feedbackResult.non_empathy_num}}</span>

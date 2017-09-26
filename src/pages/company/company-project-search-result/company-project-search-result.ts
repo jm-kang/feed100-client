@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
 
 import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -423,5 +424,11 @@ export class CompanyProjectSearchResultPage {
   openCompanyProjectFeedbackPage(feedback_id) {
     this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
+
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
+  }
+
 
 }
