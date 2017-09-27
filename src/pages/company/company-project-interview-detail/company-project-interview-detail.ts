@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, Content } from 'i
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CompanyProjectInterviewWritingEditorPage } from '../company-project-interview-writing-editor/company-project-interview-writing-editor';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 /**
  * Generated class for the CompanyProjectInterviewDetailPage page.
@@ -171,4 +172,10 @@ export class CompanyProjectInterviewDetailPage {
     let companyProjectInterviewWritingEditorModal = this.modalCtrl.create(CompanyProjectInterviewWritingEditorPage);
     companyProjectInterviewWritingEditorModal.present();
   }
+
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
+  }
+
 }

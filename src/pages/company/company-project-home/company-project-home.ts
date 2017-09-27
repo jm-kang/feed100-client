@@ -8,9 +8,10 @@ import { CompanyProjectSideMenuPage } from '../company-project-side-menu/company
 import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
 import { CompanyProjectLinkPage } from '../company-project-link/company-project-link';
 import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
-import { CompanyProjectInterviewDetailPage } from '../company-project-interview-detail/company-project-interview-detail';
+import { CompanyProjectInterviewPage } from '../company-project-interview/company-project-interview';
 import { CompanyProjectSearchPage } from '../company-project-search/company-project-search';
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -197,8 +198,8 @@ export class CompanyProjectHomePage {
     this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
-  openCompanyProjectInterviewDetailPage() {
-    this.navCtrl.push(CompanyProjectInterviewDetailPage);
+  openCompanyProjectInterviewPage() {
+    this.navCtrl.push(CompanyProjectInterviewPage);
   }
 
   openCompanyProjectSearchPage() {
@@ -214,5 +215,10 @@ export class CompanyProjectHomePage {
       { "hashtags" : hashtags,
       "project_id" : this.project_id });
     companyProjectSearchResultModal.present();
+  }
+
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
   }
 }

@@ -3,6 +3,7 @@ import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -248,4 +249,10 @@ export class CompanyProjectFeedbackPage {
       "project_id" : this.project_id });
     companyProjectSearchResultModal.present();
   }
+
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
+  }
+
 }

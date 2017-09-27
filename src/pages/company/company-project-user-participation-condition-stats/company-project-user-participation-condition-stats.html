@@ -26,7 +26,7 @@
   <ion-slides>
     <ion-slide *ngFor="let stat of stats; let i=index;"  style="overflow-y: scroll; display: block;" padding-bottom>
       <ion-item class="stats-title" text-left>Q{{i+1}}. {{stat.question}}
-        <ion-icon item-end name="md-arrow-forward" (click)="goNextSlide()"></ion-icon>
+        <ion-icon item-end name="md-arrow-forward" *ngIf="(stats.length-1) > i" (click)="goNextSlide()"></ion-icon>
       </ion-item>
       <div class="chart-wrapper">
         <canvas baseChart width="100%" height="100%" [colors]="colors" [datasets]="stat.datasets" [labels]="stat.labels" [chartType]="type" [options]="options"></canvas> 

@@ -68,7 +68,6 @@ export class CompanyProjectStoryPage {
       storyVideo: '',
       storyContent: '스토리 설명 스토리 설명',
     },
-    
   ];
 
   constructor(

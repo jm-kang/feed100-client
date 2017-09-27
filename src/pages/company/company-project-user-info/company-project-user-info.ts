@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { CompanyProjectUserProfileStatsPage } from '../company-project-user-profile-stats/company-project-user-profile-stats';
 import { CompanyProjectUserParticipationConditionStatsPage } from '../company-project-user-participation-condition-stats/company-project-user-participation-condition-stats';
+import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 /**
  * Generated class for the CompanyProjectUserInfoPage page.
@@ -60,7 +61,7 @@ export class CompanyProjectUserInfoPage {
     },
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -79,4 +80,9 @@ export class CompanyProjectUserInfoPage {
     this.navCtrl.push(CompanyProjectUserParticipationConditionStatsPage);
   }
   
+  openCompanyProjectUserProfilePage() {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+    companyProjectUserProfileModal.present();
+  }
+
 }

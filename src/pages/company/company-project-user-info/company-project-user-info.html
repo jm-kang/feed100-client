@@ -44,11 +44,11 @@
         <span item-end>총 {{participantNum}}명</span>
       </ion-list-header>
       <ion-item class="avatar-span-wrapper" *ngFor="let user of users">
-        <span item-start class="avatar-image avatar-span">
+        <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
           <div class="avatar-span-image" [style.backgroundImage]="'url(' + user.avatar_image + ')'"></div>
         </span>
         <p>Lv{{user.level}} {{user.level_class}}</p>
-        <h3>{{user.nickname}}</h3>
+        <h3 class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{user.nickname}}</h3>
         <span class="user-info-box" item-end>
           <p text-right>의견</p>
           <div text-right class="user-info-number" [innerHTML]="user.opinion_num"></div>
