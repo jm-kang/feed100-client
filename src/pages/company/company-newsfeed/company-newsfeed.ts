@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { CompanyNewsfeedStoryPage } from '../company-newsfeed-story/company-newsfeed-story';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyNewsfeedPage page.
  *
@@ -41,7 +41,8 @@ export class CompanyNewsfeedPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
 
   }
 

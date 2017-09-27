@@ -6,10 +6,11 @@ import { TermsPage } from '../terms/terms';
 import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy';
 import { UserSnsRegistrationFormPage } from '../user-sns-registration-form/user-sns-registration-form'
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 import { Storage } from '@ionic/storage';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
+
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 
 declare var KakaoTalk;
 
@@ -38,7 +39,7 @@ export class UserRegistrationFormPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public httpService: HttpServiceProvider,
+    public commonService: CommonServiceProvider,
     public storage: Storage,
     public fb: Facebook,
     public googlePlus: GooglePlus) {
@@ -64,29 +65,29 @@ export class UserRegistrationFormPage {
 
   localRegister() {
     if(!this.username) {
-      this.httpService.showBasicAlert('이메일을 입력해주세요.');
+      this.commonService.showBasicAlert('이메일을 입력해주세요.');
       return;
     }
     if(!this.password) {
-      this.httpService.showBasicAlert('비밀번호를 입력해주세요.');
+      this.commonService.showBasicAlert('비밀번호를 입력해주세요.');
       return;
     }
     if(!this.checkingPassword) {
-      this.httpService.showBasicAlert('비밀번호 확인을 입력해주세요.');
+      this.commonService.showBasicAlert('비밀번호 확인을 입력해주세요.');
       return;
     }
     if(!this.nickname) {
-      this.httpService.showBasicAlert('닉네임을 입력해주세요.');
+      this.commonService.showBasicAlert('닉네임을 입력해주세요.');
       return;
     }
     if(!this.isCheck) {
-      this.httpService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
+      this.commonService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
       return;
     }
 
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.localRegister(this.username, this.password, this.role, this.nickname)
+    this.commonService.localRegister(this.username, this.password, this.role, this.nickname)
     .finally(() => {
       loading.dismiss();
     })
@@ -100,29 +101,29 @@ export class UserRegistrationFormPage {
         else if(data.success == false) {
           switch(data.message) {
             case 'username is already registered':
-              this.httpService.showBasicAlert('이미 등록되어있는 이메일입니다.');
+              this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
               break;
             case 'nickname is already registered':
-              this.httpService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
+              this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
               break;
           }
         }
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
   }
 
   googleRegister() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
     this.googlePlus.login({})
     .then(res => {
       console.log(res);
-      this.httpService.SNSLogin('google', res.userId, this.role)
+      this.commonService.SNSLogin('google', res.userId, this.role)
       .finally(() => {
         loading.dismiss();
       })
@@ -149,26 +150,26 @@ export class UserRegistrationFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
       );
     })
     .catch(err => {
       console.error(err);
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
       loading.dismiss();
     });
   }
 
 
   facebookRegister() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
     this.fb.login(['public_profile', 'email'])
     .then((res: FacebookLoginResponse) => {
       console.log('Logged into Facebook!', res);
       console.log(res.authResponse.userID);
-      this.httpService.SNSLogin('facebook', res.authResponse.userID, this.role)
+      this.commonService.SNSLogin('facebook', res.authResponse.userID, this.role)
       .finally(() => {
         loading.dismiss();
       })
@@ -192,21 +193,21 @@ export class UserRegistrationFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
     })
     .catch(e => {
       console.log('Error logging into Facebook', e);
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
       loading.dismiss();
     });
 
   }
 
   kakaoRegister() {
-    this.httpService.showBasicAlert('준비중입니다!');
+    this.commonService.showBasicAlert('준비중입니다!');
   //   KakaoTalk.login(
   //   (result) => {
   //   console.log('Successful login!');

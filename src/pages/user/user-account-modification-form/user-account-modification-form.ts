@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserAccountModificationFormPage page.
  *
@@ -16,23 +16,24 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
   templateUrl: 'user-account-modification-form.html',
 })
 export class UserAccountModificationFormPage {
-  avatarImage: String = "assets/img/user-avatar-image.png";
-  nickname: String = "스윙스";
-  username: String = "swings@gmail.com";
+  avatarImage: String = "";
+  nickname: String = "";
+  username: String = "";
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
   width: any =  "";
   left: any =  "";
   top: any =  "";
-  introduction: String = "리스펙 리스펙";
+  introduction: String = "";
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public alertCtrl: AlertController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -109,7 +110,7 @@ export class UserAccountModificationFormPage {
               this.nickname = data.nickname;
             }
             else {
-              this.httpService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
+              this.commonService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
             }
           }
         }
@@ -120,20 +121,20 @@ export class UserAccountModificationFormPage {
 
   modifyAccount() {
     console.log("수정 완료");
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.updateAccount(this.nickname, this.introduction)
+    this.userService.updateAccount(this.nickname, this.introduction)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.httpService.showBasicAlert('수정이 완료되었습니다.');
-          this.viewCtrl.dismiss("modified");    
+          this.commonService.showBasicAlert('수정이 완료되었습니다.');
+          this.viewCtrl.dismiss("refresh");    
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.modifyAccount();
           })
@@ -141,7 +142,7 @@ export class UserAccountModificationFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

@@ -7,8 +7,8 @@ import { CompanyProjectHomePage } from '../company-project-home/company-project-
 import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
 import { CompanyProjectRegistrationPage } from '../company-project-registration/company-project-registration';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
 /**
  * Generated class for the CompanyMypagePage page.
@@ -106,7 +106,8 @@ export class CompanyMypagePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
   }
 

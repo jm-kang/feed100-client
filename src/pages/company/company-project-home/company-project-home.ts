@@ -12,8 +12,8 @@ import { CompanyProjectInterviewDetailPage } from '../company-project-interview-
 import { CompanyProjectSearchPage } from '../company-project-search/company-project-search';
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyProjectHomePage page.
  *
@@ -84,7 +84,8 @@ export class CompanyProjectHomePage {
     public statusBar: StatusBar, 
     public appCtrl: App, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
     // this.participantNum = this.feedbacks.length;
     // 베스트 피드백 조건 
     // 현재 피드백의 순위가 전체 참여 가능 인원의 10퍼센트 이하 

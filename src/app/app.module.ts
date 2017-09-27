@@ -14,7 +14,6 @@ import { LoginPageModule } from '../pages/common/login/login.module';
 import { AppIntroPageModule } from '../pages/common/app-intro/app-intro.module';
 import { ContactPageModule } from '../pages/common/contact/contact.module';
 import { FaqPageModule } from '../pages/common/faq/faq.module';
-import { FullSizeImagePageModule } from '../pages/common/full-size-image/full-size-image.module';
 import { ManualPageModule } from '../pages/common/manual/manual.module';
 import { NoticePageModule } from '../pages/common/notice/notice.module';
 import { PrivateInfoPolicyPageModule } from '../pages/common/private-info-policy/private-info-policy.module';
@@ -68,7 +67,6 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectFeedbackWritingEditorPageModule } from '../pages/user/user-project-feedback-writing-editor/user-project-feedback-writing-editor.module';
     import { UserProjectFeedbackPopoverPageModule } from '../pages/user/user-project-feedback-popover/user-project-feedback-popover.module';
     import { UserProjectFeedbackListPageModule } from '../pages/user/user-project-feedback-list/user-project-feedback-list.module';
-    import { UserProjectHistoryPageModule } from '../pages/user/user-project-history/user-project-history.module';
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
     import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
     import { UserProjectOpinionWritingEditorPageModule } from '../pages/user/user-project-opinion-writing-editor/user-project-opinion-writing-editor.module';
@@ -77,7 +75,6 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectSideMenuPageModule } from '../pages/user/user-project-side-menu/user-project-side-menu.module';
     import { UserProjectStoryPageModule } from '../pages/user/user-project-story/user-project-story.module';
     import { UserProjectStorySummaryWritingEditorPageModule } from '../pages/user/user-project-story-summary-writing-editor/user-project-story-summary-writing-editor.module';
-    import { UserProjectSearchPageModule } from '../pages/user/user-project-search/user-project-search.module';
     import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
     import { UserNewsfeedStoryPageModule } from '../pages/user/user-newsfeed-story/user-newsfeed-story.module';
@@ -91,7 +88,6 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { Facebook } from '@ionic-native/facebook';
@@ -101,6 +97,9 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file'
+import { CommonServiceProvider } from '../providers/common-service/common-service';
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { CompanyServiceProvider } from '../providers/company-service/company-service';
 
 
 @NgModule({
@@ -165,7 +164,6 @@ import { File } from '@ionic-native/file'
         UserProjectFeedbackWritingEditorPageModule,
         UserProjectFeedbackPopoverPageModule,
         UserProjectFeedbackListPageModule,
-        UserProjectHistoryPageModule,
         UserProjectHomePageModule,
         UserProjectLinkPageModule,
         UserProjectOpinionWritingEditorPageModule,
@@ -174,7 +172,6 @@ import { File } from '@ionic-native/file'
         UserProjectSideMenuPageModule,
         UserProjectStoryPageModule,
         UserProjectStorySummaryWritingEditorPageModule,
-        UserProjectSearchPageModule,
         UserProjectSearchResultPageModule,
       UserNewsfeedPageModule,
         UserNewsfeedStoryPageModule,
@@ -196,7 +193,6 @@ import { File } from '@ionic-native/file'
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    HttpServiceProvider,
     Facebook,
     GooglePlus,
     Push,
@@ -204,6 +200,9 @@ import { File } from '@ionic-native/file'
     PhotoViewer,
     Camera,
     File,
+    CommonServiceProvider,
+    UserServiceProvider,
+    CompanyServiceProvider,
   ]
 })
 export class AppModule {}

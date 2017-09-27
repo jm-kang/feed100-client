@@ -4,7 +4,8 @@ import { IonicPage, NavController, NavParams, Slides, ViewController } from 'ion
 
 import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectParticipationConditionFormPage page.
@@ -32,15 +33,16 @@ export class UserProjectParticipationConditionFormPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectParticipationConditionFormPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectParticipation(this.project_id)
+    this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -55,20 +57,20 @@ export class UserProjectParticipationConditionFormPage {
           else {
             if(data.message == "project is not proceeding") {
               this.dismiss();
-              this.httpService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+              this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
             }
             else if(data.message == "project is max") {
               this.dismiss();
-              this.httpService.showBasicAlert('이런! 인원이 초과되었습니다.');
+              this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
             }
             else if(data.message == "is not approved") {
               this.dismiss();
-              this.httpService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
+              this.commonService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
             }
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -76,7 +78,7 @@ export class UserProjectParticipationConditionFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
 
@@ -114,9 +116,9 @@ export class UserProjectParticipationConditionFormPage {
   }
 
   openUserProjectStoryPage() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.projectParticipation(this.project_id, this.participationConditionSlides)
+    this.userService.projectParticipation(this.project_id, this.participationConditionSlides)
     .finally(() => {
       loading.dismiss();
     })
@@ -124,7 +126,7 @@ export class UserProjectParticipationConditionFormPage {
         (data) => {
         if(data.success == true) {
           if(data.data) {
-            this.httpService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.', 
+            this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.', 
               () => {
                 this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id, "isFeedback" : true });
                 this.dismiss();
@@ -133,11 +135,11 @@ export class UserProjectParticipationConditionFormPage {
           }
           else {
             this.dismiss();
-            this.httpService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
+            this.commonService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.openUserProjectStoryPage();
           });
@@ -145,7 +147,7 @@ export class UserProjectParticipationConditionFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
   }

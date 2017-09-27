@@ -9,8 +9,8 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 import { UserProjectParticipationConditionFormPage } from '../user-project-participation-condition-form/user-project-participation-condition-form';
 import { UserProjectRewardFormPage } from '../user-project-reward-form/user-project-reward-form';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserMypagePage page.
  *
@@ -24,7 +24,6 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
   templateUrl: 'user-mypage.html',
 })
 export class UserMypagePage {
-  // avatarImage: String = '';
   avatarImage: String = '';
   level = 0;
   levelClass: String = '';
@@ -41,95 +40,27 @@ export class UserMypagePage {
   segmentProjectCondition: String = '';
 
   // 진행중인 프로젝트
-  proceedingProjects = [
-    {
-      projectMainImage: 'assets/img/project-main-image1.png',
-      avatarImage: 'assets/img/company-avatar-image1.png',
-      nickname: 'Anchor Labs',
-      projectName: 'ANCHOR CABLE lorem ipsum',
-      projectSummary: '세계 최초의 스테인레스 스틸 마그네틱 CROSS DEVICE 충전 케이블 및 평생 보증.',
-      participantNum: '30',
-      maxParticipantNum: '30',
-      progressPercent: '100',
-      progressState: '3일 남음',
-    },
-    {
-      projectMainImage: 'assets/img/project-main-image2.png',
-      avatarImage: 'assets/img/company-avatar-image2.png',
-      nickname: 'NEXUM',
-      projectName: 'AQUA+',
-      projectSummary: '세계에서 가장 강력한 무선 헤드폰 앰프',
-      participantNum: '27',
-      maxParticipantNum: '30',
-      progressPercent: '90',
-      progressState: '5일 남음',
-    },
-  ];
+  proceedingProjects = [];
 
-  rewardProjects = [
-    {
-      projectMainImage: 'assets/img/project-main-image3.png',
-      avatarImage: 'assets/img/company-avatar-image3.png',
-      nickname: 'POLAR SEAL',
-      projectName: 'PolarSeal Heated Tops',
-      projectSummary: '버튼 한 번에 따뜻함. 슈퍼 라이트, 편안하게 디자인 된 스마트 히트 탑.',
-      participantNum: '3',
-      maxParticipantNum: '30',
-      progressPercent: '10',
-      progressState: '6일 남음',
-    },
-  ];
+  rewardProjects = [];
 
-  endProjects = [
-    {
-      projectMainImage: 'assets/img/project-main-image2.png',
-      avatarImage: 'assets/img/company-avatar-image2.png',
-      nickname: 'NEXUM',
-      projectName: 'AQUA+',
-      projectSummary: '세계에서 가장 강력한 무선 헤드폰 앰프',
-      participantNum: '27',
-      maxParticipantNum: '30',
-      progressPercent: '90',
-      progressState: '5일 남음',
-    },
-    {
-      projectMainImage: 'assets/img/project-main-image1.png',
-      avatarImage: 'assets/img/company-avatar-image1.png',
-      nickname: 'Anchor Labs',
-      projectName: 'ANCHOR CABLE lorem ipsum',
-      projectSummary: '세계 최초의 스테인레스 스틸 마그네틱 CROSS DEVICE 충전 케이블 및 평생 보증.',
-      participantNum: '30',
-      maxParticipantNum: '30',
-      progressPercent: '100',
-      progressState: '3일 남음',
-    },
-    {
-      projectMainImage: 'assets/img/project-main-image3.png',
-      avatarImage: 'assets/img/company-avatar-image3.png',
-      nickname: 'POLAR SEAL',
-      projectName: 'PolarSeal Heated Tops',
-      projectSummary: '버튼 한 번에 따뜻함. 슈퍼 라이트, 편안하게 디자인 된 스마트 히트 탑.',
-      participantNum: '3',
-      maxParticipantNum: '30',
-      progressPercent: '10',
-      progressState: '6일 남음',
-    },
-  ];
+  endProjects = [];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserMypagePage');
-    let loading = this.httpService.presentLoading();
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserMypagePage');
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.getUserInfo()
+    this.userService.getUserInfo()
     .finally(() => {
       loading.dismiss();
     })
@@ -145,7 +76,7 @@ export class UserMypagePage {
           this.point = data.data.point;
           this.exp = data.data.experience_point;
           this.maxExp = data.data.required_experience_point;
-          this.expPercent = ((this.exp / this.maxExp) * 100).toFixed(1);
+          this.expPercent = (this.maxExp != 0) ? ((this.exp / this.maxExp) * 100).toFixed(1) : "0";
           this.proceedingProjects = data.data.proceeding_projects;
           this.rewardProjects = data.data.reward_projects;
           this.endProjects = data.data.end_projects;
@@ -154,15 +85,15 @@ export class UserMypagePage {
           this.endProjectNum = this.endProjects.length;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }
@@ -177,8 +108,8 @@ export class UserMypagePage {
     userAccountModificationFormModal.present();
     userAccountModificationFormModal.onWillDismiss(
       (data) => {
-        if(data == "modified") {
-          this.ionViewDidLoad();
+        if(data == "refresh") {
+          this.ionViewWillEnter();
         }
       }
     );
@@ -201,7 +132,7 @@ export class UserMypagePage {
   // 		보상 후 - 스토리
   // 	참여x - 스토리
   accessProjectCard(project_id) {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     let messages = [
       '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
       '아쉽게도 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
@@ -211,7 +142,7 @@ export class UserMypagePage {
       '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
     ]
 
-    this.httpService.getUserAndProjectAndParticipation(project_id)
+    this.userService.getUserAndProjectAndParticipation(project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -220,7 +151,7 @@ export class UserMypagePage {
         if(data.success == true) {
           if(data.data.project_info.isProceeding) {
             if(data.data.project_participation_info) {
-              this.httpService.showConfirmAlert(messages[0], 
+              this.commonService.showConfirmAlert(messages[0], 
                 () => {
                   this.openUserProjectHomePage(project_id);
                 }
@@ -228,7 +159,7 @@ export class UserMypagePage {
             }
             else {
               if(data.data.project_info.participant_num >= data.data.project_info.max_participant_num) {
-                this.httpService.showConfirmAlert(messages[1], 
+                this.commonService.showConfirmAlert(messages[1], 
                   () => {
                     this.openUserProjectStoryPage(project_id);
                   }
@@ -236,14 +167,14 @@ export class UserMypagePage {
               }
               else {
                 if(!data.data.age) {
-                  this.httpService.showConfirmAlert(messages[2], 
+                  this.commonService.showConfirmAlert(messages[2], 
                     () => {
                       this.openUserProfileModificationFormPage();
                     }
                   );
                 }
                 else {
-                  this.httpService.showConfirmAlert(messages[3], 
+                  this.commonService.showConfirmAlert(messages[3], 
                     () => {
                       this.openUserProjectParticipationConditionFormPage(project_id);
                     }
@@ -255,14 +186,14 @@ export class UserMypagePage {
           else {
             if(data.data.project_participation_info) {
               if(!data.data.project_participation_info.project_reward_date) {
-                this.httpService.showConfirmAlert(messages[4], 
+                this.commonService.showConfirmAlert(messages[4], 
                   () => {
                     this.openUserProjectRewardFormPage(project_id);
                   }
                 );
               }
               else {
-                this.httpService.showConfirmAlert(messages[5], 
+                this.commonService.showConfirmAlert(messages[5], 
                   () => {
                     this.openUserProjectStoryPage(project_id);
                   }
@@ -270,7 +201,7 @@ export class UserMypagePage {
               }
             }
             else {
-              this.httpService.showConfirmAlert(messages[5], 
+              this.commonService.showConfirmAlert(messages[5], 
                 () => {
                   this.openUserProjectStoryPage(project_id);
                 }
@@ -279,7 +210,7 @@ export class UserMypagePage {
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.accessProjectCard(project_id);
           })
@@ -287,7 +218,7 @@ export class UserMypagePage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
@@ -315,6 +246,13 @@ export class UserMypagePage {
   openUserProjectRewardFormPage(project_id) {
     let userProjectRewardFormModal = this.modalCtrl.create(UserProjectRewardFormPage, { "project_id" : project_id });
     userProjectRewardFormModal.present();
+    userProjectRewardFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewWillEnter();
+        }
+      }
+    );
   }
 
 }

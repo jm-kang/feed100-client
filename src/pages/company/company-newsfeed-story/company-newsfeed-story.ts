@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, App } from 'ionic-angular';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyNewsfeedStoryPage page.
  *
@@ -98,7 +98,8 @@ export class CompanyNewsfeedStoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -175,31 +176,31 @@ export class CompanyNewsfeedStoryPage {
   }
 
   clickLike() {
-    let loading = this.httpService.presentLoading();
-    let newsfeed_id = this.navParams.get('newsfeed_id');
+    // let loading = this.httpService.presentLoading();
+    // let newsfeed_id = this.navParams.get('newsfeed_id');
 
-    this.httpService.newsfeedLike(newsfeed_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.isLike = (data.data.isLike == 1) ? true : false;
-          this.newsfeedLikeNum = data.data.newsfeed_like_num;
-        }
-        else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidLoad();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+    // this.httpService.newsfeedLike(newsfeed_id)
+    // .finally(() => {
+    //   loading.dismiss();
+    // })
+    // .subscribe(
+    //   (data) => {
+    //     if(data.success == true) {
+    //       this.isLike = (data.data.isLike == 1) ? true : false;
+    //       this.newsfeedLikeNum = data.data.newsfeed_like_num;
+    //     }
+    //     else if(data.success == false) {
+    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+    //       .then(() => {
+    //         this.ionViewDidLoad();
+    //       })
+    //     }
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.httpService.showBasicAlert('오류가 발생했습니다.');
+    //   }
+    // );
 
   }
 
@@ -212,37 +213,37 @@ export class CompanyNewsfeedStoryPage {
   }
 
   writeNewsfeedComment() {
-    if(this.newsfeedComment != '') {
-      let loading = this.httpService.presentLoading();
-      let newsfeed_comment_content = this.newsfeedComment;
-      this.newsfeedComment = '';
-      this.newsfeedComments = [];
-      let newsfeed_id = this.navParams.get('newsfeed_id');
+    // if(this.newsfeedComment != '') {
+    //   let loading = this.httpService.presentLoading();
+    //   let newsfeed_comment_content = this.newsfeedComment;
+    //   this.newsfeedComment = '';
+    //   this.newsfeedComments = [];
+    //   let newsfeed_id = this.navParams.get('newsfeed_id');
       
-      this.httpService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.newsfeedComments = data.data.newsfeed_comments;
-            this.newsfeedCommentNum = data.data.newsfeed_comment_num;
-            this.httpService.showBasicAlert('댓글이 등록되었습니다.');
-          }
-          else if(data.success == false) {
-            this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.ionViewDidLoad();
-            })
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.httpService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    }
+    //   this.httpService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
+    //   .finally(() => {
+    //     loading.dismiss();
+    //   })
+    //   .subscribe(
+    //     (data) => {
+    //       if(data.success == true) {
+    //         this.newsfeedComments = data.data.newsfeed_comments;
+    //         this.newsfeedCommentNum = data.data.newsfeed_comment_num;
+    //         this.httpService.showBasicAlert('댓글이 등록되었습니다.');
+    //       }
+    //       else if(data.success == false) {
+    //         this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+    //         .then(() => {
+    //           this.ionViewDidLoad();
+    //         })
+    //       }
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //       this.httpService.showBasicAlert('오류가 발생했습니다.');
+    //     }
+    //   );
+    // }
   }
 
 }

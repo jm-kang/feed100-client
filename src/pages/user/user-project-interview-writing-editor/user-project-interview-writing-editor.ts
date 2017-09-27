@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, Content, ViewController } from 'io
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectInterviewWritingEditorPage page.
@@ -19,44 +20,16 @@ import { HttpServiceProvider } from '../../../providers/http-service/http-servic
 })
 export class UserProjectInterviewWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
-  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름";
+  projectName: String = "";
   interview_id;
   interview_response: String = "";
-  contentPlaceholder: String = '성실히 작성해주세요. 한번만 보낼 수 있습니다.';
+  contentPlaceholder: String = ' 작성 후 수정할 수 없습니다. 신중히 작성해주세요.';
   minTextLength: number = 20;
   isFold: boolean = true;
 
-  interview_request: String = "어두운 그대로 내비둬 억지로 밝아질거 뭐있어 딱 촛불 하나정도 저 조명따윈 내게 빛이 될 순 없어 눈뜨고 다시 찾아온 아침 혼자만 또 흐리멍텅한 날씨 습기 가득 찬 왼쪽의 눈으로 바라본 내 꿈만은 선명하길";
+  interview_request: String = "";
 
-  interview_request_images = [
-    {
-      img: "assets/img/feedback-image6.jpeg",
-      maxHeight: "",
-      maxWidth: "",
-      height: "",
-      width: "",
-      left: "",
-      top: "",
-    },
-    {
-      img: "assets/img/feedback-image2.jpeg",
-      maxHeight: "",
-      maxWidth: "",
-      height: "",
-      width: "",
-      left: "",
-      top: "",
-    },
-    {
-      img: "assets/img/feedback-image3.jpeg",
-      maxHeight: "",
-      maxWidth: "",
-      height: "",
-      width: "",
-      left: "",
-      top: "",
-    },
-  ]
+  interview_request_images = [];
   
   interview_response_images = [];
 
@@ -65,7 +38,8 @@ export class UserProjectInterviewWritingEditorPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     private photoViewer: PhotoViewer,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -93,12 +67,12 @@ export class UserProjectInterviewWritingEditorPage {
 
   completeEditor() {
     console.log("completeEditor() : 완료 버튼");
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     for(let i=0; i<this.interview_response_images.length; i++) {
       this.interview_response_images[i] = this.interview_response_images[i].img;
     }
 
-    this.httpService.responseInterview(this.interview_id, this.interview_response, this.interview_response_images)
+    this.userService.responseInterview(this.interview_id, this.interview_response, this.interview_response_images)
     .finally(() => {
       loading.dismiss();
     })
@@ -108,7 +82,7 @@ export class UserProjectInterviewWritingEditorPage {
           this.viewCtrl.dismiss();      
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.completeEditor();
           });
@@ -116,7 +90,7 @@ export class UserProjectInterviewWritingEditorPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )  
   }
@@ -207,11 +181,11 @@ export class UserProjectInterviewWritingEditorPage {
 
   addImage() {
     console.log("addImage(): 이미지 추가 버튼");
-    this.httpService.selectImage()
-    .then(this.httpService.readFile)
+    this.commonService.selectImage()
+    .then(this.commonService.readFile)
     .then((formData) => {
-      let loading = this.httpService.presentLoading();
-      this.httpService.uploadFile(formData)
+      let loading = this.commonService.presentLoading();
+      this.commonService.uploadFile(formData)
       .finally(() => {
         loading.dismiss();
       })
@@ -221,21 +195,21 @@ export class UserProjectInterviewWritingEditorPage {
             this.interview_response_images.push({ "img" : data.data });
           }
           else if(data.success == false) {
-            this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.httpService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             });
           }
         },
         (err) => {
           console.log(err);
-          this.httpService.showBasicAlert('오류가 발생했습니다.');
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
       );
     })
     .catch((err) => {
       console.log(err);
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
     });
   }
 

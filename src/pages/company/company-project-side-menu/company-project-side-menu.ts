@@ -3,13 +3,14 @@ import { Nav, IonicPage, NavController, NavParams, ViewController, Content } fro
 
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
 import { CompanyProjectReportPage } from '../company-project-report/company-project-report';
 import { CompanyProjectUserInfoPage } from '../company-project-user-info/company-project-user-info';
 import { CompanyProjectStatsPage } from '../company-project-stats/company-project-stats';
 import { CompanyProjectStorySummaryPage } from '../company-project-story-summary/company-project-story-summary';
 import { CompanyProjectPriceStatementPage } from '../company-project-price-statement/company-project-price-statement';
+
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
 /**
  * Generated class for the CompanyProjectSideMenuPage page.
@@ -51,8 +52,10 @@ export class CompanyProjectSideMenuPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public statusBar: StatusBar,
-    public httpService: HttpServiceProvider
-  ) {}
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
+
+  }
   
   back() {
     this.navCtrl.pop();

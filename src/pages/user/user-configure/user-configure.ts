@@ -14,8 +14,9 @@ import { NoticePage } from '../../common/notice/notice';
 import { ContactPage } from '../../common/contact/contact';
 import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
 import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserConfigurePage page.
  *
@@ -36,7 +37,8 @@ export class UserConfigurePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public httpService: HttpServiceProvider,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider,
     public alertCtrl: AlertController) {
     this.viewCtrl.showBackButton(true);
   }
@@ -108,9 +110,9 @@ export class UserConfigurePage {
   }
 
   logout() {
-    this.httpService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
       () => {
-        this.httpService.logout(this.navCtrl);
+        this.commonService.logout(this.navCtrl);
       }
     );
   }

@@ -7,7 +7,8 @@ import { UserProjectFeedbackWritingEditorPage } from '../user-project-feedback-w
 import { UserProjectHomePage } from '../user-project-home/user-project-home';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectFeedbackFormPage page.
  *
@@ -41,16 +42,17 @@ export class UserProjectFeedbackFormPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     private photoViewer: PhotoViewer,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackFormPage');
     this.slides.lockSwipeToNext(true);
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectParticipation(this.project_id)
+    this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -64,20 +66,20 @@ export class UserProjectFeedbackFormPage {
           else {
             if(data.message == "project is not proceeding") {
               this.navCtrl.popAll();
-              this.httpService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+              this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
             }
             else if(data.message == "project is max") {
               this.navCtrl.popAll();
-              this.httpService.showBasicAlert('이런! 인원이 초과되었습니다.');
+              this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
             }
             else if(data.message == "is not approved") {
               this.navCtrl.popAll();
-              this.httpService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
+              this.commonService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
             }
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -85,7 +87,7 @@ export class UserProjectFeedbackFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
   }
@@ -197,12 +199,12 @@ export class UserProjectFeedbackFormPage {
 
   openUserProjectHomePage() {
     //프로젝트 안끝났고 참여중인 프로젝트 아니고 인원 꽉 안찼으면 
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     for(let i=0; i<this.feedbackImages.length; i++) {
       this.feedbackImages[i] = this.feedbackImages[i].img;
     }
 
-    this.httpService.projectFeedback(this.project_id, this.storySummaryContent, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
+    this.userService.projectFeedback(this.project_id, this.storySummaryContent, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
     .finally(() => {
       loading.dismiss();
     })
@@ -211,7 +213,7 @@ export class UserProjectFeedbackFormPage {
         if(data.success == true) {
           this.navCtrl.popAll();
           if(data.data) {
-            this.httpService.showConfirmAlert('축하합니다! 이제 프로젝트 페이지에서 토론, 인터뷰에 참여해주세요! 참여도에 따라 많은 보상을 받을 수 있습니다.', 
+            this.commonService.showConfirmAlert('축하합니다! 이제 프로젝트 페이지에서 토론, 인터뷰에 참여해주세요! 참여도에 따라 많은 보상을 받을 수 있습니다.', 
               () => {
                 let userProjectHomeModal = this.modalCtrl.create(UserProjectHomePage, { "project_id" : this.project_id });
                 userProjectHomeModal.present();
@@ -220,18 +222,18 @@ export class UserProjectFeedbackFormPage {
           }
           else {
             if(data.message == "project is not proceeding") {
-              this.httpService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+              this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
             }
             else if(data.message == "project is max") {
-              this.httpService.showBasicAlert('이런! 인원이 초과되었습니다.');
+              this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
             }
             else if(data.message == "you are already participated") {
-              this.httpService.showBasicAlert('이미 참여중인 프로젝트입니다.');
+              this.commonService.showBasicAlert('이미 참여중인 프로젝트입니다.');
             }
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.openUserProjectHomePage();
           });
@@ -239,7 +241,7 @@ export class UserProjectFeedbackFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
   }

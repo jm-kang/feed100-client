@@ -11,7 +11,8 @@ import { CompanyInterviewPage } from '../company-interview/company-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
 /**
  * Generated class for the CompanyTabsPage page.
@@ -37,16 +38,17 @@ export class CompanyTabsPage {
     public navParams: NavParams,
     private push: Push,
     private uniqueDeviceId: UniqueDeviceID,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
 
   }
 
   getAlarmNum() {
-    return this.httpService.alarmNum;
+    //return this.httpService.alarmNum;
   }
 
   getInterviewNum() {
-    return this.httpService.interviewNum;
+    //return this.httpService.interviewNum;
   }
 
   ionViewDidEnter() {
@@ -78,72 +80,72 @@ export class CompanyTabsPage {
   }
 
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad CompanyTabsPage');
-    // let isLogin = this.navParams.get('isLogin');
-    // if(isLogin) {
-    //         // to check if we have permission
-    //   this.push.hasPermission()
-    //     .then((res: any) => {
-    //       if (res.isEnabled) {
-    //         console.log('We have permission to send push notifications');
-    //       } else {
-    //         console.log('We do not have permission to send push notifications');
-    //       }
-    //     });
+    console.log('ionViewDidLoad CompanyTabsPage');
+    let isLogin = this.navParams.get('isLogin');
+    if(isLogin) {
+            // to check if we have permission
+      this.push.hasPermission()
+        .then((res: any) => {
+          if (res.isEnabled) {
+            console.log('We have permission to send push notifications');
+          } else {
+            console.log('We do not have permission to send push notifications');
+          }
+        });
 
 
-    //   // to initialize push notifications
+      // to initialize push notifications
 
-    //   const options: PushOptions = {
-    //     android: {
-    //         senderID: '889490373924'
-    //     },
-    //     ios: {
-    //         alert: true,
-    //         badge: true,
-    //         sound: true,
-    //         clearBadge: true
-    //     },
-    //     windows: {}
-    //   };
+      const options: PushOptions = {
+        android: {
+            senderID: '889490373924'
+        },
+        ios: {
+            alert: true,
+            badge: true,
+            sound: true,
+            clearBadge: true
+        },
+        windows: {}
+      };
 
-    //   const pushObject: PushObject = this.push.init(options);
+      const pushObject: PushObject = this.push.init(options);
   
-    //   pushObject.on('notification').subscribe((notification: any) => { 
-    //     console.log('Received a notification', notification);
-    //     if(notification.additionalData.foreground) {
-    //       this.httpService.showBasicAlert(notification.message);
-    //     }
-    //   });
+      pushObject.on('notification').subscribe((notification: any) => { 
+        console.log('Received a notification', notification);
+        if(notification.additionalData.foreground) {
+          this.commonService.showBasicAlert(notification.message);
+        }
+      });
       
 
-    //   pushObject.on('registration').subscribe((registration: any) => {
-    //     console.log('Device registered', registration);
-    //     console.log(registration.registrationId);
-    //     this.uniqueDeviceId.get()
-    //     .then((uuid: any) => {
-    //       console.log('uuid:', uuid);
-    //       this.httpService.registerDeviceToken(uuid, registration.registrationId)
-    //       .subscribe(
-    //         (data) => {
-    //           console.log(data);
-    //           this.httpService.showBasicAlert('device token 등록 성공');
-    //         },
-    //         (err) => {
-    //           console.log(err);
-    //           this.httpService.showBasicAlert('device token 등록 실패');
-    //         }
-    //       );
+      pushObject.on('registration').subscribe((registration: any) => {
+        console.log('Device registered', registration);
+        console.log(registration.registrationId);
+        this.uniqueDeviceId.get()
+        .then((uuid: any) => {
+          console.log('uuid:', uuid);
+          this.companyService.registerDeviceToken(uuid, registration.registrationId)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              this.commonService.showBasicAlert('device token 등록 성공');
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('device token 등록 실패');
+            }
+          );
           
-    //     })
-    //     .catch((error: any) => console.log(error));
-    //   });
+        })
+        .catch((error: any) => console.log(error));
+      });
 
-    //   pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+      pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
 
       
     
-    // }
+    }
   }
 
 
