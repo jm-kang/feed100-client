@@ -4,8 +4,8 @@ import { IonicPage, NavController, NavParams, ModalController, Content } from 'i
 import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
 import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectFeedbackListPage page.
  *
@@ -32,7 +32,8 @@ export class UserProjectFeedbackListPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   back() {
@@ -45,10 +46,10 @@ export class UserProjectFeedbackListPage {
   }
 
   ionViewDidEnter() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectHome(this.project_id)
+    this.userService.getProjectHome(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -68,7 +69,7 @@ export class UserProjectFeedbackListPage {
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -76,7 +77,7 @@ export class UserProjectFeedbackListPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

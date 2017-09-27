@@ -5,7 +5,8 @@ import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-f
 
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectSearchResultPage page.
@@ -40,7 +41,8 @@ export class UserProjectSearchResultPage {
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
     public statusBar: StatusBar,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   scrollingFun(e) {
@@ -58,10 +60,10 @@ export class UserProjectSearchResultPage {
   ionViewDidEnter() {
     this.statusBar.show();
 
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectHome(this.project_id)
+    this.userService.getProjectHome(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -83,7 +85,7 @@ export class UserProjectSearchResultPage {
           console.log(this.feedbackResults);
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -91,7 +93,7 @@ export class UserProjectSearchResultPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserInterviewPage page.
  *
@@ -25,15 +26,16 @@ export class UserInterviewPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserInterviewPage');
     
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.getInterviews()
+    this.userService.getInterviews()
     .finally(() => {
       loading.dismiss();
     })
@@ -43,7 +45,7 @@ export class UserInterviewPage {
           this.interviews = data.data;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewWillEnter();
           })
@@ -51,7 +53,7 @@ export class UserInterviewPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
@@ -71,7 +73,7 @@ export class UserInterviewPage {
   
   openUserProjectInterviewDetailPage(project_id, progressState) {
     if(progressState == '종료') {
-      this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
+      this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
     }
     else {
       this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id, "instance" : this.navCtrl.getActive().instance });

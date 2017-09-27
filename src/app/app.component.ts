@@ -11,7 +11,6 @@ import { UserNewsfeedStoryPage } from '../pages/user/user-newsfeed-story/user-ne
 import { UserConfigurePage } from '../pages/user/user-configure/user-configure';
 import { UserProjectHomePage } from '../pages/user/user-project-home/user-project-home';
 import { UserProjectFeedbackPage } from '../pages/user/user-project-feedback/user-project-feedback';
-import { HttpServiceProvider } from '../providers/http-service/http-service';
 import { UserProjectInterviewDetailPage } from '../pages/user/user-project-interview-detail/user-project-interview-detail'
 import { UserProjectRewardFormPage } from '../pages/user/user-project-reward-form/user-project-reward-form'
 
@@ -20,7 +19,8 @@ import { CompanyProjectFeedbackPage } from '../pages/company/company-project-fee
 import { CompanyProjectStoryPage } from '../pages/company/company-project-story/company-project-story';
 import { CompanyNewsfeedStoryPage } from '../pages/company/company-newsfeed-story/company-newsfeed-story';
 
-
+import { UserServiceProvider } from '../providers/user-service/user-service';
+import { CommonServiceProvider } from '../providers/common-service/common-service';
 
 
 @Component({
@@ -42,8 +42,10 @@ export class MyApp {
     platform: Platform, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen, 
-    public httpService: HttpServiceProvider,
-    public app: App) {
+    public userService: UserServiceProvider,
+    public commonService: CommonServiceProvider,
+    public app: App
+  ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -54,21 +56,21 @@ export class MyApp {
   }
 
   verifyLoginState() {
-    this.httpService.getUserInfo()
+    this.userService.getUserInfo()
     .subscribe(
       (data) => {
         if(data.success == true) {
           if(data.data.role == 'user') {
             this.rootPage = UserTabsPage;
-            this.httpService.showBasicAlert('자동 로그인 되었습니다.');
+            this.commonService.showBasicAlert('자동 로그인 되었습니다.');
           }
           else if(data.data.role == 'company') {
             this.rootPage = CompanyTabsPage;
-            this.httpService.showBasicAlert('자동 로그인 되었습니다.');
+            this.commonService.showBasicAlert('자동 로그인 되었습니다.');
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.app.getActiveNav())
+          this.commonService.apiRequestErrorHandler(data, this.app.getActiveNav())
           .then(() => {
             this.verifyLoginState();
           })

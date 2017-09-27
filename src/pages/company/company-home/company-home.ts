@@ -11,8 +11,8 @@ import { CompanyProjectRegistrationPage } from '../company-project-registration/
 import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
 import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyHomePage page.
  *
@@ -132,7 +132,8 @@ export class CompanyHomePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {

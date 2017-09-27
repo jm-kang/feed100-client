@@ -9,8 +9,8 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 import { UserProjectParticipationConditionFormPage } from '../user-project-participation-condition-form/user-project-participation-condition-form';
 import { UserProjectRewardFormPage } from '../user-project-reward-form/user-project-reward-form';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserAlarmPage page.
  *
@@ -31,14 +31,15 @@ export class UserAlarmPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAlarmPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.getAlarms()
+    this.userService.getAlarms()
     .finally(() => {
       loading.dismiss();
     })
@@ -48,7 +49,7 @@ export class UserAlarmPage {
           this.alarms = data.data;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           })
@@ -56,16 +57,16 @@ export class UserAlarmPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
   }
 
   accessAlarmItem(link, project_id, alarm_id) {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.alarmRead(alarm_id)
+    this.userService.alarmRead(alarm_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -85,7 +86,7 @@ export class UserAlarmPage {
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.accessAlarmItem(link, project_id, alarm_id);
           })
@@ -93,7 +94,7 @@ export class UserAlarmPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
@@ -120,7 +121,7 @@ export class UserAlarmPage {
   // 		보상 후 - 스토리
   // 	참여x - 스토리
   accessProjectCard(project_id) {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     let messages = [
       '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
       '아쉽게도 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
@@ -130,7 +131,7 @@ export class UserAlarmPage {
       '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
     ]
 
-    this.httpService.getUserAndProjectAndParticipation(project_id)
+    this.userService.getUserAndProjectAndParticipation(project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -139,7 +140,7 @@ export class UserAlarmPage {
         if(data.success == true) {
           if(data.data.project_info.isProceeding) {
             if(data.data.project_participation_info) {
-              this.httpService.showConfirmAlert(messages[0], 
+              this.commonService.showConfirmAlert(messages[0], 
                 () => {
                   this.openUserProjectHomePage(project_id);
                 }
@@ -147,7 +148,7 @@ export class UserAlarmPage {
             }
             else {
               if(data.data.project_info.participant_num >= data.data.project_info.max_participant_num) {
-                this.httpService.showConfirmAlert(messages[1], 
+                this.commonService.showConfirmAlert(messages[1], 
                   () => {
                     this.openUserProjectStoryPage(project_id);
                   }
@@ -155,14 +156,14 @@ export class UserAlarmPage {
               }
               else {
                 if(!data.data.age) {
-                  this.httpService.showConfirmAlert(messages[2], 
+                  this.commonService.showConfirmAlert(messages[2], 
                     () => {
                       this.openUserProfileModificationFormPage();
                     }
                   );
                 }
                 else {
-                  this.httpService.showConfirmAlert(messages[3], 
+                  this.commonService.showConfirmAlert(messages[3], 
                     () => {
                       this.openUserProjectParticipationConditionFormPage(project_id);
                     }
@@ -174,14 +175,14 @@ export class UserAlarmPage {
           else {
             if(data.data.project_participation_info) {
               if(!data.data.project_participation_info.project_reward_date) {
-                this.httpService.showConfirmAlert(messages[4], 
+                this.commonService.showConfirmAlert(messages[4], 
                   () => {
                     this.openUserProjectRewardFormPage(project_id);
                   }
                 );
               }
               else {
-                this.httpService.showConfirmAlert(messages[5], 
+                this.commonService.showConfirmAlert(messages[5], 
                   () => {
                     this.openUserProjectStoryPage(project_id);
                   }
@@ -189,7 +190,7 @@ export class UserAlarmPage {
               }
             }
             else {
-              this.httpService.showConfirmAlert(messages[5], 
+              this.commonService.showConfirmAlert(messages[5], 
                 () => {
                   this.openUserProjectStoryPage(project_id);
                 }
@@ -198,7 +199,7 @@ export class UserAlarmPage {
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.accessProjectCard(project_id);
           })
@@ -206,7 +207,7 @@ export class UserAlarmPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 

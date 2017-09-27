@@ -4,8 +4,8 @@ import { IonicPage, NavController, NavParams, Slides, ModalController } from 'io
 import { UserProjectFeedbackFormPage } from '../user-project-feedback-form/user-project-feedback-form';
 import { UserProjectLinkPage } from '../user-project-link/user-project-link';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectStoryPage page.
@@ -49,16 +49,17 @@ export class UserProjectStoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.isFeedback = this.navParams.get('isFeedback');
 
-    this.httpService.getProject(this.project_id)
+    this.userService.getProject(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -81,7 +82,7 @@ export class UserProjectStoryPage {
           this.totalPageNum = this.projectStorySlides.length + 1;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -89,7 +90,7 @@ export class UserProjectStoryPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
   }

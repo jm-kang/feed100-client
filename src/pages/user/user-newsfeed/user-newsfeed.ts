@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserNewsfeedStoryPage } from '../user-newsfeed-story/user-newsfeed-story';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserNewsfeedPage page.
  *
@@ -25,15 +25,16 @@ export class UserNewsfeedPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
-    this.httpService.getNewsfeeds()
+    this.userService.getNewsfeeds()
     .finally(() => {
       loading.dismiss();
     })
@@ -43,7 +44,7 @@ export class UserNewsfeedPage {
           this.newsfeeds = data.data;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           })
@@ -51,7 +52,7 @@ export class UserNewsfeedPage {
       },
       (err) => {
         console.log(JSON.stringify(err));
-        this.httpService.showBasicAlert('오류가 발생했습니다.')
+        this.commonService.showBasicAlert('오류가 발생했습니다.')
       }
     )
   }

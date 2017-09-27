@@ -6,8 +6,8 @@ import { CompanyProjectUserProfilePage } from '../company-project-user-profile/c
 
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyProjectSearchResultPage page.
  *
@@ -304,7 +304,8 @@ export class CompanyProjectSearchResultPage {
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
     public statusBar: StatusBar,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   scrollingFun(e) {

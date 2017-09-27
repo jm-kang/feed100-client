@@ -4,8 +4,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { UserProjectInterviewWritingEditorPage } from '../user-project-interview-writing-editor/user-project-interview-writing-editor';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectInterviewDetailPage page.
  *
@@ -32,7 +32,8 @@ export class UserProjectInterviewDetailPage {
     public navParams: NavParams, 
     private photoViewer: PhotoViewer, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -41,10 +42,10 @@ export class UserProjectInterviewDetailPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectInterviewDetailPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     let project_id = this.navParams.get('project_id');
     
-    this.httpService.getInterview(project_id)
+    this.userService.getInterview(project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -71,7 +72,7 @@ export class UserProjectInterviewDetailPage {
           this.interviews = tempInterviews;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewWillEnter();
           })
@@ -79,7 +80,7 @@ export class UserProjectInterviewDetailPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

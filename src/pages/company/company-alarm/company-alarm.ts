@@ -6,8 +6,8 @@ import { CompanyProjectInterviewDetailPage } from '../company-project-interview-
 import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
 import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyAlarmPage page.
  *
@@ -62,7 +62,8 @@ export class CompanyAlarmPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {

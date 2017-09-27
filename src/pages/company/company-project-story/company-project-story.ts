@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, Slides, ModalController } from 'io
 
 import { CompanyProjectLinkPage } from '../company-project-link/company-project-link';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
 
 /**
@@ -73,7 +74,8 @@ export class CompanyProjectStoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {

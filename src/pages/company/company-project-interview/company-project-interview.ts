@@ -3,8 +3,8 @@ import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { CompanyProjectInterviewDetailPage } from '../company-project-interview-detail/company-project-interview-detail';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyProjectInterviewPage page.
  *
@@ -53,7 +53,8 @@ export class CompanyProjectInterviewPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   back() {
@@ -92,7 +93,7 @@ export class CompanyProjectInterviewPage {
   
   openCompanyProjectInterviewDetailPage(project_participant_id, progressState) {
     if(progressState == '종료') {
-      this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
+      this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
     }
     else {
       this.appCtrl.getRootNavs()[0].push(CompanyProjectInterviewDetailPage, { "project_participant_id" : project_participant_id});

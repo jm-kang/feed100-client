@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, App } from 'ionic-angular';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserNewsfeedStoryPage page.
  *
@@ -45,15 +46,16 @@ export class UserNewsfeedStoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedStoryPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
 
-    this.httpService.getNewsfeed(newsfeed_id)
+    this.userService.getNewsfeed(newsfeed_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -77,7 +79,7 @@ export class UserNewsfeedStoryPage {
           this.totalPageNum = this.newsfeedStorySlides.length;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -85,7 +87,7 @@ export class UserNewsfeedStoryPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }
@@ -120,10 +122,10 @@ export class UserNewsfeedStoryPage {
   }
 
   clickLike() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
 
-    this.httpService.newsfeedLike(newsfeed_id)
+    this.userService.newsfeedLike(newsfeed_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -134,7 +136,7 @@ export class UserNewsfeedStoryPage {
           this.newsfeedLikeNum = data.data.newsfeed_like_num;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           })
@@ -142,7 +144,7 @@ export class UserNewsfeedStoryPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
@@ -158,13 +160,13 @@ export class UserNewsfeedStoryPage {
 
   writeNewsfeedComment() {
     if(this.newsfeedComment != '') {
-      let loading = this.httpService.presentLoading();
+      let loading = this.commonService.presentLoading();
       let newsfeed_comment_content = this.newsfeedComment;
       this.newsfeedComment = '';
       this.newsfeedComments = [];
       let newsfeed_id = this.navParams.get('newsfeed_id');
       
-      this.httpService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
+      this.userService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();
       })
@@ -173,10 +175,10 @@ export class UserNewsfeedStoryPage {
           if(data.success == true) {
             this.newsfeedComments = data.data.newsfeed_comments;
             this.newsfeedCommentNum = data.data.newsfeed_comment_num;
-            this.httpService.showBasicAlert('댓글이 등록되었습니다.');
+            this.commonService.showBasicAlert('댓글이 등록되었습니다.');
           }
           else if(data.success == false) {
-            this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
               this.ionViewDidLoad();
             })
@@ -184,7 +186,7 @@ export class UserNewsfeedStoryPage {
         },
         (err) => {
           console.log(err);
-          this.httpService.showBasicAlert('오류가 발생했습니다.');
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
       );
     }

@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://10.3.130.160:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -145,5 +145,4 @@
         <variable name="SNEDER_ID" value="889490373924" />
         <variable name="SENDER_ID" value="889490373924" />
     </plugin>
-    <allow-navigation href="http://192.168.35.89:8100" />
 </widget>

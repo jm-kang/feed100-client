@@ -7,8 +7,8 @@ import { UserProjectSearchResultPage } from '../user-project-search-result/user-
 import { UserProjectOpinionWritingEditorPage } from '../user-project-opinion-writing-editor/user-project-opinion-writing-editor';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectFeedbackPage page.
  *
@@ -61,7 +61,9 @@ export class UserProjectFeedbackPage {
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
     private photoViewer: PhotoViewer,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider
+  ) {
     this.mobWidth = (window.screen.width);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
@@ -75,11 +77,11 @@ export class UserProjectFeedbackPage {
     this.statusBar.show();
     this.segmentOpinionsCondition = "all";
 
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.feedback_id = this.navParams.get('feedback_id');
 
-    this.httpService.getFeedback(this.project_id, this.feedback_id)
+    this.userService.getFeedback(this.project_id, this.feedback_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -110,7 +112,7 @@ export class UserProjectFeedbackPage {
           
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -118,7 +120,7 @@ export class UserProjectFeedbackPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 

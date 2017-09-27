@@ -13,8 +13,8 @@ import { CompanyProjectRegistrationPage } from '../company-project-registration/
 import { ContactPage } from '../../common/contact/contact';
 import { CompanyAccountModificationFormPage } from '../company-account-modification-form/company-account-modification-form';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyConfigurePage page.
  *
@@ -35,7 +35,8 @@ export class CompanyConfigurePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
-    public httpService: HttpServiceProvider,
+    public commonService: CommonServiceProvider,
+    public CompanyServiceProvider: CompanyServiceProvider,
     public alertCtrl: AlertController) {
     this.viewCtrl.showBackButton(true);
   }
@@ -99,9 +100,9 @@ export class CompanyConfigurePage {
   }
 
   logout() {
-    this.httpService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
       () => {
-        this.httpService.logout(this.navCtrl);
+        this.commonService.logout(this.navCtrl);
       }
     );
   }

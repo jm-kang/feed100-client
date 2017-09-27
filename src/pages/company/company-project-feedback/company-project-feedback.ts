@@ -6,8 +6,8 @@ import { CompanyProjectSearchResultPage } from '../company-project-search-result
 import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyProjectFeedbackPage page.
  *
@@ -113,7 +113,8 @@ export class CompanyProjectFeedbackPage {
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
     private photoViewer: PhotoViewer,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
     this.mobWidth = (window.screen.width);
     this.slideHeight = this.mobWidth * 4 / 5;
   }

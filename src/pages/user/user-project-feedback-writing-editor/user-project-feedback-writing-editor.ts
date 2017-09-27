@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content } from 'ionic-angular';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectFeedbackWritingEditorPage page.
  *
@@ -34,17 +34,18 @@ export class UserProjectFeedbackWritingEditorPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCntrl: ModalController, 
-    public viewCtrl: ViewController, 
-    public httpService: HttpServiceProvider) {
+    public viewCtrl: ViewController,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackWritingEditorPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectHome(this.project_id)
+    this.userService.getProjectHome(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -54,7 +55,7 @@ export class UserProjectFeedbackWritingEditorPage {
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -62,7 +63,7 @@ export class UserProjectFeedbackWritingEditorPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
 
@@ -173,11 +174,11 @@ export class UserProjectFeedbackWritingEditorPage {
 
   addImage() {
     console.log("addImage(): 이미지 추가 버튼");
-    this.httpService.selectImage()
-    .then(this.httpService.readFile)
+    this.commonService.selectImage()
+    .then(this.commonService.readFile)
     .then((formData) => {
-      let loading = this.httpService.presentLoading();
-      this.httpService.uploadFile(formData)
+      let loading = this.commonService.presentLoading();
+      this.commonService.uploadFile(formData)
       .finally(() => {
         loading.dismiss();
       })
@@ -187,21 +188,21 @@ export class UserProjectFeedbackWritingEditorPage {
             this.feedbackImages.push({ "img" : data.data });
           }
           else if(data.success == false) {
-            this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.httpService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             });
           }
         },
         (err) => {
           console.log(err);
-          this.httpService.showBasicAlert('오류가 발생했습니다.');
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
       );
     })
     .catch((err) => {
       console.log(err);
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
     });
   }
 

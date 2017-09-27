@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController, Content } from 'io
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectOpinionWritingEditorPage page.
@@ -24,7 +25,7 @@ export class UserProjectOpinionWritingEditorPage {
 
   opinionContent: String = "";
   minTextLength: number = 20;
-  contentPlaceholder: String = '피드백을 보시고 공감 비공감에 관한 글을 작성해주세요.';
+  contentPlaceholder: String = '피드백에 대하여 공감 or 비공감 의견글을 작성해주세요.';
   nickname: String = "";
   isEmpathy: boolean;
   opinionImage = "";
@@ -42,7 +43,8 @@ export class UserProjectOpinionWritingEditorPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     private camera: Camera,
-    public httpService: HttpServiceProvider,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider,
     public storage: Storage) {
   }
 
@@ -111,11 +113,11 @@ export class UserProjectOpinionWritingEditorPage {
 
   addImage() {
     console.log("addImage(): 이미지 추가 버튼");
-    this.httpService.selectImage()
-    .then(this.httpService.readFile)
+    this.commonService.selectImage()
+    .then(this.commonService.readFile)
     .then((formData) => {
-      let loading = this.httpService.presentLoading();
-      this.httpService.uploadFile(formData)
+      let loading = this.commonService.presentLoading();
+      this.commonService.uploadFile(formData)
       .finally(() => {
         loading.dismiss();
       })
@@ -125,30 +127,30 @@ export class UserProjectOpinionWritingEditorPage {
             this.opinionImage = data.data;
           }
           else if(data.success == false) {
-            this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.httpService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             });
           }
         },
         (err) => {
           console.log(err);
-          this.httpService.showBasicAlert('오류가 발생했습니다.');
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
       );
     })
     .catch((err) => {
       console.log(err);
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
     });
   }
 
   moveFiles() {
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     if(this.opinionImage) {
       let images = [];
       images.push(this.opinionImage);
-      this.httpService.moveFiles(images)
+      this.commonService.moveFiles(images)
       .subscribe(
       (data) => {
         if(data.success == true) {
@@ -156,7 +158,7 @@ export class UserProjectOpinionWritingEditorPage {
           this.registerOpinion(loading);
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.moveFiles();
           })
@@ -175,7 +177,7 @@ export class UserProjectOpinionWritingEditorPage {
   }
 
   registerOpinion(loading) {
-    this.httpService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? this.opinionImage : null)
+    this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? this.opinionImage : null)
     .finally(() => {
       loading.dismiss();
     })
@@ -183,20 +185,20 @@ export class UserProjectOpinionWritingEditorPage {
       (data) => {
         if(data.success == true) {
           if(data.message == 'opinion is already writed') {
-            this.httpService.showBasicAlert('이미 토론에 참여했습니다.');
+            this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
             this.viewCtrl.dismiss();
           }
           else if(data.message == 'project is not proceeding') {
-            this.httpService.showBasicAlert('이미 종료된 프로젝트입니다.');
+            this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
             this.viewCtrl.dismiss();
           }
           else {
-            this.httpService.showBasicAlert('성공적으로 등록되었습니다.');
+            this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
             this.viewCtrl.dismiss();
           }
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.registerOpinion(loading);
           });
@@ -204,7 +206,7 @@ export class UserProjectOpinionWritingEditorPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

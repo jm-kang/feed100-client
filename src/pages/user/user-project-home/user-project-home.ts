@@ -9,12 +9,11 @@ import { UserProjectStoryPage } from '../user-project-story/user-project-story';
 import { UserProjectLinkPage } from '../user-project-link/user-project-link';
 import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
-import { UserProjectSearchPage } from '../user-project-search/user-project-search';
 import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
 import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-project-feedback-list';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProjectHomePage page.
  *
@@ -45,14 +44,7 @@ export class UserProjectHomePage {
   
   feedbacks = [];
 
-  projectHashtags = [
-    {value: '기능', isActiveHashtag: false},
-    {value: '개선사항', isActiveHashtag: false},
-    {value: 'Shes a Baby', isActiveHashtag: false},
-    {value: '전지전능', isActiveHashtag: false},
-    {value: '로비', isActiveHashtag: false},
-    {value: '설현', isActiveHashtag: false},
-  ];
+  projectHashtags = [];
 
 
   constructor(
@@ -62,19 +54,8 @@ export class UserProjectHomePage {
     public statusBar: StatusBar, 
     public appCtrl: App, 
     public modalCtrl: ModalController,
-    public httpService: HttpServiceProvider) {
-    // this.participantNum = this.feedbacks.length;
-    // 베스트 피드백 조건 
-    // 현재 피드백의 순위가 전체 참여 가능 인원의 10퍼센트 이하 
-    // 현재 참여자수(피드백수)가 최대 전체 참여 가능 인원의 반 이상 
-    // 현재 피드백의 공감수가 현재 참여자수의 반 초과 
-    // if(this.participantNum >= this.maxParticipantNum/2) {
-    //   for(let i = 0; i < this.maxParticipantNum; i ++) {
-    //     if(this.maxParticipantNum/10 > i && this.feedbacks[i].empathyNum > this.participantNum/2) {
-    //       this.feedbacks[i].isBest = true;
-    //     }
-    //   }
-    // }
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   scrollingFun(e) {
@@ -108,10 +89,10 @@ export class UserProjectHomePage {
     console.log('ionViewWillEnter UserProjectHomePage');
     this.statusBar.hide(); 
     
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getProjectHome(this.project_id)
+    this.userService.getProjectHome(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -135,7 +116,7 @@ export class UserProjectHomePage {
         
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -143,7 +124,7 @@ export class UserProjectHomePage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 

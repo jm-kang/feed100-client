@@ -3,13 +3,13 @@ import { Nav, IonicPage, NavController, NavParams, ViewController, Content } fro
 
 import { UserProjectHomePage } from '../user-project-home/user-project-home';
 import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-import { UserProjectHistoryPage } from '../user-project-history/user-project-history';
 import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
 import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-project-feedback-list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserProjectSideMenuPage page.
@@ -67,8 +67,9 @@ export class UserProjectSideMenuPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public statusBar: StatusBar,
-    public httpService: HttpServiceProvider
-  ) {}
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
+  }
   
   back() {
     this.navCtrl.pop();
@@ -76,10 +77,10 @@ export class UserProjectSideMenuPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSideMenuPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
-    this.httpService.getSideMenuData(this.project_id)
+    this.userService.getSideMenuData(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -108,7 +109,7 @@ export class UserProjectSideMenuPage {
           this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewDidLoad();
           });
@@ -116,7 +117,7 @@ export class UserProjectSideMenuPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 

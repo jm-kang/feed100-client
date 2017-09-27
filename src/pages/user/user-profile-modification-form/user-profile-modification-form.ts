@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ViewController } from 'ionic-angular';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
-
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
  * Generated class for the UserProfileModificationFormPage page.
  *
@@ -37,7 +37,8 @@ export class UserProfileModificationFormPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
   
 
@@ -112,20 +113,20 @@ export class UserProfileModificationFormPage {
 
   modifyProfile() {
     console.log("프로필 작성 완료");
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    this.httpService.updateProfile(this.values[0], this.values[1], this.values[2], this.values[3], this.values[4], this.interestValues)
+    this.userService.updateProfile(this.values[0], this.values[1], this.values[2], this.values[3], this.values[4], this.interestValues)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.httpService.showBasicAlert('수정이 완료되었습니다.');
+          this.commonService.showBasicAlert('수정이 완료되었습니다.');
           this.viewCtrl.dismiss("modified");    
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.modifyProfile();
           })
@@ -133,7 +134,7 @@ export class UserProfileModificationFormPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }

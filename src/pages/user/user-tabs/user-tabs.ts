@@ -11,7 +11,9 @@ import { UserInterviewPage } from '../user-interview/user-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
+
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
 /**
  * Generated class for the UserTabsPage page.
@@ -36,33 +38,34 @@ export class UserTabsPage {
     public navParams: NavParams, 
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
-    public httpService: HttpServiceProvider) {
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   getAlarmNum() {
-    return this.httpService.alarmNum;
+    return this.userService.alarmNum;
   }
 
   getInterviewNum() {
-    return this.httpService.interviewNum;
+    return this.userService.interviewNum;
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserTabsPage');
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
-    this.httpService.getAlarmAndInterviewNum()
+    this.userService.getAlarmAndInterviewNum()
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.httpService.alarmNum = data.data.alarm_num;
-          this.httpService.interviewNum = data.data.interview_num;
+          this.userService.alarmNum = data.data.alarm_num;
+          this.userService.interviewNum = data.data.interview_num;
         }
         else if(data.success == false) {
-          this.httpService.apiRequestErrorHandler(data, this.navCtrl)
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
             this.ionViewWillEnter();
           })
@@ -70,7 +73,7 @@ export class UserTabsPage {
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }
@@ -110,7 +113,7 @@ export class UserTabsPage {
       pushObject.on('notification').subscribe((notification: any) => { 
         console.log('Received a notification', notification);
         if(notification.additionalData.foreground) {
-          this.httpService.showBasicAlert(notification.message);
+          this.commonService.showBasicAlert(notification.message);
         }
       });
       
@@ -121,15 +124,15 @@ export class UserTabsPage {
         this.uniqueDeviceID.get()
         .then((uuid: any) => {
           console.log('uuid:', uuid);
-          this.httpService.registerDeviceToken(uuid, registration.registrationId)
+          this.userService.registerDeviceToken(uuid, registration.registrationId)
           .subscribe(
             (data) => {
               console.log(data);
-              this.httpService.showBasicAlert('device token 등록 성공');
+              this.commonService.showBasicAlert('device token 등록 성공');
             },
             (err) => {
               console.log(err);
-              this.httpService.showBasicAlert('device token 등록 실패');
+              this.commonService.showBasicAlert('device token 등록 실패');
             }
           );
           

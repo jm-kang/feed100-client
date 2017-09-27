@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ionic-angular';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
+
 /**
  * Generated class for the UserProjectRewardFormPage page.
  *
@@ -15,21 +18,28 @@ import { IonicPage, NavController, NavParams, ViewController, Slides } from 'ion
 })
 export class UserProjectRewardFormPage {
   @ViewChild(Slides) slides: Slides;
+  project_id;
   satisfaction: number = 0;
-  nps: number = 0;
+  recommendation: number = 0;
   isQuestionWrited = [false, false, false];
-  projectPoint: number = 20000;
-  feedbackPoint: number = 1500;
-  opinionPoint: number = 300;
-  interviewPoint: number = 5000;
-  exp: number = 10000;
+  feedbackPoint: number = 0;
+  opinionPoint: number = 0;
+  interviewPoint: number = 0;
+  projectPoint: number = 0;
+  exp: number = 0;
   interviewNum = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectRewardFormPage');
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToNext(true);
   }
 
@@ -39,12 +49,17 @@ export class UserProjectRewardFormPage {
   scrollingFun(e) {
     // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
     if (e.scrollTop < -150) {
-      this.viewCtrl.dismiss();
+      this.dismiss();
     }
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    if(this.slides.getActiveIndex() == 2) {
+      this.viewCtrl.dismiss("refresh");
+    }
+    else {
+      this.viewCtrl.dismiss();
+    }
   }
 
   slideChanged() {
@@ -59,7 +74,7 @@ export class UserProjectRewardFormPage {
       if(!this.isQuestionWrited[1]) {
         this.slides.lockSwipeToNext(true);  
       } else {
-        this.slides.lockSwipeToNext(false);  
+        this.slides.lockSwipeToNext(true);  
       }
     }
     if(this.slides.getActiveIndex() == 2) {
@@ -69,15 +84,60 @@ export class UserProjectRewardFormPage {
 
   onModelChange(newVal, index) {
     if(newVal > 0) {
-      this.isQuestionWrited[index] = true; 
-      this.slides.lockSwipeToNext(false);
+      this.isQuestionWrited[index] = true;
+      if(index == 1) {
+        this.slides.lockSwipeToNext(true);
+      }
+      else {
+        this.slides.lockSwipeToNext(false);
+      }
     } else {
       this.isQuestionWrited[index] = false;
       this.slides.lockSwipeToNext(true);
     }
   }
 
-  goNextSlide() {
-    this.slides.slideNext(500);
+  goNextSlide(index) {
+    switch(index) {
+      case 0:
+        this.slides.slideNext(500);
+        break;
+      case 1:
+        let loading = this.commonService.presentLoading();
+
+        this.userService.reward(this.project_id, this.satisfaction, this.recommendation)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              this.feedbackPoint = data.data.feedback_point;
+              this.opinionPoint = data.data.opinion_point;
+              this.interviewPoint = data.data.interview_point;
+              this.projectPoint = data.data.project_point;
+              this.exp = data.data.experience_point;
+              this.interviewNum = data.data.interview_num;
+          
+              this.slides.lockSwipeToNext(false);
+              this.slides.slideNext(500);
+            }
+            else if(data.success == false) {
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+              .then(() => {
+                this.goNextSlide(index);
+              });
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
+        break;
+      case 2:
+        this.dismiss();
+        break;
+    }
   }
 }

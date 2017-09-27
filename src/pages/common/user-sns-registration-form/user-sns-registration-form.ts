@@ -5,8 +5,9 @@ import { UserTabsPage } from '../../user/user-tabs/user-tabs';
 import { TermsPage } from '../terms/terms';
 import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy';
 
-import { HttpServiceProvider } from '../../../providers/http-service/http-service';
 import { Storage } from '@ionic/storage';
+
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 
 /**
  * Generated class for the UserSnsRegistrationFormPage page.
@@ -33,7 +34,7 @@ export class UserSnsRegistrationFormPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
-    public httpService: HttpServiceProvider,
+    public commonService: CommonServiceProvider,
     public storage: Storage) {
   }
 
@@ -59,24 +60,24 @@ export class UserSnsRegistrationFormPage {
 
   SNSRegister() {
     if(!this.provider || !this.app_id) {
-      this.httpService.showBasicAlert('오류가 발생했습니다.');
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
     }
     if(!this.username) {
-      this.httpService.showBasicAlert('이메일을 입력해주세요.');
+      this.commonService.showBasicAlert('이메일을 입력해주세요.');
       return;
     }
     if(!this.nickname) {
-      this.httpService.showBasicAlert('닉네임을 입력해주세요.');
+      this.commonService.showBasicAlert('닉네임을 입력해주세요.');
       return;
     }
     if(!this.isCheck) {
-      this.httpService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
+      this.commonService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
       return;
     }
 
-    let loading = this.httpService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
-    this.httpService.SNSRegister(this.username, this.role, this.nickname, this.provider, this.app_id)
+    this.commonService.SNSRegister(this.username, this.role, this.nickname, this.provider, this.app_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -90,17 +91,17 @@ export class UserSnsRegistrationFormPage {
         else if(data.success == false) {
           switch(data.message) {
             case 'username is already registered':
-              this.httpService.showBasicAlert('이미 등록되어있는 이메일입니다.');
+              this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
               break;
             case 'nickname is already registered':
-              this.httpService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
+              this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
               break;
           }
         }
       },
       (err) => {
         console.log(err);
-        this.httpService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
   }
