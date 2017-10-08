@@ -30,80 +30,22 @@ export class CompanyProjectFeedbackPage {
   slideHeight: number;
   mobWidth: number;
 
-  // projectName: String = "";
-  // avatarImage: String = "";
-  // nickname: String = "";
-  // isBest: boolean;
-  // empathyNum: number = 0;
-  // nonEmpathyNum: number = 0;
-  // feedback: String = "";
-  // feedbackRegistrationDate: String = "";
+  projectName: String = "";
+  avatarImage: String = "";
+  nickname: String = "";
+  isBest: boolean;
+  empathyNum: number = 0;
+  nonEmpathyNum: number = 0;
+  feedback: String = "";
+  feedbackRegistrationDate: String = "";
 
   segmentOpinionsCondition: String = '';
   
-  projectName: String = "프로젝트 이름";
-  avatarImage: String = "assets/img/user-avatar-image2.png";
-  nickname: String = "지코";
-  isBest: boolean = true;
-  empathyNum: number = 2;
-  nonEmpathyNum: number = 1;
-  feedback: String = "피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명 피드백 설명";
-  feedbackRegistrationDate: String = "2017-09-18 00:00:00";
+  feedbackHashtags = [];
 
-  feedbackHashtags = [
-    '기능','개선사항'
-  ];
+  feedbackImages = [];
 
-  feedbackImages = [
-    {
-      img: 'assets/img/feedback-image1.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      img: 'assets/img/feedback-image2.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      img: 'assets/img/feedback-image3.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      img: 'assets/img/feedback-image4.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      img: 'assets/img/feedback-image5.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      img: 'assets/img/feedback-image6.jpeg', width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-  ];
-
-  opinions = [
-    {
-      is_empathy: true,
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '설현',
-      opinion_registration_date: '2017-09-18 07:00:00',
-      opinion_image: '',
-      opinion: '나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다.',
-      width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      is_empathy: false,
-      avatar_image: 'assets/img/user-avatar-image2.png',
-      nickname: '스윙스',
-      opinion_registration_date: '2017-09-18 09:00:00',
-      opinion_image: 'assets/img/feedback-opinion-image1.jpeg',
-      opinion: '나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다.',
-      width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-    {
-      is_empathy: true,
-      avatar_image: 'assets/img/user-avatar-image3.png',
-      nickname: '빈지노',
-      opinion_registration_date: '2017-09-19 10:00:00',
-      opinion_image: 'assets/img/feedback-opinion-image2.jpeg',
-      opinion: '나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다. 나의 의견은 이러하다.',
-      width: '', height: '', top: '', left: '', maxWidth: '', maxHeight: '',
-    },
-  ];
+  opinions = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -124,56 +66,55 @@ export class CompanyProjectFeedbackPage {
     console.log('ionViewDidLoad CompanyProjectFeedbackPage');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackPage');
     this.statusBar.show();
     this.segmentOpinionsCondition = "all";
 
-    // let loading = this.httpService.presentLoading();
-    // this.project_id = this.navParams.get('project_id');
-    // this.feedback_id = this.navParams.get('feedback_id');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+    this.feedback_id = this.navParams.get('feedback_id');
 
-    // this.httpService.getFeedback(this.project_id, this.feedback_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       let feedback = data.data.feedback;
-    //       this.projectName = data.data.project_name;
-    //       this.avatarImage = feedback.avatar_image;
-    //       this.nickname = feedback.nickname;
-    //       this.isMyFeedback = feedback.is_my_feedback;
-    //       this.isMyOpinion = feedback.is_my_opinion;
-    //       this.isBest = feedback.is_best;
-    //       this.empathyNum = feedback.empathy_num;
-    //       this.nonEmpathyNum = feedback.non_empathy_num;
-    //       this.feedback = JSON.parse(feedback.project_feedback)[0];
-    //       this.feedbackRegistrationDate = feedback.project_feedback_registration_date;
-    //       this.feedbackHashtags = JSON.parse(feedback.project_feedback_hashtags);
+    this.companyService.getFeedback(this.project_id, this.feedback_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          let feedback = data.data.feedback;
+          this.projectName = data.data.project_name;
+          this.avatarImage = feedback.avatar_image;
+          this.nickname = feedback.nickname;
+          this.isBest = feedback.is_best;
+          this.empathyNum = feedback.empathy_num;
+          this.nonEmpathyNum = feedback.non_empathy_num;
+          this.feedback = JSON.parse(feedback.project_feedback)[0];
+          this.feedbackRegistrationDate = feedback.project_feedback_registration_date;
+          this.feedbackHashtags = JSON.parse(feedback.project_feedback_hashtags);
           
-    //       let project_feedback_images = (feedback.project_feedback_images) ? JSON.parse(feedback.project_feedback_images) : [];
-    //       for(let i=0; i<project_feedback_images.length; i++) {
-    //         this.feedbackImages.push({
-    //           img : project_feedback_images[i]
-    //         });
-    //       }
+          let project_feedback_images = (feedback.project_feedback_images) ? JSON.parse(feedback.project_feedback_images) : [];
+          for(let i=0; i<project_feedback_images.length; i++) {
+            this.feedbackImages.push({
+              img : project_feedback_images[i]
+            });
+          }
 
-    //       this.opinions = data.data.opinions;
+          this.opinions = data.data.opinions;
           
-    //     }
-    //     else if(data.success == false) {
-    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewDidLoad();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.httpService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
 
   }
 
@@ -250,8 +191,8 @@ export class CompanyProjectFeedbackPage {
     companyProjectSearchResultModal.present();
   }
 
-  openCompanyProjectUserProfilePage() {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+  openCompanyProjectUserProfilePage(project_participant_id) {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
     companyProjectUserProfileModal.present();
   }
 

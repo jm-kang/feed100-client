@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectPriceStatementPage page.
  *
@@ -14,25 +17,66 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'company-project-price-statement.html',
 })
 export class CompanyProjectPriceStatementPage {
+  project_id;
 
-  projectMainImage:String = "assets/img/project-main-image1.png";
-  projectRegistrationDate: String = "2017-09-14 00:00:00"
-  projectEndDate: String = "2017-09-21 00:00:00"
-  type: String = "basic";
-  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름";
+  projectMainImage:String = "";
+  projectPaymentDate: String = "";
+  projectRegistrationDate: String = ""
+  projectEndDate: String = ""
+  type: String = "";
+  projectName: String = "";
   isSale:boolean = false;
-  typePrice:number = 500000;
-  salePrice:number = 300000;
-  particapantNum:number = 30;
-  feedbackNum:number = 30;
-  opinionNum:number = 870;
-  interviewNum:number = 50;
+  typePrice:number = 0;
+  salePrice:number = 0;
+  participantNum:number = 0;
+  feedbackNum:number = 0;
+  opinionNum:number = 0;
+  interviewNum:number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectPriceStatementPage');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getSideMenuData(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectMainImage = data.data.project_main_image;
+          this.projectPaymentDate = data.data.project_payment_date;
+          this.projectRegistrationDate = data.data.project_registration_date;
+          this.projectEndDate = data.data.project_end_date;
+          this.type = data.data.project_type;
+          this.projectName = data.data.project_name;
+          this.typePrice = data.data.project_price;
+          this.participantNum = data.data.max_participant_num;
+          this.feedbackNum = this.participantNum;
+          this.opinionNum = this.participantNum * (this.participantNum - 1);
+          this.interviewNum = this.participantNum * 2;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   back() {

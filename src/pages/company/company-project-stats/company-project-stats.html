@@ -26,14 +26,14 @@
     <ion-item text-right>
       <span item-start>{{stat.title}}</span>
       <rating [(ngModel)]="stat.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
-      <span item-end>{{average(i) | round:1}}</span>
+      <span item-end>{{average(i) | round:1}}</span> 
     </ion-item>
     <div class="chart-wrapper">
       <canvas baseChart width="100%" height="100%" [colors]="stat.colors" [datasets]="stat.datasets" [labels]="stat.labels" [chartType]="stat.type" [options]="stat.options"></canvas> 
       <div class="space-20"></div>
-      <div class="stats-summary">프로젝트 참여인원 <strong>{{participantNum}}</strong> 명 중</div>
+      <div class="stats-summary">프로젝트 참여인원 <strong>{{stat.totalNum}}</strong> 명 중</div>
       <div class="stats-summary">
-        <span *ngFor="let data of stat.datasets[0].data.slice().reverse(); let j=index">{{stat.datasets[0].data.length-j}}점 : <strong>{{data}}</strong> 명 <small>({{data/participantNum*100 | round:1}}%)</small><span *ngIf="j+1 != stat.datasets[0].data.length">,</span></span>
+        <span *ngFor="let data of stat.datasets[0].data.slice().reverse(); let j=index">{{stat.datasets[0].data.length-j}}점 : <strong>{{data}}</strong> 명 <small>({{(stat.totalNum == 0) ? 0 : data/stat.totalNum*100 | round:1}}%)</small><span *ngIf="j+1 != stat.datasets[0].data.length">,</span></span>
       </div>
     </div>
   </div>

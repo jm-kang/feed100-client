@@ -5,6 +5,9 @@ import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
 import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectReportPage page.
  *
@@ -25,15 +28,15 @@ export class CompanyProjectReportPage {
   isFeedback: boolean = true;
   isLink: boolean = true;
 
-  projectMainImage: String = "assets/img/project-main-image1.png";
-  avatarImage: String = "assets/img/company-avatar-image1.png";
-  nickname: String = "더콰이엇";
-  projectName: String = "안녕하세요 저희 프로젝트는 이겁니다.";
-  participantNum: number = 30;
-  maxParticipantNum: number = 30;
-  progressState: String = "2017-09-13 00:00:00";
+  projectMainImage: String = "";
+  avatarImage: String = "";
+  nickname: String = "";
+  projectName: String = "";
+  participantNum: number = 0;
+  maxParticipantNum: number = 0;
+  progressState: String = "";
   projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 스토리 요약<br>4. 베스트 피드백<br>5. 프로젝트 통계"
-  projectRegistrationDate: String = "2017-09-13 00:00:00";
+  projectRegistrationDate: String = "";
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
@@ -56,14 +59,16 @@ export class CompanyProjectReportPage {
       text: '2. 참여 조건 통계'
     }
   };
-
-  projectUserProfileSlides = [
+  
+  projectUserProfileSlides = [];
+  tempProjectUserProfileSlides = [
     {
       title: '성별',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [12, 18],
+        data: [0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(131,196,240,0.7)','rgba(252,158,178,0.7)']},
       ],
@@ -88,9 +93,9 @@ export class CompanyProjectReportPage {
       title: '나이',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [4, 2, 0, 12, 12]
+        data: [0, 0, 0, 0, 0]
       }],
-  
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)']},
       ],
@@ -122,8 +127,9 @@ export class CompanyProjectReportPage {
       title: '직업',
       // 서버에서 데이터 필요한 부분 (서버에서 가져올때 값이 0이면 안가져올수 있음?)
       datasets: [{
-        data: [2,3,4,1,2,4,3,6,2,2,1],
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)']},
       ],
@@ -148,8 +154,9 @@ export class CompanyProjectReportPage {
       title: '지역',
       // 서버에서 데이터 필요한 부분 (서버에서 가져올때 값이 0이면 안가져올수 있음?)
       datasets: [{
-        data: [2,3,4,1,2,4,3,6,2,2,1,0,0,0],
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)', 'rgba(39, 62, 17, 0.7)', 'rgba(117, 141, 69, 0.7)', 'rgba(180, 189, 75, 0.7)']},
       ],
@@ -172,31 +179,10 @@ export class CompanyProjectReportPage {
     }
   ];
   
-  projectUserParticipationConditionSlides = [
-    {
-      question: '첫번째 참여 조건',
-      datasets: [{
-        data: [12, 18],
-      }],
-      labels: ['객관식1', '객관식2'],
-    },
-    {
-      question: '두번째 참여 조건',
-      datasets: [{
-        data: [4, 2, 0, 12, 12]
-      }],
-      labels: ['객관식1', '객관식2', '객관식3', '객관식4', '객관식5'],
-    } ,
-    {
-      question: '세번째 참여 조건',
-      datasets: [{
-        data: [2,3,4,1,2,4,3,6,2,2,1],
-      }],
-      labels: ['객관식1','객관식2','객관식3','객관식4','객관식5','객관식6','객관식7','객관식8','객관식9','객관식10','객관식11'],
-    },
-  ];
+  projectUserParticipationConditionSlides = [];
+  tempProjectUserParticipationConditionSlides = [];
 
-  projectStorySummarys = [
+  projectStorySummaries = [
     {
       nickname: '스윙스',
       content: '내게로와 내게로와 내게로와 내게로와 ㅍ 내게로와 내게로와 ㅍ 내게로와 내게로와 내게로와내게로와내게로와내게로와',
@@ -247,15 +233,16 @@ export class CompanyProjectReportPage {
     },
   ];
 
-  projectStatSlides = [
+  projectStatSlides = [];
+  tempProjectStatSlides = [
     {
       title: '첫인상 평가',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 4, 10, 16]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
@@ -286,10 +273,10 @@ export class CompanyProjectReportPage {
       title: '추천 지수',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [4, 2, 0, 12, 12]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
@@ -320,10 +307,10 @@ export class CompanyProjectReportPage {
       title: '서비스 만족도',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [5, 6, 9, 4, 6]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
@@ -352,12 +339,131 @@ export class CompanyProjectReportPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectReportPage');
-    this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getProjectReport(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectMainImage = data.data.project_main_image;
+          this.avatarImage = data.data.avatar_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.participantNum = data.data.participant_num;
+          this.maxParticipantNum = data.data.max_participant_num;
+          this.progressState = data.data.project_end_date;
+          this.projectRegistrationDate = data.data.project_registration_date;
+
+          let participants = data.data.participants;
+          this.projectStorySummaries = participants;
+          this.projectBestFeedbacks = data.data.feedbacks;
+          
+          for(let i = 0; i < participants.length; i++) {
+            // projectUserProfileSlides
+            let index;
+            index = this.tempProjectUserProfileSlides[0].labels.indexOf(participants[i].gender);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[0].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[0].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[1].labels.indexOf(participants[i].age);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[1].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[1].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[2].labels.indexOf(participants[i].job);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[2].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[2].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[3].labels.indexOf(participants[i].region);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[3].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[3].totalNum++;
+            }
+            // projectUserProfileSlides
+
+            // projectUserParticipationConditionSlides
+            let project_participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
+            for(let j = 0; j < project_participation_objective_conditions.length; j++) {
+              if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
+                let data = [];
+                let labels = [];
+                for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
+                  labels.push(project_participation_objective_conditions[j].options[k].option);
+                  data.push(0);
+                }
+                this.tempProjectUserParticipationConditionSlides.push({
+                  question: project_participation_objective_conditions[j].question,
+                  datasets: [{
+                    data: data,
+                  }],
+                  totalNum: 0,
+                  labels: labels,
+                });
+              }
+              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(project_participation_objective_conditions[j].value);
+              if(index > -1) {
+                this.tempProjectUserParticipationConditionSlides[j].datasets[0].data[index]++;
+                this.tempProjectUserParticipationConditionSlides[j].totalNum++;
+              }
+            }
+            // projectUserParticipationConditionSlides
+
+            // projectStatSlides
+            if(participants[i].project_first_impression_rate) {
+              (this.tempProjectStatSlides[0].datasets[0].data[participants[i].project_first_impression_rate-1])++;
+              this.tempProjectStatSlides[0].totalNum++;
+            }
+            if(participants[i].project_recommendation_rate) {
+              (this.tempProjectStatSlides[1].datasets[0].data[participants[i].project_recommendation_rate-1])++;
+              this.tempProjectStatSlides[1].totalNum++;
+            }
+            if(participants[i].project_satisfaction_rate) {
+              (this.tempProjectStatSlides[2].datasets[0].data[participants[i].project_satisfaction_rate-1])++;
+              this.tempProjectStatSlides[2].totalNum++;
+            }
+            // projectStatSlides
+
+          }
+          this.projectUserProfileSlides = this.tempProjectUserProfileSlides;
+
+          this.projectUserParticipationConditionSlides = this.tempProjectUserParticipationConditionSlides;
+
+          this.tempAverage(0);
+          this.tempAverage(1);
+          this.tempAverage(2);
+          this.projectStatSlides = this.tempProjectStatSlides;
+
+          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   slideChanged() {
@@ -404,19 +510,39 @@ export class CompanyProjectReportPage {
   }
 
   average(index) {
-    let average:number = 0;
-    let i: number = 0;
-    for(let data of this.projectStatSlides[index].datasets[0].data) {
-      i = i+1;
-      average = data * i + average;
+    if(this.projectStatSlides[index].totalNum == 0) {
+      return 0;
     }
-    average = average / this.participantNum;
-    this.projectStatSlides[index].average = average;
-    return average;
+    else {
+      let average:number = 0;
+      let i: number = 0;
+      for(let data of this.projectStatSlides[index].datasets[0].data) {
+        i = i+1;
+        average = data * i + average;
+      }
+      average = average / this.projectStatSlides[index].totalNum;
+      return average;
+    }
   }
 
-  openCompanyProjectUserProfilePage() {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+  tempAverage(index) {
+    if(this.tempProjectStatSlides[index].totalNum == 0) {
+      return 0;
+    }
+    else {
+      let average:number = 0;
+      let i: number = 0;
+      for(let data of this.tempProjectStatSlides[index].datasets[0].data) {
+        i = i+1;
+        average = data * i + average;
+      }
+      average = average / this.tempProjectStatSlides[index].totalNum;
+      this.tempProjectStatSlides[index].average = average;
+    }
+  }
+
+  openCompanyProjectUserProfilePage(project_participant_id) {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
     companyProjectUserProfileModal.present();
   }
 }

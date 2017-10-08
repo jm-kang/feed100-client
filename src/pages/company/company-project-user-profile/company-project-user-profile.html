@@ -31,7 +31,7 @@
     <ion-list class="user-profile-list"> 
       <ion-item *ngFor="let participationCondition of participationConditions; let i = index">
         <ion-label color="semiDark" stacked>Q{{i + 1}}  {{participationCondition.question}}</ion-label>
-        <ion-label text-right class="email" color="dark" [innerHTML]="participationCondition.answer"></ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="participationCondition.value"></ion-label>
       </ion-item>
       <ion-item>
         <ion-label color="semiDark" stacked>성별은 어떻게 되나요?</ion-label>
@@ -62,7 +62,7 @@
   <ion-grid>
     <ion-row>
       <ion-col text-right>
-        <span class="open-user-feedback-button profile-footer-button" tappable>
+        <span class="open-user-feedback-button profile-footer-button" tappable (click)="openCompanyProjectFeedbackPage()">
           <div>
             <img src="assets/img/feedback-icon.png" />
           </div>
@@ -70,7 +70,7 @@
         </span>
       </ion-col>
       <ion-col>
-        <span class="open-user-interview-button profile-footer-button" tappable>
+        <span class="open-user-interview-button profile-footer-button" tappable (click)="openCompanyProjectInterviewDetailPage()">
           <div>
               <img src="assets/img/editor-interview-icon.png" />
           </div>

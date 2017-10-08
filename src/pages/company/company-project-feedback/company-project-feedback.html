@@ -33,14 +33,14 @@
   </ion-slides>  
   <div class="feedback-wrapper" padding>
     <ion-item float-left class="avatar-span-wrapper item-flex">
-      <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+      <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(feedback_id)">
         <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
       </span>
       <h3>
         <span class="best-badge" *ngIf="isBest">
           <span>BEST</span>
         </span>
-        <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{nickname}}</span>
+        <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(feedback_id)">{{nickname}}</span>
         <span float-right class="empathy-wrapper">
           <span><span class="text-empathy">공감</span> {{empathyNum}}</span>
           <span><span class="text-nonempathy">비공감</span> {{nonEmpathyNum}}</span>
@@ -77,11 +77,11 @@
       </div>
       <div *ngFor="let opinion of opinions; let i = index">
         <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
-          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">
             <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{opinion.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
             <span class="empathy-tag opinion-tag">공감</span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
@@ -93,11 +93,11 @@
           </span> 
         </ion-item>
         <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
-          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">
             <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{opinion.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
             <span class="non-empathy-tag opinion-tag">비공감</span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
@@ -118,11 +118,11 @@
       </div>
       <div *ngFor="let opinion of opinions; let j = index">
         <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
-          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">
             <div class="avatar-span-image empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{opinion.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
             <span class="empathy-tag opinion-tag">공감</span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
@@ -143,11 +143,11 @@
       </div>
       <div *ngFor="let opinion of opinions; let k = index">
         <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
-          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">
             <div class="avatar-span-image non-empathy-image" [style.backgroundImage]="'url(' + opinion.avatar_image + ')'"></div>
           </span>
           <h3>
-            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{opinion.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
             <span class="non-empathy-tag opinion-tag">비공감</span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>

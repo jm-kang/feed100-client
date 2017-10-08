@@ -207,41 +207,41 @@ export class UserRegistrationFormPage {
   }
 
   kakaoRegister() {
-    this.commonService.showBasicAlert('준비중입니다!');
-  //   KakaoTalk.login(
-  //   (result) => {
-  //   console.log('Successful login!');
-  //   console.log(result.id);
-  //   this.httpService.SNSLogin('kakao', result.id, this.role)
-  //   .subscribe(
-  //   (data) => {
-  //     if(data.success == true) {
-  //       this.storage.set('accessToken', data.data.accessToken);
-  //       this.storage.set('refreshToken', data.data.refreshToken);
-  //       this.navCtrl.push(UserTabsPage);
-  //     }
-  //     else if(data.success == false) {
-  //       switch(data.message) {
-  //         case 'app_id is unregistered':
-  //           this.navCtrl.push(UserSnsRegistrationFormPage, {
-  //             "provider" : "kakao",
-  //             "app_id" : result.id
-  //           });
-  //           break;
-  //       }
-  //     }
-  //   },
-  //   (err) => {
-  //     console.log(err);
-  //     this.showBasicAlert('오류가 발생했습니다.');
-  //   }
-  //   );
-  // },
-  //   (message) => {
-  //   console.log('Error logging in');
-  //   console.log(message);
-  //   }
-  // );
+    // this.commonService.showBasicAlert('준비중입니다!');
+    KakaoTalk.login(
+    (result) => {
+    console.log('Successful login!');
+    console.log(result.id);
+    this.commonService.SNSLogin('kakao', result.id, this.role)
+    .subscribe(
+    (data) => {
+      if(data.success == true) {
+        this.storage.set('accessToken', data.data.accessToken);
+        this.storage.set('refreshToken', data.data.refreshToken);
+        this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+      }
+      else if(data.success == false) {
+        switch(data.message) {
+          case 'app_id is unregistered':
+            this.navCtrl.push(UserSnsRegistrationFormPage, {
+              "provider" : "kakao",
+              "app_id" : result.id
+            });
+            break;
+        }
+      }
+    },
+    (err) => {
+      console.log(err);
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
+    }
+    );
+  },
+    (message) => {
+    console.log('Error logging in');
+    console.log(message);
+    }
+  );
   }
 
 }

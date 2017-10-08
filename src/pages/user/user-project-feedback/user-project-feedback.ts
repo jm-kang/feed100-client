@@ -73,7 +73,8 @@ export class UserProjectFeedbackPage {
     console.log('ionViewDidLoad UserProjectFeedbackPage');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackPage');
     this.statusBar.show();
     this.segmentOpinionsCondition = "all";
 
@@ -114,7 +115,7 @@ export class UserProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

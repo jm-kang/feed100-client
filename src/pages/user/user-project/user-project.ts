@@ -35,8 +35,8 @@ export class UserProjectPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProjectPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectPage');
     let loading = this.commonService.presentLoading();
 
     this.userService.getProjects()
@@ -51,7 +51,7 @@ export class UserProjectPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },

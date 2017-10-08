@@ -24,17 +24,17 @@
     <p>- 인터뷰를 안할시 처벌 규정</p>
   </div>
   <ion-list>
-    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let projectInterview of projectInterviews" (click)="openCompanyProjectInterviewPage(projectInterview.project_participant_id, progressState.innerHTML)">
+    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let projectInterview of projectInterviews" (click)="openCompanyProjectInterviewPage(projectInterview.project_id)">
       <span item-start class="avatar-image avatar-span">
         <div class="avatar-span-image" [style.backgroundImage]="'url(' + projectInterview.project_main_image + ')'"></div>
       </span>
       <h2 [innerHTML]="projectInterview.project_name"></h2>
       <!-- 문구 수정... -->
-      <p>총 {{projectInterview.max_company_interview_num}}개의 인터뷰 중 {{projectInterview.total_company_interview_num}}개 이용</p>
+      <p>총 {{projectInterview.max_interview_num}}개의 인터뷰 중 {{projectInterview.total_interview_num}}개 이용</p>
       <div item-end class="interview-item-end">
         <ion-note #progressState [innerHTML]="projectInterview.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></ion-note>
-        <div class="badge-new" *ngIf="!projectInterview.interview_response && (projectInterview.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료'">N</div>
-        <div class="blank-badge-new" *ngIf="projectInterview.interview_response || (projectInterview.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'">0</div>
+        <div class="badge-new" *ngIf="projectInterview.interview_num != 0">{{projectInterview.interview_num}}</div>
+        <div class="blank-badge-new" *ngIf="projectInterview.interview_num == 0">0</div>
       </div>
     </ion-item>
   </ion-list>

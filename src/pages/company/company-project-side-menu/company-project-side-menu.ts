@@ -28,12 +28,11 @@ export class CompanyProjectSideMenuPage {
   @ViewChild("contentRef") contentHandle: Content;
 
   project_id;
-  feedback_id;
 
-  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름";
-  projectMainImage: String = "assets/img/project-main-image1.png"
-  avatarImage: String = "assets/img/company-avatar-image1.png";
-  nickname: String = "더콰이엇";
+  projectName: String = "";
+  projectMainImage: String = ""
+  avatarImage: String = "";
+  nickname: String = "";
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
@@ -41,10 +40,10 @@ export class CompanyProjectSideMenuPage {
   left: any =  "";
   top: any =  "";
 
-  participantNum:number = 20;
-  maxParticipantNum:number = 30;
-  totalCompanyInterviewNum:number = 10;
-  maxCompanyInterviewNum:number = 60;
+  participantNum:number = 0;
+  maxParticipantNum:number = 0;
+  totalInterviewNum:number = 0;
+  maxInterviewNum:number = 0;
 
 
   constructor(
@@ -61,51 +60,39 @@ export class CompanyProjectSideMenuPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectSideMenuPage');
-    // let loading = this.httpService.presentLoading();
-    // this.project_id = this.navParams.get('project_id');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectSideMenuPage');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
 
-    // this.httpService.getSideMenuData(this.project_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.projectName = data.data.project.project_name;
-    //       this.avatarImage = data.data.avatar_image;
-    //       this.nickname = data.data.nickname;
-    //       this.level = data.data.level;
-    //       this.levelClass = data.data.levelClass;
-    //       this.isBest = data.data.feedback.is_best;
-    //       this.empathyNum = data.data.feedback.empathy_num;
-    //       this.nonEmpathyNum = data.data.feedback.non_empathy_num;
-    //       this.feedbackNum = data.data.project.participant_num;
-    //       this.myOpinionNum = data.data.my_opinion_num;
-    //       this.completedInterviewNum = data.data.project.completed_interview_num;
-    //       this.interviewNum = data.data.project.interview_num;
-
-    //       this.feedback_id = data.data.feedback.project_participant_id;
-
-    //       this.feedbackPoint = this.feedbackReward + ((this.isBest) ? this.bestFeedbackReward : 0);
-    //       this.opinionPoint = this.opinionReward * this.myOpinionNum;
-    //       this.maxOpinionPoint = this.opinionReward * this.feedbackNum;
-    //       this.interviewPoint = this.interviewReward * this.completedInterviewNum;
-    //       this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint;
-    //     }
-    //     else if(data.success == false) {
-    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewDidLoad();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.httpService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    this.companyService.getSideMenuData(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectName = data.data.project_name;
+          this.projectMainImage = data.data.project_main_image;
+          this.avatarImage = data.data.avatar_image;
+          this.nickname = data.data.nickname;
+          this.participantNum = data.data.participant_num;
+          this.maxParticipantNum = data.data.max_participant_num;
+          this.totalInterviewNum = data.data.total_interview_num;
+          this.maxInterviewNum = data.data.max_interview_num;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
 
   }
 
@@ -159,22 +146,22 @@ export class CompanyProjectSideMenuPage {
   }
 
   openCompanyProjectReportPage() {
-    this.navCtrl.push(CompanyProjectReportPage);
+    this.navCtrl.push(CompanyProjectReportPage, { "project_id" : this.project_id });
   }
 
   openCompanyProjectUserInfoPage() {
-    this.navCtrl.push(CompanyProjectUserInfoPage);
+    this.navCtrl.push(CompanyProjectUserInfoPage, { "project_id" : this.project_id });
   }
 
   openCompanyProjectStatsPage() {
-    this.navCtrl.push(CompanyProjectStatsPage);
+    this.navCtrl.push(CompanyProjectStatsPage, { "project_id" : this.project_id });
   }
 
   openCompanyProjectStorySummaryPage() {
-    this.navCtrl.push(CompanyProjectStorySummaryPage);
+    this.navCtrl.push(CompanyProjectStorySummaryPage, { "project_id" : this.project_id });
   }
 
   openCompanyProjectPriceStatementPage() {
-    this.navCtrl.push(CompanyProjectPriceStatementPage);
+    this.navCtrl.push(CompanyProjectPriceStatementPage, { "project_id" : this.project_id });
   }
 }

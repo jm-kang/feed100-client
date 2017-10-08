@@ -76,8 +76,8 @@ export class UserHomePage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserHomePage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserHomePage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserHome()
@@ -94,7 +94,7 @@ export class UserHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },

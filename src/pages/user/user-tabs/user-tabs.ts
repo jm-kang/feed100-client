@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { UserAlarmPage } from '../user-alarm/user-alarm';
 import { UserConfigurePage } from '../user-configure/user-configure';
@@ -11,6 +11,7 @@ import { UserInterviewPage } from '../user-interview/user-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { Badge } from '@ionic-native/badge';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -36,8 +37,10 @@ export class UserTabsPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public appCtrl: App,
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -52,17 +55,18 @@ export class UserTabsPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserTabsPage');
-    let loading = this.commonService.presentLoading();
+    // let loading = this.commonService.presentLoading();
 
     this.userService.getAlarmAndInterviewNum()
     .finally(() => {
-      loading.dismiss();
+      // loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
           this.userService.alarmNum = data.data.alarm_num;
           this.userService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -76,6 +80,24 @@ export class UserTabsPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserTabsPage');
+    console.log(this.appCtrl.getActiveNavs()[0].getType());
+    if(this.appCtrl.getActiveNavs()[0].getType() == 'tab') {
+      let activeView = this.appCtrl.getActiveNavs()[0].getActive();
+      console.log(activeView.name);
+      switch(activeView.name) {
+        case 'UserInterviewPage':
+          activeView.instance.ionViewWillEnter();
+          break;
+        case 'UserMypagePage':
+          activeView.instance.ionViewWillEnter();
+          break;
+      }
+    }
+    
   }
 
   ionViewDidLoad() {
@@ -102,18 +124,24 @@ export class UserTabsPage {
         ios: {
             alert: true,
             badge: true,
-            sound: true,
-            clearBadge: true
+            sound: true
         },
         windows: {}
       };
 
       const pushObject: PushObject = this.push.init(options);
-  
+      
       pushObject.on('notification').subscribe((notification: any) => { 
         console.log('Received a notification', notification);
+        console.log(JSON.stringify(notification.additionalData));
         if(notification.additionalData.foreground) {
+          console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
+          this.ionViewWillEnter();
+        }
+        else {
+          console.log('background');
+          this.ionViewWillEnter();
         }
       });
       

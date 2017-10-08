@@ -19,23 +19,7 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyNewsfeedPage {
 
-  newsfeeds = [
-    {
-      newsfeed_id:1,
-      newsfeed_main_image: 'assets/img/newsfeed-main-image1.png',
-      newsfeed_name: '뉴스피드 이름 뉴스피드 이름 뉴스피드 이름',
-    },
-    {
-      newsfeed_id:2,
-      newsfeed_main_image: 'assets/img/newsfeed-main-image2.png',
-      newsfeed_name: '뉴스피드 이름2',
-    },
-    {
-      newsfeed_id:3,
-      newsfeed_main_image: 'assets/img/newsfeed-main-image3.png',
-      newsfeed_name: '뉴스피드 이름3 뉴스피드 이름3 뉴스피드 이름3 뉴스피드 이름3 뉴스피드 이름3',
-    }
-  ];
+  newsfeeds = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -46,31 +30,31 @@ export class CompanyNewsfeedPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyNewsfeedPage');
-    // let loading = this.httpService.presentLoading();
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyNewsfeedPage');
+    let loading = this.commonService.presentLoading();
 
-    // this.httpService.getNewsfeeds()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.newsfeeds = data.data;
-    //     }
-    //     else if(data.success == false) {
-    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewDidLoad();
-    //       })
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(JSON.stringify(err));
-    //     this.httpService.showBasicAlert('오류가 발생했습니다.')
-    //   }
-    // )
+    this.companyService.getNewsfeeds()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.newsfeeds = data.data;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(JSON.stringify(err));
+        this.commonService.showBasicAlert('오류가 발생했습니다.')
+      }
+    )
   }
 
   openCompanyNewsfeedStoryPage(newsfeed_id) {

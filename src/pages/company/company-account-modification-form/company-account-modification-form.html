@@ -29,7 +29,7 @@
       </span>
     </div>
     <div class="avatar-wrapper">
-      <span class="avatar-image avatar-span">
+      <span class="avatar-image avatar-span" tappable (click)="modifyAvatar()">
         <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
       </span>
       <h3 text-center>{{nickname}} <ion-icon name="md-create" tappable (click)="modifyNickname(nickname)"></ion-icon></h3>
@@ -38,11 +38,11 @@
     <ion-list class="account-modification-list"> 
       <ion-item>
         <ion-label color="semiDark" stacked>이메일</ion-label>
-        <ion-label class="email" color="dark">{{email}}</ion-label>
+        <ion-label class="email" color="dark">{{username}}</ion-label>
       </ion-item>
       <ion-item>
         <ion-label color="semiDark" stacked>자기소개</ion-label>
-        <ion-textarea rows="3" [(ngModel)]="feedbackContent" placeholder="자신을 소개해주세요!"></ion-textarea>
+        <ion-textarea rows="3" [(ngModel)]="introduction" placeholder="기업을 소개해주세요!"></ion-textarea>
         
         <!-- <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (feedbackContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{feedbackContent | textcount}}</span> / <span>{{minTextLength}}</span>

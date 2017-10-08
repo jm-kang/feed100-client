@@ -57,7 +57,8 @@ export class UserProjectSearchResultPage {
     console.log('ionViewDidLoad UserProjectSearchResultPage');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectSearchResultPage');
     this.statusBar.show();
 
     let loading = this.commonService.presentLoading();
@@ -70,24 +71,38 @@ export class UserProjectSearchResultPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.projectHashtags = JSON.parse(data.data.project_hashtags);
-          this.feedbacks = data.data.feedbacks;
-     
-          this.hashtags = this.navParams.get('hashtags');
-          for(let i = 0; i < this.hashtags.length; i++) {
-            this.searchResults.push(this.hashtags[i]);
-            let index = this.projectHashtags.indexOf(this.hashtags[i]);
-            if(index > -1) {
-              this.projectHashtags.splice(index, 1);
+          if(!this.searchResults.length) {
+            this.projectHashtags = JSON.parse(data.data.project_hashtags);
+            this.feedbacks = data.data.feedbacks;
+      
+            this.hashtags = this.navParams.get('hashtags');
+            for(let i = 0; i < this.hashtags.length; i++) {
+              this.searchResults.push(this.hashtags[i]);
+              let index = this.projectHashtags.indexOf(this.hashtags[i]);
+              if(index > -1) {
+                this.projectHashtags.splice(index, 1);
+              }
             }
+            this.filter();
+            console.log(this.feedbackResults);
           }
-          this.filter();
-          console.log(this.feedbackResults);
+          else {
+            this.projectHashtags = JSON.parse(data.data.project_hashtags);
+            this.feedbacks = data.data.feedbacks;
+
+            for(let i = 0; i < this.searchResults.length; i++) {
+              let index = this.projectHashtags.indexOf(this.searchResults[i]);
+              if(index > -1) {
+                this.projectHashtags.splice(index, 1);
+              }
+            }
+            this.filter();
+          }
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

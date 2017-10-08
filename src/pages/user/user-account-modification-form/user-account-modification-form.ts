@@ -38,10 +38,32 @@ export class UserAccountModificationFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAccountModificationFormPage');
-    this.avatarImage = this.navParams.get('avatarImage');
-    this.nickname = this.navParams.get('nickname');
-    this.username = this.navParams.get('username');
-    this.introduction = this.navParams.get('introduction');
+    let loading = this.commonService.presentLoading();
+    
+    this.userService.getUserInfo()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.avatarImage = data.data.avatar_image;
+          this.nickname = data.data.nickname;
+          this.username = data.data.username;
+          this.introduction = data.data.introduction;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   scrollingFun(e) {
@@ -131,7 +153,7 @@ export class UserAccountModificationFormPage {
       (data) => {
         if(data.success == true) {
           this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.viewCtrl.dismiss("refresh");    
+          this.viewCtrl.dismiss("refresh");
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

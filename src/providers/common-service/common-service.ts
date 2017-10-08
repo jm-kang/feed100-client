@@ -37,8 +37,8 @@ export class CommonServiceProvider {
     console.log('Hello CommonServiceProvider Provider');
   }
   getServerUrl() {
-    // return 'http://172.30.1.22:3000';
-    return 'http://localhost:3000';
+    return 'http://192.168.10.52:3000';
+    // return 'http://localhost:3000';
     // return 'http://www.feed100.me';
   } 
 
@@ -90,18 +90,6 @@ export class CommonServiceProvider {
     .mergeMap((accessToken) => {
       headers.append('x-access-token', accessToken);
       return this.http.post(url, formData, { headers: headers }).map(res => res.json());
-    });
-  }
-
-  moveFiles(images) {
-    let url = this.getServerUrl() + '/common/api/move';
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-
-    return Observable.fromPromise(this.storage.get('accessToken'))
-    .mergeMap((accessToken) => {
-      headers.append('x-access-token', accessToken);
-      return this.http.post(url, { "images" : images }, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -157,45 +145,40 @@ export class CommonServiceProvider {
   }
 
   logout(navCtrl) {
-    // let loading = this.presentLoading();
+    let loading = this.presentLoading();
 
-    this.uniqueDeviceID.get()
-    .then((uuid: any) => {
-      this.deleteDeviceToken(uuid)
-      .subscribe(
-        (data) => {
-          this.storage.clear()
-          .then(() => {            
-            navCtrl.popAll()
-            .then(() => { // modal이 있는 경우
-              console.log('popAll success');
-              this.app.getRootNavs()[0].setRoot(LoginPage);
-              this.statusBar.show();
-              // this.showBasicAlert('로그아웃되었습니다.');
-              // loading.dismiss();
-            })
-            .catch((err) => { // modal이 없고 base 노드인 경우
-              console.log('popAll Error: ', err);
-              this.app.getRootNavs()[0].setRoot(LoginPage);
-              this.statusBar.show();
-              // this.showBasicAlert('로그아웃되었습니다.');
-              // loading.dismiss();
-            })
-          });
-        },
-        (err) => {
-          console.log(err);
-          this.showBasicAlert('오류가 발생했습니다.');
-          // loading.dismiss();
-        }
-      )
+    Observable.fromPromise(navCtrl.popAll())
+    .finally(() => {
+      this.app.getRootNavs()[0].setRoot(LoginPage);
+      this.statusBar.show();
+      this.uniqueDeviceID.get()
+      .then((uuid: any) => {
+        this.deleteDeviceToken(uuid)
+        .subscribe(
+          (data) => {
+            this.storage.clear();
+            // this.showBasicAlert('로그아웃되었습니다.');
+          },
+          (err) => {
+            console.log(err);
+            this.showBasicAlert('오류가 발생했습니다.');
+          }
+        )
+      })
+      .catch((error: any) => {
+        console.log(error);
+        this.showBasicAlert('오류가 발생했습니다.');
+      });
+      loading.dismiss();
     })
-    .catch((error: any) => {
-      console.log(error);
-      this.showBasicAlert('오류가 발생했습니다.');
-      // loading.dismiss();
-    });
-
+    .subscribe(
+      (data) => {
+        console.log('popAll success');
+      },
+      (err) => {
+        console.log('popAll Error: ', err);
+      }
+    )
   }
 
   refreshTokens() {

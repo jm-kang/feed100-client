@@ -42,8 +42,8 @@
       </div>
       <div text-left class="story-content-slide-content">
         <h3 class="sub-slide-title">{{projectUserProfileSlide.title}}</h3>
-        프로젝트 참여인원 <strong>{{participantNum}}</strong> 명 중<br>
-        <span class="stat-summary-block" *ngFor="let data of projectUserProfileSlide.datasets[0].data; let userProfileDataIndex=index"><span class="square-dot" [style.background]="projectUserProfileSlide.colors[0].backgroundColor[userProfileDataIndex]"></span>{{projectUserProfileSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{data/participantNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectUserProfileSlide.datasets[0].data.length">,</span></span>
+        프로젝트 참여인원 <strong>{{projectUserProfileSlide.totalNum}}</strong> 명 중<br>
+        <span class="stat-summary-block" *ngFor="let data of projectUserProfileSlide.datasets[0].data; let userProfileDataIndex=index"><span class="square-dot" [style.background]="projectUserProfileSlide.colors[0].backgroundColor[userProfileDataIndex]"></span>{{projectUserProfileSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserProfileSlide.totalNum == 0) ? 0 : data/projectUserProfileSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectUserProfileSlide.datasets[0].data.length">,</span></span>
       </div>
     </ion-slide>
 
@@ -53,8 +53,8 @@
       </div>
       <div text-left class="story-content-slide-content">
         <h3 class="sub-slide-title">{{projectUserParticipationConditionSlide.question}}</h3>
-        프로젝트 참여인원 <strong>{{participantNum}}</strong> 명 중<br>
-        <span class="stat-summary-block" *ngFor="let data of projectUserParticipationConditionSlide.datasets[0].data; let participationConditionIndex=index"><span class="square-dot" [style.background]="colors[0].backgroundColor[participationConditionIndex]"></span>{{projectUserParticipationConditionSlide.labels[participationConditionIndex]}} : <strong>{{data}}</strong> 명 <small>({{data/participantNum*100 | round:1}}%)</small><span *ngIf="participationConditionIndex+1 != projectUserParticipationConditionSlide.datasets[0].data.length">,</span></span>
+        프로젝트 참여인원 <strong>{{projectUserParticipationConditionSlide.totalNum}}</strong> 명 중<br>
+        <span class="stat-summary-block" *ngFor="let data of projectUserParticipationConditionSlide.datasets[0].data; let participationConditionIndex=index"><span class="square-dot" [style.background]="colors[0].backgroundColor[participationConditionIndex]"></span>{{projectUserParticipationConditionSlide.labels[participationConditionIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserParticipationConditionSlide.totalNum == 0) ? 0 : data/projectUserParticipationConditionSlide.totalNum*100 | round:1}}%)</small><span *ngIf="participationConditionIndex+1 != projectUserParticipationConditionSlide.datasets[0].data.length">,</span></span>
       </div>
     </ion-slide>
 
@@ -67,23 +67,23 @@
           <span item-start>
             Q.
           </span>
-          <h3>이 프로젝트를 한줄로 표현하자면?</h3>
-          <p>한줄 요약은 사용자들 처음 프로젝트를 보고 느낀 인상입니다.</p>
+          <h3>이 프로젝트를 한 줄로 표현하자면?</h3>
+          <p>한줄 요약은 사용자들이 프로젝트 스토리를 보고 작성한 것으로, 프로젝트 이해에 대한 척도가 될 수 있습니다.</p>
         </ion-item>
       </div>
       <div class="project-story-summary-list">
-        <div text-right class="total-length" *ngIf="projectStorySummarys.length">총 {{projectStorySummarys.length}}개</div>
-        <div text-center *ngIf = "projectStorySummarys.length==0" class="empty-inner">
+        <div text-right class="total-length" *ngIf="projectStorySummaries.length">총 {{projectStorySummaries.length}}개</div>
+        <div text-center *ngIf = "projectStorySummaries.length==0" class="empty-inner">
           <ion-icon name="analytics"></ion-icon>
           <p>아직 등록된 한줄 요약이 없습니다.</p>
         </div>
     
-        <ion-card *ngFor="let projectStorySummary of projectStorySummarys">
+        <ion-card *ngFor="let projectStorySummary of projectStorySummaries">
           <ion-item>
             <span item-start>
               A.
             </span>
-            <p>{{projectStorySummary.content}} <span class="card-nickname user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()"> - {{projectStorySummary.nickname}}</span></p>
+            <p>{{projectStorySummary.project_story_summary}} <span class="card-nickname user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(projectStorySummary.project_participant_id)"> - {{projectStorySummary.nickname}}</span></p>
           </ion-item>
         </ion-card>
       </div>
@@ -96,16 +96,16 @@
         </ion-item>
       </div>
       <ion-card class="feedback-card" *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
-        <ion-card-header>
+        <ion-card-header *ngIf="projectBestFeedback.is_best">
           <ion-item class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage()">
+            <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(projectBestFeedback.project_participant_id)">
               <div class="avatar-span-image" [style.backgroundImage]="'url(' + projectBestFeedback.avatar_image + ')'"></div>
             </span>
             <h3>
               <span class="best-badge" *ngIf="projectBestFeedback.is_best">
                 <span>BEST</span>
               </span>
-              <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()">{{projectBestFeedback.nickname}}</span>
+              <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(projectBestFeedback.project_participant_id)">{{projectBestFeedback.nickname}}</span>
               <span float-right class="empathy-wrapper">
                 <span><span class="text-empathy">공감</span> {{projectBestFeedback.empathy_num}}</span>
                 <span><span class="text-nonempathy">비공감</span> {{projectBestFeedback.non_empathy_num}}</span>
@@ -114,7 +114,7 @@
             <p [innerHTML]="projectBestFeedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
           </ion-item>
         </ion-card-header>
-        <ion-card-content class="feedback-content">
+        <ion-card-content class="feedback-content" *ngIf="projectBestFeedback.is_best">
           <div text-left tappable (click)="openCompanyProjectFeedbackPage(projectBestFeedback.project_participant_id)">
             {{(projectBestFeedback.project_feedback | jsonParse)[0] | slice:0:100}}   
             <span class="slice-tag" *ngIf="(projectBestFeedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
@@ -139,8 +139,8 @@
           <rating [(ngModel)]="projectStatSlide.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
           <span item-end>{{average(statIndex) | round:1}}</span>
         </ion-item>
-        프로젝트 참여인원 <strong>{{participantNum}}</strong> 명 중<br>
-        <span class="stat-summary-block" *ngFor="let data of projectStatSlide.datasets[0].data; let userProfileDataIndex=index">{{projectStatSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{data/participantNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlide.datasets[0].data.length">,</span></span>
+        프로젝트 참여인원 <strong>{{projectStatSlide.totalNum}}</strong> 명 중<br>
+        <span class="stat-summary-block" *ngFor="let data of projectStatSlide.datasets[0].data; let userProfileDataIndex=index">{{projectStatSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectStatSlide.totalNum == 0) ? 0 : data/projectStatSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlide.datasets[0].data.length">,</span></span>
       </div>
     </ion-slide>
 

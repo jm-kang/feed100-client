@@ -25,7 +25,7 @@
   <ion-card class="price-statement-card">
     <ion-item class="card-header">
       <ion-label stacked color="semiDark">TYPE
-        <span class="registration-date" float-right>결제일 : {{projectRegistrationDate | amDateFormat: 'YY.MM.DD'}}</span>
+        <span class="registration-date" float-right>결제일 : {{projectPaymentDate | amDateFormat: 'YY.MM.DD'}}</span>
       </ion-label>
       <ion-label class="type-title" color="dark">{{type}}</ion-label>
     </ion-item>
@@ -56,7 +56,7 @@
     <div class="price-card-feedback-wrapper">
       <ion-item>
         <ion-label stacked color="semiDark">참여 인원</ion-label>
-        <ion-label color="dark">{{particapantNum}}명</ion-label>
+        <ion-label color="dark">{{participantNum}}명</ion-label>
       </ion-item>
       <ion-item class="price-statement-card-item">
         <ion-label stacked color="semiDark">피드백 개수</ion-label>

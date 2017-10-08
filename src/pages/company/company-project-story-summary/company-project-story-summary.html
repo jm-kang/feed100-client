@@ -27,23 +27,23 @@
       <span item-start>
         Q.
       </span>
-      <h3>이 프로젝트를 한줄로 표현하자면?</h3>
-      <p>한줄 요약은 사용자들 처음 프로젝트를 보고 느낀 인상입니다.</p>
+      <h3>이 프로젝트를 한 줄로 표현하자면?</h3>
+      <p>한줄 요약은 사용자들이 프로젝트 스토리를 보고 작성한 것으로, 프로젝트 이해에 대한 척도가 될 수 있습니다.</p>
     </ion-item>
   </div>
   <div class="project-story-summary-list">
-    <div text-right class="total-length" *ngIf="projectStorySummarys.length">총 {{projectStorySummarys.length}}개</div>
-    <div text-center *ngIf = "projectStorySummarys.length==0" class="empty-inner">
+    <div text-right class="total-length" *ngIf="projectStorySummaries.length">총 {{projectStorySummaries.length}}개</div>
+    <div text-center *ngIf = "projectStorySummaries.length==0" class="empty-inner">
       <ion-icon name="analytics"></ion-icon>
       <p>아직 등록된 한줄 요약이 없습니다.</p>
     </div>
 
-    <ion-card *ngFor="let projectStorySummary of projectStorySummarys">
+    <ion-card *ngFor="let projectStorySummary of projectStorySummaries">
       <ion-item>
         <span item-start>
           A.
         </span>
-        <p>{{projectStorySummary.content}} <span class="card-nickname user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage()"> - {{projectStorySummary.nickname}}</span></p>
+        <p>{{projectStorySummary.project_story_summary}} <span class="card-nickname user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(projectStorySummary.project_participant_id)"> - {{projectStorySummary.nickname}}</span></p>
       </ion-item>
     </ion-card>
   </div>

@@ -145,39 +145,10 @@ export class UserProjectOpinionWritingEditorPage {
     });
   }
 
-  moveFiles() {
+  registerOpinion() {
     let loading = this.commonService.presentLoading();
-    if(this.opinionImage) {
-      let images = [];
-      images.push(this.opinionImage);
-      this.commonService.moveFiles(images)
-      .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.opinionImage = this.opinionImage.replace('tmp', 'images');
-          this.registerOpinion(loading);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.moveFiles();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        alert('오류가 발생했습니다.');
-      }
-    );
 
-    }
-    else {
-      this.registerOpinion(loading);
-    }
-  }
-
-  registerOpinion(loading) {
-    this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? this.opinionImage : null)
+    this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
     .finally(() => {
       loading.dismiss();
     })
@@ -200,7 +171,7 @@ export class UserProjectOpinionWritingEditorPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.registerOpinion(loading);
+            this.registerOpinion();
           });
         }
       },

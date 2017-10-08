@@ -23,7 +23,7 @@ export class UserProjectInterviewDetailPage {
 
   project_id;
   
-  projectName: String = "프로젝트 이름 프로젝트 이름 프로젝트 이름 프로젝트 이름";
+  projectName: String = "";
   
   interviews = [];
 
@@ -43,9 +43,9 @@ export class UserProjectInterviewDetailPage {
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectInterviewDetailPage');
     let loading = this.commonService.presentLoading();
-    let project_id = this.navParams.get('project_id');
+    this.project_id = this.navParams.get('project_id');
     
-    this.userService.getInterview(project_id)
+    this.userService.getInterview(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -91,10 +91,6 @@ export class UserProjectInterviewDetailPage {
   }
 
   back() {
-    if(this.navParams.get('instance')) {
-      console.log('back');
-      this.navParams.get('instance').ionViewWillEnter();
-    }
     this.navCtrl.pop();
   }
 
@@ -178,5 +174,10 @@ export class UserProjectInterviewDetailPage {
         this.ionViewWillEnter();
       }
     );
+    userProjectInterviewWritingEditorModal.onDidDismiss(
+      () => {
+        this.ionViewDidEnter();
+      }
+    )
   }
 }

@@ -28,8 +28,8 @@ export class UserServiceProvider {
   }
 
   getServerUrl() {
-    // return 'http://172.30.1.22:3000';
-    return 'http://localhost:3000';
+    return 'http://192.168.10.52:3000';
+    // return 'http://localhost:3000';
     // return 'http://www.feed100.me';
   } 
   

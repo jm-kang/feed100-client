@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
+
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
  * Generated class for the CompanyAccountModificationFormPage page.
  *
@@ -14,22 +17,54 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
   templateUrl: 'company-account-modification-form.html',
 })
 export class CompanyAccountModificationFormPage {
-  avatarImage: String = "assets/img/company-avatar-image2.png";
-  nickname: String = "스윙스";
-  email: String = "swings@gmail.com";
+  avatarImage: String = "";
+  nickname: String = "";
+  username: String = "";
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
   width: any =  "";
   left: any =  "";
   top: any =  "";
-  feedbackContent: String = "리스펙 리스펙";
+  introduction: String = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public alertCtrl: AlertController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyAccountModificationFormPage');
+    let loading = this.commonService.presentLoading();
+    
+    this.companyService.getCompanyInfo()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.avatarImage = data.data.avatar_image;
+          this.username = data.data.username;
+          this.introduction = data.data.introduction;
+          this.nickname = data.data.nickname;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   scrollingFun(e) {
@@ -41,6 +76,40 @@ export class CompanyAccountModificationFormPage {
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  modifyAvatar() {
+    this.commonService.selectImage()
+    .then(this.commonService.readFile)
+    .then((formData) => {
+      let loading = this.commonService.presentLoading();
+      this.commonService.uploadFile(formData)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            this.avatarImage = data.data;
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            });
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+        }
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+      this.commonService.showBasicAlert('오류가 발생했습니다.');
+    });  
+
   }
 
   onAvatarImageLoad(img) {
@@ -77,7 +146,7 @@ export class CompanyAccountModificationFormPage {
 
   modifyNickname(oldNickname) {
     let alert = this.alertCtrl.create({
-      title: '새로운 해시태그를 작성해주세요',
+      title: '새로운 기업명을 입력해주세요.',
       inputs: [
         {
           name: 'nickname',
@@ -95,7 +164,12 @@ export class CompanyAccountModificationFormPage {
         {
           text: '완료',
           handler: data => {
-            this.nickname = data.nickname;
+            if(data.nickname.length >= 2 && data.nickname.length <= 8) {
+              this.nickname = data.nickname;
+            }
+            else {
+              this.commonService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
+            }
           }
         }
       ]
@@ -105,5 +179,29 @@ export class CompanyAccountModificationFormPage {
 
   modifyAccount() {
     console.log("수정 완료");
+    let loading = this.commonService.presentLoading();
+    
+    this.companyService.updateAccount(this.avatarImage, this.nickname, this.introduction)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.commonService.showBasicAlert('수정이 완료되었습니다.');
+          this.viewCtrl.dismiss("refresh");
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.modifyAccount();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 }

@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectUserProfileStatsPage page.
  *
@@ -15,15 +18,18 @@ import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 })
 export class CompanyProjectUserProfileStatsPage {
   @ViewChild(Slides) slides: Slides;
-  participantNum:number = 30;
+  project_id;
   
-  stats = [
+  stats = [];
+
+  tempStats = [
     {
       title: '성별',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [12, 18],
+        data: [0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(131,196,240,0.7)','rgba(252,158,178,0.7)']},
       ],
@@ -40,9 +46,9 @@ export class CompanyProjectUserProfileStatsPage {
       title: '나이',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [4, 2, 0, 12, 12]
+        data: [0, 0, 0, 0, 0]
       }],
-  
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)']},
       ],
@@ -66,8 +72,9 @@ export class CompanyProjectUserProfileStatsPage {
       title: '직업',
       // 서버에서 데이터 필요한 부분 (서버에서 가져올때 값이 0이면 안가져올수 있음?)
       datasets: [{
-        data: [2,3,4,1,2,4,3,6,2,2,1],
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)']},
       ],
@@ -100,8 +107,9 @@ export class CompanyProjectUserProfileStatsPage {
       title: '지역',
       // 서버에서 데이터 필요한 부분 (서버에서 가져올때 값이 0이면 안가져올수 있음?)
       datasets: [{
-        data: [2,3,4,1,2,4,3,6,2,2,1,0,0,0],
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       }],
+      totalNum: 0,
       colors: [
         {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)', 'rgba(39, 62, 17, 0.7)', 'rgba(117, 141, 69, 0.7)', 'rgba(180, 189, 75, 0.7)']},
       ],
@@ -116,11 +124,63 @@ export class CompanyProjectUserProfileStatsPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectUserProfileStatsPage');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getProjectParticipants(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          for(let i = 0; i < data.data.length; i++) {
+            let index;
+            index = this.tempStats[0].labels.indexOf(data.data[i].gender);
+            if(index > -1) {
+              this.tempStats[0].datasets[0].data[index]++;
+              this.tempStats[0].totalNum++;
+            }
+            index = this.tempStats[1].labels.indexOf(data.data[i].age);
+            if(index > -1) {
+              this.tempStats[1].datasets[0].data[index]++;
+              this.tempStats[1].totalNum++;
+            }
+            index = this.tempStats[2].labels.indexOf(data.data[i].job);
+            if(index > -1) {
+              this.tempStats[2].datasets[0].data[index]++;
+              this.tempStats[2].totalNum++;
+            }
+            index = this.tempStats[3].labels.indexOf(data.data[i].region);
+            if(index > -1) {
+              this.tempStats[3].datasets[0].data[index]++;
+              this.tempStats[3].totalNum++;
+            }
+          }
+          this.stats = this.tempStats;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
   
   back() {

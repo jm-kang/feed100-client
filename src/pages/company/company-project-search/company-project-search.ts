@@ -18,6 +18,8 @@ import { CompanyProjectSearchResultPage } from '../company-project-search-result
   templateUrl: 'company-project-search.html',
 })
 export class CompanyProjectSearchPage {
+  project_id;
+  
   projectMainImage: String = "";
   projectName: String = "";
 
@@ -31,8 +33,12 @@ export class CompanyProjectSearchPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectSearchPage');
     this.projectHashtags = this.navParams.get('project_hashtags');
+    for(let i = 0; i < this.projectHashtags.length; i++) {
+      this.projectHashtags[i] = { "value" : this.projectHashtags[i] };
+    }
     this.projectMainImage = this.navParams.get('project_main_image');
     this.projectName = this.navParams.get('project_name');
+    this.project_id = this.navParams.get('project_id');
   }
 
   ionViewDidEnter() {
@@ -44,10 +50,13 @@ export class CompanyProjectSearchPage {
   }
 
   openCompanyProjectSearchResultPage() {
+    let hashtags = [];
+    for(let i = 0; i < this.searchResults.length; i++) {
+      hashtags.push(this.searchResults[i].value);
+    }
     let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-      { "searchResults" : JSON.parse(JSON.stringify(this.searchResults)),
-        "projectHashtags" : JSON.parse(JSON.stringify(this.projectHashtags)),
-        "feedbacks" : JSON.parse(JSON.stringify(this.navParams.get('feedbacks')))} );  
+      { "hashtags" : hashtags,
+      "project_id" : this.project_id });
     companyProjectSearchResultModal.present();
   }
 
@@ -64,12 +73,7 @@ export class CompanyProjectSearchPage {
   }
 
   skip() {
-    this.searchResults.splice(0, this.searchResults.length);
-    for(let i = 0; i < this.projectHashtags.length; i++) {
-      this.searchResults.push(this.projectHashtags[i]);
-      this.projectHashtags[i].isActiveHashtag = true;
-    }
-
+    this.activeAllHashtag();
     this.openCompanyProjectSearchResultPage();
   }
 
@@ -79,12 +83,6 @@ export class CompanyProjectSearchPage {
       this.searchResults.push(this.projectHashtags[i]);
       this.projectHashtags[i].isActiveHashtag = true;
     }
-    
-    console.log("...start");
-    for(let i = 0; i < this.searchResults.length; i++) {
-      console.log(this.searchResults[i].value);
-    }
-    console.log("...end");
   }
 
   inactiveAllHashtag() {

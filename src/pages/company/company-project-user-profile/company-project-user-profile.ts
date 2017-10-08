@@ -3,6 +3,9 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController, C
 import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
 import { CompanyProjectInterviewDetailPage } from '../company-project-interview-detail/company-project-interview-detail';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectUserProfilePage page.
  *
@@ -17,51 +20,75 @@ import { CompanyProjectInterviewDetailPage } from '../company-project-interview-
 })
 export class CompanyProjectUserProfilePage {
   @ViewChild("contentRef") contentHandle: Content;
-  avatarImage: String = "assets/img/feedback-image6.jpeg";
-  nickname: String = "스윙스";
+  project_id;
+  project_participant_id;
+
+  avatarImage: String = "";
+  nickname: String = "";
   level: number = 1;
-  levelClass: String = "연구원"
+  levelClass: String = ""
   maxHeight: any =  "";
   maxWidth: any =  "";
   height: any =  "";
   width: any =  "";
   left: any =  "";
   top: any =  "";
-  gender: String = "남자";
-  age: String = "20대";
-  job: String = "학생";
-  region: String = "대전광역시";
-  marriage: String = "미혼";
-  storySummary: String = "정말 정말 좋은 프로그램에 참여한거 같다. 여자친구 생겼으면 좋겠어요. 번창하세요.";
+  gender: String = "";
+  age: String = "";
+  job: String = "";
+  region: String = "";
+  marriage: String = "";
+  storySummary: String = "";
 
-  participationConditions = [
-    {
-      question: '당신은 누굽니까?',
-      answer: '사람',
-    },
-    {
-      question: '어떻게 알고 들어오셨나요?',
-      answer: '웹서핑',
-    },
-    {
-      question: '친구는 몇명인가요?',
-      answer: '2명',
-    },
-    {
-      question: '외로우신가요?',
-      answer: '네',
-    },
-    {
-      question: '여자 친구는 어떤 사람인가요?',
-      answer: '없음',
-    },
-  ]
+  participationConditions = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController, 
+    public alertCtrl: AlertController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyAccountModificationFormPage');
+    let loading = this.commonService.presentLoading();
+    this.project_participant_id = this.navParams.get('project_participant_id');
+
+    this.companyService.getProjectParticipant(this.project_participant_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.project_id = data.data.project_id;
+          this.avatarImage = data.data.avatar_image;;
+          this.nickname = data.data.nickname;
+          this.level = data.data.level;
+          this.levelClass = data.data.level_class;
+          this.gender = data.data.gender;
+          this.age = data.data.age;
+          this.job = data.data.job;
+          this.region = data.data.region;
+          this.marriage = data.data.marriage;
+          this.storySummary = data.data.project_story_summary;
+          this.participationConditions = JSON.parse(data.data.project_participation_objective_conditions);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   scrollingFun(e) {
@@ -113,42 +140,11 @@ export class CompanyProjectUserProfilePage {
     this.maxWidth = tempMaxWidth;
   }
 
-  modifyNickname(oldNickname) {
-    let alert = this.alertCtrl.create({
-      title: '새로운 해시태그를 작성해주세요',
-      inputs: [
-        {
-          name: 'nickname',
-          value: oldNickname,
-        }
-      ],
-      buttons: [
-        {
-          text: '취소',
-          role: 'cancel',
-          handler: data => {
-            console.log('취소');
-          }
-        },
-        {
-          text: '완료',
-          handler: data => {
-            this.nickname = data.nickname;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-  modifyAccount() {
-    console.log("수정 완료");
-  }
-
   openCompanyProjectFeedbackPage() {
-    this.navCtrl.push(CompanyProjectFeedbackPage);
+    this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.project_participant_id });
   } 
   openCompanyProjectInterviewDetailPage() {
-    this.navCtrl.push(CompanyProjectInterviewDetailPage);
+    this.navCtrl.push(CompanyProjectInterviewDetailPage, { "project_participant_id" : this.project_participant_id });
   }
 }
+

@@ -76,7 +76,7 @@ export class UserInterviewPage {
       this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
     }
     else {
-      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id, "instance" : this.navCtrl.getActive().instance });
+      this.appCtrl.getRootNavs()[0].push(UserProjectInterviewDetailPage, { "project_id" : project_id });
     }
   }
 }

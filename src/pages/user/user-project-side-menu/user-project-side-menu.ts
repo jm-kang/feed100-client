@@ -75,8 +75,8 @@ export class UserProjectSideMenuPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProjectSideMenuPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectSideMenuPage');
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -111,7 +111,7 @@ export class UserProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
 import { CompanyAlarmPage } from '../company-alarm/company-alarm';
 import { CompanyConfigurePage } from '../company-configure/company-configure';
@@ -11,6 +11,8 @@ import { CompanyInterviewPage } from '../company-interview/company-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -35,48 +37,69 @@ export class CompanyTabsPage {
 
   constructor(
     public navCtrl: NavController,
+    public appCtrl: App,
     public navParams: NavParams,
     private push: Push,
     private uniqueDeviceId: UniqueDeviceID,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
 
   }
 
   getAlarmNum() {
-    //return this.httpService.alarmNum;
+    return this.companyService.alarmNum;
   }
 
   getInterviewNum() {
-    //return this.httpService.interviewNum;
+    return this.companyService.interviewNum;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyTabsPage');
+    // let loading = this.commonService.presentLoading();
+
+    this.companyService.getAlarmAndInterviewNum()
+    .finally(() => {
+      // loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.companyService.alarmNum = data.data.alarm_num;
+          this.companyService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   ionViewDidEnter() {
-    // console.log('ionViewDidEnter UserTabsPage');
-    // let loading = this.httpService.presentLoading();
-
-    // this.httpService.getAlarmAndInterviewNum()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.httpService.alarmNum = data.data.alarm_num;
-    //       this.httpService.interviewNum = data.data.interview_num;
-    //     }
-    //     else if(data.success == false) {
-    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewDidEnter();
-    //       })
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.httpService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    console.log('ionViewDidEnter CompanyTabsPage');
+    console.log(this.appCtrl.getActiveNavs()[0].getType());
+    if(this.appCtrl.getActiveNavs()[0].getType() == 'tab') {
+      let activeView = this.appCtrl.getActiveNavs()[0].getActive();
+      console.log(activeView.name);
+      switch(activeView.name) {
+        case 'CompanyInterviewPage':
+          activeView.instance.ionViewWillEnter();
+          break;
+        case 'CompanyMypagePage':
+          activeView.instance.ionViewWillEnter();
+          break;
+      }
+    }
+    
   }
 
   ionViewDidLoad() {
@@ -113,8 +136,15 @@ export class CompanyTabsPage {
   
       pushObject.on('notification').subscribe((notification: any) => { 
         console.log('Received a notification', notification);
+        console.log(JSON.stringify(notification.additionalData));
         if(notification.additionalData.foreground) {
+          console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
+          this.ionViewWillEnter();
+        }
+        else {
+          console.log('background');
+          this.ionViewWillEnter();
         }
       });
       

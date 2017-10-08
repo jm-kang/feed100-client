@@ -28,7 +28,7 @@
     <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>
     <div class="space-30"></div>
     <!-- ========================Company============================= -->
-    <ion-card class="company-interview-card">
+    <ion-card class="left-interview-card">
       <ion-item class="avatar-span-wrapper">
         <span item-start class="avatar-image avatar-span">
           <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
@@ -53,7 +53,7 @@
       </button>
     </ion-card>
     <!-- ==========================USER=============================== -->
-    <ion-card class="user-interview-card" *ngIf="interview.interview_response">
+    <ion-card class="right-interview-card" *ngIf="interview.interview_response">
       <ion-item class="avatar-span-wrapper">
         <h3 text-right [innerHTML]="interview.nickname"></h3>
         <p text-right>{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>

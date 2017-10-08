@@ -2,6 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectStatsPage page.
  *
@@ -15,17 +18,19 @@ import { Chart } from 'chart.js';
   templateUrl: 'company-project-stats.html',
 })
 export class CompanyProjectStatsPage {
-  participantNum:number = 30;
+  project_id;
 
-  stats = [
+  stats = [];
+  
+  tempStats = [
     {
       title: '첫인상 평가',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 4, 10, 16]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.4)'},
       ],
@@ -45,13 +50,13 @@ export class CompanyProjectStatsPage {
       },
     },
     {
-      title: '추천 지수 (nps)',
+      title: '추천 지수',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [4, 2, 0, 12, 12]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.4)'},
       ],
@@ -74,10 +79,10 @@ export class CompanyProjectStatsPage {
       title: '서비스 만족도',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [5, 6, 9, 4, 6]
+        data: [0, 0, 0, 0, 0]
       }],
-  
       average: 0,
+      totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.4)'},
       ],
@@ -97,26 +102,91 @@ export class CompanyProjectStatsPage {
       },
     } 
   ]
-  
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectStatsPage');
-    
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getProjectParticipants(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          for(let i = 0; i < data.data.length; i++) {
+            if(data.data[i].project_first_impression_rate) {
+              (this.tempStats[0].datasets[0].data[data.data[i].project_first_impression_rate-1])++;
+              this.tempStats[0].totalNum++;
+            }
+            if(data.data[i].project_recommendation_rate) {
+              (this.tempStats[1].datasets[0].data[data.data[i].project_recommendation_rate-1])++;
+              this.tempStats[1].totalNum++;
+            }
+            if(data.data[i].project_satisfaction_rate) {
+              (this.tempStats[2].datasets[0].data[data.data[i].project_satisfaction_rate-1])++;
+              this.tempStats[2].totalNum++;
+            }
+          }
+          this.tempAverage(0);
+          this.tempAverage(1);
+          this.tempAverage(2);
+          this.stats = this.tempStats;
+          
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   average(index) {
-    let average:number = 0;
-    let i: number = 0;
-    for(let data of this.stats[index].datasets[0].data) {
-      i = i+1;
-      average = data * i + average;
+    if(this.stats[index].totalNum == 0) {
+      return 0;
     }
-    average = average / this.participantNum;
-    this.stats[index].average = average;
-    return average;
+    else {
+      let average:number = 0;
+      let i: number = 0;
+      for(let data of this.stats[index].datasets[0].data) {
+        i = i+1;
+        average = data * i + average;
+      }
+      average = average / this.stats[index].totalNum;
+      return average;
+    }
+  }
+
+  tempAverage(index) {
+    if(this.tempStats[index].totalNum == 0) {
+      return 0;
+    }
+    else {
+      let average:number = 0;
+      let i: number = 0;
+      for(let data of this.tempStats[index].datasets[0].data) {
+        i = i+1;
+        average = data * i + average;
+      }
+      average = average / this.tempStats[index].totalNum;
+      this.tempStats[index].average = average;
+    }
   }
 
   back() {

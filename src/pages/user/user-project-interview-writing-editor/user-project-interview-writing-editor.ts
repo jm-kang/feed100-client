@@ -72,7 +72,7 @@ export class UserProjectInterviewWritingEditorPage {
       this.interview_response_images[i] = this.interview_response_images[i].img;
     }
 
-    this.userService.responseInterview(this.interview_id, this.interview_response, this.interview_response_images)
+    this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
     .finally(() => {
       loading.dismiss();
     })

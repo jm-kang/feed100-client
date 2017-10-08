@@ -18,36 +18,13 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
   templateUrl: 'company-project-interview.html',
 })
 export class CompanyProjectInterviewPage {
-  projectName: String = '프로젝트 이름 프로젝트 이름 프로젝트 이름';
-  progressState: String = '2017-09-20 00:00:00';
-  totalCompanyInterviewNum: number = 20;
-  maxCompanyInterviewNum: number = 30;
-  interviews = [
-    {
-      project_participant_id:1,
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      ordinal: 1,
-      project_end_date: '2017-09-18 00:00:00',
-      interview_response: false,
-    },
-    {
-      project_participant_id:2,
-      avatar_image: 'assets/img/user-avatar-image2.png',
-      nickname: '지코',
-      ordinal: 2,
-      project_end_date: '2017-09-17 00:00:00',
-      interview_response: false,
-    },
-    {
-      project_participant_id:3,
-      avatar_image: 'assets/img/user-avatar-image3.png',
-      nickname: '딘딘',
-      ordinal: 3,
-      project_end_date: '2017-09-13 00:00:00',
-      interview_response: true,
-    }
-  ];
+  project_id;
+
+  projectName: String = '';
+  projectEndDate: String = '';
+  totalInterviewNum: number = 0;
+  maxInterviewNum: number = 0;
+  interviews = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -61,42 +38,45 @@ export class CompanyProjectInterviewPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidEnter() {
-    // let loading = this.httpService.presentLoading();
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectInterviewPage');
+    this.project_id = this.navParams.get('project_id');
+
+    let loading = this.commonService.presentLoading();
     
-    // this.httpService.getInterviews()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.interviews = data.data;
-    //     }
-    //     else if(data.success == false) {
-    //       this.httpService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewDidEnter();
-    //       })
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.httpService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    this.companyService.getProjectInterviews(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          console.log(JSON.stringify(data.data));
+          this.projectName = data.data.project_name;
+          this.projectEndDate = data.data.project_end_date;
+          this.totalInterviewNum = data.data.total_interview_num;
+          this.maxInterviewNum = data.data.max_interview_num;
+          this.interviews = data.data.interviews;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyInterviewPage');
+    console.log('ionViewDidLoad CompanyProjectInterviewPage');
   }
   
-  openCompanyProjectInterviewDetailPage(project_participant_id, progressState) {
-    if(progressState == '종료') {
-      this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
-    }
-    else {
-      this.appCtrl.getRootNavs()[0].push(CompanyProjectInterviewDetailPage, { "project_participant_id" : project_participant_id});
-    }
+  openCompanyProjectInterviewDetailPage(project_participant_id) {
+    this.navCtrl.push(CompanyProjectInterviewDetailPage, { "project_participant_id" : project_participant_id });
   }
 }

@@ -30,8 +30,8 @@ export class UserNewsfeedPage {
 
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserNewsfeedPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserNewsfeedPage');
     let loading = this.commonService.presentLoading();
 
     this.userService.getNewsfeeds()
@@ -46,7 +46,7 @@ export class UserNewsfeedPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },

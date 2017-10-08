@@ -96,7 +96,8 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera } from '@ionic-native/camera';
-import { File } from '@ionic-native/file'
+import { File } from '@ionic-native/file';
+import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CompanyServiceProvider } from '../providers/company-service/company-service';
@@ -200,6 +201,7 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
     PhotoViewer,
     Camera,
     File,
+    Badge,
     CommonServiceProvider,
     UserServiceProvider,
     CompanyServiceProvider,

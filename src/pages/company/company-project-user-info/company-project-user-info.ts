@@ -4,6 +4,9 @@ import { CompanyProjectUserProfileStatsPage } from '../company-project-user-prof
 import { CompanyProjectUserParticipationConditionStatsPage } from '../company-project-user-participation-condition-stats/company-project-user-participation-condition-stats';
 import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectUserInfoPage page.
  *
@@ -17,55 +20,47 @@ import { CompanyProjectUserProfilePage } from '../company-project-user-profile/c
   templateUrl: 'company-project-user-info.html',
 })
 export class CompanyProjectUserInfoPage {
-  participantNum:number = 30;
-  users = [
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      level: 1,
-      level_class: '연구원',
-      opinion_num: 10,
-      reply_interview_num: 3,
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      level: 1,
-      level_class: '연구원',
-      opinion_num: 10,
-      reply_interview_num: 3,
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      level: 1,
-      level_class: '연구원',
-      opinion_num: 10,
-      reply_interview_num: 3,
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      level: 1,
-      level_class: '연구원',
-      opinion_num: 10,
-      reply_interview_num: 3,
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      nickname: '스윙스',
-      level: 1,
-      level_class: '연구원',
-      opinion_num: 10,
-      reply_interview_num: 3,
-    },
-  ]
+  project_id;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  participantNum: number = 0;
+  users = [];
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectUserInfoPage');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getProjectParticipants(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.users = data.data;
+          this.participantNum = this.users.length;          
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   back() {
@@ -73,15 +68,15 @@ export class CompanyProjectUserInfoPage {
   }
 
   openCompanyProjectUserProfileStatsPage() {
-    this.navCtrl.push(CompanyProjectUserProfileStatsPage);
+    this.navCtrl.push(CompanyProjectUserProfileStatsPage, { "project_id" : this.project_id });
   }
 
   openCompanyProjectUserParticipationConditionStatsPage() {
-    this.navCtrl.push(CompanyProjectUserParticipationConditionStatsPage);
+    this.navCtrl.push(CompanyProjectUserParticipationConditionStatsPage, { "project_id" : this.project_id });
   }
   
-  openCompanyProjectUserProfilePage() {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage);
+  openCompanyProjectUserProfilePage(project_participant_id) {
+    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
     companyProjectUserProfileModal.present();
   }
 

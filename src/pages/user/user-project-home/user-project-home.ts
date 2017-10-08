@@ -159,14 +159,6 @@ export class UserProjectHomePage {
     this.navCtrl.push(UserProjectInterviewDetailPage, { "project_id" : this.project_id });
   }
 
-  // openUserProjectSearchPage() {
-  //   this.navCtrl.push(UserProjectSearchPage, 
-  //     { "project_hashtags" : JSON.parse(JSON.stringify(this.projectHashtags)),
-  //       "project_main_image" : this.projectMainImage,
-  //       "project_name" : this.projectName,
-  //       "feedbacks" : JSON.parse(JSON.stringify(this.feedbacks)) });
-  // }
-
   openUserProjectSearchResultPage(hashtags) {
     let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
       { "hashtags" : hashtags,
