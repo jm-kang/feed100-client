@@ -37,9 +37,9 @@ export class CommonServiceProvider {
     console.log('Hello CommonServiceProvider Provider');
   }
   getServerUrl() {
-    return 'http://192.168.10.52:3000';
+    // return 'http://192.168.10.52:3000';
     // return 'http://localhost:3000';
-    // return 'http://www.feed100.me';
+    return 'http://www.feed100.me';
   } 
 
   selectImage() {
