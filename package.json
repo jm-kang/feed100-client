@@ -87,9 +87,6 @@
                 "APP_ID": "1641054049532599",
                 "APP_NAME": "FEED100"
             },
-            "cordova-plugin-ghyeok-kakaotalk": {
-                "KAKAO_APP_KEY": "2d37d2dfa46c26dedc27c7201ad7cec3"
-            },
             "cordova-plugin-googleplus": {
                 "REVERSED_CLIENT_ID": "com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i"
             },
@@ -105,7 +102,10 @@
             },
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
-            "cordova-plugin-badge": {}
+            "cordova-plugin-badge": {},
+            "cordova-plugin-ghyeok-kakaotalk": {
+                "KAKAO_APP_KEY": "2d37d2dfa46c26dedc27c7201ad7cec3"
+            }
         },
         "platforms": [
             "android",
