@@ -8,7 +8,7 @@
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
-        <ion-icon name="close"></ion-icon>              
+        <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -19,11 +19,11 @@
         <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
       </span>
     </ion-title>
-    <ion-buttons end> 
+    <ion-buttons end>
       <button class="menu-button" ion-button icon-only (click)="openCompanyProjectSideMenuPage()">
         <ion-icon name="menu"></ion-icon>
       </button>
-     </ion-buttons> 
+     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -63,14 +63,14 @@
   <div class="outer-content">
     <div class="feedbacks-header">
       <span class="header-name Company-ui">피드백 {{participantNum}}</span>
-       <button ion-button (click)="openCompanyProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button> 
+       <button ion-button (click)="openCompanyProjectSearchPage()"><ion-icon name="search"></ion-icon>검색</button>
       <!-- <button ion-button class="feedback-list-button" (click)="openCompanyProjectFeedbackListPage()">토론하러 가기<ion-icon name="ios-arrow-forward"></ion-icon></button> -->
     </div>
     <div text-center *ngIf = "!feedbacks.length" class="empty-inner">
       <ion-icon name="text"></ion-icon>
       <p>BEST 피드백이 없습니다.</p>
     </div>
-    <ion-card class="feedback-card" *ngFor="let feedback of feedbacks"> 
+    <ion-card class="feedback-card" *ngFor="let feedback of feedbacks">
       <ion-card-header>
         <ion-item class="avatar-span-wrapper item-flex">
           <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(feedback.project_participant_id)">
@@ -91,14 +91,14 @@
       </ion-card-header>
       <ion-card-content class="feedback-content">
         <div tappable (click)="openCompanyProjectFeedbackPage(feedback.project_participant_id)">
-          {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
-          <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
+          {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}
+          <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>
         <div class="hashtag-wrapper">
         <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openCompanyProjectSearchResultPage([feedbackHashtag])" >
           #{{feedbackHashtag}}
-        </span> 
+        </span>
         </div>
       </ion-card-content>
     </ion-card>
@@ -107,4 +107,4 @@
     <button ion-fab color="primary" (click)="openCompanyProjectInterviewPage()"><ion-icon name="text"></ion-icon></button>
     <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
   </ion-fab>
-</ion-content> 
+</ion-content>

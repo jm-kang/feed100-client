@@ -27,8 +27,8 @@ export class CompanyProjectInterviewPage {
   interviews = [];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public appCtrl: App,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
@@ -38,12 +38,13 @@ export class CompanyProjectInterviewPage {
     this.navCtrl.pop();
   }
 
+
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectInterviewPage');
     this.project_id = this.navParams.get('project_id');
 
     let loading = this.commonService.presentLoading();
-    
+
     this.companyService.getProjectInterviews(this.project_id)
     .finally(() => {
       loading.dismiss();
@@ -75,7 +76,7 @@ export class CompanyProjectInterviewPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewPage');
   }
-  
+
   openCompanyProjectInterviewDetailPage(project_participant_id) {
     this.navCtrl.push(CompanyProjectInterviewDetailPage, { "project_participant_id" : project_participant_id });
   }

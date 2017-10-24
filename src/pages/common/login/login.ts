@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Slides, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, Slides, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { CompanyLoginFormPage } from '../company-login-form/company-login-form';
+import { CompanyInterviewPage } from '../../company/company-interview/company-interview';
+
 import { UserLoginFormPage } from '../user-login-form/user-login-form';
 import { RegistrationPage } from '../registration/registration';
 
@@ -40,7 +42,7 @@ export class LoginPage {
     },
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -56,6 +58,7 @@ export class LoginPage {
   }
 
   openRegistrationPage() {
+    // this.modalCtrl.create(RegistrationPage).present();
     this.navCtrl.push(RegistrationPage);
   }
 }

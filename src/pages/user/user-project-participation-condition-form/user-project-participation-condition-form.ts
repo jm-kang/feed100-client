@@ -30,8 +30,8 @@ export class UserProjectParticipationConditionFormPage {
   participationConditionSlides = [{"options" : "", "value" : ""}];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
@@ -89,7 +89,7 @@ export class UserProjectParticipationConditionFormPage {
     if(!this.participationConditionSlides[index].value) {
       this.slides.lockSwipeToNext(true);
     } else {
-      this.slides.lockSwipeToNext(false);  
+      this.slides.lockSwipeToNext(false);
     }
   }
 
@@ -111,13 +111,13 @@ export class UserProjectParticipationConditionFormPage {
     if(this.participationConditionSlides[index] && !this.participationConditionSlides[index].value) {
       this.slides.lockSwipeToNext(true);
     } else {
-      this.slides.lockSwipeToNext(false);  
+      this.slides.lockSwipeToNext(false);
     }
   }
 
   openUserProjectStoryPage() {
     let loading = this.commonService.presentLoading();
-    
+
     this.userService.projectParticipation(this.project_id, this.participationConditionSlides)
     .finally(() => {
       loading.dismiss();
@@ -126,7 +126,7 @@ export class UserProjectParticipationConditionFormPage {
         (data) => {
         if(data.success == true) {
           if(data.data) {
-            this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.', 
+            this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.',
               () => {
                 this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id, "isFeedback" : true });
                 this.dismiss();

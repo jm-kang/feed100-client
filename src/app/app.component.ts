@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Keyboard } from '@ionic-native/keyboard';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { LoginPage } from '../pages/common/login/login';
 import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
@@ -36,12 +38,14 @@ export class MyApp {
   // rootPage:any = CompanyProjectHomePage;
   // rootPage:any = UserProjectRewardFormPage;
   // rootPage:any = CompanyNewsfeedStoryPage;
-  
+
 
   constructor(
-    platform: Platform, 
-    statusBar: StatusBar, 
-    splashScreen: SplashScreen, 
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    keyboard: Keyboard,
+    screenOrientation: ScreenOrientation,
     public userService: UserServiceProvider,
     public commonService: CommonServiceProvider,
     public app: App
@@ -52,6 +56,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.verifyLoginState();
+      keyboard.disableScroll(true);
+      screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
     });
   }
 

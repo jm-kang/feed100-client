@@ -36,7 +36,7 @@
       <p text-left class="story-content-slide-content" [innerHTML]="newsfeedStorySlide.storyContent"></p>
     </ion-slide>
     <ion-slide class="story-comment-slide" style="overflow-y: scroll; display: block;">
-      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper"> 
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
         <button ion-button clear (click)="goFirstSlide()">
           <h1 class="title">&lt; 스토리 다시보기</h1>
         </button>
@@ -115,7 +115,7 @@
     <div class="comment-textarea-wrapper" *ngIf="isLastSlide">
       <!-- <ion-item>  -->
         <ion-textarea rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></ion-textarea>
-        <button (click)="writeNewsfeedComment()">작성</button>    
+        <button (click)="writeNewsfeedComment()">작성</button>
     </div>
   </ion-navbar>
 </ion-footer>

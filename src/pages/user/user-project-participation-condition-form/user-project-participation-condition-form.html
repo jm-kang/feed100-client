@@ -8,7 +8,7 @@
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
-        <ion-icon name="close"></ion-icon>              
+        <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -37,7 +37,7 @@
       <div class="participation-condition-options-wrapper" *ngIf="6 > participationConditionSlide.options.length">
         <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
           <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
-            <ion-label color="primary">{{option.option}}</ion-label> 
+            <ion-label color="primary">{{option.option}}</ion-label>
             <ion-radio [value]="option.option"></ion-radio>
           </ion-item>
         </ion-list>
@@ -46,13 +46,13 @@
         <ion-list (ionChange)="ionRadioChange()" radio-group [(ngModel)]="participationConditionSlide.value">
           <ion-row>
             <ion-item col-6 text-center *ngFor="let option of participationConditionSlide.options">
-              <ion-label color="primary">{{option.option}}</ion-label> 
+              <ion-label color="primary">{{option.option}}</ion-label>
               <ion-radio [value]="option.option"></ion-radio>
             </ion-item>
           </ion-row>
         </ion-list>
       </div>
-      
+
       <div class="slide-next-button-wrapper">
         <span *ngIf="participationConditionSlides.length-1 > i">
           <button ion-button clear *ngIf="!participationConditionSlide.value" disabled>

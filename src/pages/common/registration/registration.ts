@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { CompanyRegistrationFormPage } from '../company-registration-form/company-registration-form';
 import { UserRegistrationFormPage } from '../user-registration-form/user-registration-form';
-
+import { CompanyInterviewPage } from '../../company/company-interview/company-interview';
 /**
  * Generated class for the RegistrationPage page.
  *

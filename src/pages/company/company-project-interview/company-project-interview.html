@@ -24,7 +24,7 @@
     <span item-left [innerHTML]="projectEndDate | amLocale:'ko' | amTimeAgo | progressState"></span>
     <span item-right>총 {{maxInterviewNum}}개의 인터뷰 중 {{totalInterviewNum}}개 이용</span>
   </ion-item>
-  
+
   <ion-list>
     <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openCompanyProjectInterviewDetailPage(interview.project_participant_id)">
       <span item-start class="avatar-image avatar-span">

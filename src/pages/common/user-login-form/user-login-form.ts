@@ -29,15 +29,15 @@ export class UserLoginFormPage {
   role: string = 'user';
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public modalCtrl: ModalController, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,
     public storage: Storage,
     private fb: Facebook,
     private googlePlus: GooglePlus) {
-      
+
   }
 
   ionViewDidLoad() {

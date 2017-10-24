@@ -23,7 +23,7 @@ export class CompanyNewsfeedStoryPage {
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
-  
+
   isLike: boolean = false;
   newsfeedMainImage: String = "";
   avatarImage: String = "";
@@ -36,16 +36,16 @@ export class CompanyNewsfeedStoryPage {
   newsfeedSummary: String = ""
   newsfeedRegistrationDate: String = "";
 
-  
+
   newsfeedStorySlides = [];
   newsfeedComments = [];
 
   newsfeedComment: String = "";
 
-  
+
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public appCtrl: App,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
@@ -113,7 +113,7 @@ export class CompanyNewsfeedStoryPage {
     }
 
     if(this.slides.getActiveIndex() > this.totalPageNum) {
-      this.currentPageNum = this.totalPageNum;  
+      this.currentPageNum = this.totalPageNum;
     } else {
       this.currentPageNum = this.slides.getActiveIndex();
     }
@@ -168,7 +168,7 @@ export class CompanyNewsfeedStoryPage {
       this.newsfeedComment = '';
       this.newsfeedComments = [];
       let newsfeed_id = this.navParams.get('newsfeed_id');
-      
+
       this.companyService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();

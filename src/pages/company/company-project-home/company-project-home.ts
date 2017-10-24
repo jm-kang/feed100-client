@@ -42,18 +42,18 @@ export class CompanyProjectHomePage {
   progressState: String = "";
   isLink: boolean = false;
   interview_num: number = 0;
-  
+
   feedbacks = [];
 
   projectHashtags = [];
 
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public viewCtrl: ViewController, 
-    public statusBar: StatusBar, 
-    public appCtrl: App, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    public statusBar: StatusBar,
+    public appCtrl: App,
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
@@ -82,14 +82,14 @@ export class CompanyProjectHomePage {
     }
   }
 
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectHomePage');
-    this.statusBar.hide(); 
-    
+    this.statusBar.hide();
+
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -114,7 +114,7 @@ export class CompanyProjectHomePage {
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
 
           this.feedbacks = data.data.feedbacks;
-        
+
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -161,7 +161,7 @@ export class CompanyProjectHomePage {
   }
 
   openCompanyProjectSearchPage() {
-    this.navCtrl.push(CompanyProjectSearchPage, 
+    this.navCtrl.push(CompanyProjectSearchPage,
       { "project_hashtags" : JSON.parse(JSON.stringify(this.projectHashtags)),
         "project_main_image" : this.projectMainImage,
         "project_name" : this.projectName,
@@ -170,7 +170,7 @@ export class CompanyProjectHomePage {
   }
 
   openCompanyProjectSearchResultPage(hashtags) {
-    let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
+    let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage,
       { "hashtags" : hashtags,
       "project_id" : this.project_id });
     companyProjectSearchResultModal.present();

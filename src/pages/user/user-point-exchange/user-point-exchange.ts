@@ -22,4 +22,8 @@ export class UserPointExchangePage {
     console.log('ionViewDidLoad UserPointExchangePage');
   }
 
+  back() {
+    this.navCtrl.pop();
+  }
+
 }

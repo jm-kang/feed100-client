@@ -29,10 +29,10 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyConfigurePage {
   isPushAlarm: boolean = true;
-  
+
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
@@ -100,7 +100,7 @@ export class CompanyConfigurePage {
   }
 
   logout() {
-    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?',
       () => {
         this.commonService.logout(this.navCtrl);
       }

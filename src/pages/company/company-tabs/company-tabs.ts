@@ -99,7 +99,7 @@ export class CompanyTabsPage {
           break;
       }
     }
-    
+
   }
 
   ionViewDidLoad() {
@@ -133,8 +133,8 @@ export class CompanyTabsPage {
       };
 
       const pushObject: PushObject = this.push.init(options);
-  
-      pushObject.on('notification').subscribe((notification: any) => { 
+
+      pushObject.on('notification').subscribe((notification: any) => {
         console.log('Received a notification', notification);
         console.log(JSON.stringify(notification.additionalData));
         if(notification.additionalData.foreground) {
@@ -147,7 +147,7 @@ export class CompanyTabsPage {
           this.ionViewWillEnter();
         }
       });
-      
+
 
       pushObject.on('registration').subscribe((registration: any) => {
         console.log('Device registered', registration);
@@ -166,15 +166,15 @@ export class CompanyTabsPage {
               this.commonService.showBasicAlert('device token 등록 실패');
             }
           );
-          
+
         })
         .catch((error: any) => console.log(error));
       });
 
       pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
 
-      
-    
+
+
     }
   }
 

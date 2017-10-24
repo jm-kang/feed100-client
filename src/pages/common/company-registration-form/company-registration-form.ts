@@ -29,8 +29,8 @@ export class CompanyRegistrationFormPage {
   role: string = 'company';
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,

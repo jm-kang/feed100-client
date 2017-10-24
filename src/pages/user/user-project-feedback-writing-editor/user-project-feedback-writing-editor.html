@@ -41,7 +41,7 @@
     <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (feedbackContent | textcount)? '#787878' : '#2C908F'}">
       <span>{{feedbackContent | textcount}}</span> / <span>{{minTextLength}}</span>
     </div>
-  
+
     <div class="feedback-images small-feedback-images">
       <span class="add-image-button-box image-box">
         <span class="feedback-image-wrapper add-image-button" tappable (click)="addImage()">

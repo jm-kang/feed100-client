@@ -101,6 +101,9 @@ import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CompanyServiceProvider } from '../providers/company-service/company-service';
+import { ThemeableBrowser } from '@ionic-native/themeable-browser';
+import { Keyboard } from '@ionic-native/keyboard';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 
 @NgModule({
@@ -185,7 +188,12 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
 
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+        scrollPadding: false,
+        scrollAssist: false,
+        autoFocusAssist: false,
+        swipeBackEnabled: true
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -205,6 +213,9 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
     CommonServiceProvider,
     UserServiceProvider,
     CompanyServiceProvider,
+    ThemeableBrowser,
+    Keyboard,
+    ScreenOrientation,
   ]
 })
 export class AppModule {}

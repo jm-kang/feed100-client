@@ -11,7 +11,7 @@
     </button>
   </ion-buttons>
 </ion-toolbar>
-<ion-content padding>
+<ion-content padding no-bounce>
   <div text-center>
     <img class="login-and-registration-logo-icon" src="assets/img/logo-icon.png" />
     <h6>회원가입</h6>
@@ -40,7 +40,7 @@
       <ion-checkbox class="agree-check" checked="false" [(ngModel)]="isCheck"></ion-checkbox>
     </ion-item>
   </ion-list>
-  
+
 
   <button ion-button block class="button-registration" (click)="localRegister()">
     <span class="split-button" text-left>

@@ -22,4 +22,8 @@ export class UserPointUsageHistoryPage {
     console.log('ionViewDidLoad UserPointUsageHistoryPage');
   }
 
+  back() {
+    this.navCtrl.pop();
+  }
+
 }

@@ -12,12 +12,10 @@ page-company-login-form {
     .button-login.activated {
         background-color: #FDBA02;
     }
-    
+
     // ion-item > input input 활성화되었을때
-    .round-background-input .item-md.item-input.item-input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-md.item-input.input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-ios.item-input.item-input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-ios.item-input.input-has-focus .item-inner .input-wrapper {
+    .round-background-input .item-input.item-input-has-focus,
+    .round-background-input .item-input.input-has-focus, {
         border: 1px solid #FDBA02;
         background-color: #F9F9F9;
     }
