@@ -10,7 +10,10 @@
 <!-- <div class="story-main-image-wrapper">
   <div class="story-main-image" [style.backgroundImage]="'url(' + newsfeedMainImage + ')'"></div>
 </div> -->
-<ion-content class="story-slide"  [style.backgroundImage]="'url(' + newsfeedMainImage + ')'">
+<ion-content class="story-slide" no-bounce>
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [style.backgroundImage]="'url(' + newsfeedMainImage + ')'"></div>
+  </div>
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide class="story-first-slide" padding>
       <ion-buttons class="slide-title-wrapper">

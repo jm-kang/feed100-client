@@ -54,10 +54,7 @@ export class CompanyProjectSearchPage {
     for(let i = 0; i < this.searchResults.length; i++) {
       hashtags.push(this.searchResults[i].value);
     }
-    let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    companyProjectSearchResultModal.present();
+    this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id })
   }
 
   activeHashtag(hashtag) {

@@ -109,11 +109,14 @@
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},
             "cordova-plugin-badge": {},
-            "cordova-plugin-ghyeok-kakaotalk": {
-                "KAKAO_APP_KEY": "2d37d2dfa46c26dedc27c7201ad7cec3"
-            },
+<<<<<<< HEAD
             "cordova-plugin-screen-orientation": {},
             "cordova-plugin-themeablebrowser": {}
+=======
+            "cordova-plugin-ghyeok-kakaotalk": {
+                "KAKAO_APP_KEY": "2d37d2dfa46c26dedc27c7201ad7cec3"
+            }
+>>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
         },
         "platforms": [
             "android",

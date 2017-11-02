@@ -214,6 +214,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         tabsHideOnSubPages: true,
         modalEnter: 'modal-slide-in',
         modalLeave: 'modal-slide-out',
+        pageTransition: 'ios-transition'
     }),
     IonicStorageModule.forRoot()
   ],
