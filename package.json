@@ -113,10 +113,7 @@
             "cordova-plugin-ghyeok-kakaotalk": {
                 "KAKAO_APP_KEY": "2d37d2dfa46c26dedc27c7201ad7cec3"
             },
-<<<<<<< HEAD
-=======
             "cordova-plugin-themeablebrowser": {},
->>>>>>> 786771a5cb41e7d9f89a71b22fe89634c046bf82
             "cordova-plugin-screen-orientation": {},
             "cordova-plugin-ionic-webview": {}
         },

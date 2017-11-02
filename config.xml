@@ -155,5 +155,6 @@
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="phonegap-plugin-push" spec="^2.0.0">
         <variable name="SNEDER_ID" value="889490373924" />
+        <variable name="SENDER_ID" value="889490373924" />
     </plugin>
 </widget>
