@@ -29,8 +29,8 @@ export class CompanyProjectPage {
 
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getProjects()
@@ -45,7 +45,7 @@ export class CompanyProjectPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -90,8 +90,6 @@ export class CompanyProjectPage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    // companyProjectHomeModal.present();
     this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
@@ -100,12 +98,10 @@ export class CompanyProjectPage {
   }
 
   openCompanyAlarmPage() {
-    // this.navCtrl.push(CompanyAlarmPage);
     this.navCtrl.push('CompanyAlarmPage');
   }
 
   openCompanyConfigurePage() {
-    // this.navCtrl.push(CompanyConfigurePage);
     this.navCtrl.push('CompanyConfigurePage');
   }
 

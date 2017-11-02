@@ -36,7 +36,6 @@ export class UserProjectStorySummaryWritingEditorPage {
   }
 
   ionViewDidEnter() {
-    // this.storySummaryContent = this.navParams.get('storySummaryContent').replace(/<br *\/?>/gi, '\n');
     this.storySummaryContent = this.ModalWrapperPage.modalParams.storySummaryContent.replace(/<br *\/?>/gi, '\n');
   }
 

@@ -37,8 +37,8 @@ export class CompanyProjectInterviewPage {
   }
 
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectInterviewPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectInterviewPage');
     this.project_id = this.navParams.get('project_id');
 
     let loading = this.commonService.presentLoading();
@@ -60,7 +60,7 @@ export class CompanyProjectInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },

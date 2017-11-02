@@ -38,8 +38,8 @@ export class UserProjectInterviewDetailPage {
     console.log('ionViewDidLoad UserProjectInterviewDetailPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectInterviewDetailPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserProjectInterviewDetailPage');
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     
@@ -68,11 +68,12 @@ export class UserProjectInterviewDetailPage {
             }
           }
           this.interviews = tempInterviews;
+          this.content.scrollToBottom();          
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -81,11 +82,6 @@ export class UserProjectInterviewDetailPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad UserProjectInterviewDetailPage');
-    this.content.scrollToBottom();
   }
 
   back() {
@@ -170,7 +166,7 @@ export class UserProjectInterviewDetailPage {
     userProjectInterviewWritingEditorModal.present();
     userProjectInterviewWritingEditorModal.onWillDismiss(
       () => {
-        this.ionViewWillEnter();
+        this.ionViewDidEnter();
       }
     );
     userProjectInterviewWritingEditorModal.onDidDismiss(

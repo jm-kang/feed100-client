@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, Nav } from 'ionic-angular';
 
-import { CompanyAlarmPage } from '../company-alarm/company-alarm';
-import { CompanyConfigurePage } from '../company-configure/company-configure';
 import { CompanyHomePage } from '../company-home/company-home';
 import { CompanyProjectPage } from '../company-project/company-project';
 import { CompanyNewsfeedPage } from '../company-newsfeed/company-newsfeed';
@@ -56,8 +54,8 @@ export class CompanyTabsPage {
     return this.companyService.interviewNum;
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyTabsPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyTabsPage');
     // let loading = this.commonService.presentLoading();
 
     this.companyService.getAlarmAndInterviewNum()
@@ -74,7 +72,7 @@ export class CompanyTabsPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -83,24 +81,6 @@ export class CompanyTabsPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyTabsPage');
-    console.log(this.appCtrl.getActiveNavs()[0].getType());
-    if(this.appCtrl.getActiveNavs()[0].getType() == 'tab') {
-      let activeView = this.appCtrl.getActiveNavs()[0].getActive();
-      console.log(activeView.name);
-      switch(activeView.name) {
-        case 'CompanyInterviewPage':
-          activeView.instance.ionViewWillEnter();
-          break;
-        case 'CompanyMypagePage':
-          activeView.instance.ionViewWillEnter();
-          break;
-      }
-    }
-
   }
 
   ionViewDidLoad() {
@@ -141,11 +121,11 @@ export class CompanyTabsPage {
         if(notification.additionalData.foreground) {
           console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
         else {
           console.log('background');
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
       });
 
@@ -176,16 +156,5 @@ export class CompanyTabsPage {
 
     }
   }
-
-
-  // openCompanyAlarmPage() {
-  //   // this.navCtrl.push(CompanyAlarmPage);
-  //   this.appCtrl.getActiveNav().push(CompanyAlarmPage);
-  // }
-
-  // openCompanyConfigurePage() {
-  //   // this.navCtrl.push(CompanyConfigurePage);
-  //   this.nav.push(CompanyConfigurePage);
-  // }
 
 }

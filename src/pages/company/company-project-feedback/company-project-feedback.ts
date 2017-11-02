@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
-// import { StatusBar } from '@ionic-native/status-bar';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -49,7 +48,6 @@ export class CompanyProjectFeedbackPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    // public statusBar: StatusBar, 
     private el:ElementRef, 
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
@@ -65,9 +63,8 @@ export class CompanyProjectFeedbackPage {
     console.log('ionViewDidLoad CompanyProjectFeedbackPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectFeedbackPage');
-    // this.statusBar.show();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectFeedbackPage');
     this.segmentOpinionsCondition = "all";
 
     let loading = this.commonService.presentLoading();
@@ -105,7 +102,7 @@ export class CompanyProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -126,16 +123,10 @@ export class CompanyProjectFeedbackPage {
   }
   
   openCompanyProjectSearchResultPage(hashtags) {
-    // let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-    //   { "hashtags" : hashtags,
-    //   "project_id" : this.project_id });
-    // companyProjectSearchResultModal.present();
     this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });
   }
 

@@ -505,13 +505,6 @@ export class CompanyProjectReportPage {
     this.navCtrl.push('CompanyProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
-  // openCompanyProjectSearchResultPage(hashtags) {
-  //   let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-  //     { "hashtags" : hashtags,
-  //     "project_id" : this.project_id });
-  //   companyProjectSearchResultModal.present();
-  // }
-
   average(index) {
     if(this.projectStatSlides[index].totalNum == 0) {
       return 0;
@@ -544,22 +537,11 @@ export class CompanyProjectReportPage {
     }
   }
 
-  // openCompanyProjectUserProfilePage(project_participant_id) {
-  //   let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-  //   companyProjectUserProfileModal.present();
-  // }
-
   openCompanyProjectSearchResultPage(hashtags) {
-    // let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage,
-    //   { "hashtags" : hashtags,
-    //   "project_id" : this.project_id });
-    // companyProjectSearchResultModal.present();
     this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 }

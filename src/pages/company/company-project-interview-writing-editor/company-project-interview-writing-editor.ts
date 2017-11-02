@@ -52,21 +52,12 @@ export class CompanyProjectInterviewWritingEditorPage {
     console.log('ionViewDidLoad CompanyProjectInterviewWritingEditorPage');
   }
 
-  // ionViewWillEnter() {
-  //   console.log('ionViewWillEnter CompanyProjectInterviewWritingEditorPage');
-  //   this.nickname = this.navParams.get('nickname');
-  //   this.project_participant_id = this.navParams.get('project_participant_id');
-  //   this.ordinal = this.navParams.get('ordinal');
-  // }
-
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectInterviewWritingEditorPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectInterviewWritingEditorPage');
     this.nickname = this.ModalWrapperPage.modalParams.nickname;
     this.project_participant_id = this.ModalWrapperPage.modalParams.project_participant_id;
     this.ordinal = this.ModalWrapperPage.modalParams.ordinal;
   }
-
-
 
   uploadFiles() {
     console.log("uploadFiles()");    
@@ -162,8 +153,6 @@ export class CompanyProjectInterviewWritingEditorPage {
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 

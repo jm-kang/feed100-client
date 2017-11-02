@@ -44,7 +44,6 @@ export class CompanyProjectHomePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    // public statusBar: StatusBar,
     public appCtrl: App,
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
@@ -55,9 +54,8 @@ export class CompanyProjectHomePage {
     console.log('ionViewDidLoad CompanyProjectHomePage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectHomePage');
-    // this.statusBar.hide();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectHomePage');
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
@@ -89,7 +87,7 @@ export class CompanyProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -101,27 +99,19 @@ export class CompanyProjectHomePage {
 
   }
 
-  // dismiss() {
-  //   this.statusBar.show();
-  //   this.viewCtrl.dismiss();
-  // }
-
   back() {
     this.navCtrl.pop();
   }
 
   openCompanyProjectSideMenuPage() {
-    // this.statusBar.show();
     this.navCtrl.push('CompanyProjectSideMenuPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectStoryPage() {
-    // this.statusBar.show();
     this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectLinkPage() {
-    // this.statusBar.show();
     let companyProjectLinkModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectLinkPage'});
     companyProjectLinkModal.present();
   }
@@ -144,16 +134,10 @@ export class CompanyProjectHomePage {
   }
 
   openCompanyProjectSearchResultPage(hashtags) {
-    // let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage,
-    //   { "hashtags" : hashtags,
-    //   "project_id" : this.project_id });
-    // companyProjectSearchResultModal.present();
     this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 }

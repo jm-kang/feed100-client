@@ -41,8 +41,8 @@ export class CompanyProjectInterviewDetailPage {
     console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectInterviewDetailPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectInterviewDetailPage');
     let loading = this.commonService.presentLoading();
     this.project_participant_id = this.navParams.get('project_participant_id');
     
@@ -74,11 +74,12 @@ export class CompanyProjectInterviewDetailPage {
             }
           }
           this.interviews = tempInterviews;
+          this.content.scrollToBottom();          
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -88,11 +89,6 @@ export class CompanyProjectInterviewDetailPage {
       }
     );
 
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewDetailPage');
-    this.content.scrollToBottom();
   }
 
   back() {
@@ -115,7 +111,7 @@ export class CompanyProjectInterviewDetailPage {
     companyProjectInterviewWritingEditorModal.present();
     companyProjectInterviewWritingEditorModal.onWillDismiss(
       () => {
-        this.ionViewWillEnter();  
+        this.ionViewDidEnter();  
       }
     );
     companyProjectInterviewWritingEditorModal.onDidDismiss(
@@ -126,8 +122,6 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 

@@ -49,8 +49,8 @@ export class UserMypagePage {
       this.segmentProjectCondition = "proceedingProject";
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserMypagePage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserMypagePage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserInfo()
@@ -83,7 +83,7 @@ export class UserMypagePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -108,7 +108,7 @@ export class UserMypagePage {
     userAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
       }
     );
@@ -249,7 +249,7 @@ export class UserMypagePage {
     userProjectRewardFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
       }
     );

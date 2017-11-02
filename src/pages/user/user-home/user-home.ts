@@ -64,8 +64,8 @@ export class UserHomePage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserHomePage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserHomePage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserHome()
@@ -82,7 +82,7 @@ export class UserHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -247,8 +247,6 @@ export class UserHomePage {
   }
 
   openUserProjectHomePage(project_id) {
-    // let userProjectHomeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectHomePage', params: { "project_id" : project_id }});
-    // userProjectHomeModal.present();
     this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 

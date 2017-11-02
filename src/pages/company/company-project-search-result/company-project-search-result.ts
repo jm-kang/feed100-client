@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -37,7 +35,6 @@ export class CompanyProjectSearchResultPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
-    // public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
@@ -46,9 +43,8 @@ export class CompanyProjectSearchResultPage {
     console.log('ionViewDidLoad CompanyProjectSearchResultPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectSearchResultPage');
-    // this.statusBar.show();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectSearchResultPage');
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
@@ -91,7 +87,7 @@ export class CompanyProjectSearchResultPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -101,10 +97,6 @@ export class CompanyProjectSearchResultPage {
       }
     );
   }
-
-  // dismiss() {
-  //   this.viewCtrl.dismiss();
-  // }
 
   back() {
     this.navCtrl.pop();
@@ -156,8 +148,6 @@ export class CompanyProjectSearchResultPage {
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 }

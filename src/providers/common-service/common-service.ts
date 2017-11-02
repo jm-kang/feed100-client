@@ -7,7 +7,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { StatusBar } from '@ionic-native/status-bar';
-import { App, AlertController, LoadingController } from 'ionic-angular';
+import { App, AlertController, LoadingController, normalizeURL } from 'ionic-angular';
 import { LoginPage } from  '../../pages/common/login/login';
 
 import 'rxjs/add/operator/map';
@@ -57,9 +57,10 @@ export class CommonServiceProvider {
         this.camera.getPicture(options).then((imageFileUrl) => {
           this.file.resolveLocalFilesystemUrl(imageFileUrl)
           .then(entry => (<FileEntry>entry).file((file) => {
-            resolve(file);
+            resolve([file, normalizeURL(imageFileUrl)]);
             console.log("fileSize ", file.size);
             console.log("fileUrl ", file.localURL);
+            console.log("normalizeUrl ", normalizeURL(imageFileUrl));
           }
           ))
           .catch(err => console.log(err));
@@ -70,7 +71,9 @@ export class CommonServiceProvider {
     )
   }
 
-  readFile(file) {
+  readFile(params) {
+    const file = params[0];
+    const imageFileUrl = params[1];
     return new Promise(
       (resolve, reject) => {
         const reader = new FileReader();
@@ -78,7 +81,7 @@ export class CommonServiceProvider {
           const formData = new FormData();
           const imgBlob = new Blob([reader.result], {type: file.type});
           formData.append('ex_filename', imgBlob);
-          resolve([file, formData]);
+          resolve([{"localURL" : imageFileUrl}, formData]);
         };
         reader.readAsArrayBuffer(file);
       }

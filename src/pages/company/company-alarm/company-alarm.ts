@@ -27,8 +27,8 @@ export class CompanyAlarmPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyAlarmPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyAlarmPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getAlarms()
@@ -43,7 +43,7 @@ export class CompanyAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -133,11 +133,7 @@ export class CompanyAlarmPage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    let companyProjectHomeModal = this.modalCtrl.create('ModalWrapperPage',
-      { page: 'CompanyProjectHomePage',
-        params: { "project_id" : project_id }
-      });
-    companyProjectHomeModal.present();
+    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
   openCompanyProjectStoryPage(project_id) {

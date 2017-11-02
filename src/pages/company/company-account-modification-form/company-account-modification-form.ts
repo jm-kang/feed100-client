@@ -45,8 +45,8 @@ export class CompanyAccountModificationFormPage {
     private domSanitizer: DomSanitizer) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyAccountModificationFormPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyAccountModificationFormPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyInfo()
@@ -65,7 +65,7 @@ export class CompanyAccountModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           })
         }
       },
