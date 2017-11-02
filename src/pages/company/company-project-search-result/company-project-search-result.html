@@ -65,8 +65,8 @@
         </ion-card-header>
         <ion-card-content class="feedback-content">
           <div class="feedback-summary" tappable (click)="openCompanyProjectFeedbackPage(feedbackResult.project_participant_id)">
-            {{(feedbackResult.project_feedback | jsonParse)[0] | slice:0:100 | replaceBrTag}}
-            <span class="slice-tag" *ngIf="(feedbackResult.project_feedback | jsonParse)[0].length > 100"> ...</span>
+            {{(feedbackResult.project_feedback | jsonParse)[0] | slicetext:100 | replaceBrTag}}
+            <!-- <span class="slice-tag" *ngIf="(feedbackResult.project_feedback | jsonParse)[0].length > 100"> ...</span> -->
             <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
           </div>
         </ion-card-content>

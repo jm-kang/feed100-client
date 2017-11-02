@@ -134,8 +134,8 @@ export class CompanyHomePage {
     faqModal.present();
   }
 
-  openCompanyNewsfeedStoryPage() {
-    this.navCtrl.push('CompanyNewsfeedStoryPage');
+  openCompanyNewsfeedStoryPage(newsfeed_id) {
+    this.navCtrl.push('CompanyNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
 
   // 내 프로젝트 or not

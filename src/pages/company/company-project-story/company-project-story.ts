@@ -55,6 +55,7 @@ export class CompanyProjectStoryPage {
     console.log('ionViewDidLoad CompanyProjectStoryPage');
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
+    this.slides.lockSwipeToPrev(true);  
 
     this.companyService.getProject(this.project_id)
     .finally(() => {

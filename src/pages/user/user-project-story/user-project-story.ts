@@ -55,6 +55,7 @@ export class UserProjectStoryPage {
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.isFeedback = this.navParams.get('isFeedback');
+    this.slides.lockSwipeToPrev(true);  
 
     this.userService.getProject(this.project_id)
     .finally(() => {

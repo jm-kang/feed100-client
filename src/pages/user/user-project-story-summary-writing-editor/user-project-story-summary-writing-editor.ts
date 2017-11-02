@@ -52,7 +52,7 @@ export class UserProjectStorySummaryWritingEditorPage {
 
   swipeEvent(e) {
     if(e.direction == 16) {
-      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
       if(this.contentHandle.scrollTop > -90) {
         this.dismiss();
       }
@@ -62,7 +62,7 @@ export class UserProjectStorySummaryWritingEditorPage {
   panEnd() {
     if(this.contentHandle.scrollTop <= -90) {
       console.log('pan: ' + this.lastBgV);
-      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
       this.dismiss();
     }
   }

@@ -37,7 +37,7 @@
         <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
       </ion-item>
       <ion-card-content>
-        <p [innerHTML]="interview.interview_request"></p>
+        <p class="interview-comment" [innerHTML]="interview.interview_request | replaceBrTag"></p>
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
         <span class="image-box" *ngFor="let image of interview.interview_request_images; let j = index">
@@ -62,7 +62,7 @@
         </span>
       </ion-item>
       <ion-card-content>
-        <p [innerHTML]="interview.interview_response"></p>
+        <p class="interview-comment" [innerHTML]="interview.interview_response | replaceBrTag"></p>
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
         <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">

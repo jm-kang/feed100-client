@@ -149,7 +149,7 @@ export class UserProjectRewardFormPage {
 
   swipeEvent(e) {
     if(e.direction == 16) {
-      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      document.querySelector(".project-reward-page-content .scroll-content")['style'].background = 'transparent';
       if(this.contentHandle.scrollTop > -90) {
         this.dismiss();
       }
@@ -159,7 +159,7 @@ export class UserProjectRewardFormPage {
   panEnd() {
     if(this.contentHandle.scrollTop <= -90) {
       console.log('pan: ' + this.lastBgV);
-      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      document.querySelector(".project-reward-page-content .scroll-content")['style'].background = 'transparent';
       this.dismiss();
     }
   }
