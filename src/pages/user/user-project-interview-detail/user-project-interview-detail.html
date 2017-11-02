@@ -41,8 +41,8 @@
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
         <span class="image-box" *ngFor="let image of interview.interview_request_images; let j = index">
-          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper">
-            <img class="feedback-image" [src]="image.img" (load)="onInterviewDetailCompanyImageLoad($event.target, count, j)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img"/>
           </span> 
         </span>
       </div>
@@ -66,8 +66,8 @@
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
         <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">
-          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper">
-            <img class="feedback-image" [src]="image.img" (load)="onInterviewDetailUserImageLoad($event.target, count, j)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img"/>
           </span>
         </span>
       </div>
