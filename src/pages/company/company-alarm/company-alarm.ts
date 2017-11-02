@@ -133,6 +133,14 @@ export class CompanyAlarmPage {
   }
 
   openCompanyProjectHomePage(project_id) {
+<<<<<<< HEAD
+    // let companyProjectHomeModal = this.modalCtrl.create('ModalWrapperPage',
+    //   { page: 'CompanyProjectHomePage',
+    //     params: { "project_id" : project_id }
+    //   });
+    // companyProjectHomeModal.present();
+=======
+>>>>>>> 786771a5cb41e7d9f89a71b22fe89634c046bf82
     this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 

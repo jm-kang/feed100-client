@@ -80,26 +80,19 @@ export class CompanyProjectUserProfileStatsPage {
       ],
       // 서버에서 데이터 필요한 부분 (서버에서 가져올때 값이 0이면 안가져올수 있음?)
       labels: ['관리자','전문가','사무직','서비스종사자','판매종사자','기능원 및 관련 기술 종사자','장치, 기계조작 및 조립 종사자','단순노무 종사자','군인','학생','기타'],
-      type: 'polarArea',
+      
+      type: 'doughnut',
       options: {
-        scales: {
-            yAxes: [{
-                display: false,
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
         legend: {
           display: false
         },
         title: {
           display: true,
-          fontSize: 12,
-          fontStyle: 'normal',
-          fontColor: '#a8a8a8',
-          lineHeight: '1.5',
-          text: '누르시면 정보가 나옵니다.'
+          fontSize: 25,
+          fontStyle: 'bold',
+          fontColor: '#ffffff',
+          lineHeight: '3',
+          text: '1. 유저 정보'
         }
       },
     },
