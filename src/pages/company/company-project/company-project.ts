@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
-import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -93,11 +90,26 @@ export class CompanyProjectPage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    let userProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    userProjectHomeModal.present();
+    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
+    // companyProjectHomeModal.present();
+    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
   openCompanyProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(CompanyProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
+  }
+
+  openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
+    this.navCtrl.push('CompanyAlarmPage');
+  }
+
+  openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
+    this.navCtrl.push('CompanyConfigurePage');
+  }
+
+  getAlarmNum() {
+    return this.companyService.alarmNum;
   }
 }

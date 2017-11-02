@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { CompanyTabsPage } from '../../company/company-tabs/company-tabs';
+
 import { Storage } from '@ionic/storage';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -49,7 +49,7 @@ export class CompanyLoginFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot(CompanyTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('CompanyTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

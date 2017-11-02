@@ -1,9 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-import { CompanyRegistrationFormPage } from '../company-registration-form/company-registration-form';
-import { UserRegistrationFormPage } from '../user-registration-form/user-registration-form';
-
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 /**
  * Generated class for the RegistrationPage page.
  *
@@ -17,8 +13,8 @@ import { UserRegistrationFormPage } from '../user-registration-form/user-registr
   templateUrl: 'registration.html',
 })
 export class RegistrationPage {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public appCtrl: App) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -30,11 +26,11 @@ export class RegistrationPage {
   }
 
   openCompanyRegistrationFormPage() {
-    this.navCtrl.push(CompanyRegistrationFormPage);
+    this.navCtrl.push('CompanyRegistrationFormPage');
   }
 
   openUserRegistrationFormPage() {
-    this.navCtrl.push(UserRegistrationFormPage);
+    this.navCtrl.push('UserRegistrationFormPage');
   }
 
 }

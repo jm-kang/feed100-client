@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+import { ModalWrapperPageModule } from '../pages/common/modal-wrapper/modal-wrapper.module';
+
 // common //
 import { LoginPageModule } from '../pages/common/login/login.module';
   import { RegistrationPageModule } from '../pages/common/registration/registration.module';
@@ -101,11 +103,30 @@ import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CompanyServiceProvider } from '../providers/company-service/company-service';
+import { ThemeableBrowser } from '@ionic-native/themeable-browser';
+import { Keyboard } from '@ionic-native/keyboard';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+export class MyHammerConfig extends HammerGestureConfig  {
+  // swipedown 값을 알아내는 함수
+  overrides = <any>{
+      // override hammerjs default configuration
+      'pan': {threshold: 5},
+      'swipe': {
+           velocity: 0.4,
+           threshold: 20,
+           direction: 31 // /!\ ugly hack to allow swipe in all direction
+      }
+  }
+}
 
 @NgModule({
   declarations: [MyApp],
   imports: [
+    ModalWrapperPageModule,
+
     LoginPageModule,
       RegistrationPageModule,
       UserLoginFormPageModule,
@@ -185,7 +206,15 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
 
     HttpModule,
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+        scrollPadding: false,
+        scrollAssist: false,
+        autoFocusAssist: false,
+        swipeBackEnabled: true,
+        tabsHideOnSubPages: true,
+        modalEnter: 'modal-slide-in',
+        modalLeave: 'modal-slide-out',
+    }),
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -205,6 +234,10 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
     CommonServiceProvider,
     UserServiceProvider,
     CompanyServiceProvider,
+    ThemeableBrowser,
+    Keyboard,
+    ScreenOrientation,
+    {provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }
   ]
 })
 export class AppModule {}

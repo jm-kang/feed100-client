@@ -94,3 +94,24 @@ page-login {
 .split-button img{
     width: 8%;
 }
+
+
+
+.header .bar-button{
+    width: 2em;
+    color: #424242;
+}
+
+.bar-button.dismiss-button {
+    width: 2em;
+}
+
+.pop-button {
+    width: 2em;
+    color: #c9c9c9 !important;
+}
+
+.bar-button.active-button,
+.bar-button.inactive-button {
+    width: auto !important;
+}

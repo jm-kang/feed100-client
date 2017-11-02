@@ -4,17 +4,25 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      뉴스피드
-    </ion-title>
-  </ion-navbar>
+<ion-header class="tabs-header">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button class="badge-button-wrapper" ion-button clear (click)="openUserAlarmPage()">
+          <ion-icon name="notifications">
+            <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getAlarmNum()>0">{{getAlarmNum()}}</ion-badge>
+          </ion-icon>              
+        </button>
+      </ion-buttons>
+      <ion-title>뉴스피드</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="openUserConfigurePage()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <div class="shadow-top"></div>
 </ion-header>
-<ion-content>
-  <div text-left class="tab-top-notice">
-    뉴스피드를 둘러보세요.
-  </div>
+<ion-content padding-top>
   <ion-grid *ngIf="newsfeeds.length">
     <ion-row>
       <ion-col col-6 *ngFor="let newsfeed of newsfeeds" margin-bottom>

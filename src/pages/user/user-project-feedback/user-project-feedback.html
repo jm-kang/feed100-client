@@ -8,7 +8,7 @@
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button ion-button (click)="back()" icon-only>
-        <ion-icon name="ios-arrow-back"></ion-icon>              
+        <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -37,7 +37,7 @@
         <img [src]="feedbackImage.img" />
       </div>
     </ion-slide>
-  </ion-slides>  
+  </ion-slides>
   <div class="feedback-wrapper" padding>
     <ion-item float-left class="avatar-span-wrapper item-flex">
       <span item-start class="avatar-image avatar-span cropper">
@@ -55,7 +55,7 @@
       </h3>
       <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
     </ion-item>
-    <p class="feedback-comment" [innerHTML]="feedback"></p>
+    <p class="feedback-comment" [innerHTML]="feedback | replaceBrTag"></p>
     <div class="hashtag-wrapper">
       <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
         #{{feedbackHashtag}}
@@ -93,11 +93,17 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
+<<<<<<< HEAD
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span>
+=======
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image"/>
           </span> 
+>>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
         </ion-item>
         <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
           <span item-start class="avatar-image avatar-span cropper">
@@ -109,11 +115,17 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
+<<<<<<< HEAD
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, i)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span>
+=======
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
           </span> 
+>>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
         </ion-item>
       </div>
     </ion-list>
@@ -134,11 +146,17 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
+<<<<<<< HEAD
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, j)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span>
+=======
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
           </span> 
+>>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
         </ion-item>
       </div>
     </ion-list>
@@ -159,11 +177,17 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
+<<<<<<< HEAD
+          <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper">
+              <img class="opinion-image" [src]="opinion.opinion_image" (load)="onOpinionLoad($event.target, k)" [style.height]="opinion.height" [style.width]="opinion.width" [style.left]="opinion.left" [style.top]="opinion.top" [style.max-height]="opinion.maxHeight" [style.max-width]="opinion.maxWidth"/>
+          </span>
+=======
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
           </span> 
+>>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
         </ion-item>
       </div>
     </ion-list>

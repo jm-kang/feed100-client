@@ -13,13 +13,13 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
-  
-  <ion-content #contentRef (ionScroll)="scrollingFun($event)" (ionScrollEnd)="scrollingFun($event)" class="side-menu-content outer-content">
+
+  <ion-content #contentRef class="side-menu-content outer-content">
     <div class="side-menu-profile-box">
       <span class="avatar-image-background-wrapper cropper">
         <img class="avatar-image-background" [src]="projectMainImage" />
       </span>
-      
+
       <ion-item class="avatar-span-wrapper">
         <span text-center class="avatar-image avatar-span cropper">
           <img class="avatar-span-image" [src]="avatarImage" />
@@ -27,7 +27,7 @@
         <p text-center>{{nickname}}</p>
         <h3 text-center [innerHTML]="projectName"></h3>
       </ion-item>
-      
+
     </div>
     <div class="side-menu-project-info">
       <ion-grid>
@@ -83,7 +83,7 @@
         <ion-avatar item-start>
           <img src="assets/img/company-side-menu-icon4.png" />
         </ion-avatar>
-        스토리 한줄 요약
+        스토리 요약
         <ion-icon name="ios-arrow-forward" item-end></ion-icon>
       </ion-item>
       <!-- =========================가격 명세서=========================== -->
@@ -95,5 +95,5 @@
         <ion-icon name="ios-arrow-forward" item-end></ion-icon>
       </ion-item>
     </ion-list>
-  
+
   </ion-content>

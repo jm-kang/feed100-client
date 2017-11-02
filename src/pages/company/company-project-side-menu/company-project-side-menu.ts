@@ -1,14 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
 
-import { StatusBar } from '@ionic-native/status-bar';
-
-import { CompanyProjectReportPage } from '../company-project-report/company-project-report';
-import { CompanyProjectUserInfoPage } from '../company-project-user-info/company-project-user-info';
-import { CompanyProjectStatsPage } from '../company-project-stats/company-project-stats';
-import { CompanyProjectStorySummaryPage } from '../company-project-story-summary/company-project-story-summary';
-import { CompanyProjectPriceStatementPage } from '../company-project-price-statement/company-project-price-statement';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -50,7 +42,6 @@ export class CompanyProjectSideMenuPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
-    public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
 
@@ -96,39 +87,23 @@ export class CompanyProjectSideMenuPage {
 
   }
 
-  scrollingFun(e) {
-    // if (e.scrollTop < 30) {
-    //   // console.log("top: " + e.scrollingFun);
-    //   document.querySelector(".side-menu-header")['style'].background = 'transparent';
-    //   document.querySelector(".side-menu-header")['style'].borderBottom = '0';
-    //   document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#fff';
-    //   document.querySelector(".side-menu-header .project-header-title")['style'].color = '#fff';
-    // } else {
-    //   // console.log("bottom: " + e.scrollingFun);
-    //   document.querySelector(".side-menu-header")['style'].background = '#fff';
-    //   document.querySelector(".side-menu-header")['style'].borderBottom = '0.55px solid #e8e8e8';
-    //   document.querySelector(".side-menu-header .pop-button ion-icon")['style'].color = '#787878';
-    //   document.querySelector(".side-menu-header .project-header-title")['style'].color = '#383838';
-    // }
-  }
-
   openCompanyProjectReportPage() {
-    this.navCtrl.push(CompanyProjectReportPage, { "project_id" : this.project_id });
+    this.navCtrl.push('CompanyProjectReportPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectUserInfoPage() {
-    this.navCtrl.push(CompanyProjectUserInfoPage, { "project_id" : this.project_id });
+    this.navCtrl.push('CompanyProjectUserInfoPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectStatsPage() {
-    this.navCtrl.push(CompanyProjectStatsPage, { "project_id" : this.project_id });
+    this.navCtrl.push('CompanyProjectStatsPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectStorySummaryPage() {
-    this.navCtrl.push(CompanyProjectStorySummaryPage, { "project_id" : this.project_id });
+    this.navCtrl.push('CompanyProjectStorySummaryPage', { "project_id" : this.project_id });
   }
 
   openCompanyProjectPriceStatementPage() {
-    this.navCtrl.push(CompanyProjectPriceStatementPage, { "project_id" : this.project_id });
+    this.navCtrl.push('CompanyProjectPriceStatementPage', { "project_id" : this.project_id });
   }
 }

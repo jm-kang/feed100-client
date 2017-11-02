@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, App } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -17,13 +18,20 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyNewsfeedStoryPage {
   @ViewChild(Slides) slides: Slides;
+  bgHori:   number = 0 ; 
+  lastBgH:  number = 0 ;
+  mobWidth: number = 0 ;
+
+  scrollHori:   number = 0 ;
+  lastScrollH:  number = 0 ;
+  transparentPercent: number = 0;
 
   isFirstSlide: boolean = true;
   isLastSlide: boolean = false;
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
-  
+
   isLike: boolean = false;
   newsfeedMainImage: String = "";
   avatarImage: String = "";
@@ -36,25 +44,27 @@ export class CompanyNewsfeedStoryPage {
   newsfeedSummary: String = ""
   newsfeedRegistrationDate: String = "";
 
-  
+
   newsfeedStorySlides = [];
   newsfeedComments = [];
 
   newsfeedComment: String = "";
 
-  
+
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public appCtrl: App,
     public commonService: CommonServiceProvider,
-    public companyService: CompanyServiceProvider) {
+    public companyService: CompanyServiceProvider,
+    public keyboard: Keyboard) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserNewsfeedStoryPage');
+    console.log('ionViewDidLoad CompanyNewsfeedStoryPage');
     let loading = this.commonService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
+    this.slides.lockSwipeToPrev(true);  
 
     this.companyService.getNewsfeed(newsfeed_id)
     .finally(() => {
@@ -91,29 +101,36 @@ export class CompanyNewsfeedStoryPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
-          this.totalPageNum = this.newsfeedStorySlides.length;
   }
 
   back() {
+    this.keyboard.disableScroll(true); // 추가
     this.navCtrl.pop();
   }
 
   slideChanged() {
     if(this.slides.isBeginning()) {
+      this.slides.lockSwipeToPrev(true);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
       this.isFirstSlide = true;
     } else {
+      this.slides.lockSwipeToPrev(false);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
       this.isFirstSlide = false;
     }
 
     if (this.slides.isEnd()) {
       this.isLastSlide = true;
+      this.keyboard.disableScroll(false); // 추가
     } else {
       this.isLastSlide = false;
+      this.keyboard.disableScroll(true); // 추가
     }
 
     if(this.slides.getActiveIndex() > this.totalPageNum) {
-      this.currentPageNum = this.totalPageNum;  
+      this.currentPageNum = this.totalPageNum;
     } else {
       this.currentPageNum = this.slides.getActiveIndex();
     }
@@ -168,7 +185,7 @@ export class CompanyNewsfeedStoryPage {
       this.newsfeedComment = '';
       this.newsfeedComments = [];
       let newsfeed_id = this.navParams.get('newsfeed_id');
-      
+
       this.companyService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();

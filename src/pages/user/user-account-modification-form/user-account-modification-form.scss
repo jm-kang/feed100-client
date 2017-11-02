@@ -12,6 +12,7 @@ page-user-account-modification-form {
             padding-top: calc(18px + 4px);
         }
     }
+    
     .back-and-close-button {
         color: #a8a8a8;
     }
@@ -20,11 +21,6 @@ page-user-account-modification-form {
         font-size: 1.5rem;
         font-weight: bold;
         color: #ff6400;
-    }
-
-    .toolbar {
-        padding-left: 16px;
-        padding-right: 16px;
     }
 
     ion-buttons[start] {
@@ -37,7 +33,8 @@ page-user-account-modification-form {
 }
 
 .account-modification-page-content {
-    background-color: rgba(64,64,64,0.7);
+    // background-color: rgba(64,64,64,0.7);
+    background-color: transparent !important;
     .scroll-content {
         padding-bottom: 0 !important;
     }

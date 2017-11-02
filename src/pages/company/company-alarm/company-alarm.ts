@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { CompanyProjectInterviewPage } from '../company-project-interview/company-project-interview';
-
-import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
-import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -102,7 +97,7 @@ export class CompanyAlarmPage {
   }
 
   openCompanyProjectInterviewPage(project_id) {
-    this.navCtrl.push(CompanyProjectInterviewPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectInterviewPage', { "project_id" : project_id });
   }
 
   // 내 프로젝트 or not
@@ -138,11 +133,14 @@ export class CompanyAlarmPage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
+    let companyProjectHomeModal = this.modalCtrl.create('ModalWrapperPage',
+      { page: 'CompanyProjectHomePage',
+        params: { "project_id" : project_id }
+      });
     companyProjectHomeModal.present();
   }
 
   openCompanyProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(CompanyProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
   }
 }

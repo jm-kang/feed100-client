@@ -4,18 +4,26 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      프로젝트
-    </ion-title>
-  </ion-navbar>
+<ion-header class="tabs-header">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button class="badge-button-wrapper" ion-button clear (click)="openCompanyAlarmPage()">
+          <ion-icon name="notifications">
+            <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getAlarmNum()>0">{{getAlarmNum()}}</ion-badge>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>프로젝트</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="openCompanyConfigurePage()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+    <div class="shadow-top"></div>
 </ion-header>
 
-<ion-content class="outer-content">
-  <div text-left class="tab-top-notice">
-    다양한 프로젝트에 참여해보세요!
-  </div>
+<ion-content padding-top class="outer-content">
   <ion-grid *ngIf="projects.length">
     <ion-row>
       <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard(project.project_id)">
@@ -28,7 +36,7 @@
             </span>
           </div>
         </div>
-        <progress-bar [progress]="project.participant_num | divide : project.max_participant_num"></progress-bar> 
+        <progress-bar [progress]="project.participant_num | divide : project.max_participant_num"></progress-bar>
         <ion-card-content text-left>
           <span class="project-card-name">{{project.project_name}} : </span>
           <span class="project-card-summary" [innerHTML]="project.project_summary"></span>
@@ -42,4 +50,4 @@
       </ion-card>
     </ion-row>
   </ion-grid>
-</ion-content> 
+</ion-content>

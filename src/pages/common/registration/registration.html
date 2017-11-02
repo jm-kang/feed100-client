@@ -6,12 +6,12 @@
 -->
 <ion-toolbar>
   <ion-buttons start>
-    <button ion-button class="back-and-close-button" (click)="back()">
+    <button class="pop-button" ion-button (click)="back()" icon-only>
       <ion-icon name="arrow-back"></ion-icon>
     </button>
   </ion-buttons>
 </ion-toolbar>
-<ion-content padding>
+<ion-content padding no-bounce>
   <div text-center>
     <img class="login-and-registration-logo-icon" src="assets/img/logo-icon.png" />
     <h6>회원가입</h6>

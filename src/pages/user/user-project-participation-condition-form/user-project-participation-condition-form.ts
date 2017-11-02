@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, Slides, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ViewController, App, Content } from 'ionic-angular';
 
-import { UserProjectStoryPage } from '../user-project-story/user-project-story';
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -20,7 +20,14 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-project-participation-condition-form.html',
 })
 export class UserProjectParticipationConditionFormPage {
+  @ViewChild("contentRef") contentHandle: Content;
   @ViewChild(Slides) slides: Slides;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
 
   project_id;
 
@@ -30,17 +37,21 @@ export class UserProjectParticipationConditionFormPage {
   participationConditionSlides = [{"options" : "", "value" : ""}];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage,
+    public appCtrl: App) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectParticipationConditionFormPage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
+    // navParams.get에만 해당되는 값을 넘겨야한다.
+    // this.project_id = this.navParams.get('project_id');
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;
 
     this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
@@ -89,13 +100,12 @@ export class UserProjectParticipationConditionFormPage {
     if(!this.participationConditionSlides[index].value) {
       this.slides.lockSwipeToNext(true);
     } else {
-      this.slides.lockSwipeToNext(false);  
+      this.slides.lockSwipeToNext(false);
     }
   }
 
   dismiss() {
-    console.log("dismiss");
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 
   goNextSlide() {
@@ -103,7 +113,11 @@ export class UserProjectParticipationConditionFormPage {
   }
 
   ionRadioChange(i) {
-    this.slides.lockSwipeToNext(false);
+    if(!this.participationConditionSlides[i].value) {
+      this.slides.lockSwipeToNext(true);
+    } else {
+      this.slides.lockSwipeToNext(false);
+    }
   }
 
   slideChanged() {
@@ -111,13 +125,13 @@ export class UserProjectParticipationConditionFormPage {
     if(this.participationConditionSlides[index] && !this.participationConditionSlides[index].value) {
       this.slides.lockSwipeToNext(true);
     } else {
-      this.slides.lockSwipeToNext(false);  
+      this.slides.lockSwipeToNext(false);
     }
   }
 
   openUserProjectStoryPage() {
     let loading = this.commonService.presentLoading();
-    
+
     this.userService.projectParticipation(this.project_id, this.participationConditionSlides)
     .finally(() => {
       loading.dismiss();
@@ -126,9 +140,10 @@ export class UserProjectParticipationConditionFormPage {
         (data) => {
         if(data.success == true) {
           if(data.data) {
-            this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.', 
+            this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.',
               () => {
-                this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id, "isFeedback" : true });
+                // this.navCtrl.push('UserProjectStoryPage', { "project_id" : this.project_id, "isFeedback" : true });
+                this.appCtrl.getRootNav().push('UserProjectStoryPage', { "project_id" : this.project_id, "isFeedback" : true });
                 this.dismiss();
               }
             );
@@ -150,5 +165,37 @@ export class UserProjectParticipationConditionFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
+  }
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".slide-question-content .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".slide-question-content .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".slide-question-content .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
   }
 }

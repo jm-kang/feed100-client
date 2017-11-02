@@ -8,6 +8,7 @@ import { ProgressStatePipe } from './../pipes/progressState/progressState';
 import { JsonParsePipe } from './../pipes/json-parse/json-parse';
 import { ReversePipe } from './../pipes/reverse/reverse';
 import { RoundPipe } from './../pipes/round/round';
+import { ReplaceBrTagPipe } from './replace-br-tag/replace-br-tag';
 
 @NgModule({
 	declarations: [YoutubePipe,
@@ -18,7 +19,8 @@ import { RoundPipe } from './../pipes/round/round';
     JsonParsePipe,
     SlicetextPipe,
     ReversePipe,
-    RoundPipe
+    RoundPipe,
+    ReplaceBrTagPipe
     ],
 	imports: [],
 	exports: [YoutubePipe,
@@ -29,7 +31,8 @@ import { RoundPipe } from './../pipes/round/round';
     JsonParsePipe,
     SlicetextPipe,
     ReversePipe,
-    RoundPipe
+    RoundPipe,
+    ReplaceBrTagPipe
     ]
 })
 export class PipesModule {}

@@ -50,7 +50,7 @@
       </h3>
       <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
     </ion-item>
-    <p class="feedback-comment" [innerHTML]="feedback"></p>
+    <p class="feedback-comment" [innerHTML]="feedback | replaceBrTag"></p>
     <div class="hashtag-wrapper">
       <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openCompanyProjectSearchResultPage([feedbackHashtag])" >
         #{{feedbackHashtag}}
@@ -88,7 +88,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -104,7 +104,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -129,7 +129,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -154,7 +154,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion}}
+            {{opinion.opinion | replaceBrTag}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />

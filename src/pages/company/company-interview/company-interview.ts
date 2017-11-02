@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { CompanyProjectInterviewPage } from '../company-project-interview/company-project-interview';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -23,8 +21,8 @@ export class CompanyInterviewPage {
   projectInterviews = [];
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
     public appCtrl: App,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
@@ -68,9 +66,24 @@ export class CompanyInterviewPage {
       this.activeAccordion = true;
     }
   }
-  
+
   openCompanyProjectInterviewPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(CompanyProjectInterviewPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectInterviewPage', { "project_id" : project_id });
+    // this.navCtrl.push(CompanyProjectInterviewPage, { "project_id" : project_id });
+  }
+
+  openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
+    this.navCtrl.push('CompanyAlarmPage');
+  }
+
+  openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
+    this.navCtrl.push('CompanyConfigurePage');
+  }
+
+  getAlarmNum() {
+    return this.companyService.alarmNum;
   }
 
 }

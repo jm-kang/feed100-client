@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, App } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -17,6 +18,13 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 })
 export class UserNewsfeedStoryPage {
   @ViewChild(Slides) slides: Slides;
+  bgHori:   number = 0 ; 
+  lastBgH:  number = 0 ;
+  mobWidth: number = 0 ;
+
+  scrollHori:   number = 0 ;
+  lastScrollH:  number = 0 ;
+  transparentPercent: number = 0;
 
   isFirstSlide: boolean = true;
   isLastSlide: boolean = false;
@@ -47,13 +55,14 @@ export class UserNewsfeedStoryPage {
     public navParams: NavParams, 
     public appCtrl: App,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
-  }
+    public userService: UserServiceProvider,
+    public keyboard: Keyboard) {} // 추가
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserNewsfeedStoryPage');
     let loading = this.commonService.presentLoading();
     let newsfeed_id = this.navParams.get('newsfeed_id');
+    this.slides.lockSwipeToPrev(true);  
 
     this.userService.getNewsfeed(newsfeed_id)
     .finally(() => {
@@ -93,20 +102,29 @@ export class UserNewsfeedStoryPage {
   }
 
   back() {
+    this.keyboard.disableScroll(true); // 추가
     this.navCtrl.pop();
   }
 
   slideChanged() {
     if(this.slides.isBeginning()) {
-      this.isFirstSlide = true;
+      this.slides.lockSwipeToPrev(true);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
+      this.isFirstSlide = true; 
     } else {
+      this.slides.lockSwipeToPrev(false);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
       this.isFirstSlide = false;
     }
 
     if (this.slides.isEnd()) {
       this.isLastSlide = true;
+      this.keyboard.disableScroll(false); // 추가
     } else {
       this.isLastSlide = false;
+      this.keyboard.disableScroll(true); // 추가
     }
 
     if(this.slides.getActiveIndex() > this.totalPageNum) {

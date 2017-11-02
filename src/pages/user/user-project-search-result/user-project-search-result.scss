@@ -6,9 +6,10 @@ page-user-project-search-result {
     ion-content {
         background-color: rgba(38,38,38,0.2) !important;
     }
-    .scroll-content {
-        margin-top: 0 !important;
-    }
+    // .scroll-content {
+    //     // margin-top: 0 !important;
+    //     margin-top: 111px;
+    // }
 
     .toolbar-ios {
         padding-top: calc(20px + 4px);
@@ -24,6 +25,10 @@ page-user-project-search-result {
         position: relative;
         background-color: #fff;
     }
+
+    // .search-wrapper {
+    //     border-top: 1px solid #f0f0f0;
+    // }
 
     ion-header .bar-buttons {
         padding-left: 16px;
@@ -103,7 +108,7 @@ page-user-project-search-result {
 .toolbar-content .hashtags-chooser-wraaper.active-button-wrapper ion-buttons button,
 .hashtags-chooser-wraaper.active-button-wrapper ion-buttons button,
 .hashtags-chooser-wraaper.inactive-button-wrapper ion-buttons .button {
-    height: 2.2em;
+    height: 28px;
     font-size: 1.3rem;
     font-weight: 500;
     margin-right: 0.5rem;

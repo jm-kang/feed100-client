@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Nav } from 'ionic-angular';
 
 import { CompanyAlarmPage } from '../company-alarm/company-alarm';
 import { CompanyConfigurePage } from '../company-configure/company-configure';
@@ -43,7 +43,8 @@ export class CompanyTabsPage {
     private uniqueDeviceId: UniqueDeviceID,
     private badge: Badge,
     public commonService: CommonServiceProvider,
-    public companyService: CompanyServiceProvider) {
+    public companyService: CompanyServiceProvider,
+    public nav: Nav) {
 
   }
 
@@ -99,7 +100,7 @@ export class CompanyTabsPage {
           break;
       }
     }
-    
+
   }
 
   ionViewDidLoad() {
@@ -133,8 +134,8 @@ export class CompanyTabsPage {
       };
 
       const pushObject: PushObject = this.push.init(options);
-  
-      pushObject.on('notification').subscribe((notification: any) => { 
+
+      pushObject.on('notification').subscribe((notification: any) => {
         console.log('Received a notification', notification);
         console.log(JSON.stringify(notification.additionalData));
         if(notification.additionalData.foreground) {
@@ -147,7 +148,7 @@ export class CompanyTabsPage {
           this.ionViewWillEnter();
         }
       });
-      
+
 
       pushObject.on('registration').subscribe((registration: any) => {
         console.log('Device registered', registration);
@@ -164,25 +165,27 @@ export class CompanyTabsPage {
               console.log(err);
             }
           );
-          
+
         })
         .catch((error: any) => console.log(error));
       });
 
       pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
 
-      
-    
+
+
     }
   }
 
 
-  openUserAlarmPage() {
-    this.navCtrl.push(CompanyAlarmPage);
-  }
+  // openCompanyAlarmPage() {
+  //   // this.navCtrl.push(CompanyAlarmPage);
+  //   this.appCtrl.getActiveNav().push(CompanyAlarmPage);
+  // }
 
-  openUserConfigurePage() {
-    this.navCtrl.push(CompanyConfigurePage);
-  }
+  // openCompanyConfigurePage() {
+  //   // this.navCtrl.push(CompanyConfigurePage);
+  //   this.nav.push(CompanyConfigurePage);
+  // }
 
 }

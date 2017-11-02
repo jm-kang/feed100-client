@@ -1,10 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, Slides, NavController, NavParams } from 'ionic-angular';
 
-import { CompanyLoginFormPage } from '../company-login-form/company-login-form';
-import { UserLoginFormPage } from '../user-login-form/user-login-form';
-import { RegistrationPage } from '../registration/registration';
-
 /**
  * Generated class for the LoginPage page.
  *
@@ -48,14 +44,14 @@ export class LoginPage {
   }
 
   openCompanyLoginFormPage() {
-    this.navCtrl.push(CompanyLoginFormPage);
+    this.navCtrl.push('CompanyLoginFormPage');
   }
 
   openUserLoginFormPage() {
-    this.navCtrl.push(UserLoginFormPage);
+    this.navCtrl.push('UserLoginFormPage');
   }
 
   openRegistrationPage() {
-    this.navCtrl.push(RegistrationPage);
+    this.navCtrl.push('RegistrationPage');
   }
 }

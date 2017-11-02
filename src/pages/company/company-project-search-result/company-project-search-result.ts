@@ -1,10 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
 
-import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
-
-import { StatusBar } from '@ionic-native/status-bar';
+// import { StatusBar } from '@ionic-native/status-bar';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -40,17 +37,9 @@ export class CompanyProjectSearchResultPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
-    public statusBar: StatusBar,
+    // public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
-  }
-
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      this.statusBar.show();
-      this.viewCtrl.dismiss();
-    }
   }
 
   ionViewDidLoad() {
@@ -59,7 +48,7 @@ export class CompanyProjectSearchResultPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectSearchResultPage');
-    this.statusBar.show();
+    // this.statusBar.show();
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
@@ -113,8 +102,12 @@ export class CompanyProjectSearchResultPage {
     );
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  // dismiss() {
+  //   this.viewCtrl.dismiss();
+  // }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   filter() {
@@ -159,13 +152,12 @@ export class CompanyProjectSearchResultPage {
   }
 
   openCompanyProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
+    this.navCtrl.push('CompanyProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
-
-
 }

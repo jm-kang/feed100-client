@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { UserProjectHomePage } from '../user-project-home/user-project-home';
-import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
-import { UserProjectStoryPage } from '../user-project-story/user-project-story';
-import { UserProjectParticipationConditionFormPage } from '../user-project-participation-condition-form/user-project-participation-condition-form';
-import { UserProjectRewardFormPage } from '../user-project-reward-form/user-project-reward-form';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -46,6 +40,9 @@ export class UserProjectPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          // 추가된 문장
+          this.userService.alarmNum = data.data.alarm_num;
+          // 추가된 문장 끝
           this.projects = data.data;
         }
         else if(data.success == false) {
@@ -169,27 +166,44 @@ export class UserProjectPage {
   }
 
   openUserProjectHomePage(project_id) {
-    let userProjectHomeModal = this.modalCtrl.create(UserProjectHomePage, { "project_id" : project_id });
-    userProjectHomeModal.present();
+    // let userProjectHomeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectHomePage', params: { "project_id" : project_id }});
+    // userProjectHomeModal.present();
+    this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 
   openUserProfileModificationFormPage() {
-    let userProfileModificationFormModal = this.modalCtrl.create(UserProfileModificationFormPage);
+    let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
   }
 
   openUserProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(UserProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
   }
 
   openUserProjectParticipationConditionFormPage(project_id) {
-    let userProjectParticipationConditionFormModal = this.modalCtrl.create(UserProjectParticipationConditionFormPage, { "project_id" : project_id });
+    let userProjectParticipationConditionFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectParticipationConditionFormPage', params: { "project_id" : project_id }});
     userProjectParticipationConditionFormModal.present();
   }
 
   openUserProjectRewardFormPage(project_id) {
-    let userProjectRewardFormModal = this.modalCtrl.create(UserProjectRewardFormPage, { "project_id" : project_id });
+    let userProjectRewardFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
     userProjectRewardFormModal.present();
   }
+
+  // 추가된 함수
+
+  getAlarmNum() {
+    return this.userService.alarmNum;
+  }
+
+  openUserAlarmPage() {
+    this.navCtrl.push('UserAlarmPage');
+  }
+
+  openUserConfigurePage() {
+    this.navCtrl.push('UserConfigurePage');
+  }
+
+  // 추가된 함수 끝
 
 }

@@ -1,8 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { UserNewsfeedStoryPage } from '../user-newsfeed-story/user-newsfeed-story';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -41,6 +39,9 @@ export class UserNewsfeedPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          // 추가된 문장
+          this.userService.alarmNum = data.data.alarm_num;
+          // 추가된 문장 끝
           this.newsfeeds = data.data;
         }
         else if(data.success == false) {
@@ -58,7 +59,23 @@ export class UserNewsfeedPage {
   }
 
   openUserNewsfeedStoryPage(newsfeed_id) {
-    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage, { "newsfeed_id" : newsfeed_id });
+    this.navCtrl.push('UserNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
+
+  // 추가된 함수
+
+  getAlarmNum() {
+    return this.userService.alarmNum;
+  }
+
+  openUserAlarmPage() {
+    this.navCtrl.push('UserAlarmPage');
+  }
+
+  openUserConfigurePage() {
+    this.navCtrl.push('UserConfigurePage');
+  }
+
+  // 추가된 함수 끝
 
 }

@@ -53,6 +53,7 @@ page-user-project-story {
 }
 
 .story-main-image-wrapper {
+    position: fixed;
     width: 100%;
     height: 100%;
     background-color: #000;
@@ -70,9 +71,24 @@ page-user-project-story {
 
 .story-slide {
     background-color: transparent;
+    background-position: center;
+    background-size: auto 100%;
+}
+
+.story-slide .scroll-content {
+    margin-bottom: 0 !important;
+    padding-bottom: 60px;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.story-slide .slides {
+    margin-left: 16px;
 }
 
 .story-slide .story-first-slide {
+    padding-left:0 !important;
+    padding-right: 32px !important;
+    // width: calc(100% - 16px) !important;
     -webkit-align-items: flex-end;
     -ms-flex-align: flex-end;
     align-items: flex-end;

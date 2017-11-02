@@ -8,6 +8,8 @@ page-user-project-story-summary-writing-editor {
 
 .editor-header {
     background-color: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 
     border-bottom: 1px solid #eee;
     position: relative;
@@ -40,15 +42,14 @@ page-user-project-story-summary-writing-editor {
     }
 
     .title-ios {
-        padding-top: 20px;
-        height: calc(44px + 20px);
-        min-height: calc(44px + 20px);
+        // height: calc(44px + 20px);
+        // min-height: calc(44px + 20px);
     }
 
     .toolbar-ios {
         padding: 4px;
-        padding-top: calc(24px);
-        min-height: calc(64px);
+        
+        min-height: calc(56px);
     }
 }
 

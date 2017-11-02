@@ -7,7 +7,7 @@
 <ion-header class="interview-ion-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button class="pop-button" ion-button (click)="back()" icon-only>
+      <button ion-button (click)="back()" icon-only>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
@@ -36,7 +36,7 @@
         </span>
       </ion-item>
       <ion-card-content>
-        <p [innerHTML]="interview.interview_request"></p>
+        <p class="interview-comment" [innerHTML]="interview.interview_request | replaceBrTag"></p>
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
         <span class="image-box" *ngFor="let image of interview.interview_request_images; let i = index">
@@ -60,7 +60,7 @@
         <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
       </ion-item>
       <ion-card-content>
-        <p [innerHTML]="interview.interview_response"></p>
+        <p class="interview-comment" [innerHTML]="interview.interview_response | replaceBrTag"></p>
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
         <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">

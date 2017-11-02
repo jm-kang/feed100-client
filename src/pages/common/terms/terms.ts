@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+
+import { ModalWrapperPage } from './../modal-wrapper/modal-wrapper';
 
 /**
  * Generated class for the TermsPage page.
@@ -15,11 +17,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class TermsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TermsPage');
+  }
+  
+  dismiss() {
+    this.ModalWrapperPage.dismissModal();
   }
 
 }

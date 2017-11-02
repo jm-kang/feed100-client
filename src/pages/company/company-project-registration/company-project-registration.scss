@@ -1,3 +1,23 @@
 page-company-project-registration {
-
+    
 }
+
+.spinner-wrapper {
+    height: 100%;
+    width: 100%;
+    position:absolute;
+    top:0;right:0;bottom:0;left:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color: rgba(0,0,0,0.4);
+
+    display:-webkit-flex;
+    -webkit-align-item:center;
+    -webkit-justify-content:center;;
+    ion-spinner * {
+        stroke: #ff924f;
+        fill: #ff6400;
+    }
+}
+

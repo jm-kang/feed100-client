@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content } from 'ionic-angular';
 
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,6 +20,12 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UserProjectFeedbackWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
 
   project_id;
 
@@ -38,43 +46,36 @@ export class UserProjectFeedbackWritingEditorPage {
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage,
     private domSanitizer: DomSanitizer) {
   
   }
 
   ionViewDidEnter() {    
-    console.log('ionViewDidEnter UserProjectFeedbackWritingEditorPage');    
-    this.projectHashtags = this.navParams.get('projectHashtags');
-    if(this.navParams.get('feedbackContent').length > 0) {
-      this.feedbackContent = this.navParams.get('feedbackContent').replace(/<br *\/?>/gi, '\n');
+    console.log('ionViewDidEnter UserProjectFeedbackWritingEditorPage');
+    this.projectHashtags = this.ModalWrapperPage.modalParams.projectHashtags;
+    if(this.ModalWrapperPage.modalParams.feedbackContent.length > 0) {
+      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent.replace(/<br *\/?>/gi, '\n');
     }
-    for( let i=0; i < this.navParams.get('feedbackHashtags').length; i++) {
-      this.feedbackHashtags.push(this.navParams.get('feedbackHashtags')[i]);
+    for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackHashtags.length; i++) {
+      this.feedbackHashtags.push(this.ModalWrapperPage.modalParams.feedbackHashtags[i]);
       for(let j = 0; j < this.projectHashtags.length; j++) {
         if(this.projectHashtags[j] == this.feedbackHashtags[i]) {
           this.projectHashtags.splice(j,1);
         }
       }
     }
-    this.feedbackImages = this.navParams.get('feedbackImages');
-  }
-
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      let data = "";
-      this.viewCtrl.dismiss(data);
-    }
+    this.feedbackImages = this.ModalWrapperPage.modalParams.feedbackImages;
   }
 
   completeEditor() {
     let data = { feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, feedbackHashtags: this.feedbackHashtags };
-    this.viewCtrl.dismiss(data);
+    this.ModalWrapperPage.dismissModal(data);
   }
 
   dismiss() {
     let data = "";
-    this.viewCtrl.dismiss(data);
+    this.ModalWrapperPage.dismissModal(data);
   }
 
   activeHashtag(hashtag) {
@@ -112,6 +113,38 @@ export class UserProjectFeedbackWritingEditorPage {
       const formData = params[1];
       this.feedbackImages.push({ "img" : img, "formData" : formData });      
     });
+  }
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
   }
 
 }

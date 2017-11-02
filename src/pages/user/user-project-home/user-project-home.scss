@@ -5,16 +5,8 @@ page-user-project-home {
         border-bottom: 0.55px solid #d7d7d7;
     }
 
-    .toolbar-content .title {
-        padding-top: 0 !important;
-    }
-
     .bar-button-menutoggle {
         margin: 0;
-    }
-
-    ion-navbar {
-        padding: 0 16px !important;        
     }
 
     .shadow-header-top {
@@ -36,11 +28,6 @@ page-user-project-home {
         order: 1;
     }
 
-    ion-navbar ion-buttons ion-icon {
-        color: #fff;
-        font-size: 1.5em !important;
-    }
-
     // .bar-button {
     //     color: #fff;
     // }
@@ -58,12 +45,12 @@ page-user-project-home {
         position: relative !important;
     }
 
-    .scroll-content {
-        height: 100%;
-        margin-top: 0 !important;
-    }
+    // .scroll-content {
+    //     height: 100%;
+    //     // margin-top: 0 !important;
+    // }
 
-    
+
     .project-card-overlay-item {
         padding: 3px 16px;
         border-radius: 50px;
@@ -94,12 +81,12 @@ page-user-project-home {
     // }
 
     // 프로젝트 내용
-    
+
     .item.item-block .item-inner {
         border-bottom: 0;
     }
 
-    
+
 
     .summary {
         font-size: 1.3rem;
@@ -137,12 +124,23 @@ page-user-project-home {
     }
 }
 
-.project-home-content-wrapper {
-    background-color: rgba(38,38,38,0.2);
+.project-header-wrapper {
+    background-color: #fff;
+    border-bottom: 1px solid #c8c8c8;
 }
 
-.project-header-wrapper ion-title {
-    display: none;
+// .project-home-content-wrapper {
+//     background-color: rgba(38,38,38,0.2);
+// }
+
+.project-header-wrapper ion-title.title-ios {
+    // display: none;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+}
+
+.project-header-wrapper ion-title.title-ios .toolbar-title {
+    justify-content: baseline;
 }
 
 .project-header-title-wrapper {
@@ -161,25 +159,38 @@ page-user-project-home {
     font-weight: bold;
 }
 
+.project-header-wrapper .avatar-span-wrapper.item-md {
+    padding-left: 0 !important
+}
 
-.project-home-content .avatar-span-wrapper h3 {
+.project-header-wrapper .avatar-span-wrapper .label-md {
+    margin: 0 !important;
+}
+
+.project-header-wrapper .avatar-span-wrapper h3 {
     font-size: 1.2rem;
+    color: #424242;
+    font-weight: bold
+}
+
+.project-header-wrapper .avatar-span-wrapper h5 {
+    font-size: 1rem;
     color: #888;
 }
 
-.project-home-content .avatar-span-wrapper {
-    padding-left : 0;
+.project-header-wrapper .avatar-span-wrapper .item-inner {
+    padding-left: 2px;
 }
 
-.project-home-content .avatar-span {
-    min-height: 1.2em;
-    min-width: 1.2em;
+.project-header-wrapper .avatar-span-wrapper .avatar-span {
+    min-height: 1.8em;
+    min-width: 1.8em;
     margin-right: 8px;
 }
 
-.project-home-content .avatar-span .avatar-span-image {
-    height: 1.2em;
-    width: 1.2em;
+.project-header-wrapper .avatar-span-wrapper .avatar-span .avatar-span-image {
+    height: 1.8em;
+    width: 1.8em;
 }
 
 .project-home-content {
@@ -246,7 +257,7 @@ page-user-project-home {
 }
 
 .feedbacks-header .header-name.user-ui {
-    top: 1px;   
+    top: 1px;
 }
 
 .feedbacks-header .button {
@@ -293,7 +304,7 @@ page-user-project-home {
 .radio-md .radio-icon {
     height: 16px;
     width: 16px;
-    
+
 }
 
 .feedback-card {
@@ -301,9 +312,19 @@ page-user-project-home {
 }
 
 .feedback-card .card-header {
-    padding: 10px 18px 5px 18px;
+    padding: 10px 18px 0 18px;
 }
 
+.feedback-card .feedback-summary,
+.feedback-comment,
+.opinion-content {
+    white-space: pre-line;
+}
+
+.feedback-card .feedback-summary,
+.opinion-content {
+    margin-top: -12px;
+}
 .feedback-card .feedback-content {
     padding: 0 18px 18px 18px;
     font-size: 1.2rem;
@@ -342,7 +363,7 @@ page-user-project-home {
 }
 
 .feedback-card .hashtag-wrapper {
-    padding-top: 8px;
+    padding-top: 0;
 }
 
 .empathy-wrapper {
@@ -415,7 +436,7 @@ page-user-project-home {
 }
 
 .hashtag-wrapper span.button {
-    margin-top: 8px;
+    margin-top: 0;
     height: 2em;
     border: 1px solid #FF8A3B;
 }

@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
-import { UserTabsPage } from '../../user/user-tabs/user-tabs';
-import { TermsPage } from '../terms/terms';
-import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy';
-
 import { Storage } from '@ionic/storage';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -35,7 +31,7 @@ export class UserSnsRegistrationFormPage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,
-    public storage: Storage) {
+    public storage: Storage,) {
   }
 
   ionViewDidLoad() {
@@ -49,13 +45,11 @@ export class UserSnsRegistrationFormPage {
   }
 
   openTermsPage() {
-    let termsModal = this.modalCtrl.create(TermsPage);
-    termsModal.present();
+    this.modalCtrl.create('ModalWrapperPage', {page : 'TermsPage'}).present();
   }
 
   openPrivateInfoPolicyPage() {
-    let privateInfoPolicyModal = this.modalCtrl.create(PrivateInfoPolicyPage);
-    privateInfoPolicyModal.present();
+    this.modalCtrl.create('ModalWrapperPage', {page: 'PrivateInfoPolicyPage'}).present();
   }
 
   SNSRegister() {
@@ -86,7 +80,7 @@ export class UserSnsRegistrationFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

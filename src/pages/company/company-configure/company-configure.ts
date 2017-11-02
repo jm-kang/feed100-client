@@ -1,18 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 
-import { LoginPage } from '../../common/login/login';
-import { AppIntroPage } from '../../common/app-intro/app-intro';
-import { TutorialPage } from '../../common/tutorial/tutorial';
-import { ManualPage } from '../../common/manual/manual';
-import { FaqPage } from '../../common/faq/faq';
-import { TermsPage } from '../../common/terms/terms';
-import { PrivateInfoPolicyPage } from '../../common/private-info-policy/private-info-policy';
-import { NoticePage } from '../../common/notice/notice';
-import { CompanyProjectRegistrationPage } from '../company-project-registration/company-project-registration';
-import { ContactPage } from '../../common/contact/contact';
-import { CompanyAccountModificationFormPage } from '../company-account-modification-form/company-account-modification-form';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -29,10 +17,10 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyConfigurePage {
   isPushAlarm: boolean = true;
-  
+
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
@@ -42,7 +30,7 @@ export class CompanyConfigurePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserConfigurePage');
+    console.log('ionViewDidLoad CompanyConfigurePage');
   }
 
   back() {
@@ -50,57 +38,57 @@ export class CompanyConfigurePage {
   }
 
   openAppIntroPage() {
-    let appIntroModal = this.modalCtrl.create(AppIntroPage);
+    let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
     appIntroModal.present();
   }
 
   openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create(TutorialPage);
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
     tutorialModal.present();
   }
 
   openManualPage() {
-    let manualModal = this.modalCtrl.create(ManualPage);
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
     manualModal.present();
   }
 
   openFaqPage() {
-    let faqModal = this.modalCtrl.create(FaqPage);
+    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
     faqModal.present();
   }
 
   openTermsPage() {
-    let termsModal = this.modalCtrl.create(TermsPage);
+    let termsModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TermsPage'});
     termsModal.present();
   }
 
   openPrivateInfoPolicy() {
-    let privateInfoPolicyModal = this.modalCtrl.create(PrivateInfoPolicyPage);
+    let privateInfoPolicyModal = this.modalCtrl.create('ModalWrapperPage', {page: 'PrivateInfoPolicyPage'});
     privateInfoPolicyModal.present();
   }
 
   openNoticePage() {
-    let noticeModal = this.modalCtrl.create(NoticePage);
+    let noticeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'NoticePage'});
     noticeModal.present();
   }
 
   openCompanyProjectRegistrationPage() {
-    let companyProjectRegistrationModal = this.modalCtrl.create(CompanyProjectRegistrationPage);
+    let companyProjectRegistrationModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectRegistrationPage'});
     companyProjectRegistrationModal.present();
   }
 
   openContactPage() {
-    let contactModal = this.modalCtrl.create(ContactPage);
+    let contactModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ContactPage'});
     contactModal.present();
   }
 
   openCompanyAccountModificationFormPage() {
-    let companyAccountModificationFormModal = this.modalCtrl.create(CompanyAccountModificationFormPage);
+    let companyAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyAccountModificationFormPage'});
     companyAccountModificationFormModal.present();
   }
 
   logout() {
-    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?',
       () => {
         this.commonService.logout(this.navCtrl);
       }

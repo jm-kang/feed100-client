@@ -53,12 +53,10 @@ page-user-login-form {
     }
 
     // ion-item > input input 활성화되었을때
-    .round-background-input .item-md.item-input.item-input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-md.item-input.input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-ios.item-input.item-input-has-focus .item-inner .input-wrapper,
-    .round-background-input .item-ios.item-input.input-has-focus .item-inner .input-wrapper {
+    .round-background-input .item-input.item-input-has-focus,
+    .round-background-input .item-input.input-has-focus {
         border: 1px solid #FE6B01;
-        background-color: #F9F9F9;
+        background-color: #F9F9F9 !important;
     }
 }
 .toolbar-background, .item {
@@ -92,10 +90,11 @@ page-user-login-form {
         font-size: 1.3rem;
     }
 
-    
 
-    .round-background-input .input-wrapper {
-        background-color: #F1F2F3;
+
+    .round-background-input .item-input {
+        background-color: #F1F2F3 !important;
+        border: 1px solid #F1F2F3;
         border-radius: 100px;
     }
 
@@ -119,7 +118,7 @@ page-user-login-form {
         margin: 10px 5px;
         font-size: 1.3rem;
     }
-    
+
     // ion-item > input에서 주변 페딩 제거
     .underline-input .item {
         padding-left: 0;

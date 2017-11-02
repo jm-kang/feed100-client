@@ -173,13 +173,13 @@ export class UserTabsPage {
     }
   }
 
-  openUserAlarmPage() {
-    this.navCtrl.push(UserAlarmPage);
-  }
+  // openUserAlarmPage() {
+  //   this.navCtrl.push(UserAlarmPage);
+  // }
 
-  openUserConfigurePage() {
-    this.navCtrl.push(UserConfigurePage);
-  }
+  // openUserConfigurePage() {
+  //   this.navCtrl.push(UserConfigurePage);
+  // }
   
 
 }

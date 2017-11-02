@@ -5,16 +5,8 @@ page-company-project-home {
         border-bottom: 0.55px solid #d7d7d7;
     }
 
-    .toolbar-content .title {
-        padding-top: 0 !important;
-    }
-
     .bar-button-menutoggle {
         margin: 0;
-    }
-
-    ion-navbar {
-        padding: 0 16px !important;        
     }
 
     .shadow-header-top {
@@ -36,11 +28,6 @@ page-company-project-home {
         order: 1;
     }
 
-    ion-navbar ion-buttons ion-icon {
-        color: #fff;
-        font-size: 1.5em !important;
-    }
-
     // .bar-button {
     //     color: #fff;
     // }
@@ -58,10 +45,10 @@ page-company-project-home {
         position: relative !important;
     }
 
-    .scroll-content {
-        height: 100%;
-        margin-top: 0 !important;
-    }
+    // .scroll-content {
+    //     height: 100%;
+    //     margin-top: 0 !important;
+    // }
 
     
     .project-card-overlay-item {
@@ -117,6 +104,10 @@ page-company-project-home {
 
     .outer-content .card {
         margin-top: 0;
+    }
+
+    .empty-inner {
+        max-width: 100%;
     }
 
     .empty-inner p {
