@@ -63,8 +63,6 @@ export class CompanyProjectStorySummaryPage {
   }
   
   openCompanyProjectUserProfilePage(project_participant_id) {
-    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    // companyProjectUserProfileModal.present();
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 

@@ -29,14 +29,6 @@ export class ModalWrapperPage {
     console.log(JSON.stringify(this.modalParams));
   }
 
-  // openModal(page, params?) {
-  //   // 모달 여는 페이지에서 modalpage import해서 함수 호출
-  //   if(params) {
-  //     this.modalParams = {"project_id" : params.project_id, "interview_id" : params.interview_id};
-  //   }
-  //   this.modalPage = page;
-  // }
-
   dismissModal(data?) {
     if(data) {
       this.viewCtrl.dismiss(data);

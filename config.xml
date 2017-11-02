@@ -3,7 +3,7 @@
     <name>FEED100</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.10.98:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -15,7 +15,6 @@
     <preference name="webviewbounce" value="false" />
     <preference name="UIWebViewBounce" value="false" />
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="disallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashMaintainAspectRatio" value="true" />
@@ -124,36 +123,37 @@
     <allow-navigation href="http://172.30.1.25:8100" />
     <allow-navigation href="http://192.168.10.98:8100" />
     <engine name="android" spec="^6.2.3" />
-    <allow-navigation href="http://192.168.10.91:8100" />
-    <plugin name="cordova-plugin-console" spec="~1.0.5" />
-    <plugin name="cordova-plugin-device" spec="~1.1.4" />
-    <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
-    <plugin name="cordova-plugin-statusbar" spec="~2.2.2" />
-    <plugin name="cordova-plugin-whitelist" spec="~1.3.1" />
-    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
-    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
-        <variable name="APP_ID" value="1641054049532599" />
-        <variable name="APP_NAME" value="FEED100" />
-    </plugin>
-    <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
-        <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
-    </plugin>
-    <plugin name="cordova-plugin-http" spec="^1.2.0" />
-    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i" />
-    </plugin>
-    <plugin name="cordova-plugin-uniquedeviceid" spec="^1.3.2" />
-    <plugin name="phonegap-plugin-push" spec="~2.0.0">
-        <variable name="SNEDER_ID" value="889490373924" />
-    </plugin>
-    <plugin name="com-sarriaroman-photoviewer" spec="~1.1.10" />
+    <engine name="ios" spec="^4.4.0" />
+    <plugin name="com-sarriaroman-photoviewer" spec="^1.1.10" />
+    <plugin name="cordova-plugin-badge" spec="^0.8.3" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-plugin-console" spec="^1.0.5" />
+    <plugin name="cordova-plugin-device" spec="^1.1.4" />
+    <plugin name="cordova-plugin-facebook4" spec="^1.9.1">
+        <variable name="APP_ID" value="1641054049532599" />
+        <variable name="APP_NAME" value="FEED100" />
+    </plugin>
+    <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
-    <plugin name="cordova-plugin-badge" spec="^0.8.3" />
-    <plugin name="cordova-plugin-screen-orientation" spec="~2.0.1" />
-    <plugin name="cordova-plugin-themeablebrowser" spec="~0.2.17" />
-    <engine name="ios" spec="~4.4.0" />
+    <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
+        <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
+    </plugin>
+    <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i" />
+    </plugin>
+    <plugin name="cordova-plugin-http" spec="^1.2.0" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
+    <plugin name="cordova-plugin-screen-orientation" spec="git+https://github.com/Exilz/cordova-plugin-screen-orientation.git" />
+    <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />
+    <plugin name="cordova-plugin-themeablebrowser" spec="^0.2.17" />
+    <plugin name="cordova-plugin-uniquedeviceid" spec="^1.3.2" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.1" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="phonegap-plugin-push" spec="^2.0.0">
+        <variable name="SNEDER_ID" value="889490373924" />
+    </plugin>
 </widget>

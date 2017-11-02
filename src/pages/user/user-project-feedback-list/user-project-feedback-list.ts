@@ -43,6 +43,7 @@ export class UserProjectFeedbackListPage {
   }
 
   ionViewDidEnter() {
+    console.log('ionViewDidEnter UserProjectFeedbackListPage');    
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -68,7 +69,7 @@ export class UserProjectFeedbackListPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -84,11 +85,6 @@ export class UserProjectFeedbackListPage {
   }
 
   openUserProjectSearchResultPage(hashtags) {
-    // let userProjectSearchResultModal = this.modalCtrl.create('ModalWrapperPage',
-    //   { page: 'UserProjectSearchResultPage', 
-    //     params:{ "hashtags" : hashtags, "project_id" : this.project_id }
-    //   });
-    // userProjectSearchResultModal.present();
     this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 

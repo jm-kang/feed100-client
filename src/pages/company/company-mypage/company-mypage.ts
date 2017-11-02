@@ -45,8 +45,8 @@ export class CompanyMypagePage {
     console.log('ionViewDidLoad CompanyMypagePage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyMypagePage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyMypagePage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyInfo()
@@ -69,7 +69,7 @@ export class CompanyMypagePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -86,7 +86,7 @@ export class CompanyMypagePage {
     companyAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
       }
     );

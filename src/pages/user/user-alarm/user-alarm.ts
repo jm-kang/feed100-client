@@ -27,8 +27,8 @@ export class UserAlarmPage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserAlarmPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserAlarmPage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getAlarms()
@@ -43,7 +43,7 @@ export class UserAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -206,8 +206,6 @@ export class UserAlarmPage {
   }
 
   openUserProjectHomePage(project_id) {
-    // let userProjectHomeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectHomePage', params: { "project_id" : project_id }});
-    // userProjectHomeModal.present();
     this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 
@@ -217,7 +215,6 @@ export class UserAlarmPage {
   }
 
   openUserProjectStoryPage(project_id) {
-    // this.appCtrl.getRootNavs()[0].push('UserProjectStoryPage', { "project_id" : project_id });
     this.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
   }
 

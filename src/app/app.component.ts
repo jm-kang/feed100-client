@@ -8,18 +8,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { LoginPage } from '../pages/common/login/login';
 import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
 import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
-import { UserProjectStoryPage } from '../pages/user/user-project-story/user-project-story';
-import { UserNewsfeedStoryPage } from '../pages/user/user-newsfeed-story/user-newsfeed-story';
-import { UserConfigurePage } from '../pages/user/user-configure/user-configure';
-import { UserProjectHomePage } from '../pages/user/user-project-home/user-project-home';
-import { UserProjectFeedbackPage } from '../pages/user/user-project-feedback/user-project-feedback';
-import { UserProjectInterviewDetailPage } from '../pages/user/user-project-interview-detail/user-project-interview-detail'
-import { UserProjectRewardFormPage } from '../pages/user/user-project-reward-form/user-project-reward-form'
-
-import { CompanyProjectHomePage } from '../pages/company/company-project-home/company-project-home';
-import { CompanyProjectFeedbackPage } from '../pages/company/company-project-feedback/company-project-feedback';
-import { CompanyProjectStoryPage } from '../pages/company/company-project-story/company-project-story';
-import { CompanyNewsfeedStoryPage } from '../pages/company/company-newsfeed-story/company-newsfeed-story';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
@@ -30,16 +18,6 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
 })
 export class MyApp {
   rootPage:any = LoginPage;
-  // rootPage:any = ModalPage;
-  // rootPage:any = UserTabsPage;
-  // rootPage:any = UserProjectInterviewDetailPage;
-  // rootPage:any = UserProjectFeedbackPage;
-  // rootPage:any = UserProjectHomePage;
-  // rootPage:any = CompanyTabsPage;
-  // rootPage:any = CompanyProjectHomePage;
-  // rootPage:any = UserProjectRewardFormPage;
-  // rootPage:any = CompanyNewsfeedStoryPage;
-
 
   constructor(
     platform: Platform,

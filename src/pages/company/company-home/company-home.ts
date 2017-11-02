@@ -64,8 +64,8 @@ export class CompanyHomePage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyHomePage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyHomePage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyHome()
@@ -82,7 +82,7 @@ export class CompanyHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },

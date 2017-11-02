@@ -28,8 +28,8 @@ export class UserInterviewPage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserInterviewPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserInterviewPage');
 
     let loading = this.commonService.presentLoading();
 
@@ -48,7 +48,7 @@ export class UserInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },

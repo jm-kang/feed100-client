@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { UserAlarmPage } from '../user-alarm/user-alarm';
-import { UserConfigurePage } from '../user-configure/user-configure';
 import { UserHomePage } from '../user-home/user-home';
 import { UserProjectPage } from '../user-project/user-project';
 import { UserNewsfeedPage } from '../user-newsfeed/user-newsfeed';
@@ -53,7 +51,7 @@ export class UserTabsPage {
     return this.userService.interviewNum;
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     console.log('ionViewWillEnter UserTabsPage');
     // let loading = this.commonService.presentLoading();
 
@@ -71,7 +69,7 @@ export class UserTabsPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },
@@ -80,24 +78,6 @@ export class UserTabsPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserTabsPage');
-    console.log(this.appCtrl.getActiveNavs()[0].getType());
-    if(this.appCtrl.getActiveNavs()[0].getType() == 'tab') {
-      let activeView = this.appCtrl.getActiveNavs()[0].getActive();
-      console.log(activeView.name);
-      switch(activeView.name) {
-        case 'UserInterviewPage':
-          activeView.instance.ionViewWillEnter();
-          break;
-        case 'UserMypagePage':
-          activeView.instance.ionViewWillEnter();
-          break;
-      }
-    }
-    
   }
 
   ionViewDidLoad() {
@@ -137,11 +117,11 @@ export class UserTabsPage {
         if(notification.additionalData.foreground) {
           console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
         else {
           console.log('background');
-          this.ionViewWillEnter();
+          this.ionViewDidEnter();
         }
       });
       
@@ -171,15 +151,6 @@ export class UserTabsPage {
       
     
     }
-  }
-
-  // openUserAlarmPage() {
-  //   this.navCtrl.push(UserAlarmPage);
-  // }
-
-  // openUserConfigurePage() {
-  //   this.navCtrl.push(UserConfigurePage);
-  // }
-  
+  }  
 
 }

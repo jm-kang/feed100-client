@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
@@ -38,7 +36,6 @@ export class UserProjectSearchResultPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
-    // public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -47,9 +44,8 @@ export class UserProjectSearchResultPage {
     console.log('ionViewDidLoad UserProjectSearchResultPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectSearchResultPage');
-    // this.statusBar.show();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserProjectSearchResultPage');
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
@@ -92,7 +88,7 @@ export class UserProjectSearchResultPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -102,10 +98,6 @@ export class UserProjectSearchResultPage {
       }
     );
   }
-
-  // dismiss() {
-  //   this.viewCtrl.dismiss();
-  // }
 
   back() {
     this.navCtrl.pop();

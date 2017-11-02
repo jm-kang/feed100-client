@@ -2,10 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
-// import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -46,29 +42,21 @@ export class UserProjectHomePage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    // public statusBar: StatusBar,
     public appCtrl: App,
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    // public ModalWrapperPage: ModalWrapperPage
     ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectHomePage');
-    // this.statusBar.hide();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserProjectHomePage');
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
-    // this.project_id = this.ModalWrapperPage.modalParams.project_id;
-    // console.log(JSON.stringify(this.ModalWrapperPage.navParams));
-    // console.log(JSON.stringify(this.ModalWrapperPage.modalParams));
-    // console.log("data: " + JSON.stringify(this.navParams.data));
-    // console.log("param: " + this.project_id);
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -97,7 +85,7 @@ export class UserProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -109,26 +97,19 @@ export class UserProjectHomePage {
 
   }
 
-  // dismiss() {
-  //   // this.statusBar.show();
-  //   this.ModalWrapperPage.dismissModal();
-  // }
   back() {
     this.navCtrl.pop();
   }
 
   openUserProjectSideMenuPage() {
-    // this.statusBar.show();
     this.navCtrl.push('UserProjectSideMenuPage', { "project_id" : this.project_id });
   }
 
   openUserProjectStoryPage() {
-    // this.statusBar.show();
     this.navCtrl.push('UserProjectStoryPage', { "project_id" : this.project_id });
   }
 
   openUserProjectLinkPage() {
-    // this.statusBar.show();
     let userProjectLinkModal = this.modalCtrl.create( 'ModalWrapperPage', {page: 'UserProjectLinkPage'});
     userProjectLinkModal.present();
   }
@@ -142,13 +123,6 @@ export class UserProjectHomePage {
   }
 
   openUserProjectSearchResultPage(hashtags) {
-    // let userProjectSearchResultModal = this.modalCtrl.create( 'ModalWrapperPage',
-    //   { page: 'UserProjectSearchResultPage',
-    //     params: { "hashtags" : hashtags,
-    //     "project_id" : this.project_id }
-    //   });
-    // userProjectSearchResultModal.present();
-
     this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 

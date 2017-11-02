@@ -50,7 +50,6 @@ export class UserProjectRewardFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectRewardFormPage');
-    // this.project_id = this.navParams.get('project_id');
     this.project_id = this.ModalWrapperPage.modalParams.project_id;
     this.slides.lockSwipeToNext(true);
   }

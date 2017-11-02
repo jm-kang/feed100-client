@@ -28,8 +28,8 @@ export class CompanyInterviewPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyInterviewPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyInterviewPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getInterviews()
@@ -44,7 +44,7 @@ export class CompanyInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           })
         }
       },

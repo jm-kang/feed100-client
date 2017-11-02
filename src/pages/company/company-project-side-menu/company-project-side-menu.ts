@@ -51,8 +51,8 @@ export class CompanyProjectSideMenuPage {
     this.navCtrl.pop();
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter CompanyProjectSideMenuPage');
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter CompanyProjectSideMenuPage');
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -75,7 +75,7 @@ export class CompanyProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           });
         }
       },

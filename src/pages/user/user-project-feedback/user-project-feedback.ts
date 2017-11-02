@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
-// import { StatusBar } from '@ionic-native/status-bar';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -54,7 +53,6 @@ export class UserProjectFeedbackPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    // public statusBar: StatusBar, 
     private el:ElementRef, 
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
@@ -71,9 +69,8 @@ export class UserProjectFeedbackPage {
     console.log('ionViewDidLoad UserProjectFeedbackPage');
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectFeedbackPage');
-    // this.statusBar.show();
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter UserProjectFeedbackPage');
     this.segmentOpinionsCondition = "all";
 
     let loading = this.commonService.presentLoading();
@@ -113,7 +110,7 @@ export class UserProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewWillEnter();
+            this.ionViewDidEnter();
           });
         }
       },
@@ -134,12 +131,6 @@ export class UserProjectFeedbackPage {
   }
   
   openUserProjectSearchResultPage(hashtags) {
-    // let userProjectSearchResultModal = this.modalCtrl.create('ModalWrapperPage', 
-    //   { page: 'UserProjectSearchResultPage', 
-    //     params:{ "hashtags" : hashtags,
-    //     "project_id" : this.project_id }
-    //   });
-    // userProjectSearchResultModal.present();
     this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
