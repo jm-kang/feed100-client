@@ -44,11 +44,7 @@
   </div>
   <div text-center *ngIf = "!proceedingProjects.length" class="empty-inner">
     <p>진행중인 프로젝트가 없습니다!</p>
-<<<<<<< HEAD
-    <button ion-button clear (click)="openProjectPage()">프로젝트 등록하기 ></button>
-=======
     <button ion-button clear (click)="openUserProjectPage()">프로젝트 둘러보러 가기 ></button>
->>>>>>> 85d73105270df23b6cb1cb201a1df0ed1f4a52ba
   </div>
   <ion-slides *ngIf = "proceedingProjects.length" pager=false loop="false" spaceBetween="-23">
     <ion-slide *ngFor="let proceedingProject of proceedingProjects">
