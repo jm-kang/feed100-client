@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController, Content } from 'ionic-angular';
 
-import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-
-import { StatusBar } from '@ionic-native/status-bar';
+// import { StatusBar } from '@ionic-native/status-bar';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -40,17 +38,9 @@ export class UserProjectSearchResultPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController, 
-    public statusBar: StatusBar,
+    // public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
-  }
-
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      this.statusBar.show();
-      this.viewCtrl.dismiss();
-    }
   }
 
   ionViewDidLoad() {
@@ -59,7 +49,7 @@ export class UserProjectSearchResultPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectSearchResultPage');
-    this.statusBar.show();
+    // this.statusBar.show();
 
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
@@ -113,8 +103,12 @@ export class UserProjectSearchResultPage {
     );
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss();
+  // dismiss() {
+  //   this.viewCtrl.dismiss();
+  // }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   filter() {
@@ -159,6 +153,6 @@ export class UserProjectSearchResultPage {
   }
 
   openUserProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
+    this.navCtrl.push('UserProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 }

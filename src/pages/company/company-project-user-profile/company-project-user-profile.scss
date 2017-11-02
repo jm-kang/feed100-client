@@ -2,19 +2,15 @@ page-company-project-user-profile {
 }
 
 .user-profile-page-header {
+    
     background-color: transparent;
 
     .toolbar-ios {
         padding-top: calc(20px + 4px);
         min-height: calc(44px + 20px);
     }
-    .back-and-close-button {
+    .white-button {
         color: #fff;
-    }
-
-    .toolbar {
-        padding-left: 16px;
-        padding-right: 16px;
     }
 
     ion-buttons[start] {

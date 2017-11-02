@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content no-bounce class="slide-question-content">
+<ion-content class="slide-question-content" #contentRef  (swipe)="swipeEvent($event)" (ionScroll)="scrollingEvent($event)" (panEnd)='panEnd()'>
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
@@ -43,7 +43,7 @@
         </ion-list>
       </div>
       <div class="participation-condition-options-wrapper over-options" *ngIf="participationConditionSlide.options.length > 5">
-        <ion-list (ionChange)="ionRadioChange()" radio-group [(ngModel)]="participationConditionSlide.value">
+        <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
           <ion-row>
             <ion-item col-6 text-center *ngFor="let option of participationConditionSlide.options">
               <ion-label color="primary">{{option.option}}</ion-label>

@@ -1,9 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content } from 'ionic-angular';
 
-import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -83,14 +80,16 @@ export class UserProjectFeedbackListPage {
   }
 
   openUserProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
+    this.navCtrl.push('UserProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
   openUserProjectSearchResultPage(hashtags) {
-    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    userProjectSearchResultModal.present();
+    // let userProjectSearchResultModal = this.modalCtrl.create('ModalWrapperPage',
+    //   { page: 'UserProjectSearchResultPage', 
+    //     params:{ "hashtags" : hashtags, "project_id" : this.project_id }
+    //   });
+    // userProjectSearchResultModal.present();
+    this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   changeSegment() {

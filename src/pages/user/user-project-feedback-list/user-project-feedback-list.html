@@ -7,7 +7,7 @@
 <ion-header class="feedback-list-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button class="pop-button" ion-button (click)="back()" icon-only>
+      <button ion-button (click)="back()" icon-only>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
@@ -54,8 +54,8 @@
             </ion-item>
           </ion-card-header>
           <ion-card-content class="feedback-content">
-            <div tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
+            <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
+              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100 | replaceBrTag}}   
               <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>
@@ -94,8 +94,8 @@
             </ion-item>
           </ion-card-header>
           <ion-card-content class="feedback-content">
-            <div tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
+            <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
+              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100 | replaceBrTag}}   
               <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>
@@ -134,8 +134,8 @@
             </ion-item>
           </ion-card-header>
           <ion-card-content class="feedback-content">
-            <div tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
+            <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
+              {{(feedback.project_feedback | jsonParse)[0] | slice:0:100 | replaceBrTag}}   
               <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>

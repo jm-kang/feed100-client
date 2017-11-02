@@ -1,10 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
 
-import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
-import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -468,8 +464,14 @@ export class CompanyProjectReportPage {
 
   slideChanged() {
     if(this.slides.isBeginning()) {
+      this.slides.lockSwipeToPrev(true);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
       this.isFirstSlide = true;
     } else {
+      this.slides.lockSwipeToPrev(false);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
       this.isFirstSlide = false;
     }
 
@@ -499,15 +501,15 @@ export class CompanyProjectReportPage {
   }
 
   openCompanyProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
+    this.navCtrl.push('CompanyProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
-  openCompanyProjectSearchResultPage(hashtags) {
-    let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    companyProjectSearchResultModal.present();
-  }
+  // openCompanyProjectSearchResultPage(hashtags) {
+  //   let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
+  //     { "hashtags" : hashtags,
+  //     "project_id" : this.project_id });
+  //   companyProjectSearchResultModal.present();
+  // }
 
   average(index) {
     if(this.projectStatSlides[index].totalNum == 0) {
@@ -541,8 +543,22 @@ export class CompanyProjectReportPage {
     }
   }
 
+  // openCompanyProjectUserProfilePage(project_participant_id) {
+  //   let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+  //   companyProjectUserProfileModal.present();
+  // }
+
+  openCompanyProjectSearchResultPage(hashtags) {
+    // let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage,
+    //   { "hashtags" : hashtags,
+    //   "project_id" : this.project_id });
+    // companyProjectSearchResultModal.present();
+    this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
+  }
+
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 }

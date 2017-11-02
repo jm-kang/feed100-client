@@ -3,7 +3,7 @@ import { IonicPageModule } from 'ionic-angular';
 import { UserNewsfeedStoryPage } from './user-newsfeed-story';
 
 import { ElasticModule } from 'angular2-elastic';
-import { ComponentsModule } from '../../../components/components.module';
+import { ComponentsModule } from './../../../assets/components/components.module';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { MomentModule } from 'angular2-moment';
 

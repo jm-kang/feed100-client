@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
@@ -20,13 +22,13 @@ declare var cordova:any;
 })
 export class UserProjectLinkPage {
 
-  constructor(private themeableBrowser: ThemeableBrowser,  public statusBar: StatusBar, public viewCtrl: ViewController, public navCtrl: NavController) {
+  constructor(private themeableBrowser: ThemeableBrowser,  public statusBar: StatusBar, public viewCtrl: ViewController, public navCtrl: NavController, public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectLinkPage');
     this.statusBar.styleLightContent();
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
 
     cordova.ThemeableBrowser.open('https://m.naver.com', '_blank', {
       statusbar: {

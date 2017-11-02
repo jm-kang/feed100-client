@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, AlertController, Content } from 'ionic-angular';
-import { CompanyProjectFeedbackPage } from '../company-project-feedback/company-project-feedback';
-import { CompanyProjectInterviewDetailPage } from '../company-project-interview-detail/company-project-interview-detail';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -91,22 +89,8 @@ export class CompanyProjectUserProfilePage {
 
   }
 
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      this.viewCtrl.dismiss();
-    }
-
-    if(e.directionY == "up") {
-      document.querySelector(".user-profile-page-footer")['style'].display = 'block';
-    }
-    if(e.directionY == "down") {
-      document.querySelector(".user-profile-page-footer")['style'].display = 'none';
-    }
-  }
-
-  dismiss() {
-    this.viewCtrl.dismiss();
+  back() {
+    this.navCtrl.pop();
   }
 
   onAvatarImageLoad(img) {
@@ -141,10 +125,10 @@ export class CompanyProjectUserProfilePage {
   }
 
   openCompanyProjectFeedbackPage() {
-    this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.project_participant_id });
+    this.navCtrl.push('CompanyProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : this.project_participant_id });
   } 
   openCompanyProjectInterviewDetailPage() {
-    this.navCtrl.push(CompanyProjectInterviewDetailPage, { "project_participant_id" : this.project_participant_id });
+    this.navCtrl.push('CompanyProjectInterviewDetailPage', { "project_participant_id" : this.project_participant_id });
   }
 }
 

@@ -1,20 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 
-import { LoginPage } from '../../common/login/login';
-import { UserPointExchangePage } from '../user-point-exchange/user-point-exchange';
-import { UserPointUsageHistoryPage } from '../user-point-usage-history/user-point-usage-history';
-import { AppIntroPage } from '../../common/app-intro/app-intro';
-import { TutorialPage } from '../../common/tutorial/tutorial';
-import { ManualPage } from '../../common/manual/manual';
-import { FaqPage } from '../../common/faq/faq';
-import { TermsPage } from '../../common/terms/terms';
-import { PrivateInfoPolicyPage } from '../../common/private-info-policy/private-info-policy';
-import { NoticePage } from '../../common/notice/notice';
-import { ContactPage } from '../../common/contact/contact';
-import { UserAccountModificationFormPage } from '../user-account-modification-form/user-account-modification-form';
-import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -34,7 +20,7 @@ export class UserConfigurePage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
@@ -52,65 +38,65 @@ export class UserConfigurePage {
   }
 
   openUserPointExchangePage() {
-    this.navCtrl.push(UserPointExchangePage);
+    this.navCtrl.push('UserPointExchangePage');
   }
 
   openUserPointUsageHistoryPage() {
-    this.navCtrl.push(UserPointUsageHistoryPage);
+    this.navCtrl.push('UserPointUsageHistoryPage');
   }
-  
+
   openAppIntroPage() {
-    let appIntroModal = this.modalCtrl.create(AppIntroPage);
+    let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
     appIntroModal.present();
   }
 
   openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create(TutorialPage);
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
     tutorialModal.present();
   }
 
   openManualPage() {
-    let manualModal = this.modalCtrl.create(ManualPage);
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
     manualModal.present();
   }
 
   openFaqPage() {
-    let faqModal = this.modalCtrl.create(FaqPage);
+    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
     faqModal.present();
   }
 
   openTermsPage() {
-    let termsModal = this.modalCtrl.create(TermsPage);
+    let termsModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TermsPage'});
     termsModal.present();
   }
 
   openPrivateInfoPolicy() {
-    let privateInfoPolicyModal = this.modalCtrl.create(PrivateInfoPolicyPage);
+    let privateInfoPolicyModal = this.modalCtrl.create('ModalWrapperPage', {page: 'PrivateInfoPolicyPage'});
     privateInfoPolicyModal.present();
   }
 
   openNoticePage() {
-    let noticeModal = this.modalCtrl.create(NoticePage);
+    let noticeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'NoticePage'});
     noticeModal.present();
   }
 
   openContactPage() {
-    let contactModal = this.modalCtrl.create(ContactPage);
+    let contactModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ContactPage'});
     contactModal.present();
   }
 
   openUserAccountModificationFormPage() {
-    let userAccountModificationFormModal = this.modalCtrl.create(UserAccountModificationFormPage);
+    let userAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserAccountModificationFormPage'});
     userAccountModificationFormModal.present();
   }
 
   openUserProfileModificationFormPage() {
-    let userProfileModificationFormModal = this.modalCtrl.create(UserProfileModificationFormPage);
+    let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
   }
 
   logout() {
-    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?', 
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?',
       () => {
         this.commonService.logout(this.navCtrl);
       }

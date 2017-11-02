@@ -2,15 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content } from 'ionic-angular';
 
-import { StatusBar } from '@ionic-native/status-bar';
+// import { StatusBar } from '@ionic-native/status-bar';
 
-import { UserProjectSideMenuPage } from '../user-project-side-menu/user-project-side-menu';
-import { UserProjectStoryPage } from '../user-project-story/user-project-story';
-import { UserProjectLinkPage } from '../user-project-link/user-project-link';
-import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
-import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
-import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-project-feedback-list';
+// import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -41,45 +35,24 @@ export class UserProjectHomePage {
   progressState: String = "";
   isLink: boolean = false;
   interview_num: number = 0;
-  
+  projectRegistrationDate: String = "";
+
   feedbacks = [];
 
   projectHashtags = [];
 
 
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public viewCtrl: ViewController, 
-    public statusBar: StatusBar, 
-    public appCtrl: App, 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public viewCtrl: ViewController,
+    // public statusBar: StatusBar,
+    public appCtrl: App,
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
-  }
-
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      this.statusBar.show();
-      this.viewCtrl.dismiss();
-    }
-    if (e.scrollTop < 30) {
-      // console.log("top: " + e.scrollingFun);
-      document.querySelector(".project-header-wrapper")['style'].background = 'transparent';
-      document.querySelector(".project-header-wrapper")['style'].borderBottom = '0';
-      document.querySelector(".project-header-wrapper .dismiss-button ion-icon")['style'].color = '#fff';
-      document.querySelector(".project-header-wrapper .menu-button ion-icon")['style'].color = '#fff';
-      document.querySelector(".project-header-wrapper ion-title")['style'].display = 'none';
-    } else {
-      // console.log("bottom: " + e.scrollingFun);
-      document.querySelector(".project-header-wrapper")['style'].background = '#fff';
-      document.querySelector(".project-header-wrapper")['style'].borderBottom = '0.55px solid #e8e8e8';
-      document.querySelector(".project-header-wrapper .menu-button ion-icon")['style'].color = '#383838';
-      document.querySelector(".project-header-wrapper .dismiss-button ion-icon")['style'].color = '#383838';
-      document.querySelector(".project-header-wrapper ion-title")['style'].display = 'flex';
-    }
-  }
+    public userService: UserServiceProvider,
+    // public ModalWrapperPage: ModalWrapperPage
+    ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
@@ -87,10 +60,15 @@ export class UserProjectHomePage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectHomePage');
-    this.statusBar.hide(); 
-    
+    // this.statusBar.hide();
+
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
+    // this.project_id = this.ModalWrapperPage.modalParams.project_id;
+    // console.log(JSON.stringify(this.ModalWrapperPage.navParams));
+    // console.log(JSON.stringify(this.ModalWrapperPage.modalParams));
+    // console.log("data: " + JSON.stringify(this.navParams.data));
+    // console.log("param: " + this.project_id);
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -109,11 +87,12 @@ export class UserProjectHomePage {
           this.progressState = data.data.project_end_date;
           this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
+          this.projectRegistrationDate = data.data.project_registration_date;
 
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
 
           this.feedbacks = data.data.feedbacks;
-        
+
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -130,44 +109,50 @@ export class UserProjectHomePage {
 
   }
 
-  dismiss() {
-    this.statusBar.show();
-    this.viewCtrl.dismiss();
+  // dismiss() {
+  //   // this.statusBar.show();
+  //   this.ModalWrapperPage.dismissModal();
+  // }
+  back() {
+    this.navCtrl.pop();
   }
 
   openUserProjectSideMenuPage() {
-    this.statusBar.show();
-    this.navCtrl.push(UserProjectSideMenuPage, { "project_id" : this.project_id });
+    // this.statusBar.show();
+    this.navCtrl.push('UserProjectSideMenuPage', { "project_id" : this.project_id });
   }
 
   openUserProjectStoryPage() {
-    this.statusBar.show();
-    this.navCtrl.push(UserProjectStoryPage, { "project_id" : this.project_id });
+    // this.statusBar.show();
+    this.navCtrl.push('UserProjectStoryPage', { "project_id" : this.project_id });
   }
 
   openUserProjectLinkPage() {
-    this.statusBar.show();
-    let userProjectLinkModal = this.modalCtrl.create(UserProjectLinkPage);
+    // this.statusBar.show();
+    let userProjectLinkModal = this.modalCtrl.create( 'ModalWrapperPage', {page: 'UserProjectLinkPage'});
     userProjectLinkModal.present();
   }
 
   openUserProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : feedback_id });
+    this.navCtrl.push('UserProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
   }
 
   openUserProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage, { "project_id" : this.project_id });
+    this.navCtrl.push('UserProjectInterviewDetailPage', { "project_id" : this.project_id });
   }
 
   openUserProjectSearchResultPage(hashtags) {
-    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    userProjectSearchResultModal.present();
+    // let userProjectSearchResultModal = this.modalCtrl.create( 'ModalWrapperPage',
+    //   { page: 'UserProjectSearchResultPage',
+    //     params: { "hashtags" : hashtags,
+    //     "project_id" : this.project_id }
+    //   });
+    // userProjectSearchResultModal.present();
+
+    this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openUserProjectFeedbackListPage() {
-    this.navCtrl.push(UserProjectFeedbackListPage, { "project_id" : this.project_id });
+    this.navCtrl.push('UserProjectFeedbackListPage', { "project_id" : this.project_id });
   }
 }
-

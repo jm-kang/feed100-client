@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -64,8 +63,9 @@ export class CompanyProjectStorySummaryPage {
   }
   
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 
 }

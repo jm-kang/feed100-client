@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { CompanyProjectInterviewDetailPage } from '../company-project-interview-detail/company-project-interview-detail';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -78,6 +76,6 @@ export class CompanyProjectInterviewPage {
   }
 
   openCompanyProjectInterviewDetailPage(project_participant_id) {
-    this.navCtrl.push(CompanyProjectInterviewDetailPage, { "project_participant_id" : project_participant_id });
+    this.navCtrl.push('CompanyProjectInterviewDetailPage', { "project_participant_id" : project_participant_id });
   }
 }

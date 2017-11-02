@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
+import { ModalWrapperPage } from './../modal-wrapper/modal-wrapper';
+
 /**
  * Generated class for the ContactPage page.
  *
@@ -15,26 +17,14 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class ContactPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactPage');
   }
 
-  scrollingFun(e) {
-    if (e.scrollTop < -150) {
-      this.viewCtrl.dismiss();
-    }
-    if(0 > e.scrollTop) {
-      document.querySelector(".modal-header-wrapper")['style'].display = 'none';
-    }
-    if(0 <= e.scrollTop) {
-      document.querySelector(".modal-header-wrapper")['style'].display = 'block';
-    }
-  }
-
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 }

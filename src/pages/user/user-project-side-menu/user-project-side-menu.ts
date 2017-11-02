@@ -1,13 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
 
-import { UserProjectHomePage } from '../user-project-home/user-project-home';
-import { UserProjectFeedbackPage } from '../user-project-feedback/user-project-feedback';
-import { UserProjectInterviewDetailPage } from '../user-project-interview-detail/user-project-interview-detail';
-import { UserProjectFeedbackListPage } from '../user-project-feedback-list/user-project-feedback-list';
-
-import { StatusBar } from '@ionic-native/status-bar';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
@@ -66,7 +59,6 @@ export class UserProjectSideMenuPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
-    public statusBar: StatusBar,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -173,15 +165,15 @@ export class UserProjectSideMenuPage {
   }
 
   openProjectFeedbackPage() {
-    this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.feedback_id });
+    this.navCtrl.push('UserProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : this.feedback_id });
   }
 
   openProjectFeedbackListPage() {
-    this.navCtrl.push(UserProjectFeedbackListPage, { "project_id" : this.project_id });
+    this.navCtrl.push('UserProjectFeedbackListPage', { "project_id" : this.project_id });
   }
 
   openProjectInterviewDetailPage() {
-    this.navCtrl.push(UserProjectInterviewDetailPage, { "project_id" : this.project_id });
+    this.navCtrl.push('UserProjectInterviewDetailPage', { "project_id" : this.project_id });
   }
 
 }

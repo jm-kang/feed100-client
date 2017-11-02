@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController, AlertController, Content } from 'ionic-angular';
+
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -16,6 +18,14 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-account-modification-form.html',
 })
 export class UserAccountModificationFormPage {
+  @ViewChild("contentRef") contentHandle: Content;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
+
   avatarImage: String = "";
   nickname: String = "";
   username: String = "";
@@ -33,7 +43,8 @@ export class UserAccountModificationFormPage {
     public viewCtrl: ViewController, 
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
@@ -66,15 +77,8 @@ export class UserAccountModificationFormPage {
     );
   }
 
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      this.viewCtrl.dismiss();
-    }
-  }
-
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 
   onAvatarImageLoad(img) {
@@ -153,7 +157,7 @@ export class UserAccountModificationFormPage {
       (data) => {
         if(data.success == true) {
           this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.viewCtrl.dismiss("refresh");
+          this.ModalWrapperPage.dismissModal("refresh");
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -168,4 +172,37 @@ export class UserAccountModificationFormPage {
       }
     );
   }
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
+  }
+
 }

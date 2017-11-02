@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { ModalWrapperPage } from './../modal-wrapper/modal-wrapper';
+
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
 
 declare var cordova:any;
@@ -20,13 +22,13 @@ declare var cordova:any;
   templateUrl: 'manual.html',
 })
 export class ManualPage {
-  constructor(private themeableBrowser: ThemeableBrowser,  public statusBar: StatusBar, public viewCtrl: ViewController, public navCtrl: NavController) {
+  constructor(private themeableBrowser: ThemeableBrowser,  public statusBar: StatusBar, public viewCtrl: ViewController, public navCtrl: NavController, public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManualPage');
     this.statusBar.styleLightContent();
-     this.viewCtrl.dismiss();
+    this. ModalWrapperPage.dismissModal();
 
      cordova.ThemeableBrowser.open('https://m.naver.com', '_blank', {
        statusbar: {

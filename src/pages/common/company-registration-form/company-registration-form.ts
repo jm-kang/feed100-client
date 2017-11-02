@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
-
-import { CompanyTabsPage } from '../../company/company-tabs/company-tabs';
-import { TermsPage } from '../terms/terms';
-import { PrivateInfoPolicyPage} from '../private-info-policy/private-info-policy';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, App, Nav } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
@@ -34,7 +30,7 @@ export class CompanyRegistrationFormPage {
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,
-    public storage: Storage) {
+    public storage: Storage,) {
   }
 
   ionViewDidLoad() {
@@ -46,13 +42,11 @@ export class CompanyRegistrationFormPage {
   }
 
   openTermsPage() {
-    let termsModal = this.modalCtrl.create(TermsPage);
-    termsModal.present();
+    this.modalCtrl.create('ModalWrapperPage', { page: 'TermsPage' }).present();
   }
 
   openPrivateInfoPolicyPage() {
-    let privateInfoPolicyModal = this.modalCtrl.create(PrivateInfoPolicyPage);
-    privateInfoPolicyModal.present();
+    this.modalCtrl.create('ModalWrapperPage', { page: 'PrivateInfoPolicyPage' }).present();
   }
 
   localRegister() {
@@ -82,7 +76,7 @@ export class CompanyRegistrationFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot(CompanyTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('CompanyTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
           switch(data.message) {

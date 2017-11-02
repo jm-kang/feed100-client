@@ -1,8 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { CompanyNewsfeedStoryPage } from '../company-newsfeed-story/company-newsfeed-story';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -58,8 +56,23 @@ export class CompanyNewsfeedPage {
   }
 
   openCompanyNewsfeedStoryPage(newsfeed_id) {
-    this.appCtrl.getRootNav().push(CompanyNewsfeedStoryPage, { "newsfeed_id" : newsfeed_id });
+    this.navCtrl.push('CompanyNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
+
+  openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
+    this.navCtrl.push('CompanyAlarmPage');
+  }
+
+  openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
+    this.navCtrl.push('CompanyConfigurePage');
+  }
+
+  getAlarmNum() {
+    return this.companyService.alarmNum;
+  }
+
 
 
 }

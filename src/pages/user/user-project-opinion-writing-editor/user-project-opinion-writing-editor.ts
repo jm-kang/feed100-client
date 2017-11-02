@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController, Content } from 'io
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Storage } from '@ionic/storage';
 
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 
@@ -20,6 +22,12 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 })
 export class UserProjectOpinionWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
 
   feedback_id;
 
@@ -45,30 +53,28 @@ export class UserProjectOpinionWritingEditorPage {
     private camera: Camera,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    public storage: Storage) {
+    public storage: Storage,
+    public ModalWrapperPage: ModalWrapperPage) {
   }
+
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
+  //   this.nickname = this.navParams.get('nickname');
+  //   this.feedback_id = this.navParams.get('feedback_id');
+  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
-    this.nickname = this.navParams.get('nickname');
-    this.feedback_id = this.navParams.get('feedback_id');
+    this.nickname = this.ModalWrapperPage.modalParams.nickname;
+    this.feedback_id = this.ModalWrapperPage.modalParams.feedback_id;
   }
 
   ionViewDidEnter() {    
     this.opinionContent = this.opinionContent.replace(/<br *\/?>/gi, '\n');
   }
 
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      let data = "";
-      this.viewCtrl.dismiss(data);
-    }
-  }
-
   dismiss() {
-    console.log("dismiss() : 취소 버튼");
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 
   onOpinionLoad(img) {
@@ -157,15 +163,15 @@ export class UserProjectOpinionWritingEditorPage {
         if(data.success == true) {
           if(data.message == 'opinion is already writed') {
             this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
-            this.viewCtrl.dismiss();
+            this.ModalWrapperPage.dismissModal();
           }
           else if(data.message == 'project is not proceeding') {
             this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
-            this.viewCtrl.dismiss();
+            this.ModalWrapperPage.dismissModal();
           }
           else {
             this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
-            this.viewCtrl.dismiss();
+            this.ModalWrapperPage.dismissModal();
           }
         }
         else if(data.success == false) {
@@ -192,4 +198,38 @@ export class UserProjectOpinionWritingEditorPage {
       console.log(this.isEmpathy);
     }
   }
+
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
+  }
+
 }

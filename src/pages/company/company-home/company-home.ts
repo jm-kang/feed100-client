@@ -1,16 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
-import { AppIntroPage } from '../../common/app-intro/app-intro';
-import { TutorialPage } from '../../common/tutorial/tutorial'
-import { ManualPage } from '../../common/manual/manual';
-import { FaqPage } from '../../common/faq/faq';
-import { CompanyNewsfeedStoryPage } from '../company-newsfeed-story/company-newsfeed-story';
-import { CompanyProjectRegistrationPage } from '../company-project-registration/company-project-registration';
-
-import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
-import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -125,27 +115,27 @@ export class CompanyHomePage {
   }
 
   openAppIntroPage() {
-    let appIntroModal = this.modalCtrl.create(AppIntroPage);
+    let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
     appIntroModal.present();
   }
 
   openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create(TutorialPage);
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
     tutorialModal.present();
   }
 
   openManualPage() {
-    let manualModal = this.modalCtrl.create(ManualPage);
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
     manualModal.present();
   }
 
   openFaqPage() {
-    let faqModal = this.modalCtrl.create(FaqPage);
+    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
     faqModal.present();
   }
 
   openCompanyNewsfeedStoryPage() {
-    this.appCtrl.getRootNav().push(CompanyNewsfeedStoryPage);
+    this.navCtrl.push('CompanyNewsfeedStoryPage');
   }
 
   // 내 프로젝트 or not
@@ -181,16 +171,32 @@ export class CompanyHomePage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    companyProjectHomeModal.present();
+    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
+    // companyProjectHomeModal.present();
+    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
   openCompanyProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(CompanyProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
   }
 
   openCompanyProjectRegistrationPage() {
-    let projectRegistrationModal = this.modalCtrl.create(CompanyProjectRegistrationPage);
+    let projectRegistrationModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectRegistrationPage'});
     projectRegistrationModal.present();
   }
+
+  openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
+    this.navCtrl.push('CompanyAlarmPage');
+  }
+
+  openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
+    this.navCtrl.push('CompanyConfigurePage');
+  }
+
+  getAlarmNum() {
+    return this.companyService.alarmNum;
+  }
+
 }

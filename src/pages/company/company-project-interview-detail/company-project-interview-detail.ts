@@ -2,9 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { CompanyProjectInterviewWritingEditorPage } from '../company-project-interview-writing-editor/company-project-interview-writing-editor';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -169,13 +166,14 @@ export class CompanyProjectInterviewDetailPage {
   }
   
   openCompanyProjectInterviewWritingEditorPage() {
-    let companyProjectInterviewWritingEditorModal = this.modalCtrl.create(CompanyProjectInterviewWritingEditorPage, 
-      {
-      "nickname" : this.nickname,
-      "project_participant_id" : this.project_participant_id,
-      "ordinal" : this.interviews.length + 1
-    }
-  );
+    let companyProjectInterviewWritingEditorModal = this.modalCtrl.create('ModalWrapperPage',
+      { page: 'CompanyProjectInterviewWritingEditorPage', 
+        params: {
+          "nickname" : this.nickname,
+          "project_participant_id" : this.project_participant_id,
+          "ordinal" : this.interviews.length + 1
+        }
+      });
     companyProjectInterviewWritingEditorModal.present();
     companyProjectInterviewWritingEditorModal.onWillDismiss(
       () => {
@@ -190,8 +188,9 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 
 }

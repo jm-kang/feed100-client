@@ -1,10 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { UserProjectFeedbackPopoverPage } from '../user-project-feedback-popover/user-project-feedback-popover';
-import { UserProjectSearchResultPage } from '../user-project-search-result/user-project-search-result';
-import { UserProjectOpinionWritingEditorPage } from '../user-project-opinion-writing-editor/user-project-opinion-writing-editor';
+// import { StatusBar } from '@ionic-native/status-bar';
+
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -56,7 +54,7 @@ export class UserProjectFeedbackPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public statusBar: StatusBar, 
+    // public statusBar: StatusBar, 
     private el:ElementRef, 
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
@@ -75,7 +73,7 @@ export class UserProjectFeedbackPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectFeedbackPage');
-    this.statusBar.show();
+    // this.statusBar.show();
     this.segmentOpinionsCondition = "all";
 
     let loading = this.commonService.presentLoading();
@@ -194,16 +192,20 @@ export class UserProjectFeedbackPage {
   }
 
   openUserProjectSearchResultPage(hashtags) {
-    let userProjectSearchResultModal = this.modalCtrl.create(UserProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    userProjectSearchResultModal.present();
+    // let userProjectSearchResultModal = this.modalCtrl.create('ModalWrapperPage', 
+    //   { page: 'UserProjectSearchResultPage', 
+    //     params:{ "hashtags" : hashtags,
+    //     "project_id" : this.project_id }
+    //   });
+    // userProjectSearchResultModal.present();
+    this.navCtrl.push('UserProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openUserProjectOpinionWritingEditorPage(nickname, feedback_id) {
-    let userProjectOpinionWritingEditorModal = this.modalCtrl.create(UserProjectOpinionWritingEditorPage, {
-      "nickname" : nickname,
-      "feedback_id" : feedback_id
+    let userProjectOpinionWritingEditorModal = this.modalCtrl.create('ModalWrapperPage',
+    { page:'UserProjectOpinionWritingEditorPage', 
+      params: { "nickname" : nickname,
+      "feedback_id" : feedback_id }
     });
     userProjectOpinionWritingEditorModal.present();
   }

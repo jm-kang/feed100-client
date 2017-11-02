@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, App } from 'ionic-angular';
+import { Platform, App, ModalCmp } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
@@ -30,6 +30,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
 })
 export class MyApp {
   rootPage:any = LoginPage;
+  // rootPage:any = ModalPage;
   // rootPage:any = UserTabsPage;
   // rootPage:any = UserProjectInterviewDetailPage;
   // rootPage:any = UserProjectFeedbackPage;
@@ -58,6 +59,7 @@ export class MyApp {
       this.verifyLoginState();
       keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
+      ModalCmp.prototype._viewWillEnter = () => {};
     });
   }
 

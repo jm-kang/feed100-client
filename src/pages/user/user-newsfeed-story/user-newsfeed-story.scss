@@ -180,12 +180,13 @@ page-user-newsfeed-story {
 }
 .slide-title-wrapper {
     position: absolute;
-    right: 0;
+    right: 16px;
     top: 55px;
 }
 
 .slide-title-wrapper.last-slide-title-wrapper {
     position: relative;
+    right: 0 !important;
     text-align: left !important;
 }
 

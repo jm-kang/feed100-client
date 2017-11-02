@@ -8,17 +8,25 @@
 <ion-header class="project-header-wrapper">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
-        <ion-icon name="close"></ion-icon>              
+      <!-- <button class="dismiss-button" ion-button (click)="dismiss()" icon-only> -->
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>              
       </button>
     </ion-buttons>
     <ion-title>
-      <span class="project-header-title-wrapper">
+      <!-- <span class="project-header-title-wrapper">
         <span class="project-header-title">
           {{projectName | slice:0:15}}
         </span>
         <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
-      </span>
+      </span> -->
+      <ion-item class="avatar-span-wrapper item-flex">
+        <span item-start class="avatar-image avatar-span">
+          <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+        </span>
+        <h3>{{nickname}}</h3>
+        <h5>{{projectRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
+      </ion-item>
     </ion-title>
     <ion-buttons end> 
       <button class="menu-button" ion-button icon-only (click)="openUserProjectSideMenuPage()">
@@ -28,10 +36,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="project-home-content-wrapper" #contentRef (ionScroll)="scrollingFun($event)" (ionScrollStart)="scrollingFun($event)">
+<ion-content class="project-home-content-wrapper" #contentRef>
   <div tappable class="project-card-main-image-wrapper" (click)="openUserProjectStoryPage()">
-    <div class="shadow-header-top"></div>
-    <img [src]="projectMainImage" />
+    <!-- <div class="shadow-header-top"></div> -->
+    <img class="project-home-main-image" [src]="projectMainImage" />
 
     <div class="project-card-overlay-wrapper">
       <span text-center class="project-card-overlay">
@@ -43,12 +51,12 @@
   </div>
   <div class="project-home-content">
     <h1 [innerHTML]="projectName"></h1>
-    <ion-item class="avatar-span-wrapper item-flex">
+    <!-- <ion-item class="avatar-span-wrapper item-flex">
       <span item-start class="avatar-image avatar-span">
         <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
       </span>
       <h3>{{nickname}}</h3>
-    </ion-item>
+    </ion-item> -->
     <p class="summary">{{projectSummary}}</p>
     <div class="participant-wrapper">
       <span>{{progressState | amLocale:'ko' | amTimeAgo | progressState}}</span>
@@ -90,8 +98,8 @@
         </ion-item>
       </ion-card-header>
       <ion-card-content class="feedback-content">
-        <div tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-          {{(feedback.project_feedback | jsonParse)[0] | slice:0:100}}   
+        <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
+          {{(feedback.project_feedback | jsonParse)[0] | slice:0:100 | replaceBrTag}}   
           <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>  
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>

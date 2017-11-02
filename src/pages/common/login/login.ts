@@ -1,11 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, Slides, NavController, NavParams, ModalController } from 'ionic-angular';
-
-import { CompanyLoginFormPage } from '../company-login-form/company-login-form';
-import { CompanyInterviewPage } from '../../company/company-interview/company-interview';
-
-import { UserLoginFormPage } from '../user-login-form/user-login-form';
-import { RegistrationPage } from '../registration/registration';
+import { IonicPage, Slides, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the LoginPage page.
@@ -42,7 +36,7 @@ export class LoginPage {
     },
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -50,15 +44,14 @@ export class LoginPage {
   }
 
   openCompanyLoginFormPage() {
-    this.navCtrl.push(CompanyLoginFormPage);
+    this.navCtrl.push('CompanyLoginFormPage');
   }
 
   openUserLoginFormPage() {
-    this.navCtrl.push(UserLoginFormPage);
+    this.navCtrl.push('UserLoginFormPage');
   }
 
   openRegistrationPage() {
-    // this.modalCtrl.create(RegistrationPage).present();
-    this.navCtrl.push(RegistrationPage);
+    this.navCtrl.push('RegistrationPage');
   }
 }

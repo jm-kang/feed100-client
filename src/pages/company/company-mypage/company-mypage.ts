@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { CompanyAccountModificationFormPage } from '../company-account-modification-form/company-account-modification-form';
-
-import { CompanyProjectHomePage } from '../company-project-home/company-project-home';
-import { CompanyProjectStoryPage } from '../company-project-story/company-project-story';
-import { CompanyProjectRegistrationPage } from '../company-project-registration/company-project-registration';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -87,7 +81,7 @@ export class CompanyMypagePage {
   }
 
   openCompanyAccountModificationFormPage() {
-    let companyAccountModificationFormModal = this.modalCtrl.create(CompanyAccountModificationFormPage);
+    let companyAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page : 'CompanyAccountModificationFormPage'});
     companyAccountModificationFormModal.present();
     companyAccountModificationFormModal.onWillDismiss(
       (data) => {
@@ -135,17 +129,32 @@ export class CompanyMypagePage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    companyProjectHomeModal.present();
+    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
+    // companyProjectHomeModal.present();
+    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
   openCompanyProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(CompanyProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
   }
 
   openCompanyProjectRegistrationPage() {
-    let projectRegistrationModal = this.modalCtrl.create(CompanyProjectRegistrationPage);
+    let projectRegistrationModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectRegistrationPage'});
     projectRegistrationModal.present();
+  }
+
+  openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
+    this.navCtrl.push('CompanyAlarmPage');
+  }
+
+  openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
+    this.navCtrl.push('CompanyConfigurePage');
+  }
+
+  getAlarmNum() {
+    return this.companyService.alarmNum;
   }
 
 }

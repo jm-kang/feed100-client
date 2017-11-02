@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content, ViewController, ModalController } from 'ionic-angular';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
+
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -19,6 +20,13 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyProjectInterviewWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
+
   project_participant_id;
   nickname: String = "";
   ordinal: number = 1;
@@ -34,25 +42,26 @@ export class CompanyProjectInterviewWritingEditorPage {
     public viewCtrl: ViewController, 
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
-    public companyService: CompanyServiceProvider) {
+    public companyService: CompanyServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewWritingEditorPage');
   }
 
+  // ionViewWillEnter() {
+  //   console.log('ionViewWillEnter CompanyProjectInterviewWritingEditorPage');
+  //   this.nickname = this.navParams.get('nickname');
+  //   this.project_participant_id = this.navParams.get('project_participant_id');
+  //   this.ordinal = this.navParams.get('ordinal');
+  // }
+
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectInterviewWritingEditorPage');
-    this.nickname = this.navParams.get('nickname');
-    this.project_participant_id = this.navParams.get('project_participant_id');
-    this.ordinal = this.navParams.get('ordinal');
-  }
-
-  scrollingFun(e) {
-    if (e.scrollTop < -150) {
-      let data = "";
-      this.viewCtrl.dismiss(data);
-    }
+    this.nickname = this.ModalWrapperPage.modalParams.nickname;
+    this.project_participant_id = this.ModalWrapperPage.modalParams.project_participant_id;
+    this.ordinal = this.ModalWrapperPage.modalParams.ordinal;
   }
 
   completeEditor() {
@@ -77,7 +86,7 @@ export class CompanyProjectInterviewWritingEditorPage {
               this.commonService.showBasicAlert('인터뷰 요청 갯수가 초과되었습니다.');
             }
           }
-          this.viewCtrl.dismiss();
+          this.ModalWrapperPage.dismissModal();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -95,8 +104,7 @@ export class CompanyProjectInterviewWritingEditorPage {
   }
 
   dismiss() {
-    console.log("dismiss() : 취소 버튼");
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 
   onInterviewImageLoad(img, i) {
@@ -170,7 +178,40 @@ export class CompanyProjectInterviewWritingEditorPage {
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
+  }
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
   }
 }

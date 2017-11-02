@@ -1,18 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
-import { AppIntroPage } from '../../common/app-intro/app-intro';
-import { TutorialPage } from '../../common/tutorial/tutorial'
-import { ManualPage } from '../../common/manual/manual';
-import { FaqPage } from '../../common/faq/faq';
-import { UserNewsfeedStoryPage } from '../user-newsfeed-story/user-newsfeed-story';
-
-import { UserProjectHomePage } from '../user-project-home/user-project-home';
-import { UserProfileModificationFormPage } from '../user-profile-modification-form/user-profile-modification-form';
-import { UserProjectStoryPage } from '../user-project-story/user-project-story';
-import { UserProjectParticipationConditionFormPage } from '../user-project-participation-condition-form/user-project-participation-condition-form';
-import { UserProjectRewardFormPage } from '../user-project-reward-form/user-project-reward-form';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -127,27 +115,27 @@ export class UserHomePage {
   }
 
   openAppIntroPage() {
-    let appIntroModal = this.modalCtrl.create(AppIntroPage);
+    let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
     appIntroModal.present();
   }
 
   openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create(TutorialPage);
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
     tutorialModal.present();
   }
 
   openManualPage() {
-    let manualModal = this.modalCtrl.create(ManualPage);
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
     manualModal.present();
   }
 
   openFaqPage() {
-    let faqModal = this.modalCtrl.create(FaqPage);
+    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
     faqModal.present();
   }
 
   openUserNewsfeedStoryPage(newsfeed_id) {
-    this.appCtrl.getRootNav().push(UserNewsfeedStoryPage, { "newsfeed_id" : newsfeed_id });
+    this.navCtrl.push('UserNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
 
   // 진행중
@@ -180,6 +168,9 @@ export class UserHomePage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          // 추가된 문장
+          this.userService.alarmNum = data.data.alarm_num;
+          // 추가된 문장 끝
           if(data.data.project_info.isProceeding) {
             if(data.data.project_participation_info) {
               this.commonService.showConfirmAlert(messages[0], 
@@ -256,27 +247,48 @@ export class UserHomePage {
   }
 
   openUserProjectHomePage(project_id) {
-    let userProjectHomeModal = this.modalCtrl.create(UserProjectHomePage, { "project_id" : project_id });
-    userProjectHomeModal.present();
+    // let userProjectHomeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectHomePage', params: { "project_id" : project_id }});
+    // userProjectHomeModal.present();
+    this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 
   openUserProfileModificationFormPage() {
-    let userProfileModificationFormModal = this.modalCtrl.create(UserProfileModificationFormPage);
+    let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
   }
 
   openUserProjectStoryPage(project_id) {
-    this.appCtrl.getRootNavs()[0].push(UserProjectStoryPage, { "project_id" : project_id });
+    this.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
   }
 
   openUserProjectParticipationConditionFormPage(project_id) {
-    let userProjectParticipationConditionFormModal = this.modalCtrl.create(UserProjectParticipationConditionFormPage, { "project_id" : project_id });
+    let userProjectParticipationConditionFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectParticipationConditionFormPage', params: { "project_id" : project_id }});
     userProjectParticipationConditionFormModal.present();
   }
 
   openUserProjectRewardFormPage(project_id) {
-    let userProjectRewardFormModal = this.modalCtrl.create(UserProjectRewardFormPage, { "project_id" : project_id });
+    let userProjectRewardFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
     userProjectRewardFormModal.present();
   }
+
+  // 추가된 함수
+
+  openProjectPage() {
+    this.navCtrl.parent.select(1);
+  }
+
+  getAlarmNum() {
+    return this.userService.alarmNum;
+  }
+
+  openUserAlarmPage() {
+    this.navCtrl.push('UserAlarmPage');
+  }
+
+  openUserConfigurePage() {
+    this.navCtrl.push('UserConfigurePage');
+  }
+
+  // 추가된 함수 끝
 
 }

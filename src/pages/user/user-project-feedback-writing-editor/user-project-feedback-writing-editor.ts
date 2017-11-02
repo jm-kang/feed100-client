@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content } from 'ionic-angular';
 
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -17,6 +19,12 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 })
 export class UserProjectFeedbackWritingEditorPage {
   @ViewChild("contentRef") contentHandle: Content;
+  bgVert:   number = 0 ;
+  lastBgV:  number = 0 ;
+  
+  scrollVert:   number = 0 ;
+  lastScrollV:  number = 0 ;
+  transparentPercent: number = 0;
 
   project_id;
 
@@ -36,14 +44,15 @@ export class UserProjectFeedbackWritingEditorPage {
     public modalCntrl: ModalController, 
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage) {
   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackWritingEditorPage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -69,26 +78,49 @@ export class UserProjectFeedbackWritingEditorPage {
 
   }
 
+  // ionViewDidEnter() {    
+  //   if(this.navParams.get('feedbackContent').length > 0) {
+  //     this.feedbackContent = this.navParams.get('feedbackContent').replace(/<br *\/?>/gi, '\n');
+  //   }
+  //   for( let i=0; i < this.navParams.get('feedbackHashtags').length; i++) {
+  //     this.feedbackHashtags.push(this.navParams.get('feedbackHashtags')[i]);
+  //     for(let j = 0; j < this.projectHashtags.length; j++) {
+  //       if(this.projectHashtags[j] == this.feedbackHashtags[i]) {
+  //         this.projectHashtags.splice(j,1);
+  //       }
+  //     }
+  //   }
+  //   for( let i=0; i < this.navParams.get('feedbackImages').length; i++) {
+  //     delete this.navParams.get('feedbackImages')[i].width;
+  //     delete this.navParams.get('feedbackImages')[i].height;
+  //     delete this.navParams.get('feedbackImages')[i].left;
+  //     delete this.navParams.get('feedbackImages')[i].top;
+  //     delete this.navParams.get('feedbackImages')[i].maxWidth;
+  //     delete this.navParams.get('feedbackImages')[i].maxHeight;
+  //     this.feedbackImages.push({"img" : this.navParams.get('feedbackImages')[i].img});
+  //   }
+  // }
+
   ionViewDidEnter() {    
-    if(this.navParams.get('feedbackContent').length > 0) {
-      this.feedbackContent = this.navParams.get('feedbackContent').replace(/<br *\/?>/gi, '\n');
+    if(this.ModalWrapperPage.modalParams.feedbackContent.length > 0) {
+      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent.replace(/<br *\/?>/gi, '\n');
     }
-    for( let i=0; i < this.navParams.get('feedbackHashtags').length; i++) {
-      this.feedbackHashtags.push(this.navParams.get('feedbackHashtags')[i]);
+    for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackHashtags.length; i++) {
+      this.feedbackHashtags.push(this.ModalWrapperPage.modalParams.feedbackHashtags[i]);
       for(let j = 0; j < this.projectHashtags.length; j++) {
         if(this.projectHashtags[j] == this.feedbackHashtags[i]) {
           this.projectHashtags.splice(j,1);
         }
       }
     }
-    for( let i=0; i < this.navParams.get('feedbackImages').length; i++) {
-      delete this.navParams.get('feedbackImages')[i].width;
-      delete this.navParams.get('feedbackImages')[i].height;
-      delete this.navParams.get('feedbackImages')[i].left;
-      delete this.navParams.get('feedbackImages')[i].top;
-      delete this.navParams.get('feedbackImages')[i].maxWidth;
-      delete this.navParams.get('feedbackImages')[i].maxHeight;
-      this.feedbackImages.push({"img" : this.navParams.get('feedbackImages')[i].img});
+    for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackImages.length; i++) {
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].width;
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].height;
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].left;
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].top;
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].maxWidth;
+      delete this.ModalWrapperPage.modalParams.feedbackImages[i].maxHeight;
+      this.feedbackImages.push({"img" : this.ModalWrapperPage.modalParams.feedbackImages[i].img});
     }
   }
 
@@ -96,7 +128,7 @@ export class UserProjectFeedbackWritingEditorPage {
     // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
     if (e.scrollTop < -150) {
       let data = "";
-      this.viewCtrl.dismiss(data);
+      this.ModalWrapperPage.dismissModal(data);
     }
   }
 
@@ -110,12 +142,12 @@ export class UserProjectFeedbackWritingEditorPage {
       delete this.feedbackImages[i].maxHeight;
     }
     let data = { feedbackContent: this.feedbackContent, feedbackImages: JSON.parse(JSON.stringify(this.feedbackImages)), feedbackHashtags: this.feedbackHashtags };
-    this.viewCtrl.dismiss(data);
+    this.ModalWrapperPage.dismissModal(data);
   }
 
   dismiss() {
     let data = "";
-    this.viewCtrl.dismiss(data);
+    this.ModalWrapperPage.dismissModal(data);
   }
 
   activeHashtag(hashtag) {
@@ -204,6 +236,38 @@ export class UserProjectFeedbackWritingEditorPage {
       console.log(err);
       this.commonService.showBasicAlert('오류가 발생했습니다.');
     });
+  }
+
+  swipeEvent(e) {
+    if(e.direction == 16) {
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      if(this.contentHandle.scrollTop > -90) {
+        this.dismiss();
+      }
+    }
+  }
+
+  panEnd() {
+    if(this.contentHandle.scrollTop <= -90) {
+      console.log('pan: ' + this.lastBgV);
+      document.querySelector(".account-modification-page-content .scroll-content")['style'].background = 'transparent';
+      this.dismiss();
+    }
+  }
+
+  scrollingEvent($e) {
+    var stepV = $e.scrollTop /10 ;
+    this.scrollVert = this.lastScrollV - stepV ;
+    if (this.scrollVert < 0) {
+       this.scrollVert = 0 ;
+    } else {
+       if (this.scrollVert > 100)
+          this.scrollVert = 100 ;
+    }
+    if(this.scrollVert < 20) {
+      this.transparentPercent = 1 - (this.scrollVert /20);
+      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+    }
   }
 
 }

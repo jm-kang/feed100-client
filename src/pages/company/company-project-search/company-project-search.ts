@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-import { StatusBar } from '@ionic-native/status-bar';
+// import { StatusBar } from '@ionic-native/status-bar';
 
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
 
@@ -27,7 +27,7 @@ export class CompanyProjectSearchPage {
 
   searchResults = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController, public statusBar: StatusBar) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -42,7 +42,7 @@ export class CompanyProjectSearchPage {
   }
 
   ionViewDidEnter() {
-    this.statusBar.hide(); 
+    // this.statusBar.hide(); 
   }
 
   back() {
@@ -70,11 +70,6 @@ export class CompanyProjectSearchPage {
     hashtag.isActiveHashtag = false;
     console.log('index' + index);
     this.searchResults.splice(index, 1);
-  }
-
-  skip() {
-    this.activeAllHashtag();
-    this.openCompanyProjectSearchResultPage();
   }
 
   activeAllHashtag() {

@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ViewController } from 'ionic-angular';
 
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -38,7 +40,8 @@ export class UserProfileModificationFormPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    public ModalWrapperPage: ModalWrapperPage) {
   }
   
 
@@ -48,7 +51,7 @@ export class UserProfileModificationFormPage {
   }
 
   skip() {
-    this.viewCtrl.dismiss();
+    this.ModalWrapperPage.dismissModal();
   }
 
   slideChanged() {
@@ -123,7 +126,7 @@ export class UserProfileModificationFormPage {
       (data) => {
         if(data.success == true) {
           this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.viewCtrl.dismiss("modified");    
+          this.ModalWrapperPage.dismissModal("modified");   
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

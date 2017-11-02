@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
 
-import { CompanyProjectLinkPage } from '../company-project-link/company-project-link';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -100,8 +98,14 @@ export class CompanyProjectStoryPage {
 
   slideChanged() {
     if(this.slides.isBeginning()) {
+      this.slides.lockSwipeToPrev(true);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
       this.isFirstSlide = true;
     } else {
+      this.slides.lockSwipeToPrev(false);  // 추가
+      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
       this.isFirstSlide = false;
     }
 
@@ -126,7 +130,10 @@ export class CompanyProjectStoryPage {
   }
 
   openCompanyProjectLinkPage() {
-    let projectLinkModal = this.modalCtrl.create(CompanyProjectLinkPage, { "project_id" : this.project_id });
+    let projectLinkModal = this.modalCtrl.create('ModalWrapperPage',
+      { page: 'CompanyProjectLinkPage',
+        params: { "project_id" : this.project_id }
+      });
     projectLinkModal.present();
   }
 }

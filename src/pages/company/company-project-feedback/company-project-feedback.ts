@@ -1,9 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
-import { CompanyProjectUserProfilePage } from '../company-project-user-profile/company-project-user-profile';
+// import { StatusBar } from '@ionic-native/status-bar';
+
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -50,7 +49,7 @@ export class CompanyProjectFeedbackPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public statusBar: StatusBar, 
+    // public statusBar: StatusBar, 
     private el:ElementRef, 
     public modalCtrl: ModalController, 
     public popoverCtrl: PopoverController,
@@ -67,8 +66,8 @@ export class CompanyProjectFeedbackPage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectFeedbackPage');
-    this.statusBar.show();
+    console.log('ionViewWillEnter CompanyProjectFeedbackPage');
+    // this.statusBar.show();
     this.segmentOpinionsCondition = "all";
 
     let loading = this.commonService.presentLoading();
@@ -185,15 +184,17 @@ export class CompanyProjectFeedbackPage {
   }
 
   openCompanyProjectSearchResultPage(hashtags) {
-    let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
-      { "hashtags" : hashtags,
-      "project_id" : this.project_id });
-    companyProjectSearchResultModal.present();
+    // let companyProjectSearchResultModal = this.modalCtrl.create(CompanyProjectSearchResultPage, 
+    //   { "hashtags" : hashtags,
+    //   "project_id" : this.project_id });
+    // companyProjectSearchResultModal.present();
+    this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
-    let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
-    companyProjectUserProfileModal.present();
+    // let companyProjectUserProfileModal = this.modalCtrl.create(CompanyProjectUserProfilePage, { "project_participant_id" : project_participant_id });
+    // companyProjectUserProfileModal.present();
+    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });
   }
 
 }

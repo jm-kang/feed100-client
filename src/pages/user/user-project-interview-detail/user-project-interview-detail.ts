@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
-import { UserProjectInterviewWritingEditorPage } from '../user-project-interview-writing-editor/user-project-interview-writing-editor';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -161,11 +159,12 @@ export class UserProjectInterviewDetailPage {
   }
   
   openUserProjectInterviewWritingEditorPage(interview_id, interview_request, interview_request_images) {
-    let userProjectInterviewWritingEditorModal = this.modalCtrl.create(UserProjectInterviewWritingEditorPage, 
-      { "projectName" : this.projectName,
-      "interview_id" : interview_id,
-      "interview_request" : interview_request,
-      "interview_request_images" : JSON.parse(JSON.stringify(interview_request_images))
+    let userProjectInterviewWritingEditorModal = this.modalCtrl.create('ModalWrapper',
+      { page: 'UserProjectInterviewWritingEditorPage', 
+        params: { "projectName" : this.projectName,
+        "interview_id" : interview_id,
+        "interview_request" : interview_request,
+        "interview_request_images" : JSON.parse(JSON.stringify(interview_request_images))}
       }
     );
     userProjectInterviewWritingEditorModal.present();

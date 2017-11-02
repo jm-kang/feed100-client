@@ -7,7 +7,7 @@
 <ion-header class="modal-header-wrapper">
   <ion-navbar>
     <ion-buttons start>
-      <button class="back-and-close-button" ion-button (click)="dismiss()" icon-only>
+      <button ion-button (click)="dismiss()" icon-only>
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -16,7 +16,7 @@
 </ion-header>
 
 
-<ion-content class="coming-soon-content" (ionScroll)="scrollingFun($event)" (ionScrollStart)="scrollingFun($event)">
+<ion-content class="coming-soon-content">
   <div class="coming-soon-wrapper">
     <span>
       <p>현재 페이지는 준비중입니다.</p>

@@ -4,10 +4,10 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<div class="story-main-image-wrapper">
+<!-- <div class="story-main-image-wrapper">
   <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
-</div>
-<ion-content class="story-slide" no-bounce>
+</div> -->
+<ion-content class="story-slide" [style.backgroundImage]="'url(' + projectMainImage + ')'">
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide class="story-first-slide" padding>
       <ion-buttons class="slide-title-wrapper">
