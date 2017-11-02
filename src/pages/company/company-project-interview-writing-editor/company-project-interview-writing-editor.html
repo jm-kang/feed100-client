@@ -51,8 +51,8 @@
       </span>
       <span class="image-box" *ngFor="let interviewImage of interviewImages; let i = index">
         <button class="delete-image-button" ion-button clear (click)="deleteImage(content, i)"><img src="assets/img/delete-button.png" /></button>
-        <span class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="interviewImage.img" (load)="onInterviewImageLoad($event.target, i)" [style.height]="interviewImage.height" [style.width]="interviewImage.width" [style.left]="interviewImage.left" [style.top]="interviewImage.top" [style.max-height]="interviewImage.maxHeight" [style.max-width]="interviewImage.maxWidth"/>
+        <span class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(interviewImage.img)" />
         </span>
       </span>
     </div>

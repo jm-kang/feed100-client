@@ -50,8 +50,8 @@
       </span>
       <span class="image-box" *ngFor="let feedbackImage of feedbackImages; let i = index">
         <button class="delete-image-button" ion-button clear (click)="deleteImage(i)"><img src="assets/img/delete-button.png" /></button>
-        <span class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="feedbackImage.img" (load)="onFeedbackLoad($event.target, i)" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top" [style.max-height]="feedbackImage.maxHeight" [style.max-width]="feedbackImage.maxWidth"/>
+        <span class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(feedbackImage.img)" />
         </span>
       </span>
     </div>

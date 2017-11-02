@@ -20,8 +20,8 @@
           <span class="slice-tag" *ngIf="projectName.length > 15"> ...</span>
         </span> -->
         <ion-item class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="avatarImage"/>
           </span>
           <h3>{{nickname}}</h3>
           <h5>{{projectRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
@@ -76,13 +76,13 @@
     </div>
     <div text-center *ngIf = "!feedbacks.length" class="empty-inner">
       <ion-icon name="text"></ion-icon>
-      <p>BEST 피드백이 없습니다.</p>
+      <p>아직 등록된 피드백이 없습니다.</p>
     </div>
     <ion-card class="feedback-card" *ngFor="let feedback of feedbacks">
       <ion-card-header>
         <ion-item class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(feedback.project_participant_id)">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedback.avatar_image + ')'"></div>
+          <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(feedback.project_participant_id)">
+            <img class="avatar-span-image" [src]="feedback.avatar_image" />
           </span>
           <h3>
             <span class="best-badge" *ngIf="feedback.is_best">

@@ -55,8 +55,8 @@
         <h2 class="story-name" [innerHTML]="projectName"></h2>
         <p class="summary" [innerHTML]="projectSummary"></p>
         <ion-item class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="avatarImage" />
           </span>
           <h3>by. {{nickname}}</h3>
         </ion-item>
@@ -81,8 +81,8 @@
       </button>
     </ion-buttons>
     <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
-      <span item-start class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <h3>{{nickname}}</h3>
     </ion-item>

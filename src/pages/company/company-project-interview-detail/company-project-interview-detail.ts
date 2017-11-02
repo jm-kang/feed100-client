@@ -99,68 +99,6 @@ export class CompanyProjectInterviewDetailPage {
     this.navCtrl.pop();
   }
 
-  onInterviewDetailCompanyImageLoad(img, count, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.interviews[count].interview_request_images[i].width = tempWidth;
-    this.interviews[count].interview_request_images[i].height = tempHeight;
-    this.interviews[count].interview_request_images[i].left = tempLeft;
-    this.interviews[count].interview_request_images[i].top = tempTop;
-    this.interviews[count].interview_request_images[i].maxHeight = tempMaxHeight;
-    this.interviews[count].interview_request_images[i].maxWidth = tempMaxWidth;    
-  }
-
-  onInterviewDetailUserImageLoad(img, count, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.interviews[count].interview_response_images[i].width = tempWidth;
-    this.interviews[count].interview_response_images[i].height = tempHeight;
-    this.interviews[count].interview_response_images[i].left = tempLeft;
-    this.interviews[count].interview_response_images[i].top = tempTop;
-    this.interviews[count].interview_response_images[i].maxHeight = tempMaxHeight;
-    this.interviews[count].interview_response_images[i].maxWidth = tempMaxWidth;
-  }
-
   photoView(url) {
     this.photoViewer.show(url);
   }

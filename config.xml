@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.potenbrothers.feed100" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MyApp</name>
+    <name>FEED100</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -118,18 +118,11 @@
     <allow-navigation href="http://172.30.1.57:8100" />
     <allow-navigation href="http://192.168.0.31:8100" />
     <allow-navigation href="http://192.168.35.143:8100" />
-    <allow-navigation href="http://192.168.0.133:8100" />
-    <allow-navigation href="http://192.168.0.3:8101" />
-    <allow-navigation href="http://10.3.97.51:8100" />
-    <allow-navigation href="http://169.254.219.139:8100" />
-    <allow-navigation href="http://169.254.61.195:8100" />
-    <allow-navigation href="http://10.3.97.51:8101" />
-    <allow-navigation href="http://172.30.1.12:8100" />
-    <allow-navigation href="http://192.168.35.29:8100" />
-    <allow-navigation href="http://172.30.1.59:8100" />
-    <allow-navigation href="http://192.168.35.166:8100" />
+    <allow-navigation href="http://192.168.0.147:8100" />
+    <allow-navigation href="http://192.168.0.40:8100" />
+    <allow-navigation href="http://172.30.1.25:8100" />
+    <allow-navigation href="http://192.168.10.98:8100" />
     <engine name="android" spec="^6.2.3" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.10" />
     <plugin name="cordova-plugin-badge" spec="^0.8.3" />
     <plugin name="cordova-plugin-camera" spec="^2.4.1">
@@ -144,9 +137,6 @@
     </plugin>
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.6.3" />
-    <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
-        <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
-    </plugin>
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.889490373924-psdorr3kb428nffv3c9jcf3afhvl8u1i" />
     </plugin>
@@ -161,7 +151,9 @@
         <variable name="SNEDER_ID" value="889490373924" />
         <variable name="SENDER_ID" value="889490373924" />
     </plugin>
-    <allow-navigation href="http://192.168.123.170:8100" />
-    <allow-navigation href="http://172.30.1.33:8100" />
+    <engine name="ios" spec="~4.4.0" />
+    <plugin name="cordova-plugin-ghyeok-kakaotalk" spec="^1.0.4">
+        <variable name="KAKAO_APP_KEY" value="2d37d2dfa46c26dedc27c7201ad7cec3" />
+    </plugin>
     <plugin name="cordova-plugin-themeablebrowser" spec="^0.2.17" />
 </widget>

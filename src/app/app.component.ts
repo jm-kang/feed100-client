@@ -70,11 +70,9 @@ export class MyApp {
         if(data.success == true) {
           if(data.data.role == 'user') {
             this.rootPage = UserTabsPage;
-            this.commonService.showBasicAlert('자동 로그인 되었습니다.');
           }
           else if(data.data.role == 'company') {
             this.rootPage = CompanyTabsPage;
-            this.commonService.showBasicAlert('자동 로그인 되었습니다.');
           }
         }
         else if(data.success == false) {

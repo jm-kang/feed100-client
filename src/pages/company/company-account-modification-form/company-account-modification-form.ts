@@ -5,6 +5,7 @@ import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Generated class for the CompanyAccountModificationFormPage page.
  *
@@ -27,14 +28,10 @@ export class CompanyAccountModificationFormPage {
   transparentPercent: number = 0;
 
   avatarImage: String = "";
+  formData;
   nickname: String = "";
   username: String = "";
-  maxHeight: any =  "";
-  maxWidth: any =  "";
-  height: any =  "";
-  width: any =  "";
-  left: any =  "";
-  top: any =  "";
+  registrationDate: String = "";
   introduction: String = "";
 
   constructor(
@@ -44,7 +41,8 @@ export class CompanyAccountModificationFormPage {
     public alertCtrl: AlertController,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
-    public ModalWrapperPage: ModalWrapperPage) {
+    public ModalWrapperPage: ModalWrapperPage,
+    private domSanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -62,6 +60,7 @@ export class CompanyAccountModificationFormPage {
           this.username = data.data.username;
           this.introduction = data.data.introduction;
           this.nickname = data.data.nickname;
+          this.registrationDate = data.data.user_registration_date;
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -81,70 +80,17 @@ export class CompanyAccountModificationFormPage {
     this.ModalWrapperPage.dismissModal();
   }
 
+  sanitize(url: string){
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
+
   modifyAvatar() {
     this.commonService.selectImage()
     .then(this.commonService.readFile)
-    .then((formData) => {
-      let loading = this.commonService.presentLoading();
-      this.commonService.uploadFile(formData)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.avatarImage = data.data;
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      this.commonService.showBasicAlert('오류가 발생했습니다.');
-    });  
-
-  }
-
-  onAvatarImageLoad(img) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width/16 >= img.height/9) {
-      tempHeight = img.width*9/16 + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width-img.height*16/9)/2  + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-
-      tempWidth = img.height*16/9 + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width*9/16)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.width = tempWidth;
-    this.height = tempHeight;
-    this.left = tempLeft;
-    this.top = tempTop;
-    this.maxHeight = tempMaxHeight;
-    this.maxWidth = tempMaxWidth;
+    .then((params) => {
+      this.avatarImage = params[0].localURL;
+      this.formData = params[1];
+    });
   }
 
   modifyNickname(oldNickname) {
@@ -180,32 +126,62 @@ export class CompanyAccountModificationFormPage {
     alert.present();
   }
 
+  uploadFile() {
+    return new Promise(
+      (resolve, reject) => {
+        if(!this.formData) {
+          resolve();
+        }
+        else {
+          this.commonService.uploadFile(this.formData)
+          .subscribe(
+            (data) => {
+              if(data.success == true) {
+                this.avatarImage = data.data;
+                resolve();
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                });
+              }
+            }
+          ) 
+        }
+      }
+    )
+  }
+
   modifyAccount() {
     console.log("수정 완료");
-    let loading = this.commonService.presentLoading();
     
-    this.companyService.updateAccount(this.avatarImage, this.nickname, this.introduction)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.ModalWrapperPage.dismissModal("refresh");
+    let loading = this.commonService.presentLoading();
+    this.uploadFile()
+    .then(() => {
+      this.companyService.updateAccount(this.avatarImage, this.nickname, this.introduction)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            this.commonService.showBasicAlert('수정이 완료되었습니다.');
+            this.ModalWrapperPage.dismissModal("refresh");
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.modifyAccount();
+            })
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.modifyAccount();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+      );
+    });
   }
 
   swipeEvent(e) {

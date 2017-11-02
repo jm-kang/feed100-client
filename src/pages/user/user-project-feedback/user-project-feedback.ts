@@ -62,7 +62,7 @@ export class UserProjectFeedbackPage {
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider
   ) {
-    this.mobWidth = (window.screen.width);
+    this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
   
@@ -133,64 +133,6 @@ export class UserProjectFeedbackPage {
     this.photoViewer.show(url);
   }
   
-  // 슬라이드 이미지 5:4 비율
-  onLoad(img, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    if(img.width/5 >= img.height/4) {
-      tempHeight = this.slideHeight + 'px';
-      tempWidth = img.width*(this.slideHeight/img.height) + 'px';
-      tempTop = 'initial';
-      tempLeft = "-" + ((img.width*(this.slideHeight/img.height))-this.mobWidth)/2 + 'px';
-      
-    } else {
-      tempWidth = this.mobWidth + 'px';
-      tempHeight = img.height*(this.mobWidth/img.width) + 'px';
-      tempLeft = 'initial';
-      tempTop = "-" + ((img.height*(this.mobWidth/img.width))-this.slideHeight)/2 + 'px';
-    }
-
-    this.feedbackImages[i].width = tempWidth;
-    this.feedbackImages[i].height = tempHeight;
-    this.feedbackImages[i].left = tempLeft;
-    this.feedbackImages[i].top = tempTop;
-  }
-
-  onOpinionLoad(img, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    console.log(JSON.stringify(this.opinions[i]));
-    console.log("index: " + i);
-
-    this.opinions[i].width = tempWidth;
-    this.opinions[i].height = tempHeight;
-    this.opinions[i].left = tempLeft;
-    this.opinions[i].top = tempTop;
-    this.opinions[i].maxHeight = tempMaxHeight;
-    this.opinions[i].maxWidth = tempMaxWidth;
-  }
-
   openUserProjectSearchResultPage(hashtags) {
     // let userProjectSearchResultModal = this.modalCtrl.create('ModalWrapperPage', 
     //   { page: 'UserProjectSearchResultPage', 

@@ -16,13 +16,13 @@
   </ion-header>
   <div class="user-profile-wrapper outer-content">
     <div class="user-profile-profile-box">
-      <span class="avatar-image-background-wrapper">
-        <img class="avatar-image-background" [src]="avatarImage" (load)="onAvatarImageLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+      <span class="avatar-image-background-wrapper cropper">
+        <img class="avatar-image-background" [src]="avatarImage" />
       </span>
     </div>
     <div class="avatar-wrapper">
-      <span class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      <span text-center class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <p>Lv{{level}} {{levelClass}}</p>
       <h3 text-center>{{nickname}}</h3>
@@ -34,19 +34,19 @@
         <ion-label text-right class="email" color="dark" [innerHTML]="participationCondition.value"></ion-label>
       </ion-item>
       <ion-item>
-        <ion-label color="semiDark" stacked>성별은 어떻게 되나요?</ion-label>
+        <ion-label color="semiDark" stacked>당신의 성별은 무엇입니까?</ion-label>
         <ion-label text-right class="email" color="dark" [innerHTML]="gender"></ion-label>
       </ion-item>
       <ion-item>
-        <ion-label color="semiDark" stacked>나이는 몇살인가요?</ion-label>
+        <ion-label color="semiDark" stacked>당신의 나이는 몇 살인가요?</ion-label>
         <ion-label text-right class="email" color="dark" [innerHTML]="age"></ion-label>
       </ion-item>
       <ion-item>
-        <ion-label color="semiDark" stacked>직업은 무엇이나요?</ion-label>
+        <ion-label color="semiDark" stacked>무슨 일을 하시나요?</ion-label>
         <ion-label text-right class="email" color="dark" [innerHTML]="job"></ion-label>
       </ion-item>
       <ion-item>
-        <ion-label color="semiDark" stacked>어디 사시나요?</ion-label>
+        <ion-label color="semiDark" stacked>어디에 사시나요?</ion-label>
         <ion-label text-right class="email" color="dark" [innerHTML]="region"></ion-label>
       </ion-item>
       <ion-item>

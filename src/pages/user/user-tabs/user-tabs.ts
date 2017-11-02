@@ -156,11 +156,9 @@ export class UserTabsPage {
           .subscribe(
             (data) => {
               console.log(data);
-              this.commonService.showBasicAlert('device token 등록 성공');
             },
             (err) => {
               console.log(err);
-              this.commonService.showBasicAlert('device token 등록 실패');
             }
           );
           

@@ -5,6 +5,7 @@ import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { DomSanitizer } from '@angular/platform-browser';
 /**
  * Generated class for the UserProjectFeedbackWritingEditorPage page.
  *
@@ -45,63 +46,14 @@ export class UserProjectFeedbackWritingEditorPage {
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    public ModalWrapperPage: ModalWrapperPage) {
+    public ModalWrapperPage: ModalWrapperPage,
+    private domSanitizer: DomSanitizer) {
   
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProjectFeedbackWritingEditorPage');
-    let loading = this.commonService.presentLoading();
-    this.project_id = this.ModalWrapperPage.modalParams.project_id;
-
-    this.userService.getProjectHome(this.project_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.projectHashtags = JSON.parse(data.data.project_hashtags);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidLoad();
-          });
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    )
-
-  }
-
-  // ionViewDidEnter() {    
-  //   if(this.navParams.get('feedbackContent').length > 0) {
-  //     this.feedbackContent = this.navParams.get('feedbackContent').replace(/<br *\/?>/gi, '\n');
-  //   }
-  //   for( let i=0; i < this.navParams.get('feedbackHashtags').length; i++) {
-  //     this.feedbackHashtags.push(this.navParams.get('feedbackHashtags')[i]);
-  //     for(let j = 0; j < this.projectHashtags.length; j++) {
-  //       if(this.projectHashtags[j] == this.feedbackHashtags[i]) {
-  //         this.projectHashtags.splice(j,1);
-  //       }
-  //     }
-  //   }
-  //   for( let i=0; i < this.navParams.get('feedbackImages').length; i++) {
-  //     delete this.navParams.get('feedbackImages')[i].width;
-  //     delete this.navParams.get('feedbackImages')[i].height;
-  //     delete this.navParams.get('feedbackImages')[i].left;
-  //     delete this.navParams.get('feedbackImages')[i].top;
-  //     delete this.navParams.get('feedbackImages')[i].maxWidth;
-  //     delete this.navParams.get('feedbackImages')[i].maxHeight;
-  //     this.feedbackImages.push({"img" : this.navParams.get('feedbackImages')[i].img});
-  //   }
-  // }
-
   ionViewDidEnter() {    
+    console.log('ionViewDidEnter UserProjectFeedbackWritingEditorPage');
+    this.projectHashtags = this.ModalWrapperPage.modalParams.projectHashtags;
     if(this.ModalWrapperPage.modalParams.feedbackContent.length > 0) {
       this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent.replace(/<br *\/?>/gi, '\n');
     }
@@ -113,35 +65,11 @@ export class UserProjectFeedbackWritingEditorPage {
         }
       }
     }
-    for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackImages.length; i++) {
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].width;
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].height;
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].left;
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].top;
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].maxWidth;
-      delete this.ModalWrapperPage.modalParams.feedbackImages[i].maxHeight;
-      this.feedbackImages.push({"img" : this.ModalWrapperPage.modalParams.feedbackImages[i].img});
-    }
-  }
-
-  scrollingFun(e) {
-    // console.log("Y: " + this.contentHandle.getContentDimensions().contentTop);
-    if (e.scrollTop < -150) {
-      let data = "";
-      this.ModalWrapperPage.dismissModal(data);
-    }
+    this.feedbackImages = this.ModalWrapperPage.modalParams.feedbackImages;
   }
 
   completeEditor() {
-    for(let i=0; i<this.feedbackImages.length; i++) {
-      delete this.feedbackImages[i].width;
-      delete this.feedbackImages[i].height;
-      delete this.feedbackImages[i].left;
-      delete this.feedbackImages[i].top;
-      delete this.feedbackImages[i].maxWidth;
-      delete this.feedbackImages[i].maxHeight;
-    }
-    let data = { feedbackContent: this.feedbackContent, feedbackImages: JSON.parse(JSON.stringify(this.feedbackImages)), feedbackHashtags: this.feedbackHashtags };
+    let data = { feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, feedbackHashtags: this.feedbackHashtags };
     this.ModalWrapperPage.dismissModal(data);
   }
 
@@ -167,36 +95,8 @@ export class UserProjectFeedbackWritingEditorPage {
     }
   }
 
-  onFeedbackLoad(img, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.feedbackImages[i].width = tempWidth;
-    this.feedbackImages[i].height = tempHeight;
-    this.feedbackImages[i].left = tempLeft;
-    this.feedbackImages[i].top = tempTop;
-    this.feedbackImages[i].maxHeight = tempMaxHeight;
-    this.feedbackImages[i].maxWidth = tempMaxWidth;
-    console.log("feedback-writing : ", img.width, img.height, tempWidth, tempHeight, tempLeft, tempTop, tempMaxHeight, tempMaxWidth);
+  sanitize(url: string){
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   deleteImage(i) {
@@ -208,33 +108,10 @@ export class UserProjectFeedbackWritingEditorPage {
     console.log("addImage(): 이미지 추가 버튼");
     this.commonService.selectImage()
     .then(this.commonService.readFile)
-    .then((formData) => {
-      let loading = this.commonService.presentLoading();
-      this.commonService.uploadFile(formData)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.feedbackImages.push({ "img" : data.data });
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      this.commonService.showBasicAlert('오류가 발생했습니다.');
+    .then((params) => {
+      const img = params[0].localURL;
+      const formData = params[1];
+      this.feedbackImages.push({ "img" : img, "formData" : formData });      
     });
   }
 

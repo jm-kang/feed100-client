@@ -7,6 +7,7 @@ import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the UserProjectOpinionWritingEditorPage page.
@@ -37,12 +38,7 @@ export class UserProjectOpinionWritingEditorPage {
   nickname: String = "";
   isEmpathy: boolean;
   opinionImage = "";
-  maxHeight: any =  "";
-  maxWidth: any =  "";
-  height: any =  "";
-  width: any =  "";
-  left: any =  "";
-  top: any =  "";
+  formData;
 
   tempEmpathy: String = "";
 
@@ -54,14 +50,9 @@ export class UserProjectOpinionWritingEditorPage {
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     public storage: Storage,
-    public ModalWrapperPage: ModalWrapperPage) {
+     public ModalWrapperPage: ModalWrapperPage,
+    private domSanitizer: DomSanitizer) {      
   }
-
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
-  //   this.nickname = this.navParams.get('nickname');
-  //   this.feedback_id = this.navParams.get('feedback_id');
-  // }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
@@ -77,65 +68,81 @@ export class UserProjectOpinionWritingEditorPage {
     this.ModalWrapperPage.dismissModal();
   }
 
-  onOpinionLoad(img) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.width = tempWidth;
-    this.height = tempHeight;
-    this.left = tempLeft;
-    this.top = tempTop;
-    this.maxHeight = tempMaxHeight;
-    this.maxWidth = tempMaxWidth;
+  sanitize(url: string){
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
   deleteImage() {
     console.log("deleteImage(): 이미지 삭제 버튼");
     this.opinionImage = "";
-    this.maxHeight = "";
-    this.maxWidth = "";
-    this.width = "";
-    this.height = "";
+    this.formData = "";
   }
 
   addImage() {
     console.log("addImage(): 이미지 추가 버튼");
     this.commonService.selectImage()
     .then(this.commonService.readFile)
-    .then((formData) => {
-      let loading = this.commonService.presentLoading();
-      this.commonService.uploadFile(formData)
+    .then((params) => {
+      this.opinionImage = params[0].localURL;
+      this.formData = params[1];
+    });
+  }
+
+  uploadFile() {
+    return new Promise(
+      (resolve, reject) => {
+        if(!this.formData) {
+          resolve();
+        }
+        else {        
+          this.commonService.uploadFile(this.formData)
+          .subscribe(
+            (data) => {
+              if(data.success == true) {
+                this.opinionImage = data.data;
+                resolve();
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                });
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
+  registerOpinion() {
+    let loading = this.commonService.presentLoading();
+    this.uploadFile()
+    .then(() => {
+      this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
       .finally(() => {
         loading.dismiss();
       })
       .subscribe(
         (data) => {
           if(data.success == true) {
-            this.opinionImage = data.data;
+            if(data.message == 'opinion is already writed') {
+              this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
+              this.dismiss();
+            }
+            else if(data.message == 'project is not proceeding') {
+              this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
+              this.dismiss();
+            }
+            else {
+              this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
+              this.dismiss();
+            }
           }
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              this.registerOpinion();
             });
           }
         },
@@ -144,48 +151,7 @@ export class UserProjectOpinionWritingEditorPage {
           this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
       );
-    })
-    .catch((err) => {
-      console.log(err);
-      this.commonService.showBasicAlert('오류가 발생했습니다.');
     });
-  }
-
-  registerOpinion() {
-    let loading = this.commonService.presentLoading();
-
-    this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.message == 'opinion is already writed') {
-            this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
-            this.ModalWrapperPage.dismissModal();
-          }
-          else if(data.message == 'project is not proceeding') {
-            this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
-            this.ModalWrapperPage.dismissModal();
-          }
-          else {
-            this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
-            this.ModalWrapperPage.dismissModal();
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.registerOpinion();
-          });
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
   }
 
   changeEmpathyRadio() {

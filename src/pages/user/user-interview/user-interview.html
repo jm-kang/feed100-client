@@ -37,8 +37,8 @@
   </div>
   <ion-list>
     <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openUserProjectInterviewDetailPage(interview.project_id, progressState.innerHTML)">
-      <span item-start class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="interview.project_main_image" />
       </span>
       <h2 [innerHTML]="interview.project_name"></h2>
       <p>{{interview.ordinal}}차 인터뷰</p>

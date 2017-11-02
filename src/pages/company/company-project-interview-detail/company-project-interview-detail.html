@@ -31,8 +31,8 @@
       <ion-item class="avatar-span-wrapper">
         <h3 text-right [innerHTML]="interview.project_name"></h3>
         <p text-right>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
-        <span item-end class="avatar-image avatar-span">
-          <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
+        <span item-end class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="interview.project_main_image" />
         </span>
       </ion-item>
       <ion-card-content>
@@ -40,8 +40,8 @@
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
         <span class="image-box" *ngFor="let image of interview.interview_request_images; let i = index">
-          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper">
-            <img class="feedback-image" [src]="image.img" (load)="onInterviewDetailCompanyImageLoad($event.target, count, i)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img" />
           </span>
         </span>
       </div>
@@ -53,8 +53,8 @@
     <!-- ==========================USER=============================== -->
     <ion-card class="left-interview-card" *ngIf="interview.interview_response">
       <ion-item class="avatar-span-wrapper">
-        <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)">
-          <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.avatar_image + ')'"></div>
+        <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)">
+          <img class="avatar-span-image" [src]="interview.avatar_image" />
         </span>
         <h3 class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)" [innerHTML]="interview.nickname"></h3>
         <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
@@ -64,8 +64,8 @@
       </ion-card-content>
       <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
         <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">
-          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper">
-            <img class="feedback-image" [src]="image.img" (load)="onInterviewDetailUserImageLoad($event.target, count, j)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img" />
           </span>
         </span>
       </div>

@@ -37,7 +37,7 @@ export class CommonServiceProvider {
     console.log('Hello CommonServiceProvider Provider');
   }
   getServerUrl() {
-    // return 'http://192.168.10.52:3000';
+    // return 'http://192.168.10.98:3000';
     // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
@@ -46,7 +46,8 @@ export class CommonServiceProvider {
     return new Promise(
       (resolve, reject) => {
         const options: CameraOptions = {
-          quality: 100,
+          quality: 50,
+          allowEdit: true,
           destinationType: this.camera.DestinationType.FILE_URI,
           encodingType: this.camera.EncodingType.JPEG,
           mediaType: this.camera.MediaType.PICTURE,
@@ -57,6 +58,8 @@ export class CommonServiceProvider {
           this.file.resolveLocalFilesystemUrl(imageFileUrl)
           .then(entry => (<FileEntry>entry).file((file) => {
             resolve(file);
+            console.log("fileSize ", file.size);
+            console.log("fileUrl ", file.localURL);
           }
           ))
           .catch(err => console.log(err));
@@ -75,7 +78,7 @@ export class CommonServiceProvider {
           const formData = new FormData();
           const imgBlob = new Blob([reader.result], {type: file.type});
           formData.append('ex_filename', imgBlob);
-          resolve(formData);
+          resolve([file, formData]);
         };
         reader.readAsArrayBuffer(file);
       }
@@ -83,7 +86,7 @@ export class CommonServiceProvider {
   }
 
   uploadFile(formData) {
-    let url = this.getServerUrl() + '/common/api/upload/tmp';
+    let url = this.getServerUrl() + '/common/api/upload/images';
     let headers = new Headers();
 
     return Observable.fromPromise(this.storage.get('accessToken'))
@@ -208,7 +211,6 @@ export class CommonServiceProvider {
     return new Promise(
       (resolve, reject) => {
         if(data.message == 'jwt expired') {
-          this.showBasicAlert('액세스 토큰 만료.');
           this.refreshTokens()
           .subscribe(
             (data) => {
@@ -216,7 +218,6 @@ export class CommonServiceProvider {
               if(data.success == true) {
                 this.storage.set('accessToken', data.data.accessToken);
                 this.storage.set('refreshToken', data.data.refreshToken);
-                this.showBasicAlert('액세스 토큰 재발급 성공. 자동 로그인 되었습니다.');
                 resolve();
               }
               else if(data.success == false) {
