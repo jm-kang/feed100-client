@@ -139,39 +139,6 @@ export class UserProjectSideMenuPage {
     }
   }
 
-  onAvatarImageLoad(img) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    console.log("img : (" + img.width + " * " + img.height + ")");
-
-    if(img.width/16 >= img.height/9) {
-      tempHeight = img.width*9/16 + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width-img.height*16/9)/2  + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height*16/9 + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width*9/16)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.width = tempWidth;
-    this.height = tempHeight;
-    this.left = tempLeft;
-    this.top = tempTop;
-    this.maxHeight = tempMaxHeight;
-    this.maxWidth = tempMaxWidth;
-  }
-
   openProjectFeedbackPage() {
     this.navCtrl.push(UserProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.feedback_id });
   }

@@ -98,8 +98,8 @@
       <ion-card class="feedback-card" *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
         <ion-card-header *ngIf="projectBestFeedback.is_best">
           <ion-item class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(projectBestFeedback.project_participant_id)">
-              <div class="avatar-span-image" [style.backgroundImage]="'url(' + projectBestFeedback.avatar_image + ')'"></div>
+            <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(projectBestFeedback.project_participant_id)">
+              <img class="avatar-span-image" [src]="projectBestFeedback.avatar_image" />
             </span>
             <h3>
               <span class="best-badge" *ngIf="projectBestFeedback.is_best">
@@ -167,8 +167,8 @@
       </button>
     </ion-buttons>
     <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
-      <span item-start class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <h3>{{nickname}}</h3>
     </ion-item>

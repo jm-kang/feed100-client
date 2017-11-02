@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 import { UserTabsPage } from '../../user/user-tabs/user-tabs';
@@ -36,7 +36,8 @@ export class UserLoginFormPage {
     public commonService: CommonServiceProvider,
     public storage: Storage,
     private fb: Facebook,
-    private googlePlus: GooglePlus) {
+    private googlePlus: GooglePlus,
+    public zone: NgZone) {
       
   }
 
@@ -134,6 +135,10 @@ export class UserLoginFormPage {
   }
 
   facebookLogin() {
+    console.log(this.zone.isStable);
+    console.log(this.zone.hasPendingMacrotasks);
+    console.log(this.zone.hasPendingMicrotasks);
+
     let loading = this.commonService.presentLoading();
 
     this.fb.login(['public_profile', 'email'])
@@ -147,6 +152,10 @@ export class UserLoginFormPage {
       .subscribe(
       (data) => {
         if(data.success == true) {
+          console.log(this.zone.isStable);
+          console.log(this.zone.hasPendingMacrotasks);
+          console.log(this.zone.hasPendingMicrotasks);
+      
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
           this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
@@ -178,27 +187,38 @@ export class UserLoginFormPage {
 
   kakaoLogin() {
     // this.commonService.showBasicAlert('준비중입니다!');
+
+    let loading = this.commonService.presentLoading();
+    
     KakaoTalk.login(
     (result) => {
+    console.log("result :", result);      
     console.log('Successful login!');
     console.log(result.id);
     this.commonService.SNSLogin('kakao', result.id, this.role)
+    .finally(() => {
+      loading.dismiss();
+    })
     .subscribe(
     (data) => {
       if(data.success == true) {
-        this.storage.set('accessToken', data.data.accessToken);
-        this.storage.set('refreshToken', data.data.refreshToken);
-        this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+        this.zone.run(() => {
+          this.storage.set('accessToken', data.data.accessToken);
+          this.storage.set('refreshToken', data.data.refreshToken);
+          this.navCtrl.setRoot(UserTabsPage, {"isLogin" : true}, {animate: true, direction: 'forward'});
+        });
       }
       else if(data.success == false) {
-        switch(data.message) {
-          case 'app_id is unregistered':
-            this.navCtrl.push(UserSnsRegistrationFormPage, {
-              "provider" : "kakao",
-              "app_id" : result.id
-            });
-            break;
-        }
+        this.zone.run(() => {
+          switch(data.message) {
+            case 'app_id is unregistered':
+              this.navCtrl.push(UserSnsRegistrationFormPage, {
+                "provider" : "kakao",
+                "app_id" : result.id
+              });
+              break;
+          }
+        });          
       }
     },
     (err) => {
@@ -208,8 +228,9 @@ export class UserLoginFormPage {
     );
   },
     (message) => {
-    console.log('Error logging in');
-    console.log(message);
+      console.log('Error logging in');
+      console.log(message);
+      loading.dismiss();    
     }
   );
   }

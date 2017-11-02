@@ -13,8 +13,8 @@
 </ion-header>
 <ion-content>
   <ion-item margin-top class="mypage-profile-wrapper avatar-span-wrapper item-flex">
-    <span item-start class="avatar-image avatar-span">
-       <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div> 
+    <span item-start class="avatar-image avatar-span cropper">
+       <img class="avatar-span-image" [src]="avatarImage" />
     </span>
     <p>Lv{{level}}  {{levelClass}}</p>
     <h5>
@@ -71,8 +71,8 @@
             <span class="project-card-summary" [innerHTML]="proceedingProject.project_summary"></span>
           </ion-card-content>  
           <ion-item float-left class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span">
-              <div class="avatar-span-image" [style.backgroundImage]="'url(' + proceedingProject.avatar_image + ')'"></div>
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="proceedingProject.avatar_image" />
             </span>
             <p>by. {{proceedingProject.nickname}}</p>
           </ion-item>
@@ -104,8 +104,8 @@
             <span class="project-card-summary" [innerHTML]="rewardProject.project_summary"></span>
           </ion-card-content>
           <ion-item float-left class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span">
-              <div class="avatar-span-image" [style.backgroundImage]="'url(' + rewardProject.avatar_image + ')'"></div>
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="rewardProject.avatar_image" />
             </span>
             <p>by. {{rewardProject.nickname}}</p>
           </ion-item>
@@ -137,8 +137,8 @@
             <span class="project-card-summary" [innerHTML]="endProject.project_summary"></span>
           </ion-card-content>
           <ion-item float-left class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span">
-              <div class="avatar-span-image" [style.backgroundImage]="'url(' + endProject.avatar_image + ')'"></div>
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="endProject.avatar_image" />
             </span>
             <p>by. {{endProject.nickname}}</p>
           </ion-item>

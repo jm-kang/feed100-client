@@ -11,6 +11,7 @@ import { UserProjectRewardFormPage } from '../user-project-reward-form/user-proj
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+
 /**
  * Generated class for the UserMypagePage page.
  *
@@ -53,7 +54,7 @@ export class UserMypagePage {
     public appCtrl: App,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
-    this.segmentProjectCondition = "proceedingProject";
+      this.segmentProjectCondition = "proceedingProject";
   }
 
   ionViewWillEnter() {

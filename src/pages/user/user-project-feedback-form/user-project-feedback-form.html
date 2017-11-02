@@ -61,13 +61,13 @@
       <div class="question">이 프로젝트에 대해 어떻게 생각하시나요?</div>
       <div class="question-summary">프로젝트에 대해 어떻게 생각하셨나요? 주어진 해시태그를 이용하여 피드백을 작성해주세요.</div>
       <div class="feedback-images small-feedback-images">
-        <span *ngFor="let feedbackImage of feedbackImages | slice:0:6; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="feedbackImage.img" (load)="onFeedbackLoad($event.target, i)" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top" [style.max-height]="feedbackImage.maxHeight" [style.max-width]="feedbackImage.maxWidth"/>
+        <span *ngFor="let feedbackImage of feedbackImages | slice:0:6; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(feedbackImage.img)" />
         </span>
       </div>
       <div class="feedback-images small-feedback-images" *ngIf="feedbackImages.length > 6">
-        <span *ngFor="let feedbackImage of feedbackImages | slice:6:12; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="feedbackImage.img" preload (load)="onFeedbackLoad($event.target, i+6)" [style.height]="feedbackImage.height" [style.width]="feedbackImage.width" [style.left]="feedbackImage.left" [style.top]="feedbackImage.top" [style.max-height]="feedbackImage.maxHeight" [style.max-width]="feedbackImage.maxWidth"/>
+        <span *ngFor="let feedbackImage of feedbackImages | slice:6:12; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(feedbackImage.img)" preload />
         </span>
       </div>
 

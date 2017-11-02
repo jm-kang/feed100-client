@@ -47,8 +47,8 @@
       </span>
       <span class="image-box" *ngIf="opinionImage">
         <button class="delete-image-button" ion-button clear (click)="deleteImage()"><img src="assets/img/delete-button.png" /></button>
-        <span class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="opinionImage" (load)="onOpinionLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+        <span class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(opinionImage)" />
         </span>
       </span>
     </div>

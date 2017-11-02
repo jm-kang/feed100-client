@@ -5,6 +5,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * Generated class for the UserProjectInterviewWritingEditorPage page.
@@ -39,7 +40,8 @@ export class UserProjectInterviewWritingEditorPage {
     public viewCtrl: ViewController,
     private photoViewer: PhotoViewer,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    private domSanitizer: DomSanitizer) {
   }
 
   ionViewDidLoad() {
@@ -65,105 +67,78 @@ export class UserProjectInterviewWritingEditorPage {
     }
   }
 
+  uploadFiles() {
+    console.log("uploadFiles()");    
+    return new Promise(
+      (resolve, reject) => {
+        let cnt = this.interview_response_images.length;
+        if(cnt == 0) {
+          resolve();
+        }
+        for(let i=0; i<this.interview_response_images.length; i++) {
+          this.commonService.uploadFile(this.interview_response_images[i].formData)
+          .subscribe(
+            (data) => {
+              if(data.success == true) {
+                this.interview_response_images[i] = data.data;
+                cnt--;
+                if(cnt == 0) {
+                  resolve();
+                }
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                });
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
   completeEditor() {
     console.log("completeEditor() : 완료 버튼");
     let loading = this.commonService.presentLoading();
-    for(let i=0; i<this.interview_response_images.length; i++) {
-      this.interview_response_images[i] = this.interview_response_images[i].img;
-    }
-
-    this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-        (data) => {
-        if(data.success == true) {
-          this.viewCtrl.dismiss();      
+    this.uploadFiles()
+    .then(() => {
+      this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+          (data) => {
+          if(data.success == true) {
+            this.viewCtrl.dismiss();      
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.completeEditor();
+            });
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.completeEditor();
-          });
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    )  
+      );
+    });
   }
 
   dismiss() {
     console.log("dismiss() : 취소 버튼");
     this.viewCtrl.dismiss();
   }
+  
+  sanitize(url: string){
+    return this.domSanitizer.bypassSecurityTrustUrl(url);
+  }
 
   photoView(url) {
     this.photoViewer.show(url);
-  }
-
-  onInterviewImageLoad(img, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.interview_response_images[i].width = tempWidth;
-    this.interview_response_images[i].height = tempHeight;
-    this.interview_response_images[i].left = tempLeft;
-    this.interview_response_images[i].top = tempTop;
-    this.interview_response_images[i].maxHeight = tempMaxHeight;
-    this.interview_response_images[i].maxWidth = tempMaxWidth;
-  }
-
-  onCompanyImageLoad(img, i) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width >= img.height) {
-      tempHeight = img.width + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width*(img.width/img.height)-img.width)/2 + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.interview_request_images[i].width = tempWidth;
-    this.interview_request_images[i].height = tempHeight;
-    this.interview_request_images[i].left = tempLeft;
-    this.interview_request_images[i].top = tempTop;
-    this.interview_request_images[i].maxHeight = tempMaxHeight;
-    this.interview_request_images[i].maxWidth = tempMaxWidth;
   }
 
   fold() {
@@ -183,33 +158,10 @@ export class UserProjectInterviewWritingEditorPage {
     console.log("addImage(): 이미지 추가 버튼");
     this.commonService.selectImage()
     .then(this.commonService.readFile)
-    .then((formData) => {
-      let loading = this.commonService.presentLoading();
-      this.commonService.uploadFile(formData)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.interview_response_images.push({ "img" : data.data });
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-      this.commonService.showBasicAlert('오류가 발생했습니다.');
+    .then((params) => {
+      const img = params[0].localURL;
+      const formData = params[1];
+      this.interview_response_images.push({ "img" : img, "formData" : formData });
     });
   }
 

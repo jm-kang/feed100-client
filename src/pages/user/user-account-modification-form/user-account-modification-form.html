@@ -24,13 +24,13 @@
   </ion-header>
   <div class="account-modification-wrapper outer-content">
     <div class="account-modification-profile-box">
-      <span class="avatar-image-background-wrapper">
-        <img class="avatar-image-background" [src]="avatarImage" (load)="onAvatarImageLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+      <span class="avatar-image-background-wrapper cropper">
+        <img class="avatar-image-background" [src]="sanitize(avatarImage)"/>
       </span>
     </div>
     <div class="avatar-wrapper">
-      <span class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      <span text-center class="avatar-image avatar-span cropper" tappable (click)="modifyAvatar()">
+          <img class="avatar-span-image" [src]="sanitize(avatarImage)" />
       </span>
       <h3 text-center>{{nickname}} <ion-icon name="md-create" tappable (click)="modifyNickname(nickname)"></ion-icon></h3>
     </div>
@@ -38,16 +38,37 @@
     <ion-list class="account-modification-list"> 
       <ion-item>
         <ion-label color="semiDark" stacked>이메일</ion-label>
-        <ion-label class="email" color="dark">{{username}}</ion-label>
+        <ion-label text-right class="email" color="dark">{{username}}</ion-label>
       </ion-item>
       <ion-item>
-        <ion-label color="semiDark" stacked>자기소개</ion-label>
-        <ion-textarea value="asdasd" rows="3" [(ngModel)]="introduction" placeholder="자신을 어필할 수 있게 간략하게 소개글을 작성해주세요!"></ion-textarea>
-        
-        <!-- <div class="content-length-wrapper" [ngStyle]="{'color': minTextLength > (feedbackContent | textcount)? '#787878' : '#2C908F'}">
-          <span>{{feedbackContent | textcount}}</span> / <span>{{minTextLength}}</span>
-        </div> -->
+        <ion-label color="semiDark" stacked>계정 권한</ion-label>
+        <ion-label text-right class="email" color="dark">유저</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>가입일</ion-label>
+        <ion-label text-right class="email" color="dark">{{registrationDate | amDateFormat: 'YYYY-MM-DD'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>당신의 성별은 무엇입니까?</ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="gender"></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>당신의 나이는 몇 살인가요?</ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="age"></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>무슨 일을 하시나요?</ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="job"></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>어디에 사시나요?</ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="region"></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="semiDark" stacked>결혼은 하셨나요?</ion-label>
+        <ion-label text-right class="email" color="dark" [innerHTML]="marriage"></ion-label>
       </ion-item>
     </ion-list>
+    
   </div>
 </ion-content>

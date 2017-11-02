@@ -109,37 +109,6 @@ export class CompanyProjectUserProfilePage {
     this.viewCtrl.dismiss();
   }
 
-  onAvatarImageLoad(img) {
-    let tempHeight: any;
-    let tempWidth: any;
-    let tempLeft: any;
-    let tempTop: any;
-    let tempMaxHeight: any;
-    let tempMaxWidth: any;
-
-    if(img.width/21 >= img.height/9) {
-      tempHeight = img.width*9/21 + 'px';
-      tempWidth = 'auto';
-      tempTop = 'initial';
-      tempLeft = "-" + (img.width-img.height*21/9)/2  + 'px';
-      tempMaxHeight = '100%';
-      tempMaxWidth = 'initial';
-    } else {
-      tempWidth = img.height*21/9 + 'px';
-      tempHeight = 'auto';
-      tempLeft = 'initial';
-      tempTop = "-" + (img.height-img.width*9/21)/2 + 'px';
-      tempMaxWidth = '100%';
-      tempMaxHeight = 'initial';
-    }
-    this.width = tempWidth;
-    this.height = tempHeight;
-    this.left = tempLeft;
-    this.top = tempTop;
-    this.maxHeight = tempMaxHeight;
-    this.maxWidth = tempMaxWidth;
-  }
-
   openCompanyProjectFeedbackPage() {
     this.navCtrl.push(CompanyProjectFeedbackPage, { "project_id" : this.project_id, "feedback_id" : this.project_participant_id });
   } 

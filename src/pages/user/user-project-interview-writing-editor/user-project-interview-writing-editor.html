@@ -40,8 +40,8 @@
         <span class="notice-content" [innerHTML]="interview_request"></span>
         <div class="feedback-images small-feedback-images">
           <span class="image-box" *ngFor="let image of interview_request_images; let i = index">
-            <span class="feedback-image-wrapper" tappable (click)="photoView(image.img)">
-              <img class="feedback-image" [src]="image.img" (load)="onCompanyImageLoad($event.target, i)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+            <span class="feedback-image-wrapper cropper" tappable (click)="photoView(image.img)">
+              <img class="feedback-image" [src]="image.img" />
             </span>
           </span>
         </div>
@@ -68,8 +68,8 @@
       </span>
       <span class="image-box" *ngFor="let image of interview_response_images; let i = index">
         <button class="delete-image-button" ion-button clear (click)="deleteImage(i)"><img src="assets/img/delete-button.png" /></button>
-        <span class="feedback-image-wrapper">
-          <img class="feedback-image" [src]="image.img" (load)="onInterviewImageLoad($event.target, i)" [style.height]="image.height" [style.width]="image.width" [style.left]="image.left" [style.top]="image.top" [style.max-height]="image.maxHeight" [style.max-width]="image.maxWidth"/>
+        <span class="feedback-image-wrapper cropper">
+          <img class="feedback-image" [src]="sanitize(image.img)" />
         </span>
       </span>
     </div>

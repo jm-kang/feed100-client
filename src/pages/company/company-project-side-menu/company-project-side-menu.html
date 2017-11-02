@@ -16,13 +16,13 @@
   
   <ion-content #contentRef (ionScroll)="scrollingFun($event)" (ionScrollEnd)="scrollingFun($event)" class="side-menu-content outer-content">
     <div class="side-menu-profile-box">
-      <span class="avatar-image-background-wrapper">
-        <img class="avatar-image-background" [src]="projectMainImage" (load)="onAvatarImageLoad($event.target)" [style.height]="height" [style.width]="width" [style.left]="left" [style.top]="top" [style.max-height]="maxHeight" [style.max-width]="maxWidth"/>
+      <span class="avatar-image-background-wrapper cropper">
+        <img class="avatar-image-background" [src]="projectMainImage" />
       </span>
       
       <ion-item class="avatar-span-wrapper">
-        <span class="avatar-image avatar-span">
-          <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+        <span text-center class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="avatarImage" />
         </span>
         <p text-center>{{nickname}}</p>
         <h3 text-center [innerHTML]="projectName"></h3>

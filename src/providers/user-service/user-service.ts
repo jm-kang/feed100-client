@@ -28,7 +28,7 @@ export class UserServiceProvider {
   }
 
   getServerUrl() {
-    // return 'http://192.168.10.52:3000';
+    // return 'http://192.168.10.98:3000';
     // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
@@ -60,11 +60,12 @@ export class UserServiceProvider {
     });
   }
 
-  updateAccount(nickname, introduction) {
+  updateAccount(avatar_image, nickname, introduction) {
     let url = this.getServerUrl() + '/user/api/user/account';
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
     let data = {
+      "avatar_image" : avatar_image,      
       "nickname" : nickname,
       "introduction" : introduction
     };

@@ -25,8 +25,8 @@
   </div>
   <ion-list>
     <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let projectInterview of projectInterviews" (click)="openCompanyProjectInterviewPage(projectInterview.project_id)">
-      <span item-start class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + projectInterview.project_main_image + ')'"></div>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectInterview.project_main_image" />
       </span>
       <h2 [innerHTML]="projectInterview.project_name"></h2>
       <!-- 문구 수정... -->

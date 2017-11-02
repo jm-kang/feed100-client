@@ -116,6 +116,7 @@ page-user-account-modification-form {
     }
 
     .account-modification-list {
+        padding-bottom: 5px;        
         margin: 0;
         border: 0 !important;
         background-color: #f0f0f0;
@@ -134,6 +135,12 @@ page-user-account-modification-form {
             .item-inner {
                 border-bottom: 0;
                 padding-right: 16px;
+            }
+
+            .label:nth-last-child(1) {
+                padding-bottom: 14px;
+                border-bottom: 1px solid #e7e7e7;
+                // font-weight: bold;
             }
 
             ion-input {

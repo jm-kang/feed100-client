@@ -30,8 +30,8 @@
     <!-- ========================Company============================= -->
     <ion-card class="left-interview-card">
       <ion-item class="avatar-span-wrapper">
-        <span item-start class="avatar-image avatar-span">
-          <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.project_main_image + ')'"></div>
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="interview.project_main_image" />
         </span>
         <h3 [innerHTML]="interview.project_name"></h3>
         <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
@@ -57,8 +57,8 @@
       <ion-item class="avatar-span-wrapper">
         <h3 text-right [innerHTML]="interview.nickname"></h3>
         <p text-right>{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
-        <span item-end class="avatar-image avatar-span">
-          <div class="avatar-span-image" [style.backgroundImage]="'url(' + interview.avatar_image + ')'"></div>
+        <span item-end class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="interview.avatar_image" />
         </span>
       </ion-item>
       <ion-card-content>

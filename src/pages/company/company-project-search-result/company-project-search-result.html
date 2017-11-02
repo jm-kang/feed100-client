@@ -47,8 +47,8 @@
       <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
         <ion-card-header>
           <ion-item class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span" tappable (click)="openCompanyProjectUserProfilePage(feedbackResult.project_participant_id)">
-              <div class="avatar-span-image" [style.backgroundImage]="'url(' + feedbackResult.avatar_image + ')'"></div>
+            <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(feedbackResult.project_participant_id)">
+              <img class="avatar-span-image" [src]="feedbackResult.avatar_image" />
             </span>
             <h3>
               <span class="best-badge" *ngIf="feedbackResult.is_best">

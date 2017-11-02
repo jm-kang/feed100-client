@@ -44,8 +44,8 @@
       <div padding class="comment-top-wrapper">
         <h2 class="story-name" [innerHTML]="newsfeedName"></h2>
         <ion-item class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="avatarImage" />
           </span>
           <h3>by. {{nickname}}</h3>
         </ion-item>
@@ -70,8 +70,8 @@
           <p>첫 번째 댓글을 등록해보세요!</p>
         </div>
         <ion-item class="newsfeed-comment-wrapper" *ngFor="let newsfeedComment of newsfeedComments">
-          <span item-start class="avatar-image avatar-span">
-            <div class="avatar-span-image" [style.backgroundImage]="'url(' + newsfeedComment.avatar_image + ')'"></div>
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="newsfeedComment.avatar_image" />
           </span>
           <h5 [innerHTML]="newsfeedComment.nickname"></h5>
           <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
@@ -91,8 +91,8 @@
       </button>
     </ion-buttons>
     <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
-      <span item-start class="avatar-image avatar-span">
-        <div class="avatar-span-image" [style.backgroundImage]="'url(' + avatarImage + ')'"></div>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <h3>by. {{nickname}}</h3>
     </ion-item>
