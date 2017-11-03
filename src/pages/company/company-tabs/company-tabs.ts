@@ -46,41 +46,12 @@ export class CompanyTabsPage {
 
   }
 
-  getAlarmNum() {
-    return this.companyService.alarmNum;
-  }
-
   getInterviewNum() {
     return this.companyService.interviewNum;
   }
 
   ionViewDidEnter() {
     console.log('ionViewDidEnter CompanyTabsPage');
-    // let loading = this.commonService.presentLoading();
-
-    this.companyService.getAlarmAndInterviewNum()
-    .finally(() => {
-      // loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
   }
 
   ionViewDidLoad() {
@@ -121,11 +92,9 @@ export class CompanyTabsPage {
         if(notification.additionalData.foreground) {
           console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
-          this.ionViewDidEnter();
         }
         else {
           console.log('background');
-          this.ionViewDidEnter();
         }
       });
 

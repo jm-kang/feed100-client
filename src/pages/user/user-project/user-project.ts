@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -16,7 +18,6 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-project.html',
 })
 export class UserProjectPage {
-
   projects = [];
 
   constructor(
@@ -24,6 +25,7 @@ export class UserProjectPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
 
@@ -40,9 +42,6 @@ export class UserProjectPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          // 추가된 문장
-          this.userService.alarmNum = data.data.alarm_num;
-          // 추가된 문장 끝
           this.projects = data.data;
         }
         else if(data.success == false) {
@@ -55,6 +54,27 @@ export class UserProjectPage {
       (err) => {
         console.log(JSON.stringify(err));
         this.commonService.showBasicAlert('오류가 발생했습니다.')
+      }
+    );
+
+    this.userService.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.userService.alarmNum = data.data.alarm_num;
+          this.userService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
@@ -166,8 +186,6 @@ export class UserProjectPage {
   }
 
   openUserProjectHomePage(project_id) {
-    // let userProjectHomeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectHomePage', params: { "project_id" : project_id }});
-    // userProjectHomeModal.present();
     this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 
