@@ -95,15 +95,7 @@ export class UserMypagePage {
   }
 
   openUserAccountModificationFormPage() {
-    let userAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {
-      page: 'UserAccountModificationFormPage',
-      params: {
-        "avatarImage" : this.avatarImage,
-        "nickname" : this.nickname,
-        "username" : this.username,
-        "introduction" : this.introduction
-      }
-    });
+    let userAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserAccountModificationFormPage'});
     userAccountModificationFormModal.present();
     userAccountModificationFormModal.onWillDismiss(
       (data) => {
@@ -232,6 +224,13 @@ export class UserMypagePage {
   openUserProfileModificationFormPage() {
     let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
+    userProfileModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewDidEnter();
+        }
+      }
+    );
   }
 
   openUserProjectStoryPage(project_id) {

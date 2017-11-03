@@ -131,7 +131,8 @@ export class CommonServiceProvider {
       "username" : username,
       "password" : password,
       "role" : role,
-      "nickname" : nickname
+      "nickname" : nickname,
+      "avatar_image" : "assets/img/" + role + "-avatar-image.png"
     };
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
@@ -145,7 +146,8 @@ export class CommonServiceProvider {
       "role" : role,
       "nickname" : nickname,
       "provider" : provider,
-      "app_id" : app_id
+      "app_id" : app_id,
+      "avatar_image" : "assets/img/" + role + "-avatar-image.png"      
     };
     let headers = new Headers();
     headers.append('Content-type', 'application/json');

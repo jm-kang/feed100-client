@@ -129,8 +129,6 @@ export class CompanyMypagePage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    // companyProjectHomeModal.present();
     this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
@@ -144,12 +142,10 @@ export class CompanyMypagePage {
   }
 
   openCompanyAlarmPage() {
-    // this.navCtrl.push(CompanyAlarmPage);
     this.navCtrl.push('CompanyAlarmPage');
   }
 
   openCompanyConfigurePage() {
-    // this.navCtrl.push(CompanyConfigurePage);
     this.navCtrl.push('CompanyConfigurePage');
   }
 

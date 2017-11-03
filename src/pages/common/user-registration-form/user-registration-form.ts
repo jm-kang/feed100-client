@@ -62,18 +62,52 @@ export class UserRegistrationFormPage {
       this.commonService.showBasicAlert('이메일을 입력해주세요.');
       return;
     }
+    else {
+      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      if(!this.username.match(regExp)) {
+        this.commonService.showBasicAlert('이메일 형식이 올바르지 않습니다.');
+        return;
+      }
+    }
+
     if(!this.password) {
       this.commonService.showBasicAlert('비밀번호를 입력해주세요.');
       return;
     }
+    else {
+      let regExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*\W).{8,}$/;          
+      if(!this.password.match(regExp)) {
+        this.commonService.showBasicAlert('비밀번호는 영문, 숫자, 특수문자 조합으로 최소 8자 이상이어야 합니다.');
+        return;
+      }
+    }
+
     if(!this.checkingPassword) {
-      this.commonService.showBasicAlert('비밀번호 확인을 입력해주세요.');
+      this.commonService.showBasicAlert('비밀번호 확인을 위해 다시 한 번 입력해주세요.');
       return;
     }
+    else {
+      if(this.password != this.checkingPassword) {
+        this.commonService.showBasicAlert('비밀번호를 다시 확인해주세요.');
+        return;
+      }
+    }
+
     if(!this.nickname) {
       this.commonService.showBasicAlert('닉네임을 입력해주세요.');
       return;
     }
+    else {
+      let regExp = /[가-힣0-9a-zA-Z]{2,16}$/;
+      let withoutKorean = this.nickname.replace(/[가-힣]/g, '');
+      let withoutEnglish = this.nickname.replace(/[0-9a-zA-z]/g, '');
+      let byte = withoutKorean.length + withoutEnglish.length * 2;
+      if(!this.nickname.match(regExp) || byte < 4 || byte > 16) {
+        this.commonService.showBasicAlert('닉네임은 한글 2 ~ 8자, 영문, 숫자 4 ~ 16자 이내로 입력해주세요.');
+        return;
+      }
+    }
+
     if(!this.isCheck) {
       this.commonService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
       return;

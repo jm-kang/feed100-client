@@ -117,8 +117,17 @@ export class UserProfileModificationFormPage {
   modifyProfile() {
     console.log("프로필 작성 완료");
     let loading = this.commonService.presentLoading();
+
+    let num = Math.floor(Math.random() * 3) + 1; // 1 ~ 3
+    let avatar_image = "";
+    if(this.values[0] == "남자") {
+      avatar_image = "assets/img/user-avatar-image-man" + num + ".png";
+    }
+    else {
+      avatar_image = "assets/img/user-avatar-image-woman" + num + ".png";
+    }
     
-    this.userService.updateProfile(this.values[0], this.values[1], this.values[2], this.values[3], this.values[4], this.interestValues)
+    this.userService.updateProfile(this.values[0], this.values[1], this.values[2], this.values[3], this.values[4], this.interestValues, avatar_image)
     .finally(() => {
       loading.dismiss();
     })
@@ -126,7 +135,7 @@ export class UserProfileModificationFormPage {
       (data) => {
         if(data.success == true) {
           this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.ModalWrapperPage.dismissModal("modified");   
+          this.ModalWrapperPage.dismissModal("refresh");   
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

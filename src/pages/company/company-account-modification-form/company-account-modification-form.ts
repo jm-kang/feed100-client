@@ -113,12 +113,7 @@ export class CompanyAccountModificationFormPage {
         {
           text: '완료',
           handler: data => {
-            if(data.nickname.length >= 2 && data.nickname.length <= 8) {
-              this.nickname = data.nickname;
-            }
-            else {
-              this.commonService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
-            }
+            this.nickname = data.nickname;
           }
         }
       ]

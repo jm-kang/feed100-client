@@ -123,11 +123,15 @@ export class UserAccountModificationFormPage {
         {
           text: '완료',
           handler: data => {
-            if(data.nickname.length >= 2 && data.nickname.length <= 8) {
-              this.nickname = data.nickname;
+            let regExp = /[가-힣0-9a-zA-Z]{2,16}$/;
+            let withoutKorean = data.nickname.replace(/[가-힣]/g, '');
+            let withoutEnglish = data.nickname.replace(/[0-9a-zA-z]/g, '');
+            let byte = withoutKorean.length + withoutEnglish.length * 2;
+            if(!this.nickname.match(regExp) || byte < 4 || byte > 16) {
+              this.commonService.showBasicAlert('닉네임은 한글 2 ~ 8자, 영문, 숫자 4 ~ 16자 이내로 입력해주세요.');
             }
             else {
-              this.commonService.showBasicAlert('닉네임은 2~8글자여야 합니다.');
+              this.nickname = data.nickname;
             }
           }
         }
