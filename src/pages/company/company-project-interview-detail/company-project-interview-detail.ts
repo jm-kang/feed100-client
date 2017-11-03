@@ -74,7 +74,9 @@ export class CompanyProjectInterviewDetailPage {
             }
           }
           this.interviews = tempInterviews;
-          this.content.scrollToBottom();          
+          setTimeout(() => {
+            this.content.scrollToBottom();
+          }, 500);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

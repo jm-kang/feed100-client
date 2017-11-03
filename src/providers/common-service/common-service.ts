@@ -47,7 +47,9 @@ export class CommonServiceProvider {
       (resolve, reject) => {
         const options: CameraOptions = {
           quality: 50,
-          allowEdit: true,
+          targetWidth: 1280,
+          targetHeight: 1280,
+          // allowEdit: true,
           destinationType: this.camera.DestinationType.FILE_URI,
           encodingType: this.camera.EncodingType.JPEG,
           mediaType: this.camera.MediaType.PICTURE,
