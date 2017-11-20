@@ -140,4 +140,8 @@ export class CompanyProjectHomePage {
   openCompanyProjectUserProfilePage(project_participant_id) {
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
+
+  openCompanyProjectUserReportPage() {
+    this.navCtrl.push('CompanyProjectUserReportPage', { "project_id" : this.project_id });
+  }
 }

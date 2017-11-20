@@ -32,6 +32,8 @@ export class UserProjectHomePage {
   isLink: boolean = false;
   interview_num: number = 0;
   projectRegistrationDate: String = "";
+  participationFeedbackNum: number;
+  limitFeedbackNum: number = 0;
 
   feedbacks = [];
 
@@ -76,10 +78,19 @@ export class UserProjectHomePage {
           this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
           this.projectRegistrationDate = data.data.project_registration_date;
+          this.participationFeedbackNum = 0;
 
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
 
           this.feedbacks = data.data.feedbacks;
+
+          for(let feedback of this.feedbacks) {
+            if(feedback.is_my_opinion) {
+              this.participationFeedbackNum = this.participationFeedbackNum + 1;
+            }
+          }
+
+          console.log("참" + this.participationFeedbackNum);
 
         }
         else if(data.success == false) {
@@ -94,6 +105,8 @@ export class UserProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+
+    this.limitFeedbackNum = 10;
 
   }
 
@@ -128,5 +141,10 @@ export class UserProjectHomePage {
 
   openUserProjectFeedbackListPage() {
     this.navCtrl.push('UserProjectFeedbackListPage', { "project_id" : this.project_id });
+  }
+
+  openUserProjectReportFormPage() {
+    let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
+    userProjectReportFormModal.present();
   }
 }

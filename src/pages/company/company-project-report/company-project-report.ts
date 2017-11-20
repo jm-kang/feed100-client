@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -31,12 +32,14 @@ export class CompanyProjectReportPage {
   participantNum: number = 0;
   maxParticipantNum: number = 0;
   progressState: String = "";
-  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 스토리 요약<br>4. 베스트 피드백<br>5. 프로젝트 통계"
+  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 유저 보고서"
   projectRegistrationDate: String = "";
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
+
+  userReportLength: number = 0;
 
   colors= [
     {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)', 'rgba(39, 62, 17, 0.7)', 'rgba(117, 141, 69, 0.7)', 'rgba(180, 189, 75, 0.7)']},
@@ -261,7 +264,7 @@ export class CompanyProjectReportPage {
           fontStyle: 'bold',
           fontColor: '#ffffff',
           lineHeight: '3',
-          text: '5. 프로젝트 통계'
+          text: '4. 프로젝트 통계'
         }
       },
     },
@@ -295,7 +298,7 @@ export class CompanyProjectReportPage {
           fontStyle: 'bold',
           fontColor: '#ffffff',
           lineHeight: '3',
-          text: '5. 프로젝트 통계'
+          text: '4. 프로젝트 통계'
         }
       },
     } ,
@@ -329,9 +332,36 @@ export class CompanyProjectReportPage {
           fontStyle: 'bold',
           fontColor: '#ffffff',
           lineHeight: '3',
-          text: '5. 프로젝트 통계'
+          text: '4. 프로젝트 통계'
         }
       },
+    }
+  ];
+
+  userReports = [
+    {
+      nickname: "닉네임",
+      avatar_image: "assets/img/user-avatar-image.png",
+      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }, { img : "assets/img/feedback-image2.jpeg", formData : "formData" }],
+      story_summary_content: "",
+      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
+      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
+      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평",
+      report_registration_date: "2017-11-01 00:00:00",
+      isSelection: true,
+      project_participant_id: 1,
+    },
+    {
+      nickname: "닉네임",
+      avatar_image: "assets/img/user-avatar-image.png",
+      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }],
+      story_summary_content: "",
+      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
+      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
+      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 v",
+      report_registration_date: "2017-11-01 00:00:00",
+      isSelection: false,
+      project_participant_id: 1,
     }
   ];
 
@@ -340,7 +370,8 @@ export class CompanyProjectReportPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
-    public companyService: CompanyServiceProvider) {
+    public companyService: CompanyServiceProvider,
+    public photoViewer: PhotoViewer) {
   }
 
   ionViewDidLoad() {
@@ -460,7 +491,8 @@ export class CompanyProjectReportPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
+    this.userReportLength = this.userReports.length;
+    console.log("length: " + this.userReportLength);
   }
 
   slideChanged() {
@@ -543,5 +575,17 @@ export class CompanyProjectReportPage {
 
   openCompanyProjectUserProfilePage(project_participant_id) {
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
+  }
+
+  CompanyProjectUserReportDetailPage() {
+    this.modalCtrl.create
+  }
+
+  bestSelection() {
+    // 선정 버튼
+  }
+
+  photoView(url) {
+    this.photoViewer.show(url);
   }
 }

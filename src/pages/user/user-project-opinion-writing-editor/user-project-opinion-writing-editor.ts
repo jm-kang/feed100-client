@@ -193,8 +193,8 @@ export class UserProjectOpinionWritingEditorPage {
           this.scrollVert = 100 ;
     }
     if(this.scrollVert < 20) {
-      this.transparentPercent = 1 - (this.scrollVert /20);
-      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+      // this.transparentPercent = 1 - (this.scrollVert /20);
+      // document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
     }
   }
 

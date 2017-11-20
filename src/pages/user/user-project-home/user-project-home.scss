@@ -318,7 +318,7 @@ page-user-project-home {
 .feedback-card .feedback-summary,
 .feedback-comment,
 .opinion-content {
-    white-space: pre-line;
+    white-space: pre-line !important;
 }
 
 .feedback-card .feedback-summary,
@@ -380,6 +380,7 @@ page-user-project-home {
 }
 
 .project-home-content-wrapper .fab {
+    overflow: visible;
     bottom: 10px;
     right: 10px;
     background-color: #FF8C3E;
@@ -387,8 +388,48 @@ page-user-project-home {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
+.project-home-content-wrapper .fab .button-inner {
+    overflow: visible;
+}
+
+
 .project-home-content-wrapper .fab ion-icon {
     font-size: 3.7rem;
+}
+
+.project-home-content-wrapper .fab-in-list ion-icon {
+    font-size: 2.4rem !important;
+}
+
+.project-home-content-wrapper .fab-list-active .badge {
+    top: -5px;
+    right: 10px; 
+}
+
+.project-home-content-wrapper .fab-list-active .fab {
+    background-color: #ff9d5b;
+}
+
+.project-home-content-wrapper .fab-list-active .fab.disable-fab {
+    background-color: rgba(255, 157, 91, 0.8);
+}
+
+.fab-label {
+    position: absolute;
+    background: #c8c8c8;
+    color:#383838;
+    height: 24px;
+    line-height: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fab-label-report {
+    margin-left: -115px; /* Custom for each label */
 }
 
 .project-home-content-wrapper ion-badge {

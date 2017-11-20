@@ -37,15 +37,9 @@ export class CompanyHomePage {
     {
       link: 'ManualPage',
       bg: 'assets/img/feed100-intro-slide3.png',
-      title: '매뉴얼 확인하기',
+      title: '도움말 확인하기',
       content: '매뉴얼을 확인해보세요<br>FEED100이 필요한 이유를 찾을 수 있습니다.',
     },
-    {
-      link: 'FaqPage',
-      bg: 'assets/img/feed100-intro-slide4.png',
-      title: 'FEED100의 빠른 대답',
-      content: '',
-    }
   ];
   
   // 진행중인 프로젝트

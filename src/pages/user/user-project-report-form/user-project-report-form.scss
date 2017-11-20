@@ -1,0 +1,36 @@
+page-user-project-report-form {
+    .slide-zoom { 
+        height: 100%;
+        padding-top: 80px;
+    }
+    .editor-content {
+        height: auto;
+        textarea {
+            color: #383838;
+            border: 1px solid #c8c8c8;
+            height: 35vh;
+        }
+    
+        .content-length-wrapper {
+            margin: 0 16px;
+            text-align: right;
+            color: #787878;
+            font-size: 1.3rem;
+            padding-right: 16px;
+        }
+    }
+    .slide-question-content .story-main-image {
+        -webkit-filter: opacity(0%);
+        filter: opacity(0%);
+    }
+    .content-length-wrapper {
+        margin-top: 16px !important
+    }
+    .submit-btn {
+        color: #ff6700 !important;
+    }
+}
+
+.project-report-form-navbar {
+    background-color: #000 !important;
+}
