@@ -12,12 +12,16 @@ import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 
+import { UserProjectReportFormPage } from '../pages/user/user-project-report-form/user-project-report-form';
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = LoginPage;
+
+  // rootPage:any = UserProjectReportFormPage;
 
   constructor(
     platform: Platform,
@@ -35,7 +39,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.verifyLoginState();
-      keyboard.disableScroll(true);
+      // keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
     });

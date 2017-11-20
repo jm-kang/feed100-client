@@ -115,14 +115,14 @@ export class UserProjectFeedbackWritingEditorPage {
     });
   }
 
-  swipeEvent(e) {
-    if(e.direction == 16) {
-      document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
-      if(this.contentHandle.scrollTop > -90) {
-        this.dismiss();
-      }
-    }
-  }
+  // swipeEvent(e) {
+  //   if(e.direction == 16) {
+  //     document.querySelector(".editor-modal .scroll-content")['style'].background = 'transparent';
+  //     if(this.contentHandle.scrollTop > -90) {
+  //       this.dismiss();
+  //     }
+  //   }
+  // }
 
   panEnd() {
     if(this.contentHandle.scrollTop <= -90) {
@@ -142,8 +142,8 @@ export class UserProjectFeedbackWritingEditorPage {
           this.scrollVert = 100 ;
     }
     if(this.scrollVert < 20) {
-      this.transparentPercent = 1 - (this.scrollVert /20);
-      document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
+      // this.transparentPercent = 1 - (this.scrollVert /20);
+      // document.querySelector(".editor-modal .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
     }
   }
 

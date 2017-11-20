@@ -1,5 +1,34 @@
 page-company-project-report {
+    .user-report-card {
+        margin-bottom: 20px;
+        .best-badge {
+            padding: 3px 8px;
+            span {
+                color: #fff !important;
+                font-size: 10px !important;
+            }
+        }
 
+        .user-nickname-button {
+            color: #383838 !important;
+            font-size: 1.5rem !important;
+        }
+
+        .user-nickname-button.activated {
+            color: #ff6400 !important;
+            font-size: 1.5rem !important;
+        }
+
+        .report-card-footer-wrapper {
+            padding-bottom: 8px;
+            h1 {
+                font-size: 1.6rem;
+                color: #999;
+                margin-bottom : 0 !important;
+            }
+        }
+    }
+    
 }
 
 .project-report-content {

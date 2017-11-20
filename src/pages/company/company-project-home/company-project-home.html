@@ -115,4 +115,14 @@
     <button ion-fab color="primary" (click)="openCompanyProjectInterviewPage()"><ion-icon name="text"></ion-icon></button>
     <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
   </ion-fab>
+
+  <!-- <ion-fab right bottom>
+    <button ion-fab><ion-icon name="add"></ion-icon></button>
+    <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
+    <ion-fab-list side="top">
+      <button ion-fab (click)="openCompanyProjectUserReportPage()"><ion-icon color="light" name="ios-clipboard"></ion-icon></button>
+      <button ion-fab (click)="openCompanyProjectInterviewPage()"><ion-icon color="light" name="text"></ion-icon></button>
+      <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
+    </ion-fab-list>
+  </ion-fab> -->
 </ion-content>

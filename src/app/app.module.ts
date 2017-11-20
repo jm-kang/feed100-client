@@ -45,6 +45,7 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
     import { CompanyProjectSearchResultPageModule } from '../pages/company/company-project-search-result/company-project-search-result.module';
     import { CompanyProjectUserParticipationConditionStatsPageModule } from '../pages/company/company-project-user-participation-condition-stats/company-project-user-participation-condition-stats.module';
     import { CompanyProjectUserProfileStatsPageModule } from '../pages/company/company-project-user-profile-stats/company-project-user-profile-stats.module';
+    import { CompanyProjectUserReportPageModule } from './../pages/company/company-project-user-report/company-project-user-report.module';
   import { CompanyNewsfeedPageModule } from '../pages/company/company-newsfeed/company-newsfeed.module';
     import { CompanyNewsfeedStoryPageModule } from '../pages/company/company-newsfeed-story/company-newsfeed-story.module';
   import { CompanyMypagePageModule } from '../pages/company/company-mypage/company-mypage.module';
@@ -78,6 +79,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectStoryPageModule } from '../pages/user/user-project-story/user-project-story.module';
     import { UserProjectStorySummaryWritingEditorPageModule } from '../pages/user/user-project-story-summary-writing-editor/user-project-story-summary-writing-editor.module';
     import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
+    import { UserProjectReportFormPageModule } from '../pages/user/user-project-report-form/user-project-report-form.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
     import { UserNewsfeedStoryPageModule } from '../pages/user/user-newsfeed-story/user-newsfeed-story.module';
   import { UserMypagePageModule } from '../pages/user/user-mypage/user-mypage.module';
@@ -164,6 +166,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         CompanyProjectSearchResultPageModule,
         CompanyProjectUserParticipationConditionStatsPageModule,
         CompanyProjectUserProfileStatsPageModule,
+        CompanyProjectUserReportPageModule,
       CompanyNewsfeedPageModule,
         CompanyNewsfeedStoryPageModule,
       CompanyMypagePageModule,
@@ -195,6 +198,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         UserProjectStoryPageModule,
         UserProjectStorySummaryWritingEditorPageModule,
         UserProjectSearchResultPageModule,
+        UserProjectReportFormPageModule,
       UserNewsfeedPageModule,
         UserNewsfeedStoryPageModule,
       UserMypagePageModule,

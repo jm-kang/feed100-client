@@ -1,0 +1,90 @@
+<!--
+  Generated template for the CompanyProjectUserReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="project-user-report-header" hideBackButton="true">
+    <ion-buttons start>
+      <button class="white-button" ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title class="project-user-report-title">  
+      유저 보고서
+    </ion-title>
+    <ion-buttons class="header-tag" end>
+      {{userReports.length}}개 등록
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="project-user-report-content" no-bounce>
+  <!-- <div class="report-group-title" text-right padding-right>
+      {{userReports.length}}개의 보고서가 등록되었습니다.
+  </div> -->
+  <div text-center *ngIf = "!userReports.length" class="empty-inner">
+    <p>등록된 보고서가 없습니다.</p>
+  </div>
+  <ion-slides *ngIf = "userReports.length" pager=false loop="false" spaceBetween="-28">
+    <ion-slide *ngFor="let userReport of userReports" style="overflow-y: scroll; display: block;">
+      <ion-card class="user-report-card">
+        <ion-item class="report-card-header">
+          <ion-avatar item-start>
+            <img [src]="userReport.avatar_image">
+          </ion-avatar>
+          <h2>
+            <span class="best-badge" *ngIf="userReport.isSelection">
+              <span>선정</span>
+            </span>
+            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
+          </h2>
+          <p>{{userReport.report_registration_date | amDateFormat: 'YYYY-MM-DD'}}에 작성됨</p>
+          <!-- <h1 class="new-tag" item-end *ngIf="userReport.isNew">NEW</h1> -->
+        </ion-item>
+        <div class="report-card-content-wrapper">
+          <div class="report-item-wrapper" *ngIf="userReport.report_form_images">
+            <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 사용 인증</h4>
+            <div class="report-images small-report-images">
+              <span class="image-box" *ngFor="let image of userReport.report_form_images; let j = index">
+                <span tappable (click)="photoView(image.img)" class="report-image-wrapper cropper">
+                  <img class="report-image" [src]="image.img" />
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="report-item-wrapper" *ngIf="userReport.story_summary_content">
+            <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 장단점</h4>
+            <div class="report-item-answer">
+              {{userReport.story_summary_content | replaceBrTag}}
+            </div>
+          </div>
+          <div class="report-item-wrapper">
+            <h4 text-left padding-left margin-top class="report-item-question">Q2. 서비스 장단점</h4>
+            <div class="report-item-answer">
+              <strong>장점: </strong>{{userReport.pros_content | replaceBrTag}}
+            </div>
+            <div class="report-item-answer">
+              <strong>단점: </strong>{{userReport.cons_content | replaceBrTag}}
+            </div>
+          </div>
+          <div class="report-item-wrapper">
+            <h4 text-left padding-left margin-top class="report-item-question">Q3. 서비스 총평</h4>
+            <div class="report-item-answer">
+              {{userReport.overall_opinion_content | replaceBrTag}}
+            </div>
+          </div>
+        </div>
+        <div class="report-card-footer-wrapper" *ngIf="!userReport.isSelection">
+          <button ion-button class="selection-button" block (click)="bestSelection()">선정하기</button>
+          <p>피드백에 도움이 된 보고서를 선정해주세요.</p>
+        </div>
+        <div class="report-card-footer-wrapper" *ngIf="userReport.isSelection">
+          <h1>선정된 보고서입니다.</h1>
+        </div>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

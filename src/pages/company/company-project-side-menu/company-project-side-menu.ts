@@ -106,4 +106,8 @@ export class CompanyProjectSideMenuPage {
   openCompanyProjectPriceStatementPage() {
     this.navCtrl.push('CompanyProjectPriceStatementPage', { "project_id" : this.project_id });
   }
+
+  openCompanyProjectUserReportPage() {
+    this.navCtrl.push('CompanyProjectUserReportPage', { "project_id" : this.project_id });
+  }
 }

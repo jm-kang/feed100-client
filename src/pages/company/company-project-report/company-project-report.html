@@ -58,7 +58,7 @@
       </div>
     </ion-slide>
 
-    <ion-slide class="story-content-slide project-story-summary-content">
+    <!-- <ion-slide class="story-content-slide project-story-summary-content">
       <div class="project-story-summary-title">
         <ion-item class="slide-title">
           <h3>3. 스토리 요약</h3>
@@ -87,12 +87,12 @@
           </ion-item>
         </ion-card>
       </div>
-    </ion-slide>
+    </ion-slide> -->
 
     <ion-slide class="story-content-slide">
       <div>
         <ion-item class="slide-title">
-          <h3>4. 베스트 피드백</h3>
+          <h3>3. 베스트 피드백</h3>
         </ion-item>
       </div>
       <ion-card class="feedback-card" *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
@@ -117,7 +117,6 @@
         <ion-card-content class="feedback-content" *ngIf="projectBestFeedback.is_best">
           <div class="feedback-summary" text-left tappable (click)="openCompanyProjectFeedbackPage(projectBestFeedback.project_participant_id)">
             {{(projectBestFeedback.project_feedback | jsonParse)[0] | slicetext:100 | replaceBrTag}}
-            <!-- <span class="slice-tag" *ngIf="(projectBestFeedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
             <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
           </div>
           <div text-left class="hashtag-wrapper">
@@ -141,6 +140,77 @@
         </ion-item>
         프로젝트 참여인원 <strong>{{projectStatSlide.totalNum}}</strong> 명 중<br>
         <span class="stat-summary-block" *ngFor="let data of projectStatSlide.datasets[0].data; let userProfileDataIndex=index">{{projectStatSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectStatSlide.totalNum == 0) ? 0 : data/projectStatSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlide.datasets[0].data.length">,</span></span>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide project-story-summary-content">
+      <div class="project-story-summary-title">
+        <ion-item class="slide-title">
+          <h3>5. 유저 보고서</h3>
+        </ion-item>
+      </div>
+      <div class="project-story-summary-list">
+        <div text-right class="total-length" *ngIf="userReportLength > 0">총 {{userReportLength}}개</div>
+        <div text-center *ngIf="userReportLength == 0" class="empty-inner">
+          <ion-icon name="analytics"></ion-icon>
+          <p>아직 등록된 유저 보고서가 없습니다.</p>
+        </div>
+    
+        <ion-card tappable class="user-report-card" *ngFor="let userReport of userReports">
+          <ion-item class="report-card-header">
+            <ion-avatar item-start>
+              <img [src]="userReport.avatar_image">
+            </ion-avatar>
+            <h2>
+              <span class="best-badge" *ngIf="userReport.isSelection">
+                <span>선정</span>
+              </span>
+              <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
+            </h2>
+            <p>{{userReport.report_registration_date | amDateFormat: 'YYYY-MM-DD'}}에 작성됨</p>
+            <!-- <h1 class="new-tag" item-end *ngIf="userReport.isNew">NEW</h1> -->
+          </ion-item>
+          <div class="report-card-content-wrapper">
+            <div class="report-item-wrapper" *ngIf="userReport.report_form_images">
+              <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 사용 인증</h4>
+              <div class="report-images small-report-images">
+                <span class="image-box" *ngFor="let image of userReport.report_form_images; let j = index">
+                  <span tappable (click)="photoView(image.img)" class="report-image-wrapper cropper">
+                    <img class="report-image" [src]="image.img" />
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="report-item-wrapper" *ngIf="userReport.story_summary_content">
+              <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 장단점</h4>
+              <div class="report-item-answer">
+                {{userReport.story_summary_content | replaceBrTag}}
+              </div>
+            </div>
+            <div class="report-item-wrapper">
+              <h4 text-left padding-left margin-top class="report-item-question">Q2. 서비스 장단점</h4>
+              <div class="report-item-answer">
+                <strong>장점: </strong>{{userReport.pros_content | replaceBrTag}}
+              </div>
+              <div class="report-item-answer">
+                <strong>단점: </strong>{{userReport.cons_content | replaceBrTag}}
+              </div>
+            </div>
+            <div class="report-item-wrapper">
+              <h4 text-left padding-left margin-top class="report-item-question">Q3. 서비스 총평</h4>
+              <div class="report-item-answer">
+                {{userReport.overall_opinion_content | replaceBrTag}}
+              </div>
+            </div>
+          </div>
+          <div class="report-card-footer-wrapper" *ngIf="!userReport.isSelection">
+            <button ion-button class="selection-button" block (click)="bestSelection()">선정하기</button>
+            <p>피드백에 도움이 된 보고서를 선정해주세요.</p>
+          </div>
+          <div class="report-card-footer-wrapper" *ngIf="userReport.isSelection">
+            <h1>선정된 보고서입니다.</h1>
+          </div>
+        </ion-card>
       </div>
     </ion-slide>
 

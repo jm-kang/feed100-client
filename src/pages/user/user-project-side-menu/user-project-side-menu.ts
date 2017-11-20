@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, IonicPage, NavController, NavParams, ViewController, Content } from 'ionic-angular';
+import { Nav, IonicPage, NavController, NavParams, ViewController, Content, ModalController } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -54,13 +54,15 @@ export class UserProjectSideMenuPage {
   maxOpinionPoint: number = 0;
   interviewPoint: number = 0;
   projectPoint: number = 0;
+  limitFeedbackNum: number = 0;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController, 
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    public modalCtrl: ModalController) {
   }
   
   back() {
@@ -113,6 +115,8 @@ export class UserProjectSideMenuPage {
       }
     );
 
+    this.limitFeedbackNum = 10;
+
   }
 
   scrollingFun(e) {
@@ -143,4 +147,8 @@ export class UserProjectSideMenuPage {
     this.navCtrl.push('UserProjectInterviewDetailPage', { "project_id" : this.project_id });
   }
 
+  opneUserProjectReportFormPage() {
+    let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
+    userProjectReportFormModal.present();
+  }
 }
