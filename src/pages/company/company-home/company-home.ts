@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -54,6 +56,7 @@ export class CompanyHomePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
@@ -72,6 +75,27 @@ export class CompanyHomePage {
           this.proceedingProjects = data.data.proceeding_projects;
           this.newProjects = data.data.new_projects;
           this.newNewsfeeds = data.data.new_newsfeeds;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
+    this.companyService.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.companyService.alarmNum = data.data.alarm_num;
+          this.companyService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -165,8 +189,6 @@ export class CompanyHomePage {
   }
 
   openCompanyProjectHomePage(project_id) {
-    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    // companyProjectHomeModal.present();
     this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
@@ -180,12 +202,10 @@ export class CompanyHomePage {
   }
 
   openCompanyAlarmPage() {
-    // this.navCtrl.push(CompanyAlarmPage);
     this.navCtrl.push('CompanyAlarmPage');
   }
 
   openCompanyConfigurePage() {
-    // this.navCtrl.push(CompanyConfigurePage);
     this.navCtrl.push('CompanyConfigurePage');
   }
 

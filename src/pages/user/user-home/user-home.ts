@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -60,6 +62,7 @@ export class UserHomePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -91,6 +94,28 @@ export class UserHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+
+    this.userService.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.userService.alarmNum = data.data.alarm_num;
+          this.userService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   openPageWrapper(page) {

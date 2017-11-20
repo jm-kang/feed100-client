@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -23,6 +25,7 @@ export class UserAlarmPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -39,6 +42,7 @@ export class UserAlarmPage {
       (data) => {
         if(data.success == true) {
           this.alarms = data.data;
+          this.badge.set(0);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

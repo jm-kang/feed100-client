@@ -77,7 +77,7 @@ export class UserServiceProvider {
     });
   }
 
-  updateProfile(gender, age, job, region, marriage, interests) {
+  updateProfile(gender, age, job, region, marriage, interests, avatar_image) {
     let url = this.getServerUrl() + '/user/api/user/profile';
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
@@ -87,7 +87,8 @@ export class UserServiceProvider {
       "job" : job,
       "region" : region,
       "marriage" : marriage,
-      "interests" : interests
+      "interests" : interests,
+      "avatar_image" : avatar_image
     };
 
     return Observable.fromPromise(this.storage.get('accessToken'))

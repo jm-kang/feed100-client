@@ -43,41 +43,12 @@ export class UserTabsPage {
     public userService: UserServiceProvider) {
   }
 
-  getAlarmNum() {
-    return this.userService.alarmNum;
-  }
-
   getInterviewNum() {
     return this.userService.interviewNum;
   }
 
   ionViewDidEnter() {
-    console.log('ionViewWillEnter UserTabsPage');
-    // let loading = this.commonService.presentLoading();
-
-    this.userService.getAlarmAndInterviewNum()
-    .finally(() => {
-      // loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.userService.alarmNum = data.data.alarm_num;
-          this.userService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+    console.log('ionViewDidEnter UserTabsPage');
   }
 
   ionViewDidLoad() {
@@ -117,11 +88,9 @@ export class UserTabsPage {
         if(notification.additionalData.foreground) {
           console.log('foreground');
           this.commonService.showBasicAlert(notification.message);
-          this.ionViewDidEnter();
         }
         else {
           console.log('background');
-          this.ionViewDidEnter();
         }
       });
       

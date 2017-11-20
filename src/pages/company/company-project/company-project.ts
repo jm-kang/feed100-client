@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
+import { Badge } from '@ionic-native/badge';
+
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -24,6 +26,7 @@ export class CompanyProjectPage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
+    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
 
@@ -52,6 +55,27 @@ export class CompanyProjectPage {
       (err) => {
         console.log(JSON.stringify(err));
         this.commonService.showBasicAlert('오류가 발생했습니다.')
+      }
+    );
+
+    this.companyService.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.companyService.alarmNum = data.data.alarm_num;
+          this.companyService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
 
