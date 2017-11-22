@@ -54,7 +54,7 @@ export class UserProjectSideMenuPage {
   maxOpinionPoint: number = 0;
   interviewPoint: number = 0;
   projectPoint: number = 0;
-  limitFeedbackNum: number = 0;
+  minOpinionNum: number = 0;
 
   constructor(
     public navCtrl: NavController, 
@@ -101,6 +101,9 @@ export class UserProjectSideMenuPage {
           this.maxOpinionPoint = this.opinionReward * this.feedbackNum;
           this.interviewPoint = this.interviewReward * this.completedInterviewNum;
           this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint;
+
+          this.minOpinionNum = Math.round(data.data.project.max_participant_num / 3);
+          console.log(this.minOpinionNum);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -114,9 +117,6 @@ export class UserProjectSideMenuPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
-    this.limitFeedbackNum = 10;
-
   }
 
   scrollingFun(e) {
@@ -150,5 +150,10 @@ export class UserProjectSideMenuPage {
   opneUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
     userProjectReportFormModal.present();
+  }
+
+  openUserProjectReportPage() {
+    let userProjectReportModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportPage', params: { "project_id" : this.project_id }});
+    userProjectReportModal.present();
   }
 }

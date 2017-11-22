@@ -135,7 +135,14 @@ export class UserProjectStoryPage {
     projectLinkModal.present();
   }
 
-  openUserProjectFeedbackFormPage() {
-    this.navCtrl.push('UserProjectFeedbackFormPage', { "project_id" : this.project_id});
+  openUserProjectStoryQuizPage() {
+    this.commonService.showConfirmAlert('잠깐! 스토리를 완벽히 이해하셨나요?<br/>그럼 이제 퀴즈를 풀어볼게요! 준비되셨나요?',
+      () => {
+        this.navCtrl.push('UserProjectStoryQuizPage', { "project_id" : this.project_id});
+        setTimeout(() => {
+          this.goFirstSlide();
+        }, 500);
+      }
+    );
   }
 }

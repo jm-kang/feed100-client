@@ -74,6 +74,7 @@ export class CompanyAlarmPage {
             case "endProject":
             case "newFeedback":
             case "warnProject":
+            case "newReport":
               this.accessProjectCard(project_id);
               break;
             case "newInterview":

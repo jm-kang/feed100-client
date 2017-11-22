@@ -28,7 +28,7 @@ export class CompanyServiceProvider {
   }
 
   getServerUrl() {
-    // return 'http://192.168.10.98:3000';
+    // return 'http://192.168.0.10:3000';
     // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
@@ -314,6 +314,31 @@ export class CompanyServiceProvider {
     .mergeMap((accessToken) => {
       headers.append('x-access-token', accessToken);
       return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  getProjectReports(project_id) {
+    let url = this.getServerUrl() + '/company/api/project/reports/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  selectReport(project_participant_id) {
+    let url = this.getServerUrl() + '/company/api/project/report/select/' + project_participant_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {};
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
   }
 

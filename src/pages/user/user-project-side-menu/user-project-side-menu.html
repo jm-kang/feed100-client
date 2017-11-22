@@ -34,11 +34,11 @@
     </ion-item>
   </div>
   <ion-list class="side-menu-list">
-    <!-- ========================= 보고서 작성 =========================== -->
+    <!-- ========================= 심층 피드백 작성 =========================== -->
     <div class="side-menu-item">
-      <button ion-button class="open-report-form" [disabled]="limitFeedbackNum > myOpinionNum" (click)="opneUserProjectReportFormPage()" block><ion-icon name="ios-create"></ion-icon>&ensp;보고서 작성</button>
-      <div margin-top text-right *ngIf="limitFeedbackNum > myOpinionNum" >
-        <h5 *ngIf="feedbackNum > 0">{{limitFeedbackNum - myOpinionNum}}개 토론에 더 참여해야 작성할 수 있습니다.</h5>
+      <button ion-button class="open-report-form" [disabled]="minOpinionNum > myOpinionNum" (click)="opneUserProjectReportFormPage()" block><ion-icon name="ios-create"></ion-icon>&ensp;심층 피드백 작성</button>
+      <div margin-top text-right *ngIf="minOpinionNum > myOpinionNum" >
+        <h5 *ngIf="feedbackNum > 0">{{minOpinionNum - myOpinionNum}}개 토론에 더 참여해야 작성할 수 있습니다.</h5>
         <button clear ion-button class="item-link-button" (click)="openProjectFeedbackListPage()">토론 참여하러 가기 <ion-icon name="ios-arrow-forward"></ion-icon></button>
       </div>
     </div>

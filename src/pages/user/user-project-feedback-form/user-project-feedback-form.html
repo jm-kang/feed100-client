@@ -32,34 +32,8 @@
         <span class="q-mark">Q</span>
         <span class="q-mark-number">1</span>
       </div>
-      <div class="question">프로젝트 스토리를 요약하면?</div>
-      <div class="question-summary">프로젝트 스토리를 이해하셨나요? 프로젝트 스토리는 50자 이내로 요약해주세요. 확실히 이해하시고 쓰시면 큰 도움이 됩니다!</div>
-      <div class="underline-input-button-wrapper">
-          <button ion-button clear class="underline-input" (click)="openUserProjectStorySummaryWritingEditorPage()">
-            <span [innerHTML]="storySummaryContent | slicetextarea:0:100:4 "></span>
-          </button>
-          <div text-right>
-            <button ion-button clear class="underline-button" (click)="openUserProjectStorySummaryWritingEditorPage()">작성하기</button>
-          </div>
-      </div>
-      <div class="slide-next-button-wrapper">
-        <span>
-          <button ion-button clear *ngIf="!isFirstQuestionWrited" disabled>
-            <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-          <button ion-button clear *ngIf="isFirstQuestionWrited" (click)="goNextSlide()">
-            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-        </span>
-      </div>
-    </ion-slide>
-    <ion-slide>
-      <div class="q-mark-wrapper">
-        <span class="q-mark">Q</span>
-        <span class="q-mark-number">2</span>
-      </div>
       <div class="question">이 프로젝트에 대해 어떻게 생각하시나요?</div>
-      <div class="question-summary">프로젝트에 대해 어떻게 생각하셨나요? 주어진 해시태그를 이용하여 피드백을 작성해주세요.</div>
+      <div class="question-summary">프로젝트에 대해 어떻게 생각하셨나요? 주어진 해시태그를 활용하여 피드백을 작성해주세요.</div>
       <div class="feedback-images small-feedback-images">
         <span *ngFor="let feedbackImage of feedbackImages | slice:0:6; let i = index" (click)="photoView(feedbackImage.img)" tappable class="feedback-image-wrapper cropper">
           <img class="feedback-image" [src]="sanitize(feedbackImage.img)" />
@@ -84,10 +58,10 @@
       </div>
       <div class="slide-next-button-wrapper">
         <span>
-          <button ion-button clear *ngIf="!isSecondQuestionWrited" disabled>
+          <button ion-button clear *ngIf="!isFirstQuestionWrited" disabled>
             <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
           </button>
-          <button ion-button clear *ngIf="isSecondQuestionWrited" (click)="goNextSlide()">
+          <button ion-button clear *ngIf="isFirstQuestionWrited" (click)="goNextSlide()">
             <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
           </button>
         </span>
@@ -96,17 +70,17 @@
     <ion-slide>
       <div class="q-mark-wrapper">
         <span class="q-mark">Q</span>
-        <span class="q-mark-number">3</span>
+        <span class="q-mark-number">2</span>
       </div>
       <div class="question">프로젝트 첫인상 평가를 남겨주세요</div>
       <div class="question-summary">스토리를 보신 후 이 프로젝트에 대한 첫인상을 평가해주세요. 솔직한 평가일수록 프로젝트에 큰 도움이 될 수 있습니다!</div>
       <rating [(ngModel)]="rate" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event)"></rating>
       <div class="slide-next-button-wrapper">
         <span>
-          <button ion-button clear *ngIf="!isThirdQuestionWrited" disabled>
+          <button ion-button clear *ngIf="!isSecondQuestionWrited" disabled>
             <ion-icon color="light" name="ios-checkmark-circle-outline"></ion-icon>
           </button>
-          <button ion-button clear *ngIf="isThirdQuestionWrited" (click)="openUserProjectHomePage()">
+          <button ion-button clear *ngIf="isSecondQuestionWrited" (click)="openUserProjectHomePage()">
             <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
           </button>
         </span>

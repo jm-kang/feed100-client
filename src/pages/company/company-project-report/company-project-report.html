@@ -58,37 +58,6 @@
       </div>
     </ion-slide>
 
-    <!-- <ion-slide class="story-content-slide project-story-summary-content">
-      <div class="project-story-summary-title">
-        <ion-item class="slide-title">
-          <h3>3. 스토리 요약</h3>
-        </ion-item>
-        <ion-item>
-          <span item-start>
-            Q.
-          </span>
-          <h3>이 프로젝트를 한 줄로 표현하자면?</h3>
-          <p>한줄 요약은 사용자들이 프로젝트 스토리를 보고 작성한 것으로, 프로젝트 이해에 대한 척도가 될 수 있습니다.</p>
-        </ion-item>
-      </div>
-      <div class="project-story-summary-list">
-        <div text-right class="total-length" *ngIf="projectStorySummaries.length">총 {{projectStorySummaries.length}}개</div>
-        <div text-center *ngIf = "projectStorySummaries.length==0" class="empty-inner">
-          <ion-icon name="analytics"></ion-icon>
-          <p>아직 등록된 한줄 요약이 없습니다.</p>
-        </div>
-    
-        <ion-card *ngFor="let projectStorySummary of projectStorySummaries">
-          <ion-item>
-            <span item-start>
-              A.
-            </span>
-            <p>{{projectStorySummary.project_story_summary}} <span class="card-nickname user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(projectStorySummary.project_participant_id)"> - {{projectStorySummary.nickname}}</span></p>
-          </ion-item>
-        </ion-card>
-      </div>
-    </ion-slide> -->
-
     <ion-slide class="story-content-slide">
       <div>
         <ion-item class="slide-title">
@@ -146,14 +115,14 @@
     <ion-slide class="story-content-slide project-story-summary-content">
       <div class="project-story-summary-title">
         <ion-item class="slide-title">
-          <h3>5. 유저 보고서</h3>
+          <h3>5. 심층 피드백</h3>
         </ion-item>
       </div>
       <div class="project-story-summary-list">
-        <div text-right class="total-length" *ngIf="userReportLength > 0">총 {{userReportLength}}개</div>
-        <div text-center *ngIf="userReportLength == 0" class="empty-inner">
+        <div text-right class="total-length" *ngIf="userReports.length > 0">총 {{userReports.length}}개</div>
+        <div text-center *ngIf="userReports.length == 0" class="empty-inner">
           <ion-icon name="analytics"></ion-icon>
-          <p>아직 등록된 유저 보고서가 없습니다.</p>
+          <p>등록된 심층 피드백이 없습니다.</p>
         </div>
     
         <ion-card tappable class="user-report-card" *ngFor="let userReport of userReports">
@@ -162,54 +131,57 @@
               <img [src]="userReport.avatar_image">
             </ion-avatar>
             <h2>
-              <span class="best-badge" *ngIf="userReport.isSelection">
+              <span class="best-badge" *ngIf="userReport.project_report_is_select">
                 <span>선정</span>
               </span>
               <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
             </h2>
-            <p>{{userReport.report_registration_date | amDateFormat: 'YYYY-MM-DD'}}에 작성됨</p>
+            <p>{{userReport.project_report_registration_date | amDateFormat: 'YYYY-MM-DD'}}에 작성됨</p>
             <!-- <h1 class="new-tag" item-end *ngIf="userReport.isNew">NEW</h1> -->
           </ion-item>
           <div class="report-card-content-wrapper">
-            <div class="report-item-wrapper" *ngIf="userReport.report_form_images">
-              <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 사용 인증</h4>
+            <div class="report-item-wrapper" *ngIf="userReport.project_report_images">
+              <h4 text-left padding-left margin-top class="report-item-question">Q1. 직접 사용해본 사진</h4>
               <div class="report-images small-report-images">
-                <span class="image-box" *ngFor="let image of userReport.report_form_images; let j = index">
+                <span class="image-box" *ngFor="let image of userReport.project_report_images; let j = index">
                   <span tappable (click)="photoView(image.img)" class="report-image-wrapper cropper">
                     <img class="report-image" [src]="image.img" />
                   </span>
                 </span>
               </div>
             </div>
-            <div class="report-item-wrapper" *ngIf="userReport.story_summary_content">
-              <h4 text-left padding-left margin-top class="report-item-question">Q1. 서비스 장단점</h4>
+            <div class="report-item-wrapper" *ngIf="userReport.project_report_story_summary_content">
+              <h4 text-left padding-left margin-top class="report-item-question">Q1. 이 서비스에 대해 요약해서 설명해주세요!</h4>
               <div class="report-item-answer">
-                {{userReport.story_summary_content | replaceBrTag}}
+                {{userReport.project_report_story_summary_content | replaceBrTag}}
               </div>
             </div>
             <div class="report-item-wrapper">
-              <h4 text-left padding-left margin-top class="report-item-question">Q2. 서비스 장단점</h4>
-              <div class="report-item-answer">
-                <strong>장점: </strong>{{userReport.pros_content | replaceBrTag}}
+                <h4 text-left padding-left margin-top class="report-item-question">Q2. 해당 서비스에 대해 만족스러웠던 점은?</h4>
+                <div class="report-item-answer">
+                  {{userReport.project_report_pros_content | replaceBrTag}}
+                </div>
               </div>
-              <div class="report-item-answer">
-                <strong>단점: </strong>{{userReport.cons_content | replaceBrTag}}
+              <div class="report-item-wrapper">
+                <h4 text-left padding-left margin-top class="report-item-question">Q3. 해당 서비스에 대해 아쉬웠던 부분은?</h4>
+                <div class="report-item-answer">
+                  {{userReport.project_report_cons_content | replaceBrTag}}
+                </div>
+              </div>
+              <div class="report-item-wrapper">
+                <h4 text-left padding-left margin-top class="report-item-question">Q4. 기타 의견 및 총평</h4>
+                <div class="report-item-answer">
+                  {{userReport.project_report_overall_opinion_content | replaceBrTag}}
+                </div>
               </div>
             </div>
-            <div class="report-item-wrapper">
-              <h4 text-left padding-left margin-top class="report-item-question">Q3. 서비스 총평</h4>
-              <div class="report-item-answer">
-                {{userReport.overall_opinion_content | replaceBrTag}}
-              </div>
+            <div class="report-card-footer-wrapper" *ngIf="!userReport.project_report_is_select">
+              <button ion-button class="selection-button" block (click)="bestSelection(userReport.project_participant_id, userReport.nickname)">선정하기</button>
+              <p>도움이 된 피드백을 선정해주세요.</p>
             </div>
-          </div>
-          <div class="report-card-footer-wrapper" *ngIf="!userReport.isSelection">
-            <button ion-button class="selection-button" block (click)="bestSelection()">선정하기</button>
-            <p>피드백에 도움이 된 보고서를 선정해주세요.</p>
-          </div>
-          <div class="report-card-footer-wrapper" *ngIf="userReport.isSelection">
-            <h1>선정된 보고서입니다.</h1>
-          </div>
+            <div class="report-card-footer-wrapper" *ngIf="userReport.project_report_is_select">
+              <h1>선정된 보고서입니다.</h1>
+            </div>
         </ion-card>
       </div>
     </ion-slide>
