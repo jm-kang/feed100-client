@@ -42,19 +42,14 @@ export class CompanyConfigurePage {
     appIntroModal.present();
   }
 
-  openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
+  openCompanyTutorialPage() {
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyTutorialPage'});
     tutorialModal.present();
   }
 
-  openManualPage() {
-    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
+  openCompanyHelpPage() {
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyHelpPage'});
     manualModal.present();
-  }
-
-  openFaqPage() {
-    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
-    faqModal.present();
   }
 
   openTermsPage() {

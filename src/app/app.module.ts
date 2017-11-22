@@ -16,15 +16,15 @@ import { LoginPageModule } from '../pages/common/login/login.module';
 import { AppIntroPageModule } from '../pages/common/app-intro/app-intro.module';
 import { ContactPageModule } from '../pages/common/contact/contact.module';
 import { FaqPageModule } from '../pages/common/faq/faq.module';
-import { ManualPageModule } from '../pages/common/manual/manual.module';
 import { NoticePageModule } from '../pages/common/notice/notice.module';
 import { PrivateInfoPolicyPageModule } from '../pages/common/private-info-policy/private-info-policy.module';
 import { TermsPageModule } from '../pages/common/terms/terms.module';
-import { TutorialPageModule } from '../pages/common/tutorial/tutorial.module';
 // common //
 
 // company //
-import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tabs.module'
+import { CompanyHelpPageModule } from '../pages/company/company-help/company-help.module';
+import { CompanyTutorialPageModule } from '../pages/company/company-tutorial/company-tutorial.module';
+import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tabs.module';
   import { CompanyHomePageModule } from '../pages/company/company-home/company-home.module';
     import { CompanyAlarmPageModule } from '../pages/company/company-alarm/company-alarm.module';
     import { CompanyConfigurePageModule } from '../pages/company/company-configure/company-configure.module';
@@ -57,6 +57,8 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
 // company //
 
 // user //
+import { UserHelpPageModule } from '../pages/user/user-help/user-help.module';
+import { UserTutorialPageModule } from '../pages/user/user-tutorial/user-tutorial.module';
 import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
   import { UserHomePageModule } from '../pages/user/user-home/user-home.module';
     import { UserAlarmPageModule } from '../pages/user/user-alarm/user-alarm.module';
@@ -140,12 +142,12 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AppIntroPageModule,
     ContactPageModule,
     FaqPageModule,
-    ManualPageModule,
     NoticePageModule,
     PrivateInfoPolicyPageModule,
     TermsPageModule,
-    TutorialPageModule,
 
+    CompanyHelpPageModule,
+    CompanyTutorialPageModule,
     CompanyTabsPageModule,
       CompanyHomePageModule,
         CompanyAlarmPageModule,
@@ -177,6 +179,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
         CompanyProjectInterviewDetailPageModule,
         CompanyProjectInterviewWritingEditorPageModule,
 
+    UserHelpPageModule,
+    UserTutorialPageModule,
     UserTabsPageModule,
       UserHomePageModule,
         UserAlarmPageModule,
