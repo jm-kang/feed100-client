@@ -115,16 +115,16 @@
     <button ion-fab><ion-icon name="add"></ion-icon></button>
     <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
     <ion-fab-list side="top">
-      <button  (click)="openUserProjectReportFormPage()" ion-fab>
+      <button *ngIf="participationFeedbackNum >= limitFeedbackNum" (click)="openUserProjectReportFormPage()" ion-fab>
         <ion-icon color="light" name="ios-create"></ion-icon>
         <div class="fab-label fab-label-report">보고서를 작성해주세요!</div>
       </button> 
-      <!-- <button class="disable-fab" *ngIf="limitFeedbackNum > participationFeedbackNum" ion-fab disabled>
+      <button class="disable-fab" *ngIf="limitFeedbackNum > participationFeedbackNum" ion-fab disabled>
         <ion-icon color="light" name="ios-create"></ion-icon>
         <div class="fab-label fab-label-report">{{limitFeedbackNum - participationFeedbackNum}}개 더 써야 작성가능합니다.</div>
-      </button> -->
+      </button>
       <button ion-fab (click)="openUserProjectInterviewDetailPage()"><ion-icon color="light" name="text"></ion-icon></button>
       <ion-badge item-end *ngIf="interview_num > 0">{{interview_num}}</ion-badge>
     </ion-fab-list>
   </ion-fab>
-</ion-content> 
+</ion-content>

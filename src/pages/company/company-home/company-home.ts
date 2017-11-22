@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, Content, ModalController, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -35,10 +33,10 @@ export class CompanyHomePage {
       content: 'FEED100을 사용하기 전에<br>미리 FEED100을 경험해보세요.',
     },
     {
-      link: 'ManualPage',
+      link: 'HelpPage',
       bg: 'assets/img/feed100-intro-slide3.png',
       title: '도움말 확인하기',
-      content: '매뉴얼을 확인해보세요<br>FEED100이 필요한 이유를 찾을 수 있습니다.',
+      content: '도움말을 확인해보세요<br>FEED100이 필요한 이유를 찾을 수 있습니다.',
     },
   ];
   
@@ -56,7 +54,6 @@ export class CompanyHomePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
@@ -88,27 +85,6 @@ export class CompanyHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
-    this.companyService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
   }
 
   openPageWrapper(page) {
@@ -117,13 +93,10 @@ export class CompanyHomePage {
         this.openAppIntroPage();
         break;
       case 'TutorialPage':
-        this.openTutorialPage();
+        this.openCompanyTutorialPage();
         break;
-      case 'ManualPage':
-        this.openManualPage();
-        break;
-      case 'FaqPage':
-        this.openFaqPage();
+      case 'HelpPage':
+        this.openCompanyHelpPage();
         break;
     }
   }
@@ -137,13 +110,13 @@ export class CompanyHomePage {
     appIntroModal.present();
   }
 
-  openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
+  openCompanyTutorialPage() {
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyTutorialPage'});
     tutorialModal.present();
   }
 
-  openManualPage() {
-    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
+  openCompanyHelpPage() {
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyHelpPage'});
     manualModal.present();
   }
 
@@ -189,6 +162,8 @@ export class CompanyHomePage {
   }
 
   openCompanyProjectHomePage(project_id) {
+    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
+    // companyProjectHomeModal.present();
     this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
   }
 
@@ -202,10 +177,12 @@ export class CompanyHomePage {
   }
 
   openCompanyAlarmPage() {
+    // this.navCtrl.push(CompanyAlarmPage);
     this.navCtrl.push('CompanyAlarmPage');
   }
 
   openCompanyConfigurePage() {
+    // this.navCtrl.push(CompanyConfigurePage);
     this.navCtrl.push('CompanyConfigurePage');
   }
 

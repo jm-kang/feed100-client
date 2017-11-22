@@ -35,7 +35,7 @@ export class UserHomePage {
       content: 'FEED100을 사용하기 전에<br>미리 FEED100을 경험해보세요.',
     },
     {
-      link: 'ManualPage',
+      link: 'HelpPage',
       bg: 'assets/img/feed100-intro-slide3.png',
       title: '도움말 확인하기',
       content: '도움말을 확인해보세요<br>FEED100이 필요한 이유를 찾을 수 있습니다.',
@@ -124,13 +124,10 @@ export class UserHomePage {
         this.openAppIntroPage();
         break;
       case 'TutorialPage':
-        this.openTutorialPage();
+        this.openUserTutorialPage();
         break;
-      case 'ManualPage':
-        this.openManualPage();
-        break;
-      case 'FaqPage':
-        this.openFaqPage();
+      case 'HelpPage':
+        this.openUserHelpPage();
         break;
     }
   }
@@ -144,19 +141,14 @@ export class UserHomePage {
     appIntroModal.present();
   }
 
-  openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
+  openUserTutorialPage() {
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserTutorialPage'});
     tutorialModal.present();
   }
 
-  openManualPage() {
-    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
+  openUserHelpPage() {
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserHelpPage'});
     manualModal.present();
-  }
-
-  openFaqPage() {
-    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
-    faqModal.present();
   }
 
   openUserNewsfeedStoryPage(newsfeed_id) {

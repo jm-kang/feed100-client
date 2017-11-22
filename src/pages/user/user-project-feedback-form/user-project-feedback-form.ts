@@ -147,17 +147,20 @@ export class UserProjectFeedbackFormPage {
           this.isFirstQuestionWrited = false;
           this.slides.lockSwipeToNext(true);
         }
+      } else {
+
       }
     });
     userProjectStorySummaryWritingEditorModal.present();
   }
+  
   openUserProjectFeedbackWritingEditorPage() {
     let userProjectFeedbackWritingEditorModal = this.modalCtrl.create( 'ModalWrapperPage',
     { page: 'UserProjectFeedbackWritingEditorPage',
       params: { project_id: this.project_id, feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, projectHashtags: this.projectHashtags, feedbackHashtags: this.feedbackHashtags }
     });
     userProjectFeedbackWritingEditorModal.onDidDismiss(data => {
-      if(data != "") {
+      if(!data) {
         this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
         this.feedbackImages = data.feedbackImages;
         this.feedbackHashtags = data.feedbackHashtags;

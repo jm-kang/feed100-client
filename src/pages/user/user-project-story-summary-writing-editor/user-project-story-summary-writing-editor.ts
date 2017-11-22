@@ -24,8 +24,11 @@ export class UserProjectStorySummaryWritingEditorPage {
   lastScrollV:  number = 0 ;
   transparentPercent: number = 0;
 
+  isAgain: boolean = false;
+
   minTextLength: number = 20;
   storySummaryContent: String = '';
+  oldStorySummaryContent: String = '';
   contentPlaceholder: String = '스토리를 보신후 느낀점을 자세하게 이야기해주세요. 성실히 작성된 이야기일수록 기업에게 많은 도움이 됩니다 ^^';
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ModalWrapperPage: ModalWrapperPage) {
@@ -37,6 +40,10 @@ export class UserProjectStorySummaryWritingEditorPage {
 
   ionViewDidEnter() {
     this.storySummaryContent = this.ModalWrapperPage.modalParams.storySummaryContent.replace(/<br *\/?>/gi, '\n');
+    if(this.storySummaryContent.length > 0) {
+      this.isAgain = true;
+      this.oldStorySummaryContent = this.storySummaryContent;
+    }
   }
 
   completeEditor() {
@@ -45,7 +52,13 @@ export class UserProjectStorySummaryWritingEditorPage {
   }
 
   dismiss() {
-    let data = "";
+    let data;
+    if(this.isAgain) {
+      data = { storySummaryContent: this.oldStorySummaryContent };
+    }
+    else {
+      data = { storySummaryContent: "" };
+    }
     this.ModalWrapperPage.dismissModal(data);
   }
 

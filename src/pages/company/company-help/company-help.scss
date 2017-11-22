@@ -1,0 +1,92 @@
+page-company-help {
+
+}
+
+.help-page-content{
+    background-color: rgba(38,38,38,0.8);
+    strong {
+        color: #ff6700;
+    }
+    b {
+        color: #ff6700;
+        font-weight: normal;
+    }
+    .help-navbar {
+        background-color: #fff;
+        .dismiss-button {
+            color: #383838;
+        }
+        border-bottom: 0.55px solid #ddd !important;
+        margin-top: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .list {
+        background-color: #f0f0f0;
+        height: auto;
+        display: inline-block;
+        margin-bottom:0;
+    }
+    .item-wrapper {
+        width: 100vw;
+    }
+    .list-wrapper {
+        display: block;
+        height: auto;
+        background-color: #f0f0f0;
+        padding-bottom: 20px;
+        width: 100vw;
+    }
+    .list-header {
+        margin-top: 16px !important;
+        padding-left: 16px;
+        position: relative;
+        // border-bottom: 0.55px solid #ddd;
+        border-bottom: 0 !important;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+        text-transform: uppercase;
+        color: #787878;
+        margin-bottom: 0;
+        min-height: auto;
+        .label {
+            margin: 0 !important;
+        }
+        // background-color: #fff !important;
+    }
+    .list > .item-wrapper:last-child .item-block {
+        border-bottom: 0 !important;
+    }
+    .title-wrapper {
+        margin-top: 8px;
+        background-color: #fff !important;
+        font-size: 1.5rem;
+        color: #393939;
+        padding-left: 0;
+        font-weight: 600;
+        .item-inner {
+            padding-left: 16px;
+            border-bottom: 0.55px solid #ddd !important;
+        }
+        ion-label {
+            white-space: normal
+        }
+    }
+    .content-wrapper {
+        color: #484848;
+        background-color: #f0f0f0;
+        // border-bottom: 0.55px solid #ddd !important;
+        .subtitle-wrapper {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .image-wrapper {
+            margin: 16px auto;
+        }
+        .text-wrapper {
+            font-size: 1.3rem;
+        }
+    }
+}

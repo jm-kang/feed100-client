@@ -50,13 +50,13 @@ export class UserConfigurePage {
     appIntroModal.present();
   }
 
-  openTutorialPage() {
-    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TutorialPage'});
+  openUserTutorialPage() {
+    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserTutorialPage'});
     tutorialModal.present();
   }
 
-  openManualPage() {
-    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ManualPage'});
+  openUserHelpPage() {
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserHelpPage'});
     manualModal.present();
   }
 

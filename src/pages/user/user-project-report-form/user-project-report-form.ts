@@ -100,6 +100,7 @@ export class UserProjectReportFormPage {
       }
     )
     this.slides.lockSwipeToPrev(true);
+    this.slides.lockSwipeToNext(true);
     this.isLink = true;
   }
 

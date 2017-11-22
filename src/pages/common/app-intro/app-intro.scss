@@ -1,5 +1,93 @@
 page-app-intro {
-
+    .swiper-container-horizontal > .swiper-pagination-bullets {
+        top: 32px;
+    }
+    .swiper-pagination-bullet {
+        background-color: #ff6700;
+      }
+      .no-padding-top .scroll-content{
+          padding-top: 0 !important;
+      }
+      .bar-buttons {
+          padding-right: 8px;
+      }
+      .skip-button {
+        text-transform: none;
+        font-size: 1.6rem;
+        color: #999 !important;
+      }
+      .floating-buttons {
+        z-index: 1;
+        width: 100%;
+        bottom: 0;
+        position: absolute;
+        margin-bottom: 50px;
+        transition: all .4s linear;
+        // background-color: $base-color-transparent;
+      }
+      .floating-buttons button {
+        color: white;
+        min-height: 7vh;
+        text-transform: none;
+        font-size: 1.4em;
+        font-weight: bold;
+        background: rgba(255, 103, 0, 0.67);
+      }
+      .slide-background {
+        background-size: cover !important;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-color: transparent;
+      }
+      .toolbar-background {
+        border-color: transparent;
+      }
+      .slide-zoom {
+        // background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)) !important;
+        background-color: #efefef;
+        height: 100%;
+      }
+      .text-wrapper {
+        width: 100vw;
+        height: 25vh;
+      }
+      .slide-text {
+        position: relative;
+        text-align: center;
+        top: 35%;
+        // transform: translateY(-50%);
+      }
+      .slide-title {
+        color: #383838;
+        font-weight: bold;
+        font-size: 2.5rem;
+      }
+      .slide-image {
+        max-height: 100%;
+        max-width: 100%;
+        margin: 18px 0;
+      }
+      .last-slide {
+        background-image: url('img/welcome-4.jpg');
+      }
+      b {
+        font-weight: 500;
+      }
+      p {
+        margin-top: 0;
+        padding: 0 40px;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        color: #787878;
+        b {
+          color: #000000;
+        }
+      }
+      .image-wrapper {
+        width: 100vw;
+        height: 75vh;
+        padding-top: 20px;
+      }
 }
 
 .coming-soon-content {
