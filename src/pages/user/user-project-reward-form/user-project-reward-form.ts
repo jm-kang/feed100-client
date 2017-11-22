@@ -36,6 +36,7 @@ export class UserProjectRewardFormPage {
   opinionPoint: number = 0;
   interviewPoint: number = 0;
   projectPoint: number = 0;
+  reportPoint: number = 0; // 심층 피드백 보상 금액
   exp: number = 0;
   interviewNum = 0;
 
