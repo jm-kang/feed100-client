@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, App } from 'ionic-angular';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -29,8 +29,6 @@ export class UserProjectFeedbackFormPage {
   projectMainImage: String = "";
   isFirstQuestionWrited: boolean = false;
   isSecondQuestionWrited: boolean = false;
-  isThirdQuestionWrited: boolean = false;
-  storySummaryContent: String = "";
   feedbackContent: String = "";
   feedbackImages = [];
   projectHashtags = [];
@@ -41,6 +39,7 @@ export class UserProjectFeedbackFormPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    public appCtrl: App,
     private photoViewer: PhotoViewer,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
@@ -108,9 +107,9 @@ export class UserProjectFeedbackFormPage {
 
   onModelChange(newVal) {
     if(newVal > 0) {
-      this.isThirdQuestionWrited = true;
+      this.isSecondQuestionWrited = true;
     } else {
-      this.isThirdQuestionWrited = false;
+      this.isSecondQuestionWrited = false;
     }
     console.log(this.rate);
   }
@@ -123,52 +122,23 @@ export class UserProjectFeedbackFormPage {
         this.slides.lockSwipeToNext(false);
       }
     }
-    if(this.slides.getActiveIndex() == 1) {
-      if(!this.isSecondQuestionWrited) {
-        this.slides.lockSwipeToNext(true);
-      } else {
-        this.slides.lockSwipeToNext(false);
-      }
-    }
   }
 
-  openUserProjectStorySummaryWritingEditorPage() {
-    let userProjectStorySummaryWritingEditorModal = this.modalCtrl.create( 'ModalWrapperPage',
-      { page:'UserProjectStorySummaryWritingEditorPage', 
-        params: { storySummaryContent: this.storySummaryContent }
-      });
-     userProjectStorySummaryWritingEditorModal.onDidDismiss(data => {
-      if(data != "") {
-        this.storySummaryContent = data.storySummaryContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
-        if(this.storySummaryContent != "") {
-          this.isFirstQuestionWrited = true;
-          this.slides.lockSwipeToNext(false);
-        } else {
-          this.isFirstQuestionWrited = false;
-          this.slides.lockSwipeToNext(true);
-        }
-      } else {
-
-      }
-    });
-    userProjectStorySummaryWritingEditorModal.present();
-  }
-  
   openUserProjectFeedbackWritingEditorPage() {
     let userProjectFeedbackWritingEditorModal = this.modalCtrl.create( 'ModalWrapperPage',
     { page: 'UserProjectFeedbackWritingEditorPage',
       params: { project_id: this.project_id, feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, projectHashtags: this.projectHashtags, feedbackHashtags: this.feedbackHashtags }
     });
     userProjectFeedbackWritingEditorModal.onDidDismiss(data => {
-      if(!data) {
+      if(data) {
         this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
         this.feedbackImages = data.feedbackImages;
         this.feedbackHashtags = data.feedbackHashtags;
         if(this.feedbackContent != "") {
-          this.isSecondQuestionWrited = true;
+          this.isFirstQuestionWrited = true;
           this.slides.lockSwipeToNext(false);
         } else {
-          this.isSecondQuestionWrited = false;
+          this.isFirstQuestionWrited = false;
           this.slides.lockSwipeToNext(true);
         }
       }
@@ -212,23 +182,23 @@ export class UserProjectFeedbackFormPage {
     )
   }
 
-  openUserProjectHomePage() {
+  openUserProjectHomePage() {    
     //프로젝트 안끝났고 참여중인 프로젝트 아니고 인원 꽉 안찼으면
     let loading = this.commonService.presentLoading();
     this.uploadFiles()
     .then(() => {
-      this.userService.projectFeedback(this.project_id, this.storySummaryContent, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
+      this.userService.projectFeedback(this.project_id, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
       .finally(() => {
         loading.dismiss();
       })
       .subscribe(
           (data) => {
           if(data.success == true) {
-            this.navCtrl.popAll();
+            this.navCtrl.popToRoot();
             if(data.data) {
               this.commonService.showConfirmAlert('축하합니다! 이제 프로젝트 페이지에서 토론, 인터뷰에 참여해주세요! 참여도에 따라 많은 보상을 받을 수 있습니다.', 
                 () => {
-                this.navCtrl.push('UserProjectHomePage', { "project_id" : this.project_id });
+                  this.appCtrl.getActiveNav().push('UserProjectHomePage', { "project_id" : this.project_id });                  
                 }
               );
             }

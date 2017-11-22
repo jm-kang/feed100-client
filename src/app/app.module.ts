@@ -79,7 +79,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectRewardFormPageModule } from '../pages/user/user-project-reward-form/user-project-reward-form.module';
     import { UserProjectSideMenuPageModule } from '../pages/user/user-project-side-menu/user-project-side-menu.module';
     import { UserProjectStoryPageModule } from '../pages/user/user-project-story/user-project-story.module';
-    import { UserProjectStorySummaryWritingEditorPageModule } from '../pages/user/user-project-story-summary-writing-editor/user-project-story-summary-writing-editor.module';
+    import { UserProjectStoryQuizPageModule } from '../pages/user/user-project-story-quiz/user-project-story-quiz.module';    
     import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
     import { UserProjectReportFormPageModule } from '../pages/user/user-project-report-form/user-project-report-form.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
@@ -112,6 +112,7 @@ import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { UserProjectStoryQuizPage } from '../pages/user/user-project-story-quiz/user-project-story-quiz';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   // swipedown 값을 알아내는 함수
@@ -200,7 +201,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         UserProjectRewardFormPageModule,
         UserProjectSideMenuPageModule,
         UserProjectStoryPageModule,
-        UserProjectStorySummaryWritingEditorPageModule,
+        UserProjectStoryQuizPageModule,
         UserProjectSearchResultPageModule,
         UserProjectReportFormPageModule,
       UserNewsfeedPageModule,

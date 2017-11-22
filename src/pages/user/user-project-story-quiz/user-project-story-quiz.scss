@@ -1,0 +1,52 @@
+page-user-project-story-quiz {
+    .slide-question-content {
+        background-color: transparent !important;
+    }
+    ion-navbar {
+        z-index: 10;
+    }
+    .radio-icon {
+        display: none !important;
+    }
+
+    ion-radio {
+        margin: 0 !important;
+    }
+
+    .item.item-radio ion-label {
+        color: #ddd;
+        font-size: 1.4rem !important;
+        white-space: unset;
+    }
+
+    .item-radio-checked.item ion-label {
+        color: #ff6400 !important;
+        white-space: unset;
+        overflow: unset;
+    }
+
+    .item, .item-inner {
+        border: 0 !important;
+        padding: 0 !important;
+    }
+
+    .participation-condition-options-wrapper {
+        // width: 50vw;
+        // margin: 0 auto;
+        margin-top: 16px;
+    }
+
+    ion-navbar { 
+        z-index: 10 
+    }
+
+    // .participation-condition-options-wrapper.over-options ion-item {
+    //     width: 50vw;
+    // }
+}
+
+.text-red {
+    color: #ff0000;
+}
+
+::-webkit-scrollbar{ display:none; }

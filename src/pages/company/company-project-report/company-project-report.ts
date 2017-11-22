@@ -32,7 +32,7 @@ export class CompanyProjectReportPage {
   participantNum: number = 0;
   maxParticipantNum: number = 0;
   progressState: String = "";
-  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 유저 보고서"
+  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 심층 피드백"
   projectRegistrationDate: String = "";
 
   currentPageNum: number = 0;
@@ -181,21 +181,6 @@ export class CompanyProjectReportPage {
   projectUserParticipationConditionSlides = [];
   tempProjectUserParticipationConditionSlides = [];
 
-  projectStorySummaries = [
-    {
-      nickname: '스윙스',
-      content: '내게로와 내게로와 내게로와 내게로와 ㅍ 내게로와 내게로와 ㅍ 내게로와 내게로와 내게로와내게로와내게로와내게로와',
-    },
-    {
-      nickname: '지코',
-      content: '그대 눈빛은 그대 눈빛은 그대 눈빛은그대 눈빛은그대 눈빛은그대 눈빛은그대 눈빛은 그대 눈빛은그대 눈빛은그대 눈빛은그대 눈빛은 그대 눈빛은 그대 눈빛은',
-    },
-    {
-      nickname: '설현',
-      content: '내가 눈물 흘린건 내가 눈물 흘린건내가 눈물 흘린건내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건 내가 눈물 흘린건',
-    }
-  ];
-
   projectBestFeedbacks = [
     {
       avatar_image: 'assets/img/user-avatar-image.png',
@@ -338,32 +323,7 @@ export class CompanyProjectReportPage {
     }
   ];
 
-  userReports = [
-    {
-      nickname: "닉네임",
-      avatar_image: "assets/img/user-avatar-image.png",
-      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }, { img : "assets/img/feedback-image2.jpeg", formData : "formData" }],
-      story_summary_content: "",
-      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
-      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
-      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평",
-      report_registration_date: "2017-11-01 00:00:00",
-      isSelection: true,
-      project_participant_id: 1,
-    },
-    {
-      nickname: "닉네임",
-      avatar_image: "assets/img/user-avatar-image.png",
-      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }],
-      story_summary_content: "",
-      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
-      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
-      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 v",
-      report_registration_date: "2017-11-01 00:00:00",
-      isSelection: false,
-      project_participant_id: 1,
-    }
-  ];
+  userReports = [];
 
   constructor(
     public navCtrl: NavController, 
@@ -397,8 +357,16 @@ export class CompanyProjectReportPage {
           this.projectRegistrationDate = data.data.project_registration_date;
 
           let participants = data.data.participants;
-          this.projectStorySummaries = participants;
           this.projectBestFeedbacks = data.data.feedbacks;
+          
+          this.userReports = data.data.reports;
+
+          for(let i=0; i<this.userReports.length; i++) {
+            this.userReports[i].project_report_images = JSON.parse(this.userReports[i].project_report_images);
+            for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
+              this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
+            }
+          }
           
           for(let i = 0; i < participants.length; i++) {
             // projectUserProfileSlides
@@ -581,8 +549,47 @@ export class CompanyProjectReportPage {
     this.modalCtrl.create
   }
 
-  bestSelection() {
-    // 선정 버튼
+  bestSelection(project_participant_id, nickname) {
+    this.commonService.showConfirmAlert(nickname + '님의 피드백을 선정하시겠습니까?',
+      () => {
+        let loading = this.commonService.presentLoading();
+        
+        this.companyService.selectReport(project_participant_id)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              if(data.data) {
+                for(let i=0; i<this.userReports.length; i++) {
+                  if(this.userReports[i].project_participant_id == project_participant_id) {
+                    this.userReports[i].project_report_is_select = true;
+                    this.commonService.showBasicAlert('선정이 완료되었습니다.');
+                  }
+                }
+              }
+              else {
+                if(data.message == "selected report num is over") {
+                  this.commonService.showBasicAlert('선정할 수 있는 피드백 개수를 초과하였습니다.');
+                }
+              }    
+            }
+            else if(data.success == false) {
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+              .then(() => {
+                this.bestSelection(project_participant_id, nickname);
+              });
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
+    
+      }
+    );
   }
 
   photoView(url) {

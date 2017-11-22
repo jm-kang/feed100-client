@@ -14,7 +14,7 @@
     <ion-title>
       <span class="project-header-title-wrapper">
         <span class="project-header-title" text-center>
-          결과 보고서
+          심층 피드백
         </span>
       </span>
     </ion-title>
@@ -32,8 +32,8 @@
   </div>
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide *ngIf="isLink">
-      <div class="question">Q1. 프로젝트의 사용 인증 사진을 남겨주세요.</div>
-      <div class="question-summary">프로젝트 링크를 통해 사용하신 인증 사진을 2개 이상 올려주세요!</div>
+      <div class="question">Q1. 직접 사용해본 사진</div>
+      <div class="question-summary">서비스를 사용하신 모습이 담긴 인증 사진을 2개 이상 올려주세요!</div>
       <div class="editor-content">
         <div class="feedback-images small-feedback-images">
           <span class="add-image-button-box image-box">
@@ -41,21 +41,21 @@
               <ion-icon name="md-add"></ion-icon>
             </span>
           </span>
-          <span class="image-box" *ngFor="let image of report_form_images; let i = index">
+          <span class="image-box" *ngFor="let image of project_report_images; let i = index">
             <button class="delete-image-button" ion-button clear (click)="deleteImage(i)"><img src="assets/img/delete-button.png" /></button>
             <span class="feedback-image-wrapper cropper">
               <img class="feedback-image" [src]="sanitize(image.img)" />
             </span>
           </span>
         </div>
-        <div text-right class="content-length-wrapper" [ngStyle]="{'color': 2 > (report_form_images?.length)? '#787878' : '#2C908F'}">
-          <span>{{report_form_images?.length}}</span> / <span>2</span>
+        <div text-right class="content-length-wrapper" [ngStyle]="{'color': 2 > (project_report_images.length)? '#787878' : '#2C908F'}">
+          <span>{{project_report_images.length}}</span> / <span>2</span>
         </div>
       </div>
     </ion-slide>
     <ion-slide *ngIf="!isLink">
-      <div class="question">Q1. 프로젝트 스토리를 요약해주세요.</div>
-      <div class="question-summary">자신의 경험을 바탕으로 서비스 스토리에 대해 자유롭게 서술해주세요!</div>
+      <div class="question">Q1. 이 서비스에 대해 요약해서 설명해주세요!</div>
+      <div class="question-summary">한번 기업의 입장이 되어 유저들에게 이 서비스가 어떤 서비스인지, 어떤 특징들이 있는지 설명해주세요!</div>
       <div class="editor-content">
         <div class="content-length-wrapper" [ngStyle]="{'color': 50 > (storySummaryContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{storySummaryContent | textcount}}</span> / <span>50</span>
@@ -64,8 +64,8 @@
       </div>
     </ion-slide>
     <ion-slide style="overflow-y: scroll; display: block;">
-      <div class="question">Q2. 프로젝트의 장점?</div>
-      <div class="question-summary">프로잭트의 장점에 대해 말해주세요.</div>
+      <div class="question">Q2. 해당 서비스에 대해 만족스러웠던 점은?</div>
+      <div class="question-summary">서비스를 경험해보면서 만족스러웠던 점에 대해 말씀해주세요!</div>
       <div class="editor-content">
         <div class="content-length-wrapper" [ngStyle]="{'color': 50 > (prosContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{prosContent | textcount}}</span> / <span>50</span>
@@ -74,8 +74,8 @@
       </div>
     </ion-slide>
     <ion-slide style="overflow-y: scroll; display: block;">
-      <div class="question">Q3. 이 프로젝트의 단점?</div>
-      <div class="question-summary">>프로잭트의 단점에 대해 말해주세요.</div>
+      <div class="question">Q3. 해당 서비스에 대해 아쉬웠던 부분은?</div>
+      <div class="question-summary">서비스를 경험해보면서 아쉬웠던 부분에 대해 말씀해주세요!</div>
       <div class="editor-content" margin-bottom>
         <div class="content-length-wrapper" [ngStyle]="{'color': 50 > (consContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{consContent | textcount}}</span> / <span>50</span>
@@ -84,8 +84,8 @@
       </div>
     </ion-slide>
     <ion-slide>
-      <div class="question">Q4. 프로젝트를 참여하시면서 느꼈던 전반적인 생각을 적어주세요.</div>
-      <div class="question-summary">스토리를 보신 후 이 프로젝트에 대한 첫인상을 평가해주세요. 솔직한 평가일수록 프로젝트에 큰 도움이 될 수 있습니다!</div>
+      <div class="question">Q4. 기타 의견 및 총평</div>
+      <div class="question-summary">그 밖의 다른 의견, 제안 사항 등 기타 의견이나 전반적인 후기 및 평가에 대해 자유롭게 작성해주세요!</div>
       <div class="editor-content">
         <div class="content-length-wrapper" [ngStyle]="{'color': 100 > (overallOpinionContent | textcount)? '#787878' : '#2C908F'}">
           <span>{{overallOpinionContent | textcount}}</span> / <span>100</span>

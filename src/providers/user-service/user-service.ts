@@ -28,7 +28,7 @@ export class UserServiceProvider {
   }
 
   getServerUrl() {
-    // return 'http://192.168.10.98:3000';
+    // return 'http://192.168.0.10:3000';
     // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
@@ -302,6 +302,36 @@ export class UserServiceProvider {
     });
   }
 
+  getProjectReport(project_id) {
+    let url = this.getServerUrl() + '/user/api/project/report/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  projectReport(project_id, project_report_images, project_report_story_summary_content, project_report_pros_content, project_report_cons_content, project_report_overall_opinion_content) {
+    let url = this.getServerUrl() + '/user/api/project/report/' + project_id;
+    let headers = new Headers();
+    headers.append('Content-type', 'application/json');
+    let data = {
+      "project_report_images" : project_report_images,
+      "project_report_story_summary_content" : project_report_story_summary_content,
+      "project_report_pros_content" : project_report_pros_content,
+      "project_report_cons_content" : project_report_cons_content,
+      "project_report_overall_opinion_content" : project_report_overall_opinion_content
+    }
+    return Observable.fromPromise(this.storage.get('accessToken'))
+    .mergeMap((accessToken) => {
+      headers.append('x-access-token', accessToken);
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+  
   getProjectParticipation(project_id) {
     let url = this.getServerUrl() + '/user/api/project/participation/' + project_id;
     let headers = new Headers();
@@ -329,13 +359,12 @@ export class UserServiceProvider {
     });
   }
 
-  projectFeedback(project_id, project_story_summary, project_feedback, project_feedback_hashtags, project_feedback_images, project_first_impression_rate) {
+  projectFeedback(project_id, project_feedback, project_feedback_hashtags, project_feedback_images, project_first_impression_rate) {
     let url = this.getServerUrl() + '/user/api/project/feedback';
     let headers = new Headers();
     headers.append('Content-type', 'application/json');
     let data = {
       "project_id" : project_id,
-      "project_story_summary" : project_story_summary,
       "project_feedback" : project_feedback,
       "project_feedback_hashtags" : project_feedback_hashtags,
       "project_feedback_images" : project_feedback_images,

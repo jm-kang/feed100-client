@@ -37,7 +37,7 @@ export class UserProjectReportFormPage {
   prosContent: String = "";
   consContent: String = "";
   overallOpinionContent: String = "";
-  isLink: boolean;
+  isLink;
 
   storySummaryContentPlaceholder: String = "";
   prosContentPlaceholder: String = "";
@@ -48,8 +48,7 @@ export class UserProjectReportFormPage {
 
   projectMainImage: String = "";
 
-  report_form_images = [];
-  // length: number;
+  project_report_images = [];
 
   constructor(
     public navCtrl: NavController,
@@ -63,28 +62,25 @@ export class UserProjectReportFormPage {
   }
 
   ionViewDidLoad() {
-    length = 0;
     console.log('ionViewDidLoad UserProjectReportFormPage');
-    let loading = this.commonService.presentLoading();
     // navParams.get에만 해당되는 값을 넘겨야한다.
-    // this.project_id = this.navParams.get('project_id');
-    this.project_id = 5;
-
-    this.userService.getProjectParticipation(this.project_id)
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;    
+    
+    let loading = this.commonService.presentLoading();
+    this.userService.getProjectReport(this.project_id)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          if(data.data) {
-            this.projectMainImage = data.data.project_main_image;
-          }
-          else {
-            if(data.message == "already written report") {
-              this.dismiss();
-              this.commonService.showBasicAlert('이런! 이미 결과보고서를 작성했습니다..');
-            }
+          this.projectMainImage = data.data.project_main_image;
+          this.isLink = data.data.project_link;
+          this.slides.lockSwipeToPrev(true);
+          this.slides.lockSwipeToNext(true);      
+          if(data.data.project_report_registration_date) {
+            this.commonService.showBasicAlert('이미 심층 피드백을 작성하셨습니다!');
+            this.dismiss();
           }
         }
         else if(data.success == false) {
@@ -99,14 +95,11 @@ export class UserProjectReportFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
-    this.slides.lockSwipeToPrev(true);
-    this.slides.lockSwipeToNext(true);
-    this.isLink = true;
   }
 
   deleteImage(i) {
     console.log("deleteImage(): 이미지 삭제 버튼");
-    this.report_form_images.splice(i, 1);
+    this.project_report_images.splice(i, 1);
     this.checkImageNum();
   }
 
@@ -117,14 +110,14 @@ export class UserProjectReportFormPage {
     .then((params) => {
       const img = params[0].localURL;
       const formData = params[1];
-      this.report_form_images.push({ "img" : img, "formData" : formData });
+      this.project_report_images.push({ "img" : img, "formData" : formData });
       console.log(formData);
       this.checkImageNum();
     });
   }
 
   checkImageNum() {
-    if(this.report_form_images.length >= 2) {
+    if(this.project_report_images.length >= 2) {
       this.slides.lockSwipeToNext(false);
       this.isWrited = false;
     } else {
@@ -144,7 +137,7 @@ export class UserProjectReportFormPage {
     let overallLength = this.textCount(this.overallOpinionContent);
     this.slideIndex = this.slides.getActiveIndex();
 
-    if((storySummaryLength >= 50 || this.report_form_images.length >= 2) && this.slideIndex == 0) {
+    if((storySummaryLength >= 50 || this.project_report_images.length >= 2) && this.slideIndex == 0) {
       this.slides.lockSwipeToNext(false);
       this.isWrited = false;
       
@@ -187,9 +180,69 @@ export class UserProjectReportFormPage {
     this.ModalWrapperPage.dismissModal();
   }
 
+  uploadFiles() {
+    console.log("uploadFiles()");    
+    return new Promise(
+      (resolve, reject) => {
+        let cnt = this.project_report_images.length;
+        if(cnt == 0) {
+          resolve();
+        }
+        for(let i=0; i<this.project_report_images.length; i++) {
+          this.commonService.uploadFile(this.project_report_images[i].formData)
+          .subscribe(
+            (data) => {
+              if(data.success == true) {
+                this.project_report_images[i] = data.data;
+                cnt--;
+                if(cnt == 0) {
+                  resolve();
+                }
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                });
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
   submit() {
-    // 데이터 저장
-    this.ModalWrapperPage.dismissModal();
+    this.commonService.showConfirmAlert('심층 피드백을 작성하시겠습니까?<br/>작성 후에는 수정할 수 없습니다.',
+      () => {
+        let loading = this.commonService.presentLoading();
+        this.uploadFiles()
+        .then(() => {
+          this.userService.projectReport(this.project_id, (this.project_report_images.length) ? this.project_report_images : null, this.storySummaryContent, this.prosContent, this.consContent, this.overallOpinionContent)
+          .finally(() => {
+            loading.dismiss();
+          })
+          .subscribe(
+              (data) => {
+              if(data.success == true) {
+                this.commonService.showBasicAlert('성공적으로 작성되었습니다.');
+                this.ModalWrapperPage.dismissModal();
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.submit();
+                });
+              }
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('오류가 발생했습니다.');
+            }
+          )
+        });
+      }
+    );
   }
 
   goNextSlide() {

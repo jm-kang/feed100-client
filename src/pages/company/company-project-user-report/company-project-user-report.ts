@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+
 /**
  * Generated class for the CompanyProjectUserReportPage page.
  *
@@ -15,41 +18,59 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
   templateUrl: 'company-project-user-report.html',
 })
 export class CompanyProjectUserReportPage {
-  userReports = [
-    {
-      nickname: "닉네임",
-      avatar_image: "assets/img/user-avatar-image.png",
-      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }, { img : "assets/img/feedback-image2.jpeg", formData : "formData" }],
-      story_summary_content: "",
-      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
-      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
-      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평",
-      report_registration_date: "2017-11-01 00:00:00",
-      isSelection: true,
-      project_participant_id: 1,
-    },
-    {
-      nickname: "닉네임",
-      avatar_image: "assets/img/user-avatar-image.png",
-      report_form_images: [{ img : "assets/img/feedback-image1.jpeg", formData : "formData" }],
-      story_summary_content: "",
-      pros_content: "프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점 프로젝트 서비스 장점프로젝트 서비스 장점",
-      cons_content: "프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점 프로젝트 서비스 단점",
-      overall_opinion_content: "프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 프로젝트 총평 v",
-      report_registration_date: "2017-11-01 00:00:00",
-      isSelection: false,
-      project_participant_id: 1,
-    }
-  ];
+  project_id;
+  // project_report_images
+  // project_report_story_summary_content
+  // project_report_pros_content
+  // project_report_cons_content
+  // project_report_overall_opinion_content
+  // project_report_registration_date
+  // proejct_report_is_select
+
+  userReports = [];
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public photoViewer: PhotoViewer) {
+    public photoViewer: PhotoViewer,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectUserReportPage');
+    let loading = this.commonService.presentLoading();
+    this.project_id = this.navParams.get('project_id');
+
+    this.companyService.getProjectReports(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.userReports = data.data;
+          for(let i=0; i<this.userReports.length; i++) {
+            this.userReports[i].project_report_images = JSON.parse(this.userReports[i].project_report_images);
+            for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
+              this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
+            }
+          }
+          console.log(JSON.stringify(this.userReports));
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   back() {
@@ -60,8 +81,47 @@ export class CompanyProjectUserReportPage {
     this.photoViewer.show(url);
   }
 
-  bestSelection() {
-    // 선정 버튼
+  bestSelection(project_participant_id, nickname) {
+    this.commonService.showConfirmAlert(nickname + '님의 피드백을 선정하시겠습니까?',
+      () => {
+        let loading = this.commonService.presentLoading();
+        
+        this.companyService.selectReport(project_participant_id)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              if(data.data) {
+                for(let i=0; i<this.userReports.length; i++) {
+                  if(this.userReports[i].project_participant_id == project_participant_id) {
+                    this.userReports[i].project_report_is_select = true;
+                    this.commonService.showBasicAlert('선정이 완료되었습니다.');
+                  }
+                }
+              }
+              else {
+                if(data.message == "selected report num is over") {
+                  this.commonService.showBasicAlert('선정할 수 있는 피드백 개수를 초과하였습니다.');
+                }
+              }    
+            }
+            else if(data.success == false) {
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+              .then(() => {
+                this.bestSelection(project_participant_id, nickname);
+              });
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
+    
+      }
+    );
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {
