@@ -34,6 +34,8 @@ export class UserProjectSideMenuPage {
   left: any =  "";
   top: any =  "";
   isBest: boolean = false;
+  isWritedReport: boolean = false; // 심층 피드백을 작성했는지 판단하는 변수
+  isSelection: boolean = false; // 심층 피드백이 선정되었는지 판단하는 변수
 
   empathyNum: number = 0;
   nonEmpathyNum: number = 0;
@@ -48,6 +50,8 @@ export class UserProjectSideMenuPage {
   opinionReward: number = 100;
   interviewReward: number = 1000;
   bestFeedbackReward: number = 10000;
+  reportReward: number = 1000;  // 심층 피드백의 기본 금액
+  selectionReportReward: number = 4000;  // 심층 피드백의 선정 추가 금액
 
   feedbackPoint: number = 0;
   opinionPoint: number = 0;
@@ -55,6 +59,7 @@ export class UserProjectSideMenuPage {
   interviewPoint: number = 0;
   projectPoint: number = 0;
   minOpinionNum: number = 0;
+  reportPoint: number = 0; // 심층 피드백의 포인트
 
   constructor(
     public navCtrl: NavController, 
@@ -97,10 +102,11 @@ export class UserProjectSideMenuPage {
           this.feedback_id = data.data.feedback.project_participant_id;
 
           this.feedbackPoint = this.feedbackReward + ((this.isBest) ? this.bestFeedbackReward : 0);
+          this.reportPoint = this.reportReward + ((this.isSelection) ? this.selectionReportReward : 0); // 심층 피드백 계산
           this.opinionPoint = this.opinionReward * this.myOpinionNum;
           this.maxOpinionPoint = this.opinionReward * this.feedbackNum;
           this.interviewPoint = this.interviewReward * this.completedInterviewNum;
-          this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint;
+          this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint + this.reportPoint;  // 심층 피드백 보상 금액 추가
 
           this.minOpinionNum = Math.round(data.data.project.max_participant_num / 3);
           console.log(this.minOpinionNum);

@@ -38,7 +38,8 @@ page-company-help {
         width: 100vw;
     }
     .list-header {
-        margin-top: 16px !important;
+        border-top: 0;
+        margin-top: 36px !important;
         padding-left: 16px;
         position: relative;
         // border-bottom: 0.55px solid #ddd;
@@ -84,9 +85,11 @@ page-company-help {
         }
         .image-wrapper {
             margin: 16px auto;
+            text-align: center;
         }
         .text-wrapper {
             font-size: 1.3rem;
+            line-height: 1.6;
         }
     }
 }

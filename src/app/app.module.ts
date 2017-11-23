@@ -82,6 +82,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectStoryQuizPageModule } from '../pages/user/user-project-story-quiz/user-project-story-quiz.module';    
     import { UserProjectSearchResultPageModule } from '../pages/user/user-project-search-result/user-project-search-result.module';
     import { UserProjectReportFormPageModule } from '../pages/user/user-project-report-form/user-project-report-form.module';
+    import { UserProjectReportPageModule } from '../pages/user/user-project-report/user-project-report.module';
   import { UserNewsfeedPageModule } from '../pages/user/user-newsfeed/user-newsfeed.module';
     import { UserNewsfeedStoryPageModule } from '../pages/user/user-newsfeed-story/user-newsfeed-story.module';
   import { UserMypagePageModule } from '../pages/user/user-mypage/user-mypage.module';
@@ -204,6 +205,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         UserProjectStoryQuizPageModule,
         UserProjectSearchResultPageModule,
         UserProjectReportFormPageModule,
+        UserProjectReportPageModule,
       UserNewsfeedPageModule,
         UserNewsfeedStoryPageModule,
       UserMypagePageModule,

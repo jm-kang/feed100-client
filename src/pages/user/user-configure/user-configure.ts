@@ -51,8 +51,7 @@ export class UserConfigurePage {
   }
 
   openUserTutorialPage() {
-    let tutorialModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserTutorialPage'});
-    tutorialModal.present();
+    this.navCtrl.push('UserTutorialPage');
   }
 
   openUserHelpPage() {

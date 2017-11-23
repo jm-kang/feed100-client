@@ -51,17 +51,26 @@
       </div>
     </ion-slide>
     <ion-slide>
-      <div class="reward-question">
-        <!-- <span class="color-primary">포인트 합산</span> -->
-        보상 결과
-      </div>
+      
       <ion-list class="reward-list">
+        <div class="reward-item" *ngIf="reportPoint > 0">
+          <div class="div-flex">
+            <span class="item-title">심층 피드백 보상금액
+              <!-- <span class="best-badge" *ngIf="isSelection">
+                <span>선정</span>
+              </span> -->
+            </span>
+            <span class="item-point-box">
+              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{reportPoint}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+        </div>
         <div class="reward-item">
           <div class="div-flex">
             <span class="item-title">피드백 보상금액
-              <span class="best-badge" *ngIf="isBest">
+              <!-- <span class="best-badge" *ngIf="isBest">
                 <span>BEST</span>
-              </span>
+              </span> -->
             </span>
             <span class="item-point-box">
               <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{feedbackPoint}}</span><span class="point-tag">p</span>
@@ -77,7 +86,7 @@
             </span>
           </div>
         </div>
-        <div class="reward-item">
+        <div class="reward-item item-underline">
           <div class="div-flex">
             <span class="item-title absolute-item-title">인터뷰 보상금액</span>
             <span class="item-point-box">
@@ -85,7 +94,7 @@
             </span>
           </div>
         </div>
-        <div class="reward-item">
+        <div class="reward-item item-result">
           <div class="div-flex">
             <span class="item-title absolute-item-title">전체 보상 금액</span>
             <span class="item-point-box">
