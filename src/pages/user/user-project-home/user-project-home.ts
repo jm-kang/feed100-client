@@ -32,8 +32,12 @@ export class UserProjectHomePage {
   isLink: boolean = false;
   interview_num: number = 0;
   projectRegistrationDate: String = "";
-  participationFeedbackNum: number;
-  limitFeedbackNum: number = 0;
+  project_link = "";
+
+  myOpinionNum: number = 0;
+  minOpinionNum: number = 0;
+
+  isReportWrited: boolean = false; // 심층 피드백을 작성했는지 판단하는 변수
 
   feedbacks = [];
 
@@ -78,19 +82,22 @@ export class UserProjectHomePage {
           this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
           this.projectRegistrationDate = data.data.project_registration_date;
-          this.participationFeedbackNum = 0;
-
+          this.project_link = data.data.project_link;
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
-
+          
           this.feedbacks = data.data.feedbacks;
-
+          
+          this.minOpinionNum = Math.round(data.data.max_participant_num / 3);
+          
           for(let feedback of this.feedbacks) {
             if(feedback.is_my_opinion) {
-              this.participationFeedbackNum = this.participationFeedbackNum + 1;
+              this.myOpinionNum += 1;
+            }
+            if(feedback.is_my_feedback) {
+              this.isReportWrited = (feedback.project_report_registration_date) ? true : false;
             }
           }
-
-          console.log("참" + this.participationFeedbackNum);
+          console.log(this.minOpinionNum, this.myOpinionNum, this.isReportWrited);
 
         }
         else if(data.success == false) {
@@ -105,9 +112,6 @@ export class UserProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
-    this.limitFeedbackNum = 10;
-
   }
 
   back() {
@@ -123,7 +127,7 @@ export class UserProjectHomePage {
   }
 
   openUserProjectLinkPage() {
-    let userProjectLinkModal = this.modalCtrl.create( 'ModalWrapperPage', {page: 'UserProjectLinkPage'});
+    let userProjectLinkModal = this.modalCtrl.create( 'ModalWrapperPage', {page: 'UserProjectLinkPage', params: { "project_link" : this.project_link }});
     userProjectLinkModal.present();
   }
 
@@ -145,6 +149,11 @@ export class UserProjectHomePage {
 
   openUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
+    userProjectReportFormModal.onDidDismiss(data => {
+      if(data == "refresh") {
+        this.ionViewDidEnter();
+      }
+    });
     userProjectReportFormModal.present();
   }
 }

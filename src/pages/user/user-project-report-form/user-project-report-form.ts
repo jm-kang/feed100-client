@@ -213,7 +213,7 @@ export class UserProjectReportFormPage {
   }
 
   submit() {
-    this.commonService.showConfirmAlert('심층 피드백을 작성하시겠습니까?<br/>작성 후에는 수정할 수 없습니다.',
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적적한 글 작성시 제재를 받을 수 있습니다.',
       () => {
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
@@ -226,7 +226,7 @@ export class UserProjectReportFormPage {
               (data) => {
               if(data.success == true) {
                 this.commonService.showBasicAlert('성공적으로 작성되었습니다.');
-                this.ModalWrapperPage.dismissModal();
+                this.ModalWrapperPage.dismissModal("refresh");                
               }
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)

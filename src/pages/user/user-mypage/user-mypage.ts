@@ -141,7 +141,9 @@ export class UserMypagePage {
   // 			프로필 등록 - 참여조건 검사 후 스토리
   // 종료
   // 	참여o
-  // 		보상 전 - 보상 페이지
+  // 		보상 전
+  //      심사중 - 알림
+  //      심사끝 - 보상 페이지
   // 		보상 후 - 스토리
   // 	참여x - 스토리
   accessProjectCard(project_id) {
@@ -152,6 +154,7 @@ export class UserMypagePage {
       '프로젝트에 참가하려면 먼저 프로필을 등록해야 합니다!<br/>프로필 등록 페이지로 이동하시겠습니까?',
       '프로젝트에 참가하려면 먼저 간단한 설문조사에 응해야 합니다!<br/>참가하시겠습니까?',
       '프로젝트를 성공적으로 수행하여 보상을 받을 수 있습니다!<br/>보상 페이지로 이동하시겠습니까?',
+      '아직 심사가 진행중입니다!<br/>심사는 프로젝트 종료 후 최대 2일까지 걸릴 수 있습니다.<br/>다음에 다시 시도해주세요.',
       '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
     ]
 
@@ -201,12 +204,17 @@ export class UserMypagePage {
               if(!data.data.project_participation_info.project_reward_date) {
                 this.commonService.showConfirmAlert(messages[4], 
                   () => {
-                    this.openUserProjectRewardFormPage(project_id);
+                    if(data.data.project_info.is_judge_proceeding) {
+                      this.commonService.showBasicAlert(messages[5])
+                    }
+                    else { 
+                      this.openUserProjectRewardFormPage(project_id);
+                    }    
                   }
                 );
               }
               else {
-                this.commonService.showConfirmAlert(messages[5], 
+                this.commonService.showConfirmAlert(messages[6], 
                   () => {
                     this.openUserProjectStoryPage(project_id);
                   }
@@ -214,7 +222,7 @@ export class UserMypagePage {
               }
             }
             else {
-              this.commonService.showConfirmAlert(messages[5], 
+              this.commonService.showConfirmAlert(messages[6], 
                 () => {
                   this.openUserProjectStoryPage(project_id);
                 }

@@ -93,39 +93,43 @@ export class CompanyProjectInterviewWritingEditorPage {
 
   completeEditor() {
     console.log("completeEditor() : 완료 버튼");
-    let loading = this.commonService.presentLoading();
-    this.uploadFiles()
-    .then(() => {
-      this.companyService.requestInterview(this.project_participant_id, this.interviewContent, (this.interviewImages.length) ? this.interviewImages : null)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-          (data) => {
-          if(data.success == true) {
-            if(!data.data) {
-              if(data.message == "interview is not available") {
-                this.commonService.showBasicAlert('인터뷰를 요청할 수 있는 기간이 아닙니다.');
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 피드백 내용에 따라 보상이 달라질 수 있습니다.', 
+      () => {
+        let loading = this.commonService.presentLoading();
+        this.uploadFiles()
+        .then(() => {
+          this.companyService.requestInterview(this.project_participant_id, this.interviewContent, (this.interviewImages.length) ? this.interviewImages : null)
+          .finally(() => {
+            loading.dismiss();
+          })
+          .subscribe(
+              (data) => {
+              if(data.success == true) {
+                if(!data.data) {
+                  if(data.message == "interview is not available") {
+                    this.commonService.showBasicAlert('인터뷰를 요청할 수 있는 기간이 아닙니다.');
+                  }
+                  else if(data.message == "interview_num is exceeded") {
+                    this.commonService.showBasicAlert('인터뷰 요청 개수가 초과되었습니다.');
+                  }
+                }
+                this.dismiss();
               }
-              else if(data.message == "interview_num is exceeded") {
-                this.commonService.showBasicAlert('인터뷰 요청 갯수가 초과되었습니다.');
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.completeEditor();
+                });
               }
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('오류가 발생했습니다.');
             }
-            this.dismiss();
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.completeEditor();
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      )    
-    });
+          )    
+        });    
+      }
+    );
   }
 
   dismiss() {

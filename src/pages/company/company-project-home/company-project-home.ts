@@ -34,6 +34,7 @@ export class CompanyProjectHomePage {
   isLink: boolean = false;
   interview_num: number = 0;
   projectRegistrationDate: String = "";
+  project_link;
 
   feedbacks = [];
 
@@ -78,7 +79,7 @@ export class CompanyProjectHomePage {
           this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
           this.projectRegistrationDate = data.data.project_registration_date;
-
+          this.project_link = data.data.project_link;
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
 
           this.feedbacks = data.data.feedbacks;
@@ -112,7 +113,7 @@ export class CompanyProjectHomePage {
   }
 
   openCompanyProjectLinkPage() {
-    let companyProjectLinkModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectLinkPage'});
+    let companyProjectLinkModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectLinkPage', params: { "project_link" : this.project_link }});
     companyProjectLinkModal.present();
   }
 

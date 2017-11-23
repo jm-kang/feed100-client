@@ -5,6 +5,9 @@ import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
+
 /**
  * Generated class for the UserProjectReportPage page.
  *
@@ -25,33 +28,73 @@ export class UserProjectReportPage {
   scrollVert:   number = 0 ;
   lastScrollV:  number = 0 ;
   transparentPercent: number = 0;
+  
+  project_id;
 
-  // nickname: String = "";
-  // avatar_image: String = "";
-  // project_report_images = [];
-  // project_report_story_summary_content: String = "";
-  // project_report_pros_content: String = "";
-  // project_report_cons_content: String = "";
-  // project_report_overall_opinion_content: String = "";
-  // project_report_registration_date: String = "";
-
-  nickname: String = "닉네임";
-  avatar_image: String = "assets/img/user-avatar-image2.png";
+  nickname: String = "";
+  avatar_image: String = "";
   project_report_images = [];
   project_report_story_summary_content: String = "";
-  project_report_pros_content: String = "프로젝트 좋은 점 프로젝트 좋은 점 프로젝트 좋은 점 프로젝트 좋은 점 프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점 프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점프로젝트 좋은 점";
-  project_report_cons_content: String = "프로젝트 별로 프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로프로젝트 별로v프로젝트 별로 프로젝트 별로 프로젝트 별로 프로젝트 별로 프로젝트 별로 v 프로젝트 별로";
-  project_report_overall_opinion_content: String = "프로젝트 총평 프로젝트 총평 프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평ㅍ 프로젝트 총평 ㅍ 프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평프로젝트 총평 프로젝트 총평";
-  project_report_registration_date: String = "2017-11-22 00:00:00";
+  project_report_pros_content: String = "";
+  project_report_cons_content: String = "";
+  project_report_overall_opinion_content: String = "";
+  project_report_registration_date: String = "";
+  project_report_is_select: boolean = false;
 
-
-  project_report_is_select: boolean = true;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public photoViewer: PhotoViewer, public ModalWrapperPage: ModalWrapperPage) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public photoViewer: PhotoViewer, 
+    public ModalWrapperPage: ModalWrapperPage,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectReportPage');
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;    
+    
+    let loading = this.commonService.presentLoading();
+    this.userService.getProjectReport(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(!data.data.project_report_registration_date) {
+            this.commonService.showBasicAlert('심층 피드백을 작성해주세요!');
+            this.dismiss();
+          }
+          else {
+            this.nickname = data.data.nickname;
+            this.avatar_image = data.data.avatar_image;
+            this.project_report_story_summary_content = data.data.project_report_story_summary_content;
+            this.project_report_pros_content = data.data.project_report_pros_content;
+            this.project_report_cons_content = data.data.project_report_cons_content;
+            this.project_report_overall_opinion_content = data.data.project_report_overall_opinion_content;
+            this.project_report_registration_date = data.data.project_report_registration_date;
+            this.project_report_is_select = data.data.project_report_is_select;
+
+            this.project_report_images = JSON.parse(data.data.project_report_images);
+            for(let j=0; j<this.project_report_images.length; j++) {
+              this.project_report_images[j] = {img : this.project_report_images[j]};
+            }  
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewDidLoad();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
+
   }
 
   dismiss() {
