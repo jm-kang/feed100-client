@@ -30,9 +30,9 @@
             <span [innerHTML]="help.title"></span>
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
-            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;{{help.subTitle}}</div>
+            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img [src]="help.topImg" />
+              <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
@@ -50,9 +50,9 @@
             <span [innerHTML]="help.title"></span>
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
-            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;{{help.subTitle}}</div>
+              <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img [src]="help.topImg" />
+              <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
@@ -70,9 +70,9 @@
             <span [innerHTML]="help.title"></span>
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
-            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;{{help.subTitle}}</div>
+              <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img [src]="help.topImg" />
+              <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
@@ -94,9 +94,9 @@
             <span [innerHTML]="help.title"></span>
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
-            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;{{help.subTitle}}</div>
+              <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img [src]="help.topImg" />
+              <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
@@ -111,16 +111,16 @@
       </ion-list>
       <ion-list>
         <ion-list-header>
-          5. 프로젝트 확인하기
+          5. 프로젝트 결과 확인
         </ion-list-header>
         <div class="item-wrapper" *ngFor="let help of companyHelpPart5" >
           <ion-item class="title-wrapper" (click)="toggleDetails(help)"><ion-icon color="primary" item-right [name]="help.icon"></ion-icon>
             <span [innerHTML]="help.title"></span>
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
-            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;{{help.subTitle}}</div>
+              <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img [src]="help.topImg" />
+              <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">

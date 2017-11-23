@@ -4,15 +4,70 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-content class="story-slide" no-bounce>
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [style.backgroundImage]="'url(' + tutorialMainImage + ')'"></div>
+  </div>
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextSlide()">
+          <h1 class="title">튜토리얼 ></h1>
+        </button>
+      </ion-buttons>
+      <img src="assets/img/user-tutorial-logo.png"  class="tutorial-logo"/>
+      <h2 [innerHTML]="tutorialName"></h2>
+      <p class="summary" [innerHTML]="tutorialSummary"></p>
+      <h6>* 이 콘텐츠의 저작권은 모두 FEED100이 소유하고 있습니다.</h6>
 
-  <ion-navbar>
-    <ion-title>UserTutorialPage</ion-title>
-  </ion-navbar>
+    </ion-slide>
+    <ion-slide class="story-content-slide" *ngFor="let tutorialSlide of tutorialSlides">
+      <img [src]="tutorialSlide.tutorialImage" />
+      <p text-left class="story-content-slide-content" [innerHTML]="tutorialSlide.tutorialContent"></p>
+    </ion-slide>
 
-</ion-header>
-
-
-<ion-content padding>
-
+    <ion-slide padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 튜토리얼 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <p class="story-name">더 궁금하신 사항은 도움말을 참고하시거나<br><ins>feed100.help@gmail.com</ins><br>으로 문의해 주시기 바랍니다.</p>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="avatarImage" />
+          </span>
+          <h3>by. {{nickname}}</h3>
+        </ion-item>
+      </div>
+      
+      <ion-buttons class="project-last-slide-buttons">
+        <button ion-button block outline (click)="openUserHelpPage()">도움말 보러가기</button>
+      </ion-buttons>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ion-footer class="story-footer">
+  <progress-bar [progress]="progressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons class="story-back-button" start>
+      <button ion-button (click)="back()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatarImage" />
+      </span>
+      <h3>{{nickname}}</h3>
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentPageNum}} / {{totalPageNum}}</p>
+    </ion-item>
+    <ion-buttons class="bar-end-buttons" end>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

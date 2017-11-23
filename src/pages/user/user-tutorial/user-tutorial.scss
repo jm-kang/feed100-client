@@ -1,3 +1,56 @@
 page-user-tutorial {
+    ion-buttons[start] {
+        order: 1;
+    }
 
+    .story-main-image {
+        -webkit-filter: opacity(10%);
+        filter: opacity(10%);
+    }
+
+    .progress-inner {
+        background-color: #FE6B01;
+    }
+
+    .project-last-slide-wrapper {
+        margin-bottom: 32px;
+    }
+
+    .project-last-slide-wrapper .summary {
+        width: 80%;
+        font-size: 1.2rem;
+        color: #c8c8c8;
+        margin: 0 auto;
+    }
+
+    .slide-title-wrapper.last-slide-title-wrapper {
+        position: absolute;
+        left: 0;
+    }
+
+    .project-last-slide-buttons {
+        margin-top:10px;
+    }
+
+    .project-last-slide-buttons button {
+        font-size: 1.3rem;
+        height: 3em;
+        font-weight: 500;
+    }
+
+    .story-name {
+        font-size: 2.7rem;
+    }
+
+    .item-block .item-inner {
+        border-bottom : 0 !important;
+    }
+    
+    .story-name {
+        font-size: 1.6rem;
+    }
+}
+
+.tutorial-logo {
+    height: 4rem !important;
 }
