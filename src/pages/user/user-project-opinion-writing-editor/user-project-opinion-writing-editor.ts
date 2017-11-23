@@ -116,42 +116,46 @@ export class UserProjectOpinionWritingEditorPage {
   }
 
   registerOpinion() {
-    let loading = this.commonService.presentLoading();
-    this.uploadFile()
-    .then(() => {
-      this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            if(data.message == 'opinion is already writed') {
-              this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
-              this.dismiss();
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
+      () => {
+        let loading = this.commonService.presentLoading();
+        this.uploadFile()
+        .then(() => {
+          this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
+          .finally(() => {
+            loading.dismiss();
+          })
+          .subscribe(
+            (data) => {
+              if(data.success == true) {
+                if(data.message == 'opinion is already writed') {
+                  this.commonService.showBasicAlert('이미 토론에 참여했습니다.');
+                  this.dismiss();
+                }
+                else if(data.message == 'project is not proceeding') {
+                  this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
+                  this.dismiss();
+                }
+                else {
+                  this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
+                  this.dismiss();
+                }
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.registerOpinion();
+                });
+              }
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('오류가 발생했습니다.');
             }
-            else if(data.message == 'project is not proceeding') {
-              this.commonService.showBasicAlert('이미 종료된 프로젝트입니다.');
-              this.dismiss();
-            }
-            else {
-              this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
-              this.dismiss();
-            }
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.registerOpinion();
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    });
+          );
+        });    
+      }
+    );
   }
 
   changeEmpathyRadio() {

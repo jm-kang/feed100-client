@@ -104,31 +104,35 @@ export class UserProjectInterviewWritingEditorPage {
 
   completeEditor() {
     console.log("completeEditor() : 완료 버튼");
-    let loading = this.commonService.presentLoading();
-    this.uploadFiles()
-    .then(() => {
-      this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-          (data) => {
-          if(data.success == true) {
-            this.dismiss();      
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.completeEditor();
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      );
-    });
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
+      () => {
+        let loading = this.commonService.presentLoading();
+        this.uploadFiles()
+        .then(() => {
+          this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
+          .finally(() => {
+            loading.dismiss();
+          })
+          .subscribe(
+              (data) => {
+              if(data.success == true) {
+                this.dismiss();      
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.completeEditor();
+                });
+              }
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('오류가 발생했습니다.');
+            }
+          );
+        });    
+      }
+    );
   }
 
   dismiss() {

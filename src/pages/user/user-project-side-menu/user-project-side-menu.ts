@@ -34,8 +34,8 @@ export class UserProjectSideMenuPage {
   left: any =  "";
   top: any =  "";
   isBest: boolean = false;
-  isWritedReport: boolean = false; // 심층 피드백을 작성했는지 판단하는 변수
-  isSelection: boolean = false; // 심층 피드백이 선정되었는지 판단하는 변수
+  isReportWrited: boolean = false; // 심층 피드백을 작성했는지 판단하는 변수
+  isSelect: boolean = false; // 심층 피드백이 선정되었는지 판단하는 변수
 
   empathyNum: number = 0;
   nonEmpathyNum: number = 0;
@@ -48,8 +48,8 @@ export class UserProjectSideMenuPage {
 
   feedbackReward: number = 1000;
   opinionReward: number = 100;
-  interviewReward: number = 1000;
-  bestFeedbackReward: number = 10000;
+  interviewReward: number = 500;
+  bestFeedbackReward: number = 1000;
   reportReward: number = 1000;  // 심층 피드백의 기본 금액
   selectionReportReward: number = 4000;  // 심층 피드백의 선정 추가 금액
 
@@ -100,16 +100,19 @@ export class UserProjectSideMenuPage {
           this.interviewNum = data.data.project.interview_num;
 
           this.feedback_id = data.data.feedback.project_participant_id;
+          this.isReportWrited = (data.data.feedback.project_report_registration_date) ? true : false;
+          this.isSelect = (data.data.feedback.project_report_is_select) ? true : false;
 
           this.feedbackPoint = this.feedbackReward + ((this.isBest) ? this.bestFeedbackReward : 0);
-          this.reportPoint = this.reportReward + ((this.isSelection) ? this.selectionReportReward : 0); // 심층 피드백 계산
           this.opinionPoint = this.opinionReward * this.myOpinionNum;
           this.maxOpinionPoint = this.opinionReward * this.feedbackNum;
           this.interviewPoint = this.interviewReward * this.completedInterviewNum;
+          if(this.isReportWrited) { 
+            this.reportPoint = this.reportReward + ((this.isSelect) ? this.selectionReportReward : 0); // 심층 피드백 계산
+          }
           this.projectPoint = this.feedbackPoint + this.opinionPoint + this.interviewPoint + this.reportPoint;  // 심층 피드백 보상 금액 추가
 
           this.minOpinionNum = Math.round(data.data.project.max_participant_num / 3);
-          console.log(this.minOpinionNum);
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
@@ -155,6 +158,11 @@ export class UserProjectSideMenuPage {
 
   opneUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
+    userProjectReportFormModal.onDidDismiss(data => {
+      if(data == "refresh") {
+        this.ionViewDidEnter();
+      }
+    });
     userProjectReportFormModal.present();
   }
 

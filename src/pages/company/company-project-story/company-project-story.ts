@@ -36,6 +36,7 @@ export class CompanyProjectStoryPage {
   progressState: String = "";
   projectSummary: String = ""
   projectRegistrationDate: String = "";
+  project_link;
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
@@ -75,6 +76,7 @@ export class CompanyProjectStoryPage {
           this.progressState = data.data.project_end_date;
           this.projectSummary = data.data.project_summary;
           this.projectRegistrationDate = data.data.project_registration_date;
+          this.project_link = data.data.project_link;
           this.projectStorySlides = JSON.parse(data.data.project_story);
 
           this.totalPageNum = this.projectStorySlides.length + 1;
@@ -133,7 +135,7 @@ export class CompanyProjectStoryPage {
   openCompanyProjectLinkPage() {
     let projectLinkModal = this.modalCtrl.create('ModalWrapperPage',
       { page: 'CompanyProjectLinkPage',
-        params: { "project_id" : this.project_id }
+        params: { "project_link" : this.project_link }
       });
     projectLinkModal.present();
   }

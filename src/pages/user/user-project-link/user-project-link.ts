@@ -29,8 +29,9 @@ export class UserProjectLinkPage {
     console.log('ionViewDidLoad UserProjectLinkPage');
     this.statusBar.styleLightContent();
     this.ModalWrapperPage.dismissModal();
+    let project_link = this.ModalWrapperPage.modalParams.project_link;
 
-    cordova.ThemeableBrowser.open('https://m.naver.com', '_blank', {
+    cordova.ThemeableBrowser.open(project_link, '_blank', {
       statusbar: {
         color: '#000000'
       },

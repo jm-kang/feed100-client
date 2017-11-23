@@ -184,48 +184,52 @@ export class UserProjectFeedbackFormPage {
 
   openUserProjectHomePage() {    
     //프로젝트 안끝났고 참여중인 프로젝트 아니고 인원 꽉 안찼으면
-    let loading = this.commonService.presentLoading();
-    this.uploadFiles()
-    .then(() => {
-      this.userService.projectFeedback(this.project_id, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
-      .finally(() => {
-        loading.dismiss();
-      })
-      .subscribe(
-          (data) => {
-          if(data.success == true) {
-            this.navCtrl.popToRoot();
-            if(data.data) {
-              this.commonService.showConfirmAlert('축하합니다! 이제 프로젝트 페이지에서 토론, 인터뷰에 참여해주세요! 참여도에 따라 많은 보상을 받을 수 있습니다.', 
-                () => {
-                  this.appCtrl.getActiveNav().push('UserProjectHomePage', { "project_id" : this.project_id });                  
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 피드백 내용에 따라 보상이 달라질 수 있습니다.', 
+      () => {
+        let loading = this.commonService.presentLoading();
+        this.uploadFiles()
+        .then(() => {
+          this.userService.projectFeedback(this.project_id, [this.feedbackContent], this.feedbackHashtags, (this.feedbackImages.length) ? this.feedbackImages : null, this.rate)
+          .finally(() => {
+            loading.dismiss();
+          })
+          .subscribe(
+              (data) => {
+              if(data.success == true) {
+                this.navCtrl.popToRoot();
+                if(data.data) {
+                  this.commonService.showConfirmAlert('축하합니다! 이제 프로젝트 페이지에서 토론, 인터뷰에 참여해주세요! 참여도에 따라 많은 보상을 받을 수 있습니다.', 
+                    () => {
+                      this.appCtrl.getActiveNav().push('UserProjectHomePage', { "project_id" : this.project_id });                  
+                    }
+                  );
                 }
-              );
+                else {
+                  if(data.message == "project is not proceeding") {
+                    this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+                  }
+                  else if(data.message == "project is max") {
+                    this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
+                  }
+                  else if(data.message == "you are already participated") {
+                    this.commonService.showBasicAlert('이미 참여중인 프로젝트입니다.');
+                  }
+                }
+              }
+              else if(data.success == false) {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                .then(() => {
+                  this.openUserProjectHomePage();
+                });
+              }
+            },
+            (err) => {
+              console.log(err);
+              this.commonService.showBasicAlert('오류가 발생했습니다.');
             }
-            else {
-              if(data.message == "project is not proceeding") {
-                this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
-              }
-              else if(data.message == "project is max") {
-                this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
-              }
-              else if(data.message == "you are already participated") {
-                this.commonService.showBasicAlert('이미 참여중인 프로젝트입니다.');
-              }
-            }
-          }
-          else if(data.success == false) {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-            .then(() => {
-              this.openUserProjectHomePage();
-            });
-          }
-        },
-        (err) => {
-          console.log(err);
-          this.commonService.showBasicAlert('오류가 발생했습니다.');
-        }
-      )
-    });
+          )
+        });
+      }
+    );
   }
 }

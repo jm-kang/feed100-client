@@ -53,12 +53,12 @@
     <ion-slide>
       
       <ion-list class="reward-list">
-        <div class="reward-item" *ngIf="reportPoint > 0">
+        <div class="reward-item">
           <div class="div-flex">
             <span class="item-title">심층 피드백 보상금액
-              <!-- <span class="best-badge" *ngIf="isSelection">
+              <span class="best-badge" *ngIf="isSelect">
                 <span>선정</span>
-              </span> -->
+              </span>
             </span>
             <span class="item-point-box">
               <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{reportPoint}}</span><span class="point-tag">p</span>
@@ -68,9 +68,9 @@
         <div class="reward-item">
           <div class="div-flex">
             <span class="item-title">피드백 보상금액
-              <!-- <span class="best-badge" *ngIf="isBest">
+              <span class="best-badge" *ngIf="isBest">
                 <span>BEST</span>
-              </span> -->
+              </span>
             </span>
             <span class="item-point-box">
               <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{feedbackPoint}}</span><span class="point-tag">p</span>

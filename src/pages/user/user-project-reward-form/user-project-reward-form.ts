@@ -32,11 +32,13 @@ export class UserProjectRewardFormPage {
   satisfaction: number = 0;
   recommendation: number = 0;
   isQuestionWrited = [false, false, false];
+  isBest = false;
+  isSelect = false;
   feedbackPoint: number = 0;
   opinionPoint: number = 0;
   interviewPoint: number = 0;
-  projectPoint: number = 0;
   reportPoint: number = 0; // 심층 피드백 보상 금액
+  projectPoint: number = 0;
   exp: number = 0;
   interviewNum = 0;
 
@@ -118,9 +120,12 @@ export class UserProjectRewardFormPage {
         .subscribe(
           (data) => {
             if(data.success == true) {
+              this.isBest = data.data.feedback_is_best;
+              this.isSelect = data.data.report_is_select;
               this.feedbackPoint = data.data.feedback_point;
               this.opinionPoint = data.data.opinion_point;
               this.interviewPoint = data.data.interview_point;
+              this.reportPoint = data.data.report_point;
               this.projectPoint = data.data.project_point;
               this.exp = data.data.experience_point;
               this.interviewNum = data.data.interview_num;
