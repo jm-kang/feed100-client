@@ -110,17 +110,14 @@ export class CompanyProjectInterviewDetailPage {
           "ordinal" : this.interviews.length + 1
         }
       });
-    companyProjectInterviewWritingEditorModal.present();
     companyProjectInterviewWritingEditorModal.onWillDismiss(
-      () => {
-        this.ionViewDidEnter();  
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewDidEnter();  
+        }
       }
     );
-    companyProjectInterviewWritingEditorModal.onDidDismiss(
-      () => {
-        this.ionViewDidEnter();
-      }
-    );
+    companyProjectInterviewWritingEditorModal.present();
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {

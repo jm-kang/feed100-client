@@ -93,7 +93,7 @@ export class CompanyProjectInterviewWritingEditorPage {
 
   completeEditor() {
     console.log("completeEditor() : 완료 버튼");
-    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 피드백 내용에 따라 보상이 달라질 수 있습니다.', 
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없습니다.', 
       () => {
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
@@ -108,12 +108,16 @@ export class CompanyProjectInterviewWritingEditorPage {
                 if(!data.data) {
                   if(data.message == "interview is not available") {
                     this.commonService.showBasicAlert('인터뷰를 요청할 수 있는 기간이 아닙니다.');
+                    this.dismiss();
                   }
                   else if(data.message == "interview_num is exceeded") {
                     this.commonService.showBasicAlert('인터뷰 요청 개수가 초과되었습니다.');
+                    this.dismiss();
                   }
                 }
-                this.dismiss();
+                else {
+                  this.ModalWrapperPage.dismissModal("refresh");
+                }
               }
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)

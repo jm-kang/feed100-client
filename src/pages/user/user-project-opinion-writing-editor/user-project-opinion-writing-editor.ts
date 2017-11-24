@@ -138,7 +138,7 @@ export class UserProjectOpinionWritingEditorPage {
                 }
                 else {
                   this.commonService.showBasicAlert('성공적으로 등록되었습니다.');
-                  this.dismiss();
+                  this.ModalWrapperPage.dismissModal("refresh");
                 }
               }
               else if(data.success == false) {

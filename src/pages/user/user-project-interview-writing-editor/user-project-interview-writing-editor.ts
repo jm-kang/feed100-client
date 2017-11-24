@@ -116,7 +116,7 @@ export class UserProjectInterviewWritingEditorPage {
           .subscribe(
               (data) => {
               if(data.success == true) {
-                this.dismiss();      
+                this.ModalWrapperPage.dismissModal("refresh");
               }
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
