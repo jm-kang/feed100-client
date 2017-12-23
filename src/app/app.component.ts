@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Platform, App, ModalCmp } from 'ionic-angular';
+import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/common/login/login';
 import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
@@ -31,7 +32,8 @@ export class MyApp {
     screenOrientation: ScreenOrientation,
     public userService: UserServiceProvider,
     public commonService: CommonServiceProvider,
-    public app: App
+    public app: App,
+    public modalCtrl: ModalController
   ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -42,6 +44,12 @@ export class MyApp {
       // keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
+
+      let isAppIntroChecked = localStorage.getItem('isAppIntroChecked');
+      if (!isAppIntroChecked) {
+        this.openAppIntroPage();
+        localStorage.setItem('isAppIntroChecked', 'true');
+      }
     });
   }
 
@@ -60,6 +68,7 @@ export class MyApp {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.app.getActiveNav())
           .then(() => {
+            console.log('apiRequestErrorHandler');
             this.verifyLoginState();
           })
         }
@@ -69,5 +78,10 @@ export class MyApp {
       }
     )
 
+  }
+
+  openAppIntroPage() {
+    let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
+    appIntroModal.present();
   }
 }

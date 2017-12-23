@@ -111,6 +111,9 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
 import { ThemeableBrowser } from '@ionic-native/themeable-browser';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { AppVersion } from '@ionic-native/app-version';
+import { Market } from '@ionic-native/market';
+import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { UserProjectStoryQuizPage } from '../pages/user/user-project-story-quiz/user-project-story-quiz';
@@ -249,6 +252,9 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ThemeableBrowser,
     Keyboard,
     ScreenOrientation,
+    AppVersion,
+    Market,
+    OpenNativeSettings,
     {provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }
   ]
 })

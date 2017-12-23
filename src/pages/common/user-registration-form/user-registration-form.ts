@@ -134,6 +134,8 @@ export class UserRegistrationFormPage {
             case 'nickname is already registered':
               this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -173,6 +175,8 @@ export class UserRegistrationFormPage {
                 "app_id" : res.userId
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -216,6 +220,8 @@ export class UserRegistrationFormPage {
                 "app_id" : res.authResponse.userID
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -265,6 +271,8 @@ export class UserRegistrationFormPage {
                 "app_id" : result.id
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         });
       }

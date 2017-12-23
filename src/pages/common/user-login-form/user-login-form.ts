@@ -76,6 +76,8 @@ export class UserLoginFormPage {
             case 'password is not correct':
               this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -114,6 +116,8 @@ export class UserLoginFormPage {
                 "app_id" : res.userId
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -156,6 +160,8 @@ export class UserLoginFormPage {
                 "app_id" : res.authResponse.userID
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -205,6 +211,8 @@ export class UserLoginFormPage {
                 "app_id" : result.id
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         });          
       }
