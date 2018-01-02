@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -25,7 +26,8 @@ export class UserConfigurePage {
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public emailComposer: EmailComposer) {
     this.viewCtrl.showBackButton(true);
   }
 
@@ -80,8 +82,21 @@ export class UserConfigurePage {
   }
 
   openContactPage() {
-    let contactModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ContactPage'});
-    contactModal.present();
+    this.emailComposer.isAvailable().then((available: boolean) =>{
+      if(available) {
+        //Now we know we can send
+      }
+     });
+     
+     let email = {
+       to: 'feed100.help@gmail.com',
+       subject: '',
+       body: '<br><br><br>- FEED100 Version: 1.0.0',
+       isHtml: true
+     };
+     
+     // Send a text message using default options
+     this.emailComposer.open(email);
   }
 
   openUserAccountModificationFormPage() {

@@ -4,6 +4,41 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<div class="spinner-wrapper">
-  <ion-spinner name="dots"></ion-spinner>
-</div>
+<ion-content class="help-page-content" #contentRef no-bounce (ionScroll)="scrollingEvent($event)" (panEnd)='panEnd()'>
+  <div class="notice-content-wrapper">
+    <ion-navbar class="help-navbar" hideBackButton="true">
+      <ion-buttons start>
+        <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>
+        <span class="project-header-title-wrapper">
+          <span class="project-header-title" text-center>
+            공지사항
+          </span>
+        </span>
+      </ion-title>
+      <ion-buttons end></ion-buttons>
+    </ion-navbar>
+    <div class="list-wrapper">
+      <ion-list>
+        <div class="item-wrapper" *ngFor="let notice of notices" >
+          <ion-item class="title-wrapper" (click)="toggleDetails(notice)"><ion-icon color="primary" item-right [name]="notice.icon"></ion-icon>
+            <span [innerHTML]="notice.title"></span>
+          </ion-item>
+          <div class="content-wrapper" padding *ngIf="notice.showDetails">
+            <div class="subtitle-wrapper" *ngIf="notice.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="notice.subTitle"></span></div>
+            <div style="width: 70vw;" class="image-wrapper" *ngIf="notice.topImg">
+              <img style="max-height: 10rem;" [src]="notice.topImg" />
+            </div>
+            <div class="text-wrapper" [innerHTML]="notice.content"></div>
+            <div class="image-wrapper" *ngIf="notice.bottomImg">
+              <img [src]="notice.bottomImg" />
+            </div> 
+          </div>
+        </div>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

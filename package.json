@@ -23,7 +23,7 @@
         "@ionic-native/badge": "^4.3.1",
         "@ionic-native/camera": "^4.2.1",
         "@ionic-native/core": "3.12.1",
-        "@ionic-native/email-composer": "^4.3.1",
+        "@ionic-native/email-composer": "^4.5.2",
         "@ionic-native/facebook": "^4.1.0",
         "@ionic-native/file": "^4.2.1",
         "@ionic-native/file-transfer": "^4.2.1",
@@ -42,12 +42,13 @@
         "angular2-moment": "^1.6.0",
         "com-sarriaroman-photoviewer": "^1.1.10",
         "cordova-android": "^6.2.3",
-        "cordova-ios": "^4.4.0",
+        "cordova-ios": "^4.5.0",
         "cordova-plugin-badge": "^0.8.3",
         "cordova-plugin-camera": "^2.4.1",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "^1.0.5",
         "cordova-plugin-device": "^1.1.4",
+        "cordova-plugin-email-composer": "^0.8.11",
         "cordova-plugin-facebook4": "^1.9.1",
         "cordova-plugin-file": "^4.3.3",
         "cordova-plugin-file-transfer": "^1.6.3",
@@ -120,8 +121,7 @@
             "cordova-plugin-ionic-webview": {}
         },
         "platforms": [
-            "android",
-            "ios"
+            "android"
         ]
     }
 }

@@ -1,7 +1,6 @@
 page-user-project-report-form {
     .slide-zoom { 
         height: 100%;
-        padding-top: 80px;
     }
     .editor-content {
         height: auto;
@@ -32,5 +31,7 @@ page-user-project-report-form {
 }
 
 .project-report-form-navbar {
+    position: relative !important;
     background-color: #000 !important;
+    margin-bottom: 24px;
 }

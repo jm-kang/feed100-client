@@ -1,3 +1,81 @@
 page-user-point-usage-history {
+    .price-statement-header {
+        background-color: #fff;
+    
+        .toolbar {
+            border-bottom: 1px solid #eee;
+        }
+    
+        .segment {
+            background-color: #fff;
+        }
+    
+        .segment-button {
+            font-size: 1.2rem;
+        }
+        
+        .segment-ios {
+            padding: 8px;
+        }
+    }
 
+    ion-card-header {
+        text-overflow: unset;
+        white-space: unset;
+
+        h3 {
+            color: #787878;
+            font-size: 1.4rem;
+            margin-bottom: 6px !important;
+        }
+
+        p {
+            color: #383838;
+            font-size: 1.4rem;
+        }
+    }
+    .usage-content {
+        .usage-point-wrapper:nth-child(1) {
+            margin-bottom: 6px;
+        }
+        .usage-type, .usage-point-tag {
+            color: #787878;
+            font-size: 1.4rem;
+        }
+
+        .usage-point {
+            color: #383838;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+    }
+
+    .empty-inner {
+        p {
+            color: #a8a8a8;
+        }
+    }
+
+    .top-point-wrapper {
+        padding: 16px 16px 0 16px;
+        .usage-type, .usage-point-tag{
+            font-size: 1.2rem;
+        }
+
+        .usage-point {
+            font-size: 1.6rem;
+        }
+
+        .total-point {
+            color: #ff6700;
+        }
+
+        .total-save-point {
+            color: #4688f1;
+        }
+
+        .total-exchange-point {
+            color: #f53d3d;
+        }
+    }
 }

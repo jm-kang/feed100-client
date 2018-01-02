@@ -4,23 +4,115 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header class="modal-header-wrapper">
+<ion-header class="price-statement-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button ion-button (click)="back()" icon-only>
+      <button class="pop-button" ion-button (click)="back()" icon-only>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        포인트 사용 내역
+      </span>
+    </ion-title>
   </ion-navbar>
-
+  <ion-segment [(ngModel)]="segmentHistoryCondition" (ionChange)="changeSegment()" color="primary" >
+    <ion-segment-button value="all">
+      전체보기 {{pointUsages.length}}
+    </ion-segment-button>
+    <ion-segment-button value="savePointUsage">
+      적립 내역 {{savePointUsageNum}}
+    </ion-segment-button>
+    <ion-segment-button value="exchangePointUsage">
+      환전 내역 {{exchangePointUsageNum}}
+    </ion-segment-button>
+  </ion-segment>
+  <div class="shadow-top"></div>
 </ion-header>
 
 
-<ion-content class="coming-soon-content">
-  <div class="coming-soon-wrapper">
-    <span>
-      <p>현재 페이지는 준비중입니다.</p>
-      <h5>포인트 사용내역 페이지</h5>
-    </span>
+<ion-content class="outer-content">
+  <div [ngSwitch]="segmentHistoryCondition" class="point-usage-list">
+    <ion-list *ngSwitchCase="'all'">
+      <div class="top-point-wrapper" text-right>
+        <span class="usage-type">총 잔여 포인트</span>&ensp;
+        <span class="usage-point total-point">{{totalPoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+      </div>
+      <div *ngFor="let usage of pointUsages">
+        <ion-card class="usage-card"> 
+          <ion-card-header>
+            <h3>{{usage.content}}</h3>
+            <p [innerHTML]="usage.date | amDateFormat: 'YYYY-MM-DD'"></p>
+          </ion-card-header>
+          <ion-card-content class="usage-content" text-right>
+            <div class="usage-point-wrapper">
+              <span class="usage-type bold" [ngStyle]="{'color': usage.type == 'exchange' ? '#f53d3d' : '#4688f1'}">{{usage.type | typeToText}}</span>&ensp;
+              <span class="usage-point">{{usage.point}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+            <div class="total-point-wrapper">
+              <span class="usage-type">잔여 포인트</span>&ensp;
+              <span class="usage-point">{{usage.totalPoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'savePointUsage'">
+      <div class="top-point-wrapper" text-right>
+        <span class="usage-type">총 적립 포인트</span>&ensp;
+        <span class="usage-point total-save-point">{{totalSavePoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+      </div>
+      <div text-center *ngIf = "savePointUsageNum == 0" class="empty-inner">
+        <p>적립 내역이 없습니다!</p>
+      </div>
+      <div *ngFor="let usage of pointUsages">
+        <ion-card class="usage-card" *ngIf="usage.type == 'save'"> 
+          <ion-card-header>
+            <h3>{{usage.content}}</h3>
+            <p [innerHTML]="usage.date | amDateFormat: 'YYYY-MM-DD'"></p>
+          </ion-card-header>
+          <ion-card-content class="usage-content" text-right>
+            <div class="usage-point-wrapper">
+              <span class="usage-type bold" [ngStyle]="{'color': usage.type == 'exchange' ? '#f53d3d' : '#4688f1'}">{{usage.type | typeToText}}</span>&ensp;
+              <span class="usage-point">{{usage.point}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+            <div class="total-point-wrapper">
+              <span class="usage-type">잔여 포인트</span>&ensp;
+              <span class="usage-point">{{usage.totalPoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'exchangePointUsage'">
+      <div class="top-point-wrapper" text-right>
+        <span class="usage-type">총 환전 포인트</span>&ensp;
+        <span class="usage-point total-exchange-point">{{totalExchangePoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+      </div>
+      <div text-center *ngIf = "exchangePointUsageNum == 0" class="empty-inner">
+        <p>환전 내역이 없습니다!</p>
+      </div>
+      <div *ngFor="let usage of pointUsages">
+        <ion-card class="usage-card" *ngIf="usage.type == 'exchange'"> 
+          <ion-card-header>
+            <h3>{{usage.content}}</h3>
+            <p [innerHTML]="usage.date | amDateFormat: 'YYYY-MM-DD'"></p>
+          </ion-card-header>
+          <ion-card-content class="usage-content" text-right>
+            <div class="usage-point-wrapper">
+              <span class="usage-type bold" [ngStyle]="{'color': usage.type == 'exchange' ? '#f53d3d' : '#4688f1'}">{{usage.type | typeToText}}</span>&ensp;
+              <span class="usage-point">{{usage.point}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+            <div class="total-point-wrapper">
+              <span class="usage-type">잔여 포인트</span>&ensp;
+              <span class="usage-point">{{usage.totalPoint}}</span>&ensp;<span class="usage-point-tag">p</span>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </ion-list>
   </div>
 </ion-content>

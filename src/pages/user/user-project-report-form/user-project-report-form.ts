@@ -75,9 +75,7 @@ export class UserProjectReportFormPage {
       (data) => {
         if(data.success == true) {
           this.projectMainImage = data.data.project_main_image;
-          this.isLink = data.data.project_link;
-          this.slides.lockSwipeToPrev(true);
-          this.slides.lockSwipeToNext(true);      
+          this.isLink = data.data.project_link; 
           if(data.data.project_report_registration_date) {
             this.commonService.showBasicAlert('이미 심층 피드백을 작성하셨습니다!');
             this.dismiss();
@@ -95,6 +93,9 @@ export class UserProjectReportFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
+
+    this.slides.lockSwipeToPrev(true);
+    this.slides.lockSwipeToNext(true);     
   }
 
   deleteImage(i) {
@@ -130,35 +131,6 @@ export class UserProjectReportFormPage {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
-  slideContentCheck() {
-    let storySummaryLength = this.textCount(this.storySummaryContent);
-    let prosLength = this.textCount(this.prosContent);
-    let consLength = this.textCount(this.consContent);
-    let overallLength = this.textCount(this.overallOpinionContent);
-    this.slideIndex = this.slides.getActiveIndex();
-
-    if((storySummaryLength >= 50 || this.project_report_images.length >= 2) && this.slideIndex == 0) {
-      this.slides.lockSwipeToNext(false);
-      this.isWrited = false;
-      
-    } else if(prosLength >= 50 && this.slideIndex == 1) {
-      this.slides.lockSwipeToNext(false);
-      this.isWrited = false;
-      
-    } else if(consLength >= 50 && this.slideIndex == 2) {
-      this.slides.lockSwipeToNext(false);
-      this.isWrited = false;
-      
-    } else if(overallLength >= 100 && this.slideIndex == 3) {
-      this.slides.lockSwipeToNext(false);
-      this.isWrited = false;
-      
-    } else {
-      this.slides.lockSwipeToNext(true);
-      this.isWrited = true;
-    }
-  }
-
   textCount(content:any) {
     let temp: any;
     temp = content.replace(/<br *\/?>/gi, '');
@@ -167,12 +139,17 @@ export class UserProjectReportFormPage {
   }
 
   slideChanged() {
-    this.isWrited = true;
-    this.slideContentCheck();
-    if(this.slideIndex != 0) {
-      this.slides.lockSwipeToPrev(false);
-    } else {
-      this.slides.lockSwipeToPrev(true);
+    let index = this.slides.getActiveIndex();
+    switch(index) {
+      case 0:
+        this.slides.lockSwipeToPrev(true);
+        break;
+      case 1:
+      case 2:
+      case 3:
+        this.slides.lockSwipeToPrev(false);
+      default:
+        break;
     }
   }
 
@@ -246,8 +223,10 @@ export class UserProjectReportFormPage {
   }
 
   goNextSlide() {
-    this.isWrited = true;
+    this.slides.lockSwipeToNext(false);
     this.slides.slideNext(500);
+    this.slides.lockSwipeToNext(true);
+    this.slides.lockSwipeToPrev(false);
   }
 
   // swipeEvent(e) {

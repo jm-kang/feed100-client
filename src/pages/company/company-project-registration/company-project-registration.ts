@@ -31,7 +31,7 @@ export class CompanyProjectRegistrationPage {
     this.statusBar.styleLightContent();
     this.ModalWrapperPage.dismissModal();
 
-    cordova.ThemeableBrowser.open('https://m.naver.com', '_blank', {
+    cordova.ThemeableBrowser.open('https://feed100.typeform.com/to/tZTmfg', '_blank', {
       statusbar: {
         color: '#000000'
       },

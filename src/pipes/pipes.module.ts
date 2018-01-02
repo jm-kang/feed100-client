@@ -9,6 +9,7 @@ import { JsonParsePipe } from './../pipes/json-parse/json-parse';
 import { ReversePipe } from './../pipes/reverse/reverse';
 import { RoundPipe } from './../pipes/round/round';
 import { ReplaceBrTagPipe } from './replace-br-tag/replace-br-tag';
+import { TypeToTextPipe } from './type-to-text/type-to-text';
 
 @NgModule({
 	declarations: [YoutubePipe,
@@ -20,7 +21,8 @@ import { ReplaceBrTagPipe } from './replace-br-tag/replace-br-tag';
     SlicetextPipe,
     ReversePipe,
     RoundPipe,
-    ReplaceBrTagPipe
+    ReplaceBrTagPipe,
+    TypeToTextPipe
     ],
 	imports: [],
 	exports: [YoutubePipe,
@@ -32,7 +34,8 @@ import { ReplaceBrTagPipe } from './replace-br-tag/replace-br-tag';
     SlicetextPipe,
     ReversePipe,
     RoundPipe,
-    ReplaceBrTagPipe
+    ReplaceBrTagPipe,
+    TypeToTextPipe
     ]
 })
 export class PipesModule {}
