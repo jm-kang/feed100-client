@@ -46,6 +46,7 @@ export class CompanyLoginFormPage {
     this.commonService.localLogin(this.username, this.password, this.role)
     .subscribe(
       (data) => {
+        console.log(JSON.stringify(data));
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
@@ -59,6 +60,8 @@ export class CompanyLoginFormPage {
             case 'password is not correct':
               this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },

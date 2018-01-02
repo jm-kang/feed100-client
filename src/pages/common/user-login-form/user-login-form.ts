@@ -76,6 +76,8 @@ export class UserLoginFormPage {
             case 'password is not correct':
               this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -85,6 +87,18 @@ export class UserLoginFormPage {
       }
     );
   }
+
+  // googleLogin() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // facebookLogin() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // kakaoLogin() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
 
   googleLogin() {
     let loading = this.commonService.presentLoading();
@@ -114,6 +128,8 @@ export class UserLoginFormPage {
                 "app_id" : res.userId
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -156,6 +172,8 @@ export class UserLoginFormPage {
                 "app_id" : res.authResponse.userID
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -174,8 +192,6 @@ export class UserLoginFormPage {
   }
 
   kakaoLogin() {
-    // this.commonService.showBasicAlert('준비중입니다!');
-
     let loading = this.commonService.presentLoading();
     
     KakaoTalk.login(
@@ -205,6 +221,8 @@ export class UserLoginFormPage {
                 "app_id" : result.id
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         });          
       }

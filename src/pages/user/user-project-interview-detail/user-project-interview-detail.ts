@@ -103,16 +103,13 @@ export class UserProjectInterviewDetailPage {
         "interview_request_images" : JSON.parse(JSON.stringify(interview_request_images))}
       }
     );
-    userProjectInterviewWritingEditorModal.present();
     userProjectInterviewWritingEditorModal.onWillDismiss(
-      () => {
-        this.ionViewDidEnter();
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewDidEnter();
+        }
       }
     );
-    userProjectInterviewWritingEditorModal.onDidDismiss(
-      () => {
-        this.ionViewDidEnter();
-      }
-    )
+    userProjectInterviewWritingEditorModal.present();
   }
 }

@@ -158,11 +158,13 @@ export class UserProjectSideMenuPage {
 
   opneUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
-    userProjectReportFormModal.onDidDismiss(data => {
-      if(data == "refresh") {
-        this.ionViewDidEnter();
+    userProjectReportFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewDidEnter();
+        }
       }
-    });
+    );
     userProjectReportFormModal.present();
   }
 

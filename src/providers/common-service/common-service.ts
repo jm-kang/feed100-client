@@ -7,7 +7,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { StatusBar } from '@ionic-native/status-bar';
-import { App, AlertController, LoadingController, normalizeURL } from 'ionic-angular';
+import { App, AlertController, LoadingController, normalizeURL, Platform } from 'ionic-angular';
+import { AppVersion } from '@ionic-native/app-version';
+import { Market } from '@ionic-native/market';
 import { LoginPage } from  '../../pages/common/login/login';
 
 import 'rxjs/add/operator/map';
@@ -33,14 +35,41 @@ export class CommonServiceProvider {
     public statusBar: StatusBar,
     public app: App,
     public alertCtrl: AlertController,
+    public platform: Platform,
+    private appVersion: AppVersion,
+    private market: Market,
     public loadingCtrl: LoadingController) {
     console.log('Hello CommonServiceProvider Provider');
   }
+  
   getServerUrl() {
-    // return 'http://192.168.0.10:3000';
+    // return 'http://192.168.10.52:3000';
     // return 'http://localhost:3000';
     return 'http://www.feed100.me';
   } 
+
+  getHeaders(tokenType): Promise<any> {
+    return new Promise(
+      (resolve, reject) => {
+        this.appVersion.getVersionNumber().then((version) => {
+          this.storage.get(tokenType + 'Token')
+          .then((token) => {
+            let headers = new Headers();
+            if(this.platform.is('ios')) {
+              headers.append('platform', 'ios');
+            }
+            else if(this.platform.is('android')) {
+              headers.append('platform', 'android');
+            }
+            headers.append('Content-type', 'application/json');            
+            headers.append('version', version);
+            headers.append('x-' + tokenType + '-token', token);
+            resolve(headers);
+          });
+        });
+      }
+    );
+  }
 
   selectImage() {
     return new Promise(
@@ -92,13 +121,18 @@ export class CommonServiceProvider {
 
   uploadFile(formData) {
     let url = this.getServerUrl() + '/common/api/upload/images';
-    let headers = new Headers();
-
-    return Observable.fromPromise(this.storage.get('accessToken'))
-    .mergeMap((accessToken) => {
-      headers.append('x-access-token', accessToken);
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
+      headers.delete('Content-type');
       return this.http.post(url, formData, { headers: headers }).map(res => res.json());
     });
+    // let headers = new Headers();
+
+    // return Observable.fromPromise(this.storage.get('accessToken'))
+    // .mergeMap((accessToken) => {
+    //   headers.append('x-access-token', accessToken);
+    //   return this.http.post(url, formData, { headers: headers }).map(res => res.json());
+    // });
   }
 
   localLogin(username, password, role) {
@@ -108,9 +142,13 @@ export class CommonServiceProvider {
       "password" : password,
       "role" : role
     };
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   SNSLogin(provider, app_id, role) {
@@ -120,9 +158,13 @@ export class CommonServiceProvider {
       "app_id" : app_id,
       "role" : role
     };
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   localRegister(username, password, role, nickname) {
@@ -134,9 +176,13 @@ export class CommonServiceProvider {
       "nickname" : nickname,
       "avatar_image" : "assets/img/" + role + "-avatar-image.png"
     };
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   SNSRegister(username, role, nickname, provider, app_id) {
@@ -149,9 +195,13 @@ export class CommonServiceProvider {
       "app_id" : app_id,
       "avatar_image" : "assets/img/" + role + "-avatar-image.png"      
     };
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   logout(navCtrl) {
@@ -193,31 +243,41 @@ export class CommonServiceProvider {
 
   refreshTokens() {
     let url = this.getServerUrl() + '/common/api/refresh';
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return Observable.fromPromise(this.storage.get('refreshToken'))
-    .mergeMap((refreshToken) => {
-      headers.append('x-refresh-token', refreshToken);
-      return this.http.post(url, {}, { headers: headers }).map(res => res.json());
+    return Observable.fromPromise(this.getHeaders('refresh'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
     });
+
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return Observable.fromPromise(this.storage.get('refreshToken'))
+    // .mergeMap((refreshToken) => {
+    //   headers.append('x-refresh-token', refreshToken);
+    //   return this.http.post(url, {}, { headers: headers }).map(res => res.json());
+    // });
   }
 
   deleteDeviceToken(uuid) {
     let url = this.getServerUrl() + '/common/api/device-token/' + uuid;
-    let headers = new Headers();
-    headers.append('Content-type', 'application/json');
-    return Observable.fromPromise(this.storage.get('accessToken'))
-    .mergeMap((accessToken) => {
-      headers.append('x-access-token', accessToken);
+    return Observable.fromPromise(this.getHeaders('access'))
+    .mergeMap((headers) => {
       return this.http.delete(url, { headers: headers }).map(res => res.json());
     });
+
+    // let headers = new Headers();
+    // headers.append('Content-type', 'application/json');
+    // return Observable.fromPromise(this.storage.get('accessToken'))
+    // .mergeMap((accessToken) => {
+    //   headers.append('x-access-token', accessToken);
+    //   return this.http.delete(url, { headers: headers }).map(res => res.json());
+    // });
   }
 
   apiRequestErrorHandler(data, navCtrl) {
     console.log(data.message);
     return new Promise(
       (resolve, reject) => {
-        if(data.message == 'jwt expired') {
+        if(data.message == 'jwt expired') { // 토큰 만료
           this.refreshTokens()
           .subscribe(
             (data) => {
@@ -237,38 +297,64 @@ export class CommonServiceProvider {
             }
           )
         }
-        else {
-          console.log('message : ' + data.message + ' 로그아웃.' );
+        else if(data.message == 'notice exist') { // 서버 점검 또는 공지
+          this.showBasicAlert(data.notice);
+          this.logout(navCtrl);
+        }
+        else if(data.message == 'version is not match') { // 버전 업데이트
+          this.showUpdateAlert('FEED100의 새로운 버전이 있습니다.<br/>안정적인 서비스 이용을 위해 새로운 버전으로 업데이트 해주세요.'); 
+        }
+        else { // 에러
+          console.log('error : ' + data.message);
           this.logout(navCtrl);
         }
       }
     );
   }
 
+  showUpdateAlert(message) {
+    let confirm = this.alertCtrl.create ({
+      title: '업데이트 안내',
+      message: message,
+      buttons: [
+        {
+          text: '업데이트',
+          handler: () => {
+            console.log('업데이트');
+            this.market.open('com.potenbrothers.feed100');
+          }
+        }
+      ],
+      enableBackdropDismiss: false
+    });
+    confirm.present();
+  }
+
   showBasicAlert(subTitle) {
     let alert = this.alertCtrl.create ({
       subTitle: subTitle,
-      buttons: ['OK']
+      buttons: ['확인'],
+      enableBackdropDismiss: false
     });
-
     alert.present();
   }
 
   showConfirmAlert(message, handler) {
     let confirm = this.alertCtrl.create({
-    message: message,
-    buttons: [
-      {
-        text: '아니오',
-        handler: () => {
-          console.log('Disagree clicked');
+      message: message,
+      buttons: [
+        {
+          text: '아니오',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: '예',
+          handler: handler
         }
-      },
-      {
-        text: '예',
-        handler: handler
-      }
-    ]
+      ],
+      enableBackdropDismiss: false
     });
     confirm.present();
   }

@@ -140,6 +140,13 @@ export class UserProjectFeedbackPage {
       params: { "nickname" : nickname,
       "feedback_id" : feedback_id }
     });
+    userProjectOpinionWritingEditorModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewDidEnter();
+        }
+      }
+    );
     userProjectOpinionWritingEditorModal.present();
   }
 }

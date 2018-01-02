@@ -545,9 +545,9 @@ export class CompanyProjectReportPage {
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 
-  CompanyProjectUserReportDetailPage() {
-    this.modalCtrl.create
-  }
+  // CompanyProjectUserReportDetailPage() {
+  //   this.modalCtrl.create
+  // }
 
   bestSelection(project_participant_id, nickname) {
     this.commonService.showConfirmAlert(nickname + '님의 피드백을 선정하시겠습니까?',

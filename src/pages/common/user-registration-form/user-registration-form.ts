@@ -57,6 +57,22 @@ export class UserRegistrationFormPage {
     this.modalCtrl.create('ModalWrapperPage', { page: 'PrivateInfoPolicyPage' }).present();
   }
 
+  // localRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // googleRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // facebookRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // kakaoRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
   localRegister() {
     if(!this.username) {
       this.commonService.showBasicAlert('이메일을 입력해주세요.');
@@ -134,6 +150,8 @@ export class UserRegistrationFormPage {
             case 'nickname is already registered':
               this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -173,6 +191,8 @@ export class UserRegistrationFormPage {
                 "app_id" : res.userId
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -216,6 +236,8 @@ export class UserRegistrationFormPage {
                 "app_id" : res.authResponse.userID
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -235,8 +257,6 @@ export class UserRegistrationFormPage {
   }
 
   kakaoRegister() {
-    // this.commonService.showBasicAlert('준비중입니다!');
-    
     let loading = this.commonService.presentLoading();
     
     KakaoTalk.login(
@@ -265,6 +285,8 @@ export class UserRegistrationFormPage {
                 "app_id" : result.id
               });
               break;
+            default:
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         });
       }

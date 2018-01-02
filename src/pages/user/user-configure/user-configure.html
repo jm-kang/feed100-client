@@ -22,7 +22,7 @@
     </ion-list-header>
     <ion-item>
       <ion-label>푸쉬 알림 설정</ion-label>
-      <ion-toggle color="primary" [checked]="isPushAlarm"></ion-toggle>
+      <ion-toggle color="primary" [(ngModel)]="isPushAlarm" (ionChange)="updateItem()"></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list class="config-list">
