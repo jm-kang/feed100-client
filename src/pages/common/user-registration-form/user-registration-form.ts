@@ -57,6 +57,22 @@ export class UserRegistrationFormPage {
     this.modalCtrl.create('ModalWrapperPage', { page: 'PrivateInfoPolicyPage' }).present();
   }
 
+  // localRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // googleRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // facebookRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
+  // kakaoRegister() {
+  //   this.commonService.showBasicAlert('현재 서비스 준비중입니다. 추후 업데이트 후 이용해주세요!');
+  // }
+
   localRegister() {
     if(!this.username) {
       this.commonService.showBasicAlert('이메일을 입력해주세요.');
@@ -241,8 +257,6 @@ export class UserRegistrationFormPage {
   }
 
   kakaoRegister() {
-    // this.commonService.showBasicAlert('준비중입니다!');
-    
     let loading = this.commonService.presentLoading();
     
     KakaoTalk.login(

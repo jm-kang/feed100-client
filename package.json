@@ -107,13 +107,12 @@
             },
             "cordova-plugin-uniquedeviceid": {},
             "phonegap-plugin-push": {
-                "SNEDER_ID": "889490373924",
                 "SENDER_ID": "889490373924"
             },
             "com-sarriaroman-photoviewer": {},
             "cordova-plugin-camera": {
-                "CAMERA_USAGE_DESCRIPTION": " ",
-                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+                "CAMERA_USAGE_DESCRIPTION": "Allow the app to use your camera",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "Allow the app to access your photos"
             },
             "cordova-plugin-file-transfer": {},
             "cordova-plugin-file": {},

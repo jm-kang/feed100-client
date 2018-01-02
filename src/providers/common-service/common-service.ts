@@ -43,15 +43,15 @@ export class CommonServiceProvider {
   }
   
   getServerUrl() {
-    return 'http://192.168.10.52:3000';
+    // return 'http://192.168.10.52:3000';
     // return 'http://localhost:3000';
-    // return 'http://www.feed100.me';
+    return 'http://www.feed100.me';
   } 
 
   getHeaders(tokenType): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.appVersion.getVersionCode().then((version) => {
+        this.appVersion.getVersionNumber().then((version) => {
           this.storage.get(tokenType + 'Token')
           .then((token) => {
             let headers = new Headers();
