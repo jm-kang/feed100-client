@@ -4,23 +4,64 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header class="modal-header-wrapper">
+<ion-header class="price-statement-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button ion-button (click)="back()" icon-only>
+      <button class="pop-button" ion-button (click)="back()" icon-only>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        포인트 환전
+      </span>
+    </ion-title>
   </ion-navbar>
-
+  <div class="shadow-top"></div>
 </ion-header>
 
 
-<ion-content class="coming-soon-content">
-  <div class="coming-soon-wrapper">
-    <span>
-      <p>현재 페이지는 준비중입니다.</p>
-      <h5>포인트 환전 페이지</h5>
-    </span>
+<ion-content>
+  <div class="point-exchange-wrapper" text-center>
+    <div class="total-point-wrapper" padding>
+      <p>현재 포인트</p>
+      <span class="total-point">{{totalPoint}}</span><span class="total-point-tag">p</span>
+      <div class="exchange-summary" text-center>
+        <p class="warn-summary">※ 환전은 {{minExchangePoint}} 포인트 이상부터 가능합니다.</p>
+      </div>
+      <div class="exchange-content" *ngIf="totalPoint >= minExchangePoint">
+        <ion-list no-lines class="underline-input">
+        
+          <ion-item>
+            <ion-label [ngStyle]="{'color': exchangePoint > totalPoint? '#f53d3d' : '#383838', 'font-weight': exchangePoint > totalPoint? 'bold' : 'normal'}" fixed>환전 포인트</ion-label>
+            <ion-input padding-right type="tel" [(ngModel)]="exchangePoint"></ion-input><span item-right class="total-point-tag">p</span>
+          </ion-item>
+          <div class="input-warn" text-right *ngIf="exchangePoint > totalPoint">환전 포인트가 현재 보유 포인트보다 많습니다!</div>
+        
+          <ion-item>
+            <ion-label fixed>은행명</ion-label>
+            <ion-select [(ngModel)]="bankName" placeholder="선택" [selectOptions]="selectOptions" okText="완료" cancelText="취소">
+              <ion-option *ngFor="let bank of banks" [value]="bank">{{bank}}</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label fixed>계좌번호</ion-label>
+            <ion-input type="tel" [(ngModel)]="accountNumber"></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label fixed>예금주</ion-label>
+            <ion-input type="text" [(ngModel)]="name"></ion-input>
+          </ion-item>
+
+          <button class="exchange-button" [disabled]="exchangePoint == 0 || !exchangePoint || exchangePoint > totalPoint || !bankName || accountNumber == 0 || !accountNumber || !name" ion-button block (click)="exchange()">환전하기</button>
+        
+        </ion-list>
+      </div>
+      <div class="exchange-summary" text-center>
+        <p>포인트 환전 신청 시 바로 포인트가 차감되며 취소가 불가합니다.<br>입력하신 계좌로 매월 {{minExchangeDay}}일에 신청 금액을 지급합니다.<br>계좌로 지급일까지 입금이 되지 않을 경우 아래 메일로 문의하시기 바랍니다.<br><br><ins tappable (click)="sendEmail()">feed100.help@gmail.com</ins></p>
+      </div>
+    </div>
   </div>
 </ion-content>

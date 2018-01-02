@@ -4,6 +4,7 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Subscription } from 'rxjs';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { Storage } from '@ionic/storage';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -34,7 +35,8 @@ export class UserConfigurePage {
     public alertCtrl: AlertController,
     public platform: Platform,
     public push: Push,
-    private openNativeSettings: OpenNativeSettings) {
+    private openNativeSettings: OpenNativeSettings,
+     public emailComposer: EmailComposer) {
     this.viewCtrl.showBackButton(true);
   }
 
@@ -124,8 +126,21 @@ export class UserConfigurePage {
   }
 
   openContactPage() {
-    let contactModal = this.modalCtrl.create('ModalWrapperPage', {page: 'ContactPage'});
-    contactModal.present();
+    this.emailComposer.isAvailable().then((available: boolean) =>{
+      if(available) {
+        //Now we know we can send
+      }
+     });
+     
+     let email = {
+       to: 'feed100.help@gmail.com',
+       subject: '',
+       body: '<br><br><br>- FEED100 Version: 1.0.0',
+       isHtml: true
+     };
+     
+     // Send a text message using default options
+     this.emailComposer.open(email);
   }
 
   openUserAccountModificationFormPage() {

@@ -1,3 +1,53 @@
 page-terms {
+    .header .bar-button {
+        margin-left: 10px;
+        color: #ff6700;
+        font-weight: bold;
+    }
+}
 
+.note-title {
+    padding-top: 16px;
+    border-bottom: 1px solid #eee;
+    color: #383838;
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 16px;
+    }
+}
+
+.note-form {
+    padding: 24px 0;
+    border-bottom: 1px solid #eee;
+    color: #383838;
+    .note-form-header {
+        font-size: 2rem;
+        font-weight: bold;
+    }   
+    .note-form-content {
+        display: flex;
+        line-height: 1.6;
+        margin-top: 16px;
+        .note-form-part {
+            margin-right: 10px;
+        }
+        .note-form-part-content {
+            
+        }
+    }
+    .note-form-content.stem {
+        margin-top: 4px;
+    }
+    .note-form-content.leaf {
+
+    }
+}
+
+.width20 {
+    width: 20% !important;
+}
+
+.width80 {
+    width: 80% !important;
 }

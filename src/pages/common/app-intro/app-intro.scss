@@ -21,23 +21,20 @@ page-app-intro {
         width: 100%;
         bottom: 0;
         position: absolute;
-        margin-bottom: 50px;
         transition: all .4s linear;
         // background-color: $base-color-transparent;
       }
       .floating-buttons button {
         color: white;
+        margin-bottom: 0;
         min-height: 7vh;
         text-transform: none;
         font-size: 1.4em;
         font-weight: bold;
-        background: rgba(255, 103, 0, 0.67);
+        background: #ff6700;
       }
       .slide-background {
-        background-size: cover !important;
-        background-position: center;
-        background-repeat: no-repeat;
-        border-color: transparent;
+        width: 100% !important;
       }
       .toolbar-background {
         border-color: transparent;
@@ -85,8 +82,13 @@ page-app-intro {
       }
       .image-wrapper {
         width: 100vw;
-        height: 75vh;
+        height: 70vh;
         padding-top: 20px;
+        position: absolute;
+        bottom: 0;
+        img {
+          height: 100%;
+        }
       }
 }
 

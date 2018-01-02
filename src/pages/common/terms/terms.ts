@@ -16,7 +16,7 @@ import { ModalWrapperPage } from './../modal-wrapper/modal-wrapper';
   templateUrl: 'terms.html',
 })
 export class TermsPage {
-
+ 
   constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public ModalWrapperPage: ModalWrapperPage) {
   }
 

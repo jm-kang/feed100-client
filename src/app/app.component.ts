@@ -12,17 +12,13 @@ import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
-
-import { UserProjectReportFormPage } from '../pages/user/user-project-report-form/user-project-report-form';
-
+import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-history/user-point-usage-history';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = LoginPage;
-
-  // rootPage:any = UserProjectReportFormPage;
 
   constructor(
     platform: Platform,

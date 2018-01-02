@@ -111,6 +111,7 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
 import { ThemeableBrowser } from '@ionic-native/themeable-browser';
 import { Keyboard } from '@ionic-native/keyboard';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import { EmailComposer } from '@ionic-native/email-composer';
 import { AppVersion } from '@ionic-native/app-version';
 import { Market } from '@ionic-native/market';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
@@ -252,6 +253,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     ThemeableBrowser,
     Keyboard,
     ScreenOrientation,
+    EmailComposer,
     AppVersion,
     Market,
     OpenNativeSettings,

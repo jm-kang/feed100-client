@@ -1,3 +1,28 @@
 page-private-info-policy {
+    .header .bar-button {
+        margin-left: 10px;
+        color: #ff6700;
+        font-weight: bold;
+    }
 
+    .note-form-table {
+        margin-top: 16px;
+        .header .col {
+            background-color:#e8e8e8;
+        }
+        
+        .col {
+            border: solid 1px #d8d8d8;
+            border-bottom-style: none;
+            border-right-style: none;
+        }
+        
+        .col:last-child {
+            border-right: solid 1px #d8d8d8;
+        }
+        
+        .row:last-child .col {
+            border-bottom: solid 1px #d8d8d8;
+        }
+    }
 }
