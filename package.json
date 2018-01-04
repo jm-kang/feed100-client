@@ -126,7 +126,8 @@
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-app-version": {},
             "cordova-plugin-market": {},
-            "cordova-open-native-settings": {}
+            "cordova-open-native-settings": {},
+            "cordova-plugin-email-composer": {}
         },
         "platforms": [
             "android",

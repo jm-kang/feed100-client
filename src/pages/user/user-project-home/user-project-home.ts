@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content, Platform } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { platformBrowser } from '@angular/platform-browser/src/browser';
 /**
  * Generated class for the UserProjectHomePage page.
  *
@@ -18,7 +19,6 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 })
 export class UserProjectHomePage {
   @ViewChild("contentRef") contentHandle: Content;
-
   project_id;
 
   projectMainImage: String = "";
@@ -50,6 +50,7 @@ export class UserProjectHomePage {
     public viewCtrl: ViewController,
     public appCtrl: App,
     public modalCtrl: ModalController,
+    public platform: Platform,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     ) {}
@@ -71,6 +72,14 @@ export class UserProjectHomePage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.project_android_link != null) ? true : false;
+            this.project_link = data.data.project_android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.project_ios_link != null) ? true : false;
+            this.project_link = data.data.project_ios_link;
+          }
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;
           this.nickname = data.data.nickname;
@@ -79,10 +88,8 @@ export class UserProjectHomePage {
           this.participantNum = data.data.participant_num;
           this.maxParticipantNum = data.data.max_participant_num;
           this.progressState = data.data.project_end_date;
-          this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
           this.projectRegistrationDate = data.data.project_registration_date;
-          this.project_link = data.data.project_link;
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
           
           this.feedbacks = data.data.feedbacks;

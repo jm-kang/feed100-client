@@ -118,21 +118,22 @@ export class CompanyConfigurePage {
   }
 
   openContactPage() {
-    this.emailComposer.isAvailable().then((available: boolean) =>{
-      if(available) {
-        //Now we know we can send
-      }
-     });
+    this.commonService.showBasicAlert('feed100.help@gmail.com<br/>으로 문의해주세요!');
+    // this.emailComposer.isAvailable().then((available: boolean) =>{
+    //   if(available) {
+    //     //Now we know we can send
+    //   }
+    //  });
      
-     let email = {
-       to: 'feed100.help@gmail.com',
-       subject: '',
-       body: '<br><br><br>- FEED100 Version: 1.0.0',
-       isHtml: true
-     };
+    //  let email = {
+    //    to: 'feed100.help@gmail.com',
+    //    subject: '',
+    //    body: '<br><br><br>- FEED100 Version: 1.0.0',
+    //    isHtml: true
+    //  };
      
-     // Send a text message using default options
-     this.emailComposer.open(email);
+    //  // Send a text message using default options
+    //  this.emailComposer.open(email);
   }
 
   openCompanyAccountModificationFormPage() {

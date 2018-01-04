@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, Platform } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -47,6 +47,7 @@ export class UserProjectStoryPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
+    public platform: Platform,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -65,7 +66,14 @@ export class UserProjectStoryPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.isLink = (data.data.project_link != null) ? true : false;
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.project_android_link != null) ? true : false;
+            this.project_link = data.data.project_android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.project_ios_link != null) ? true : false;
+            this.project_link = data.data.project_ios_link;
+          }
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;
           this.nickname = data.data.nickname;
@@ -76,7 +84,6 @@ export class UserProjectStoryPage {
           this.progressState = data.data.project_end_date;
           this.projectSummary = data.data.project_summary;
           this.projectRegistrationDate = data.data.project_registration_date;
-          this.project_link = data.data.project_link;
           this.projectStorySlides = JSON.parse(data.data.project_story);
 
           this.totalPageNum = this.projectStorySlides.length + 1;

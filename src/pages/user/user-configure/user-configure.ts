@@ -36,7 +36,7 @@ export class UserConfigurePage {
     public platform: Platform,
     public push: Push,
     private openNativeSettings: OpenNativeSettings,
-     public emailComposer: EmailComposer) {
+    public emailComposer: EmailComposer) {
     this.viewCtrl.showBackButton(true);
   }
 
@@ -126,21 +126,208 @@ export class UserConfigurePage {
   }
 
   openContactPage() {
-    this.emailComposer.isAvailable().then((available: boolean) =>{
-      if(available) {
-        //Now we know we can send
+    this.commonService.showBasicAlert('feed100.help@gmail.com<br/>으로 문의해주세요!');
+    // this.emailComposer.isAvailable().then((available: boolean) =>{
+    //   if(available) {
+    //     //Now we know we can send
+    //   }
+    //  });
+     
+    //  let email = {
+    //    to: 'feed100.help@gmail.com',
+    //    subject: '',
+    //    body: '<br><br><br>- FEED100 Version: 1.0.0',
+    //    isHtml: true
+    //  };
+     
+    //  // Send a text message using default options
+    //  this.emailComposer.open(email);
+  }
+
+  openProjectCodePage() {
+    let alert = this.alertCtrl.create({
+      title: '프로젝트 코드를 입력해주세요.',
+      inputs: [
+        {
+          name: 'code',
+        }
+      ],
+      buttons: [
+        {
+          text: '취소',
+          role: 'cancel',
+          handler: data => {
+            console.log('취소');
+          }
+        },
+        {
+          text: '완료',
+          handler: data => {
+            let loading = this.commonService.presentLoading();
+            
+            this.userService.redeem(data.code)
+            .finally(() => {
+              loading.dismiss();
+            })
+            .subscribe(
+              (data) => {
+                if(data.success == true) {
+                  if(data.data.project_id) {
+                    this.accessProjectCard(data.data.project_id);
+                  }
+                  else {
+                    this.commonService.showBasicAlert('코드가 정확하지 않습니다.');
+                  }
+                }
+                else if(data.success == false) {
+                  this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                  .then(() => {
+                    this.commonService.showBasicAlert('오류가 발생했습니다.')                    
+                  })
+                }
+              },
+              (err) => {
+                console.log(JSON.stringify(err));
+                this.commonService.showBasicAlert('오류가 발생했습니다.')
+              }
+            );
+          }
+        }
+      ]
+    });
+    
+    alert.present();
+  }
+
+    // 진행중
+  // 	참여o - 프로젝트 홈
+  // 	참여x
+  // 		인원 꽉참 - 스토리
+  // 		인원 안참
+  // 			프로필 노등록 - 프로필 수정 후 참여조건 검사 후 스토리
+  // 			프로필 등록 - 참여조건 검사 후 스토리
+  // 종료
+  // 	참여o
+  // 		보상 전
+  //      심사중 - 알림
+  //      심사끝 - 보상 페이지
+  // 		보상 후 - 스토리
+  // 	참여x - 스토리
+  accessProjectCard(project_id) {
+    let loading = this.commonService.presentLoading();
+    let messages = [
+      '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
+      '아쉽게도 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
+      '프로젝트에 참가하려면 먼저 프로필을 등록해야 합니다!<br/>프로필 등록 페이지로 이동하시겠습니까?',
+      '프로젝트에 참가하려면 먼저 간단한 설문조사에 응해야 합니다!<br/>참가하시겠습니까?',
+      '프로젝트를 성공적으로 수행하여 보상을 받을 수 있습니다!<br/>보상 페이지로 이동하시겠습니까?',
+      '아직 심사가 진행중입니다!<br/>심사는 프로젝트 종료 후 최대 2일까지 걸릴 수 있습니다.<br/>다음에 다시 시도해주세요.',      
+      '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
+    ]
+
+    this.userService.getUserAndProjectAndParticipation(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(data.data.project_info.isProceeding) {
+            if(data.data.project_participation_info) {
+              this.commonService.showConfirmAlert(messages[0], 
+                () => {
+                  this.openUserProjectHomePage(project_id);
+                }
+              );
+            }
+            else {
+              if(data.data.project_info.participant_num >= data.data.project_info.max_participant_num) {
+                this.commonService.showConfirmAlert(messages[1], 
+                  () => {
+                    this.openUserProjectStoryPage(project_id);
+                  }
+                );
+              }
+              else {
+                if(!data.data.age) {
+                  this.commonService.showConfirmAlert(messages[2], 
+                    () => {
+                      this.openUserProfileModificationFormPage();
+                    }
+                  );
+                }
+                else {
+                  this.commonService.showConfirmAlert(messages[3], 
+                    () => {
+                      this.openUserProjectParticipationConditionFormPage(project_id);
+                    }
+                  );
+                }
+              }
+            }
+          }
+          else {
+            if(data.data.project_participation_info) {
+              if(!data.data.project_participation_info.project_reward_date) {
+                this.commonService.showConfirmAlert(messages[4], 
+                  () => {
+                    if(data.data.project_info.is_judge_proceeding) {
+                      this.commonService.showBasicAlert(messages[5])
+                    }
+                    else { 
+                      this.openUserProjectRewardFormPage(project_id);
+                    }    
+                  }
+                );
+              }
+              else {
+                this.commonService.showConfirmAlert(messages[6], 
+                  () => {
+                    this.openUserProjectStoryPage(project_id);
+                  }
+                );
+              }
+            }
+            else {
+              this.commonService.showConfirmAlert(messages[6], 
+                () => {
+                  this.openUserProjectStoryPage(project_id);
+                }
+              );
+            }
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.accessProjectCard(project_id);
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
-     });
-     
-     let email = {
-       to: 'feed100.help@gmail.com',
-       subject: '',
-       body: '<br><br><br>- FEED100 Version: 1.0.0',
-       isHtml: true
-     };
-     
-     // Send a text message using default options
-     this.emailComposer.open(email);
+    );
+
+  }
+
+  openUserProjectHomePage(project_id) {
+    this.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
+  }
+
+  openUserProjectStoryPage(project_id) {
+    this.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
+  }
+
+  openUserProjectParticipationConditionFormPage(project_id) {
+    let userProjectParticipationConditionFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectParticipationConditionFormPage', params: { "project_id" : project_id }});
+    userProjectParticipationConditionFormModal.present();
+  }
+
+  openUserProjectRewardFormPage(project_id) {
+    let userProjectRewardFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
+    userProjectRewardFormModal.present();
   }
 
   openUserAccountModificationFormPage() {

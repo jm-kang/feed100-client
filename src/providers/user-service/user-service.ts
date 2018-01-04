@@ -237,6 +237,14 @@ export class UserServiceProvider {
     // });
   }
 
+  redeem(project_code) {
+    let url = this.commonService.getServerUrl() + '/user/api/redeem/' + project_code;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
   getNewsfeeds() {
     let url = this.commonService.getServerUrl() + '/user/api/newsfeeds';
     // let headers = new Headers();
