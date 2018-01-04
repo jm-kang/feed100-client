@@ -1,0 +1,79 @@
+<!--
+  Generated template for the AdminProjectInterviewDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="interview-ion-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        {{nickname}}
+      </span>
+    </ion-title>
+  </ion-navbar>
+  <div class="shadow-top"></div>
+</ion-header>
+
+
+<ion-content class="outer-content interview-ion-content">
+  <div class="interview-wrapper" *ngFor="let interview of interviews; let count = index">
+    <div class="space-20"></div>
+    <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>
+    <div class="space-30"></div>
+    <!-- ========================Company============================= -->
+    <ion-card class="right-interview-card">
+      <ion-item class="avatar-span-wrapper">
+        <h3 text-right [innerHTML]="interview.project_name"></h3>
+        <p text-right>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+        <span item-end class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="interview.project_main_image" />
+        </span>
+      </ion-item>
+      <ion-card-content>
+        <p class="interview-comment" [innerHTML]="interview.interview_request | replaceBrTag"></p>
+      </ion-card-content>
+      <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
+        <span class="image-box" *ngFor="let image of interview.interview_request_images; let i = index">
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img" />
+          </span>
+        </span>
+      </div>
+      
+      <div class="reply-check-wrapper waiting-reply" *ngIf="!interview.interview_response">
+        답변 대기중 ...
+      </div>
+    </ion-card>
+    <!-- ==========================USER=============================== -->
+    <ion-card class="left-interview-card" *ngIf="interview.interview_response">
+      <ion-item class="avatar-span-wrapper">
+        <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)">
+          <img class="avatar-span-image" [src]="interview.avatar_image" />
+        </span>
+        <h3 class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)" [innerHTML]="interview.nickname"></h3>
+        <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+      </ion-item>
+      <ion-card-content>
+        <p class="interview-comment" [innerHTML]="interview.interview_response | replaceBrTag"></p>
+      </ion-card-content>
+      <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
+        <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">
+          <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
+            <img class="feedback-image" [src]="image.img" />
+          </span>
+        </span>
+      </div>
+
+      <div class="reply-check-wrapper">
+        답변 완료
+        <ion-icon name="ios-checkmark-circle"></ion-icon>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

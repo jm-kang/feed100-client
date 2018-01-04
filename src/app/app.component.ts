@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/common/login/login';
 import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
 import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
+import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
@@ -59,6 +60,9 @@ export class MyApp {
           }
           else if(data.data.role == 'company') {
             this.rootPage = CompanyTabsPage;
+          }
+          else if(data.data.role == 'admin') {
+            this.rootPage = AdminTabsPage;
           }
         }
         else if(data.success == false) {

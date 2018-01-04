@@ -1,0 +1,143 @@
+page-admin-project-user-report {
+    .scroll-content {
+        height: 100%;
+    }
+}
+
+
+.project-user-report-header {
+    ion-buttons[start] {
+        order: 1;
+    }
+    background-color: #000;
+    .white-button {
+        color: #fff;
+    }
+    .header-tag {
+        color: #e8e8e8;
+        font-size: 1.3rem;
+        padding-right: 8px;
+    }
+    .toolbar-title {
+        color: #fff;
+        font-size: 1.5rem !important;
+    }
+}
+
+.user-report-card {
+    width: calc(100% - 36px);
+    margin: 18px;
+    // height: auto;
+    display: block;
+    margin-bottom: 120px;
+    .best-badge {
+        padding: 3px 8px;
+        span {
+            font-size: 10px;
+        }
+    }
+    
+    .new-tag {
+        font-size: 2rem;
+        color: #FDBA02;
+    }
+
+    .report-card-content-wrapper {
+        display: block;
+        padding-bottom: 16px;
+    }
+
+    
+    .report-images {
+        justify-content: baseline !important;
+        width: -webkit-fill-available;
+        display: inline-flex;
+        overflow-x: scroll;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .small-report-images .report-image-wrapper {
+        width: 9rem;
+        height: 9rem;
+        min-width: 9rem;
+        min-height: 9rem;
+        overflow: hidden;
+        margin: 0;
+        border: 0.55px solid #eee;
+        display: block;
+    }
+
+    .small-report-images .image-box {
+        margin-left: 6px;
+    }
+
+    .small-report-images .image-box:nth-child(1) {
+        margin-left: 16px;
+    }
+
+    .small-report-images .image-box:nth-last-child(1) {
+        padding-right: 16px;
+    }
+
+    .small-report-images .report-image {
+        max-width: 9rem;
+    }
+
+    .report-card-header {
+        h2 {
+            font-size: 1.4rem;
+            color: #383838;
+            font-weight: bold;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #787878;
+        }
+        border-bottom: 1px solid #e8e8e8;
+    }
+    .report-item-wrapper {
+        .report-item-question {
+            font-size: 1.3rem;
+            color: #383838;
+            font-weight: bold;
+        }
+        .report-item-answer {
+            white-space: pre-line !important;
+            font-size: 1.2rem;
+            color: #585858;
+            text-align: left;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+
+    .report-card-footer-wrapper {
+        p {
+            font-size: 1rem;
+            color: #787878;
+        }
+        padding: 8px;
+        padding-bottom: 16px;
+        border-top: 1px solid #e8e8e8;
+
+        .selection-button {
+            height:3em;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            color: #999;
+            margin: 8px 0;
+        }
+    }
+}
+
+.project-user-report-content {
+    background-color: #000;
+
+    
+    .slide-zoom {
+        height: fit-content;
+    }
+}

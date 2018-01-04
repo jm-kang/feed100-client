@@ -15,11 +15,40 @@ import { LoginPageModule } from '../pages/common/login/login.module';
   import { CompanyRegistrationFormPageModule } from '../pages/common/company-registration-form/company-registration-form.module';
 import { AppIntroPageModule } from '../pages/common/app-intro/app-intro.module';
 import { ContactPageModule } from '../pages/common/contact/contact.module';
-import { FaqPageModule } from '../pages/common/faq/faq.module';
 import { NoticePageModule } from '../pages/common/notice/notice.module';
 import { PrivateInfoPolicyPageModule } from '../pages/common/private-info-policy/private-info-policy.module';
 import { TermsPageModule } from '../pages/common/terms/terms.module';
 // common //
+
+// admin //
+import { AdminTabsPageModule } from '../pages/admin/admin-tabs/admin-tabs.module';
+  import { AdminHomePageModule } from '../pages/admin/admin-home/admin-home.module';
+    import { AdminAlarmPageModule } from '../pages/admin/admin-alarm/admin-alarm.module';
+    import { AdminConfigurePageModule } from '../pages/admin/admin-configure/admin-configure.module';
+  import { AdminProjectPageModule } from '../pages/admin/admin-project/admin-project.module';
+    import { AdminProjectFeedbackPageModule } from '../pages/admin/admin-project-feedback/admin-project-feedback.module';
+    import { AdminProjectHomePageModule } from '../pages/admin/admin-project-home/admin-project-home.module';
+    import { AdminProjectLinkPageModule } from '../pages/admin/admin-project-link/admin-project-link.module';
+    import { AdminProjectPriceStatementPageModule } from '../pages/admin/admin-project-price-statement/admin-project-price-statement.module';
+    import { AdminProjectReportPageModule } from '../pages/admin/admin-project-report/admin-project-report.module';
+    import { AdminProjectSideMenuPageModule } from '../pages/admin/admin-project-side-menu/admin-project-side-menu.module';
+    import { AdminProjectStatsPageModule } from '../pages/admin/admin-project-stats/admin-project-stats.module';
+    import { AdminProjectStoryPageModule } from '../pages/admin/admin-project-story/admin-project-story.module';
+    import { AdminProjectUserInfoPageModule } from '../pages/admin/admin-project-user-info/admin-project-user-info.module';
+    import { AdminProjectUserProfilePageModule } from '../pages/admin/admin-project-user-profile/admin-project-user-profile.module';
+    import { AdminProjectSearchPageModule } from '../pages/admin/admin-project-search/admin-project-search.module';
+    import { AdminProjectSearchResultPageModule } from '../pages/admin/admin-project-search-result/admin-project-search-result.module';
+    import { AdminProjectUserParticipationConditionStatsPageModule } from '../pages/admin/admin-project-user-participation-condition-stats/admin-project-user-participation-condition-stats.module';
+    import { AdminProjectUserProfileStatsPageModule } from '../pages/admin/admin-project-user-profile-stats/admin-project-user-profile-stats.module';
+    import { AdminProjectUserReportPageModule } from './../pages/admin/admin-project-user-report/admin-project-user-report.module';
+  import { AdminNewsfeedPageModule } from '../pages/admin/admin-newsfeed/admin-newsfeed.module';
+    import { AdminNewsfeedStoryPageModule } from '../pages/admin/admin-newsfeed-story/admin-newsfeed-story.module';
+  import { AdminMypagePageModule } from '../pages/admin/admin-mypage/admin-mypage.module';
+    import { AdminAccountModificationFormPageModule } from '../pages/admin/admin-account-modification-form/admin-account-modification-form.module';
+  import { AdminInterviewPageModule } from '../pages/admin/admin-interview/admin-interview.module';
+    import { AdminProjectInterviewPageModule } from '../pages/admin/admin-project-interview/admin-project-interview.module';
+    import { AdminProjectInterviewDetailPageModule } from '../pages/admin/admin-project-interview-detail/admin-project-interview-detail.module';
+// admin //
 
 // company //
 import { CompanyHelpPageModule } from '../pages/company/company-help/company-help.module';
@@ -38,7 +67,6 @@ import { CompanyTabsPageModule } from '../pages/company/company-tabs/company-tab
     import { CompanyProjectSideMenuPageModule } from '../pages/company/company-project-side-menu/company-project-side-menu.module';
     import { CompanyProjectStatsPageModule } from '../pages/company/company-project-stats/company-project-stats.module';
     import { CompanyProjectStoryPageModule } from '../pages/company/company-project-story/company-project-story.module';
-    import { CompanyProjectStorySummaryPageModule } from '../pages/company/company-project-story-summary/company-project-story-summary.module';
     import { CompanyProjectUserInfoPageModule } from '../pages/company/company-project-user-info/company-project-user-info.module';
     import { CompanyProjectUserProfilePageModule } from '../pages/company/company-project-user-profile/company-project-user-profile.module';
     import { CompanyProjectSearchPageModule } from '../pages/company/company-project-search/company-project-search.module';
@@ -118,6 +146,7 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { UserProjectStoryQuizPage } from '../pages/user/user-project-story-quiz/user-project-story-quiz';
+import { AdminServiceProvider } from '../providers/admin-service/admin-service';
 
 export class MyHammerConfig extends HammerGestureConfig  {
   // swipedown 값을 알아내는 함수
@@ -146,10 +175,37 @@ export class MyHammerConfig extends HammerGestureConfig  {
       CompanyRegistrationFormPageModule,
     AppIntroPageModule,
     ContactPageModule,
-    FaqPageModule,
     NoticePageModule,
     PrivateInfoPolicyPageModule,
     TermsPageModule,
+ 
+    AdminTabsPageModule,
+      AdminHomePageModule,
+        AdminAlarmPageModule,
+        AdminConfigurePageModule,
+      AdminProjectPageModule,
+        AdminProjectFeedbackPageModule,
+        AdminProjectHomePageModule,
+        AdminProjectLinkPageModule,
+        AdminProjectPriceStatementPageModule,
+        AdminProjectReportPageModule,
+        AdminProjectSideMenuPageModule,
+        AdminProjectStatsPageModule,
+        AdminProjectStoryPageModule,
+        AdminProjectUserInfoPageModule,
+        AdminProjectUserProfilePageModule,
+        AdminProjectSearchPageModule,
+        AdminProjectSearchResultPageModule,
+        AdminProjectUserParticipationConditionStatsPageModule,
+        AdminProjectUserProfileStatsPageModule,
+        AdminProjectUserReportPageModule,
+      AdminNewsfeedPageModule,
+        AdminNewsfeedStoryPageModule,
+      AdminMypagePageModule,
+        AdminAccountModificationFormPageModule,
+      AdminInterviewPageModule,
+        AdminProjectInterviewPageModule,
+        AdminProjectInterviewDetailPageModule,
 
     CompanyHelpPageModule,
     CompanyTutorialPageModule,
@@ -167,7 +223,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
         CompanyProjectSideMenuPageModule,
         CompanyProjectStatsPageModule,
         CompanyProjectStoryPageModule,
-        CompanyProjectStorySummaryPageModule,
         CompanyProjectUserInfoPageModule,
         CompanyProjectUserProfilePageModule,
         CompanyProjectSearchPageModule,
@@ -257,7 +312,8 @@ export class MyHammerConfig extends HammerGestureConfig  {
     AppVersion,
     Market,
     OpenNativeSettings,
-    {provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig }
+    {provide: HAMMER_GESTURE_CONFIG, useClass: MyHammerConfig },
+    AdminServiceProvider
   ]
 })
 export class AppModule {}

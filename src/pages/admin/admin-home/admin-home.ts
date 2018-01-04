@@ -4,9 +4,9 @@ import { IonicPage, NavController, NavParams, Slides, Content, ModalController, 
 import { Badge } from '@ionic-native/badge';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
-import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
+import { AdminServiceProvider } from '../../../providers/admin-service/admin-service';
 /**
- * Generated class for the CompanyHomePage page.
+ * Generated class for the AdminHomePage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -14,10 +14,10 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 
 @IonicPage()
 @Component({
-  selector: 'page-company-home',
-  templateUrl: 'company-home.html',
+  selector: 'page-admin-home',
+  templateUrl: 'admin-home.html',
 })
-export class CompanyHomePage {
+export class AdminHomePage {
   @ViewChild(Slides) childSlides: Slides;
 
   // 상단 외부링크 슬라이드
@@ -56,16 +56,16 @@ export class CompanyHomePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public appCtrl: App,
-    private badge: Badge,
+    private badge: Badge,    
     public commonService: CommonServiceProvider,
-    public companyService: CompanyServiceProvider) {
+    public adminService: AdminServiceProvider) {
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyHomePage');
+    console.log('ionViewDidEnter AdminHomePage');
     let loading = this.commonService.presentLoading();
     
-    this.companyService.getCompanyHome()
+    this.adminService.getAdminHome()
     .finally(() => {
       loading.dismiss();
     })
@@ -89,12 +89,12 @@ export class CompanyHomePage {
       }
     );
 
-    this.companyService.getAlarmAndInterviewNum()
+    this.adminService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
+          this.adminService.alarmNum = data.data.alarm_num;
+          this.adminService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
         else if(data.success == false) {
@@ -126,7 +126,7 @@ export class CompanyHomePage {
     }
   }
 
-  openCompanyProjectPage() {
+  openAdminProjectPage() {
     this.navCtrl.parent.select(1);
   }
 
@@ -144,69 +144,28 @@ export class CompanyHomePage {
     manualModal.present();
   }
 
-  openCompanyNewsfeedStoryPage(newsfeed_id) {
-    this.navCtrl.push('CompanyNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
+  openAdminNewsfeedStoryPage(newsfeed_id) {
+    this.navCtrl.push('AdminNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
 
-  // 내 프로젝트 or not
   accessProjectCard(project_id) {
-    let loading = this.commonService.presentLoading();
-
-    this.companyService.getIsMyProject(project_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.data.is_my_project) {
-            this.openCompanyProjectHomePage(project_id);
-          }
-          else {
-            this.openCompanyProjectStoryPage(project_id);
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.accessProjectCard(project_id);
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+    this.openAdminProjectHomePage(project_id);
   }
 
-  openCompanyProjectHomePage(project_id) {
-    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    // companyProjectHomeModal.present();
-    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
+  openAdminProjectHomePage(project_id) {
+    this.navCtrl.push('AdminProjectHomePage', { "project_id" : project_id });
   }
 
-  openCompanyProjectStoryPage(project_id) {
-    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
+  openAdminAlarmPage() {
+    this.navCtrl.push('AdminAlarmPage');
   }
 
-  openCompanyProjectRegistrationPage() {
-    let projectRegistrationModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyProjectRegistrationPage'});
-    projectRegistrationModal.present();
-  }
-
-  openCompanyAlarmPage() {
-    // this.navCtrl.push(CompanyAlarmPage);
-    this.navCtrl.push('CompanyAlarmPage');
-  }
-
-  openCompanyConfigurePage() {
-    // this.navCtrl.push(CompanyConfigurePage);
-    this.navCtrl.push('CompanyConfigurePage');
+  openAdminConfigurePage() {
+    this.navCtrl.push('AdminConfigurePage');
   }
 
   getAlarmNum() {
-    return this.companyService.alarmNum;
+    return this.adminService.alarmNum;
   }
 
 }

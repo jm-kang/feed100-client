@@ -1,0 +1,55 @@
+<!--
+  Generated template for the AdminInterviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="tabs-header">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button class="badge-button-wrapper" ion-button clear (click)="openAdminAlarmPage()">
+          <ion-icon name="notifications">
+            <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getAlarmNum()>0">{{getAlarmNum()}}</ion-badge>
+          </ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>인터뷰</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="openAdminConfigurePage()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="tab-top-notice">
+    주의!
+    <button class="accordion-button" float-right (click)="accordion()">
+      <ion-icon name="ios-arrow-down" *ngIf="!activeAccordion"></ion-icon>
+      <ion-icon name="ios-arrow-up" *ngIf="activeAccordion"></ion-icon>
+    </button>
+  </div>
+  <div class="subNotice" *ngIf="activeAccordion">
+    <p>* 자세한 사항은 도움말의 '인터뷰' 부분을 확인해 주세요! *</p>
+    <p>기업과 유저간 대화 형식으로 진행됩니다.</p>
+    <p>인터뷰는 기업이 질문하고 유저가 답변하는 방식으로 진행됩니다.</p>
+    <p>인터뷰는 프로젝트 종료 하루 전에 요청이 마감됩니다.</p>
+    <p>주어진 인터뷰 횟수를 적극 활용하여 다양한 응답을 이끌어내세요!</p>
+  </div>
+  <ion-list>
+    <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let projectInterview of projectInterviews" (click)="openAdminProjectInterviewPage(projectInterview.project_id)">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectInterview.project_main_image" />
+      </span>
+      <h2 [innerHTML]="projectInterview.project_name"></h2>
+      <!-- 문구 수정... -->
+      <p>총 {{projectInterview.max_interview_num}}개의 인터뷰 중 {{projectInterview.total_interview_num}}개 이용</p>
+      <div item-end class="interview-item-end">
+        <ion-note #progressState [innerHTML]="projectInterview.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></ion-note>
+        <div class="badge-new" *ngIf="projectInterview.interview_num != 0">{{projectInterview.interview_num}}</div>
+        <div class="blank-badge-new" *ngIf="projectInterview.interview_num == 0">0</div>
+      </div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

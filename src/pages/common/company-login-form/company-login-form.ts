@@ -43,33 +43,64 @@ export class CompanyLoginFormPage {
       this.commonService.showBasicAlert('비밀번호를 입력해주세요.');
       return;
     }
-    this.commonService.localLogin(this.username, this.password, this.role)
-    .subscribe(
-      (data) => {
-        console.log(JSON.stringify(data));
-        if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('CompanyTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
-        }
-        else if(data.success == false) {
-          switch(data.message) {
-            case 'username is unregistered':
-              this.commonService.showBasicAlert('이메일을 정확히 입력해주세요.');
-              break;
-            case 'password is not correct':
-              this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+    if(this.username == 'admin@feed100.me') {
+      this.commonService.localLogin(this.username, this.password, 'admin')
+      .subscribe(
+        (data) => {
+          console.log(JSON.stringify(data));
+          if(data.success == true) {
+            this.storage.set('accessToken', data.data.accessToken);
+            this.storage.set('refreshToken', data.data.refreshToken);
+            this.navCtrl.setRoot('AdminTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
           }
+          else if(data.success == false) {
+            switch(data.message) {
+              case 'username is unregistered':
+                this.commonService.showBasicAlert('이메일을 정확히 입력해주세요.');
+                break;
+              case 'password is not correct':
+                this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
+                break;
+              default:
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+            }
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
         }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+      );        
+    }
+    else {
+      this.commonService.localLogin(this.username, this.password, this.role)
+      .subscribe(
+        (data) => {
+          console.log(JSON.stringify(data));
+          if(data.success == true) {
+            this.storage.set('accessToken', data.data.accessToken);
+            this.storage.set('refreshToken', data.data.refreshToken);
+            this.navCtrl.setRoot('CompanyTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          }
+          else if(data.success == false) {
+            switch(data.message) {
+              case 'username is unregistered':
+                this.commonService.showBasicAlert('이메일을 정확히 입력해주세요.');
+                break;
+              case 'password is not correct':
+                this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
+                break;
+              default:
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+            }
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+        }
+      );
+    }
   }
 
 }
