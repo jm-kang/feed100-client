@@ -32,6 +32,10 @@
 </ion-header>
 
 <ion-content class="feedback-list-content outer-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>            
   <div [ngSwitch]="segmentFeedbacksCondition" class="feedback-list">
     <ion-list *ngSwitchCase="'all'">
       <div *ngFor="let feedback of feedbacks">

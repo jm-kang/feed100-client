@@ -23,6 +23,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>      
   <div class="tab-top-notice">
     주의!
     <button class="accordion-button" float-right (click)="accordion()">

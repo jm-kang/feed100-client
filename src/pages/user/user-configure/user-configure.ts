@@ -8,6 +8,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { Subscribable } from 'rxjs/Observable';
 /**
  * Generated class for the UserConfigurePage page.
  *
@@ -24,6 +25,7 @@ export class UserConfigurePage {
   isPushAlarm = true;
   flag = false;
   onResumeSubscription: Subscription;
+  onPauseSubscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
@@ -40,6 +42,12 @@ export class UserConfigurePage {
     this.viewCtrl.showBackButton(true);
   }
 
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserConfigurePage');    
+    this.onResumeSubscription.unsubscribe();
+    this.onPauseSubscription.unsubscribe();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserConfigurePage');
     this.permissionCheck();
@@ -49,13 +57,16 @@ export class UserConfigurePage {
       console.log('resume');
       this.permissionCheck();
     });
-  }
 
-  ionViewDidLeave() {
-    this.onResumeSubscription.unsubscribe();
+    this.onPauseSubscription = this.platform.pause
+    .subscribe(() => {
+      console.log('pause');
+      this.flag = false;
+    });
   }
 
   permissionCheck() {
+    console.log('flag : ' + this.flag);
     // to check if we have permission
     this.push.hasPermission()
     .then((res: any) => {
@@ -75,7 +86,6 @@ export class UserConfigurePage {
   updateItem() {
     if(this.flag) {
       this.openNativeSettings.open("application_details");
-      this.flag = false;
     }
   }
 
@@ -127,21 +137,6 @@ export class UserConfigurePage {
 
   openContactPage() {
     this.commonService.showBasicAlert('feed100.help@gmail.com<br/>으로 문의해주세요!');
-    // this.emailComposer.isAvailable().then((available: boolean) =>{
-    //   if(available) {
-    //     //Now we know we can send
-    //   }
-    //  });
-     
-    //  let email = {
-    //    to: 'feed100.help@gmail.com',
-    //    subject: '',
-    //    body: '<br><br><br>- FEED100 Version: 1.0.0',
-    //    isHtml: true
-    //  };
-     
-    //  // Send a text message using default options
-    //  this.emailComposer.open(email);
   }
 
   openProjectCodePage() {
@@ -328,16 +323,43 @@ export class UserConfigurePage {
   openUserProjectRewardFormPage(project_id) {
     let userProjectRewardFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
     userProjectRewardFormModal.present();
+    userProjectRewardFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          if(this.userService.userMypagePage) {
+            this.userService.userMypagePage.ionViewDidLoad();
+          }
+        }
+      }
+    );
   }
 
   openUserAccountModificationFormPage() {
     let userAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserAccountModificationFormPage'});
     userAccountModificationFormModal.present();
+    userAccountModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          if(this.userService.userMypagePage) {
+            this.userService.userMypagePage.ionViewDidLoad();
+          }
+        }
+      }
+    );
   }
 
   openUserProfileModificationFormPage() {
     let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
+    userProfileModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          if(this.userService.userMypagePage) {
+            this.userService.userMypagePage.ionViewDidLoad();
+          }
+        }
+      }
+    );
   }
 
   logout() {

@@ -16,6 +16,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>        
   <ion-list>
     <ion-item tappable class="interview-item avatar-span-wrapper item-flex" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.alarm_link, alarm.project_id, alarm.alarm_id)">
       <span item-start class="avatar-image avatar-span cropper">

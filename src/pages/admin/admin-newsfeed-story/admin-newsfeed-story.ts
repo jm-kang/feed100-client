@@ -160,7 +160,7 @@ export class AdminNewsfeedStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.clickLike();
           })
         }
       },
@@ -202,7 +202,7 @@ export class AdminNewsfeedStoryPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.ionViewDidLoad();
+              this.writeNewsfeedComment();
             })
           }
         },

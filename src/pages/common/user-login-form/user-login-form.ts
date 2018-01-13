@@ -76,6 +76,12 @@ export class UserLoginFormPage {
             case 'password is not correct':
               this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
               break;
+            case 'email is not verified':
+              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
+              break;
+            case 'warning count is over':
+              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
+              break;
             default:
               this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
@@ -128,6 +134,12 @@ export class UserLoginFormPage {
                 "app_id" : res.userId
               });
               break;
+            case 'email is not verified':
+              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
+              break;
+            case 'warning count is over':
+              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
+              break;
             default:
               this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
@@ -171,6 +183,12 @@ export class UserLoginFormPage {
                 "provider" : "facebook",
                 "app_id" : res.authResponse.userID
               });
+              break;
+            case 'email is not verified':
+              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
+              break;
+            case 'warning count is over':
+              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
               break;
             default:
               this.commonService.apiRequestErrorHandler(data, this.navCtrl);
@@ -220,6 +238,12 @@ export class UserLoginFormPage {
                 "provider" : "kakao",
                 "app_id" : result.id
               });
+              break;
+            case 'email is not verified':
+              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
+              break;
+            case 'warning count is over':
+              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
               break;
             default:
               this.commonService.apiRequestErrorHandler(data, this.navCtrl);

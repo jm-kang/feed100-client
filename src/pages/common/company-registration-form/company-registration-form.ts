@@ -59,7 +59,7 @@ export class CompanyRegistrationFormPage {
       return;
     }
     else {
-      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
       if(!this.username.match(regExp)) {
         this.commonService.showBasicAlert('이메일 형식이 올바르지 않습니다.');
         return;
@@ -101,9 +101,8 @@ export class CompanyRegistrationFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('CompanyTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('CompanyLoginForm', {}, {animate: true, direction: 'forward'});
+          this.commonService.showBasicAlert('해당 계정으로 이메일을 전송하였습니다.<br/>이메일 인증 완료 후 로그인해주세요.');
         }
         else if(data.success == false) {
           switch(data.message) {

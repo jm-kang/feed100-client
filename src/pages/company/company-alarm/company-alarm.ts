@@ -30,8 +30,14 @@ export class CompanyAlarmPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyAlarmPage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserAlarmPage');
+    this.companyService.companyAlarmPage = '';
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyAlarmPage');
+    this.companyService.companyAlarmPage = this;
     let loading = this.commonService.presentLoading();
     
     this.companyService.getAlarms()
@@ -47,7 +53,7 @@ export class CompanyAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -57,6 +63,11 @@ export class CompanyAlarmPage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   accessAlarmItem(link, project_id, alarm_id) {

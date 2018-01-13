@@ -56,10 +56,6 @@ export class UserProjectInterviewWritingEditorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectInterviewWritingEditorPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectInterviewWritingEditorPage');
     this.projectName = this.ModalWrapperPage.modalParams.projectName;
     this.interview_id = this.ModalWrapperPage.modalParams.interview_id;
     this.interview_request = this.ModalWrapperPage.modalParams.interview_request;

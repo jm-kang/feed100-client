@@ -74,8 +74,14 @@ export class UserProjectSideMenuPage {
     this.navCtrl.pop();
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectSideMenuPage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserProjectSideMenuPage');
+    this.userService.userProjectSideMenuPage = '';
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserProjectSideMenuPage');
+    this.userService.userProjectSideMenuPage = this;
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -117,7 +123,7 @@ export class UserProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           });
         }
       },
@@ -126,6 +132,11 @@ export class UserProjectSideMenuPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   scrollingFun(e) {
@@ -161,7 +172,7 @@ export class UserProjectSideMenuPage {
     userProjectReportFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewDidLoad();
         }
       }
     );

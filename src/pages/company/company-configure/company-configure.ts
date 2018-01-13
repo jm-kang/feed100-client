@@ -24,6 +24,7 @@ export class CompanyConfigurePage {
   isPushAlarm = true;
   flag = false;
   onResumeSubscription: Subscription;
+  onPauseSubscription: Subscription;
   
   constructor(
     public navCtrl: NavController,
@@ -31,13 +32,19 @@ export class CompanyConfigurePage {
     public modalCtrl: ModalController,
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
-    public CompanyServiceProvider: CompanyServiceProvider,
+    public companyService: CompanyServiceProvider,
     public alertCtrl: AlertController,
     public platform: Platform,
     public push: Push,
     private openNativeSettings: OpenNativeSettings,
     public emailComposer: EmailComposer) {
     this.viewCtrl.showBackButton(true);
+  }
+
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyConfigurePage');    
+    this.onResumeSubscription.unsubscribe();
+    this.onPauseSubscription.unsubscribe();
   }
 
   ionViewDidLoad() {
@@ -48,6 +55,12 @@ export class CompanyConfigurePage {
     .subscribe(() => {
       console.log('resume');
       this.permissionCheck();
+    });
+
+    this.onPauseSubscription = this.platform.pause
+    .subscribe(() => {
+      console.log('pause');
+      this.flag = false;
     });
   }
 
@@ -75,7 +88,6 @@ export class CompanyConfigurePage {
   updateItem() {
     if(this.flag) {
       this.openNativeSettings.open("application_details");
-      this.flag = false;
     }
   }
 
@@ -119,26 +131,20 @@ export class CompanyConfigurePage {
 
   openContactPage() {
     this.commonService.showBasicAlert('feed100.help@gmail.com<br/>으로 문의해주세요!');
-    // this.emailComposer.isAvailable().then((available: boolean) =>{
-    //   if(available) {
-    //     //Now we know we can send
-    //   }
-    //  });
-     
-    //  let email = {
-    //    to: 'feed100.help@gmail.com',
-    //    subject: '',
-    //    body: '<br><br><br>- FEED100 Version: 1.0.0',
-    //    isHtml: true
-    //  };
-     
-    //  // Send a text message using default options
-    //  this.emailComposer.open(email);
   }
 
   openCompanyAccountModificationFormPage() {
     let companyAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyAccountModificationFormPage'});
     companyAccountModificationFormModal.present();
+    companyAccountModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          if(this.companyService.companyMypagePage) {
+            this.companyService.companyMypagePage.ionViewDidLoad();
+          }
+        }
+      }
+    );
   }
 
   logout() {

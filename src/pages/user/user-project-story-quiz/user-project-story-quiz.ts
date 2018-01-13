@@ -61,6 +61,13 @@ export class UserProjectStoryQuizPage {
             this.projectName = data.data.project_name;
             this.projectMainImage = data.data.project_main_image;
             this.storyQuizSlides = JSON.parse(data.data.project_story_quiz);
+
+            let index = this.slides.getActiveIndex();
+            if(!this.storyQuizSlides[index].value) {
+              this.slides.lockSwipeToNext(true);
+            } else {
+              this.slides.lockSwipeToNext(false);
+            }        
           }
           else {
             if(data.message == "project is not proceeding") {
@@ -90,15 +97,6 @@ export class UserProjectStoryQuizPage {
       }
     )
 
-  }
-
-  ionViewDidEnter() {
-    let index = this.slides.getActiveIndex();
-    if(!this.storyQuizSlides[index].value) {
-      this.slides.lockSwipeToNext(true);
-    } else {
-      this.slides.lockSwipeToNext(false);
-    }
   }
 
   dismiss() {

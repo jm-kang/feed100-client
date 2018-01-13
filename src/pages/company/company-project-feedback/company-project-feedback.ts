@@ -57,14 +57,9 @@ export class CompanyProjectFeedbackPage {
     this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
-  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectFeedbackPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectFeedbackPage');
     this.segmentOpinionsCondition = "all";
 
     let loading = this.commonService.presentLoading();
@@ -102,7 +97,7 @@ export class CompanyProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           });
         }
       },
@@ -111,7 +106,11 @@ export class CompanyProjectFeedbackPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   back() {

@@ -50,80 +50,114 @@ export class CompanyTabsPage {
     return this.companyService.interviewNum;
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyTabsPage');
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyTabsPage');
-    let isLogin = this.navParams.get('isLogin');
-    if(isLogin) {
-            // to check if we have permission
-      this.push.hasPermission()
-        .then((res: any) => {
-          if (res.isEnabled) {
-            console.log('We have permission to send push notifications');
-          } else {
-            console.log('We do not have permission to send push notifications');
+    // to check if we have permission
+    this.push.hasPermission()
+      .then((res: any) => {
+        if (res.isEnabled) {
+          console.log('We have permission to send push notifications');
+        } else {
+          console.log('We do not have permission to send push notifications');
+        }
+      });
+
+
+    // to initialize push notifications
+
+    const options: PushOptions = {
+      android: {
+          senderID: '889490373924'
+      },
+      ios: {
+          alert: true,
+          badge: true,
+          sound: true,
+          clearBadge: true
+      },
+      windows: {}
+    };
+
+    const pushObject: PushObject = this.push.init(options);
+
+    pushObject.on('notification').subscribe((notification: any) => {
+      console.log('Received a notification', notification);
+      console.log(JSON.stringify(notification.additionalData));
+      if(notification.additionalData.foreground) {
+        console.log('foreground');
+        this.commonService.showBasicAlert(notification.message);
+      }
+      else {
+        console.log('background');
+      }
+      this.getAlarmAndInterviewNum(notification.message);
+    });
+
+
+    pushObject.on('registration').subscribe((registration: any) => {
+      console.log('Device registered', registration);
+      console.log(registration.registrationId);
+      this.uniqueDeviceId.get()
+      .then((uuid: any) => {
+        console.log('uuid:', uuid);
+        this.companyService.registerDeviceToken(uuid, registration.registrationId)
+        .subscribe(
+          (data) => {
+            console.log(data);
+          },
+          (err) => {
+            console.log(err);
           }
-        });
+        );
 
+      })
+      .catch((error: any) => console.log(error));
+    });
 
-      // to initialize push notifications
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  
+  }
 
-      const options: PushOptions = {
-        android: {
-            senderID: '889490373924'
-        },
-        ios: {
-            alert: true,
-            badge: true,
-            sound: true,
-            clearBadge: true
-        },
-        windows: {}
-      };
-
-      const pushObject: PushObject = this.push.init(options);
-
-      pushObject.on('notification').subscribe((notification: any) => {
-        console.log('Received a notification', notification);
-        console.log(JSON.stringify(notification.additionalData));
-        if(notification.additionalData.foreground) {
-          console.log('foreground');
-          this.commonService.showBasicAlert(notification.message);
-        }
-        else {
-          console.log('background');
-        }
-      });
-
-
-      pushObject.on('registration').subscribe((registration: any) => {
-        console.log('Device registered', registration);
-        console.log(registration.registrationId);
-        this.uniqueDeviceId.get()
-        .then((uuid: any) => {
-          console.log('uuid:', uuid);
-          this.companyService.registerDeviceToken(uuid, registration.registrationId)
-          .subscribe(
-            (data) => {
-              console.log(data);
-            },
-            (err) => {
-              console.log(err);
+  getAlarmAndInterviewNum(message) {
+    this.commonService.isLoadingActive = false;
+    if(message == '새로운 인터뷰 답변이 도착했습니다. 확인해주세요!') {
+      if(this.companyService.companyProjectHomePage) this.companyService.companyProjectHomePage.ionViewDidLoad();
+      if(this.companyService.companyProjectInterviewDetailPage) this.companyService.companyProjectInterviewDetailPage.ionViewDidLoad();
+      if(this.companyService.companyProjectInterviewPage) this.companyService.companyProjectInterviewPage.ionViewDidLoad();
+      if(this.companyService.companyAlarmPage) this.companyService.companyAlarmPage.ionViewDidLoad();
+      if(this.companyService.companyInterviewPage) this.companyService.companyInterviewPage.ionViewDidLoad();
+      else {
+        this.companyService.getAlarmAndInterviewNum()
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              this.companyService.alarmNum = data.data.alarm_num;
+              this.companyService.interviewNum = data.data.interview_num;
+              this.badge.set(data.data.alarm_num);
             }
-          );
-
-        })
-        .catch((error: any) => console.log(error));
-      });
-
-      pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-
-
-
+          },
+          (err) => {
+            console.log(err);
+          }
+        );  
+      }
     }
+    else {
+      this.companyService.getAlarmAndInterviewNum()
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            this.companyService.alarmNum = data.data.alarm_num;
+            this.companyService.interviewNum = data.data.interview_num;
+            this.badge.set(data.data.alarm_num);
+          }
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+    this.commonService.isLoadingActive = true;
   }
 
 }

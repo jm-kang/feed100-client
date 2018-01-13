@@ -52,8 +52,14 @@ export class UserMypagePage {
       this.segmentProjectCondition = "proceedingProject";
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserMypagePage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserMypagePage');
+    this.userService.userMypagePage = '';
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserMypagePage');
+    this.userService.userMypagePage = this;
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserInfo()
@@ -79,11 +85,12 @@ export class UserMypagePage {
           this.proceedingProjectNum = this.proceedingProjects.length;
           this.rewardProjectNum = this.rewardProjects.length;
           this.endProjectNum = this.endProjects.length;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -92,7 +99,9 @@ export class UserMypagePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.userService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -101,19 +110,16 @@ export class UserMypagePage {
           this.userService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-    
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openUserAccountModificationFormPage() {
@@ -122,7 +128,7 @@ export class UserMypagePage {
     userAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewDidLoad();
         }
       }
     );
@@ -255,7 +261,7 @@ export class UserMypagePage {
     userProfileModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewDidLoad();
         }
       }
     );
@@ -276,13 +282,11 @@ export class UserMypagePage {
     userProjectRewardFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewDidLoad();
         }
       }
     );
   }
-
-  // 추가된 함수
 
   getAlarmNum() {
     return this.userService.alarmNum;
@@ -295,7 +299,5 @@ export class UserMypagePage {
   openUserConfigurePage() {
     this.navCtrl.push('UserConfigurePage');
   }
-
-  // 추가된 함수 끝
 
 }

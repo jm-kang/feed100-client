@@ -24,6 +24,7 @@ export class AdminConfigurePage {
   isPushAlarm = true;
   flag = false;
   onResumeSubscription: Subscription;
+  onPauseSubscription: Subscription;
   
   constructor(
     public navCtrl: NavController,
@@ -40,6 +41,12 @@ export class AdminConfigurePage {
     this.viewCtrl.showBackButton(true);
   }
 
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload AdminConfigurePage');    
+    this.onResumeSubscription.unsubscribe();
+    this.onPauseSubscription.unsubscribe();
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminConfigurePage');
     this.permissionCheck();
@@ -48,6 +55,12 @@ export class AdminConfigurePage {
     .subscribe(() => {
       console.log('resume');
       this.permissionCheck();
+    });
+
+    this.onPauseSubscription = this.platform.pause
+    .subscribe(() => {
+      console.log('pause');
+      this.flag = false;
     });
   }
 
@@ -75,7 +88,6 @@ export class AdminConfigurePage {
   updateItem() {
     if(this.flag) {
       this.openNativeSettings.open("application_details");
-      this.flag = false;
     }
   }
 

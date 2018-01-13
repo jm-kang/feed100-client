@@ -49,8 +49,6 @@ export class UserProjectParticipationConditionFormPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectParticipationConditionFormPage');
     let loading = this.commonService.presentLoading();
-    // navParams.get에만 해당되는 값을 넘겨야한다.
-    // this.project_id = this.navParams.get('project_id');
     this.project_id = this.ModalWrapperPage.modalParams.project_id;
 
     this.userService.getProjectParticipation(this.project_id)
@@ -64,6 +62,13 @@ export class UserProjectParticipationConditionFormPage {
             this.projectName = data.data.project_name;
             this.projectMainImage = data.data.project_main_image;
             this.participationConditionSlides = JSON.parse(data.data.project_participation_objective_conditions);
+            
+            let index = this.slides.getActiveIndex();
+            if(!this.participationConditionSlides[index].value) {
+              this.slides.lockSwipeToNext(true);
+            } else {
+              this.slides.lockSwipeToNext(false);
+            }        
           }
           else {
             if(data.message == "project is not proceeding") {
@@ -93,15 +98,6 @@ export class UserProjectParticipationConditionFormPage {
       }
     )
 
-  }
-
-  ionViewDidEnter() {
-    let index = this.slides.getActiveIndex();
-    if(!this.participationConditionSlides[index].value) {
-      this.slides.lockSwipeToNext(true);
-    } else {
-      this.slides.lockSwipeToNext(false);
-    }
   }
 
   dismiss() {
@@ -142,7 +138,6 @@ export class UserProjectParticipationConditionFormPage {
           if(data.data) {
             this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.',
               () => {
-                // this.navCtrl.push('UserProjectStoryPage', { "project_id" : this.project_id, "isFeedback" : true });
                 this.appCtrl.getRootNav().push('UserProjectStoryPage', { "project_id" : this.project_id, "isFeedback" : true });
                 this.dismiss();
               }

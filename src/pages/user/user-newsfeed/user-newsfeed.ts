@@ -31,8 +31,8 @@ export class UserNewsfeedPage {
 
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserNewsfeedPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserNewsfeedPage');
     let loading = this.commonService.presentLoading();
 
     this.userService.getNewsfeeds()
@@ -43,11 +43,12 @@ export class UserNewsfeedPage {
       (data) => {
         if(data.success == true) {
           this.newsfeeds = data.data;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -56,7 +57,9 @@ export class UserNewsfeedPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.')
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.userService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -65,19 +68,16 @@ export class UserNewsfeedPage {
           this.userService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openUserNewsfeedStoryPage(newsfeed_id) {

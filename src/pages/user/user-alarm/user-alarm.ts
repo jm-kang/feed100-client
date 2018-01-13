@@ -30,8 +30,14 @@ export class UserAlarmPage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserAlarmPage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserAlarmPage');
+    this.userService.userAlarmPage = '';
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserAlarmPage');
+    this.userService.userAlarmPage = this;
     let loading = this.commonService.presentLoading();
     
     this.userService.getAlarms()
@@ -47,7 +53,7 @@ export class UserAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -57,6 +63,11 @@ export class UserAlarmPage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   accessAlarmItem(link, project_id, alarm_id) {

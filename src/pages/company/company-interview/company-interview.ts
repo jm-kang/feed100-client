@@ -31,8 +31,15 @@ export class CompanyInterviewPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyInterviewPage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyInterviewPage');
+    this.companyService.companyInterviewPage = '';
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyInterviewPage');
+    this.companyService.companyInterviewPage = this;
+
     let loading = this.commonService.presentLoading();
     
     this.companyService.getInterviews()
@@ -43,11 +50,12 @@ export class CompanyInterviewPage {
       (data) => {
         if(data.success == true) {
           this.projectInterviews = data.data;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -56,7 +64,9 @@ export class CompanyInterviewPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.companyService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -65,23 +75,16 @@ export class CompanyInterviewPage {
           this.companyService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyInterviewPage');
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   accordion() {

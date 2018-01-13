@@ -41,10 +41,6 @@ export class CompanyProjectSearchPage {
     this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
-    // this.statusBar.hide(); 
-  }
-
   back() {
     this.navCtrl.pop(); 
   }

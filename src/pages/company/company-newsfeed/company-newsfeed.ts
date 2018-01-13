@@ -31,8 +31,8 @@ export class CompanyNewsfeedPage {
 
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyNewsfeedPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyNewsfeedPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getNewsfeeds()
@@ -43,11 +43,12 @@ export class CompanyNewsfeedPage {
       (data) => {
         if(data.success == true) {
           this.newsfeeds = data.data;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -55,8 +56,10 @@ export class CompanyNewsfeedPage {
         console.log(JSON.stringify(err));
         this.commonService.showBasicAlert('오류가 발생했습니다.')
       }
-    );
-    
+    );    
+  }
+
+  getAlarmAndInterviewNum() {
     this.companyService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -65,19 +68,16 @@ export class CompanyNewsfeedPage {
           this.companyService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openCompanyNewsfeedStoryPage(newsfeed_id) {

@@ -32,8 +32,8 @@ export class CompanyProjectPage {
 
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyProjectPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getProjects()
@@ -44,11 +44,12 @@ export class CompanyProjectPage {
       (data) => {
         if(data.success == true) {
           this.projects = data.data;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -57,7 +58,9 @@ export class CompanyProjectPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.')
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.companyService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -66,19 +69,16 @@ export class CompanyProjectPage {
           this.companyService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   // 내 프로젝트 or not

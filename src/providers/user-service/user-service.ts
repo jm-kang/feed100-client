@@ -10,7 +10,6 @@ import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/finally';
 
-
 /*
   Generated class for the UserServiceProvider provider.
 
@@ -21,6 +20,12 @@ import 'rxjs/add/operator/finally';
 export class UserServiceProvider {
   alarmNum = 0;
   interviewNum = 0;
+  userInterviewPage;
+  userMypagePage;
+  userAlarmPage;
+  userProjectHomePage;
+  userProjectInterviewDetailPage;
+  userProjectSideMenuPage;
   
   constructor(
     public http: Http,
@@ -39,36 +44,18 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getUserInfo() {
     let url = this.commonService.getServerUrl() + '/user/api/user';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   updateAccount(avatar_image, nickname, introduction) {
     let url = this.commonService.getServerUrl() + '/user/api/user/account';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "avatar_image" : avatar_image,      
       "nickname" : nickname,
@@ -78,17 +65,10 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.put(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   updateProfile(gender, age, job, region, marriage, interests, avatar_image) {
     let url = this.commonService.getServerUrl() + '/user/api/user/profile';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "gender" : gender,
       "age" : age,
@@ -102,63 +82,34 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.put(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getUserHome() {
     let url = this.commonService.getServerUrl() + '/user/api/user/home';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
-
   }
 
   getUserAndProjectAndParticipation(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/user/project/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getAlarms() {
     let url = this.commonService.getServerUrl() + '/user/api/user/alarms';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   alarmRead(alarm_id) {
     let url = this.commonService.getServerUrl() + '/user/api/user/alarm/read';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "alarm_id" : alarm_id
     }
@@ -166,62 +117,34 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getAlarmAndInterviewNum() {
     let url = this.commonService.getServerUrl() + '/user/api/user/alarm&interview/num';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getInterviews() {
     let url = this.commonService.getServerUrl() + '/user/api/user/interviews';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getInterview(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/user/interview/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   responseInterview(interview_id, interview_response, interview_response_images) {
     let url = this.commonService.getServerUrl() + '/user/api/user/interview/' + interview_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "interview_response" : interview_response,
       "interview_response_images" : interview_response_images
@@ -230,11 +153,6 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   redeem(project_code) {
@@ -247,38 +165,22 @@ export class UserServiceProvider {
 
   getNewsfeeds() {
     let url = this.commonService.getServerUrl() + '/user/api/newsfeeds';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getNewsfeed(newsfeed_id) {
     let url = this.commonService.getServerUrl() + '/user/api/newsfeed/' + newsfeed_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   newsfeedLike(newsfeed_id) {
     let url = this.commonService.getServerUrl() + '/user/api/newsfeed/like';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "newsfeed_id" : newsfeed_id
     }
@@ -286,17 +188,10 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   writeNewsfeedComment(newsfeed_id, newsfeed_comment_content) {
     let url = this.commonService.getServerUrl() + '/user/api/newsfeed/comment';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "newsfeed_id" : newsfeed_id,
       "newsfeed_comment_content" : newsfeed_comment_content
@@ -305,92 +200,50 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getProjects() {
     let url = this.commonService.getServerUrl() + '/user/api/projects';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getProject(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getProjectHome(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/home/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getSideMenuData(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/side-menu/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getProjectReport(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/report/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   projectReport(project_id, project_report_images, project_report_story_summary_content, project_report_pros_content, project_report_cons_content, project_report_overall_opinion_content) {
     let url = this.commonService.getServerUrl() + '/user/api/project/report/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "project_report_images" : project_report_images,
       "project_report_story_summary_content" : project_report_story_summary_content,
@@ -402,32 +255,18 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.put(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
   
   getProjectParticipation(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/participation/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   projectParticipation(project_id, project_participation_objective_conditions) {
     let url = this.commonService.getServerUrl() + '/user/api/project/participation';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "project_id" : project_id,
       "project_participation_objective_conditions" : project_participation_objective_conditions,
@@ -436,17 +275,10 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   projectFeedback(project_id, project_feedback, project_feedback_hashtags, project_feedback_images, project_first_impression_rate) {
     let url = this.commonService.getServerUrl() + '/user/api/project/feedback';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "project_id" : project_id,
       "project_feedback" : project_feedback,
@@ -458,32 +290,18 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   getFeedback(project_id, feedback_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/feedback/' + feedback_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.get(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   registerOpinion(feedback_id, is_empathy, opinion, opinion_image) {
     let url = this.commonService.getServerUrl() + '/user/api/project/feedback/opinion';
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "feedback_id" : feedback_id,
       "is_empathy" : is_empathy,
@@ -494,17 +312,10 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
   reward(project_id, satisfaction_rate, recommendation_rate) {
     let url = this.commonService.getServerUrl() + '/user/api/project/reward/' + project_id;
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
     let data = {
       "satisfaction_rate" : satisfaction_rate,
       "recommendation_rate" : recommendation_rate
@@ -513,11 +324,6 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    // });
   }
 
 }

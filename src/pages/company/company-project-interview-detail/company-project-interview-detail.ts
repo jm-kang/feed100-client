@@ -37,12 +37,14 @@ export class CompanyProjectInterviewDetailPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyProjectInterviewDetailPage');
+    this.companyService.companyProjectInterviewDetailPage = '';
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewDetailPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
+    this.companyService.companyProjectInterviewDetailPage = this;
     let loading = this.commonService.presentLoading();
     this.project_participant_id = this.navParams.get('project_participant_id');
     
@@ -77,11 +79,12 @@ export class CompanyProjectInterviewDetailPage {
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 500);
+          this.interviewSyncronization();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -90,7 +93,21 @@ export class CompanyProjectInterviewDetailPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
+  }
+
+  interviewSyncronization() {
+    this.commonService.isLoadingActive = false;
+    this.navCtrl.getViews().forEach((value) => {
+      if(value.name != 'CompanyProjectInterviewDetailPage') {
+        value.instance.ionViewDidLoad();
+      }
+    });
+    this.commonService.isLoadingActive = true;
   }
 
   back() {
@@ -113,7 +130,7 @@ export class CompanyProjectInterviewDetailPage {
     companyProjectInterviewWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();  
+          this.ionViewDidLoad();  
         }
       }
     );

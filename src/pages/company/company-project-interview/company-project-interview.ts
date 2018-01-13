@@ -36,9 +36,14 @@ export class CompanyProjectInterviewPage {
     this.navCtrl.pop();
   }
 
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyProjectInterviewPage');
+    this.companyService.companyProjectInterviewPage = '';
+  }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyProjectInterviewPage');
+    this.companyService.companyProjectInterviewPage = this;
     this.project_id = this.navParams.get('project_id');
 
     let loading = this.commonService.presentLoading();
@@ -50,7 +55,6 @@ export class CompanyProjectInterviewPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          console.log(JSON.stringify(data.data));
           this.projectName = data.data.project_name;
           this.projectEndDate = data.data.project_end_date;
           this.totalInterviewNum = data.data.total_interview_num;
@@ -60,7 +64,7 @@ export class CompanyProjectInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -71,8 +75,9 @@ export class CompanyProjectInterviewPage {
     );
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectInterviewPage');
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openCompanyProjectInterviewDetailPage(project_participant_id) {

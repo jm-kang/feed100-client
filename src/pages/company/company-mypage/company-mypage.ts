@@ -44,12 +44,14 @@ export class CompanyMypagePage {
     this.segmentProjectCondition = "proceedingProject";
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyMypagePage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyMypagePage');
+    this.companyService.companyMypagePage = '';
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyMypagePage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyMypagePage');
+    this.companyService.companyMypagePage = this;
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyInfo()
@@ -68,11 +70,12 @@ export class CompanyMypagePage {
           this.endProjects = data.data.end_projects;
           this.proceedingProjectNum = this.proceedingProjects.length;
           this.endProjectNum = this.endProjects.length;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -81,7 +84,9 @@ export class CompanyMypagePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.companyService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -90,19 +95,16 @@ export class CompanyMypagePage {
           this.companyService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-    
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openCompanyAccountModificationFormPage() {
@@ -111,7 +113,7 @@ export class CompanyMypagePage {
     companyAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewDidLoad();
         }
       }
     );

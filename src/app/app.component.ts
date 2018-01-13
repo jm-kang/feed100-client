@@ -42,11 +42,13 @@ export class MyApp {
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
 
-      let isAppIntroChecked = localStorage.getItem('isAppIntroChecked');
-      if (!isAppIntroChecked) {
-        this.openAppIntroPage();
-        localStorage.setItem('isAppIntroChecked', 'true');
-      }
+      setTimeout(() => {
+        let isAppIntroChecked = localStorage.getItem('isAppIntroChecked');
+        if (!isAppIntroChecked) {
+          this.openAppIntroPage();
+          localStorage.setItem('isAppIntroChecked', 'true');
+        }
+      }, 1000);
     });
   }
 
@@ -55,7 +57,12 @@ export class MyApp {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          if(data.data.role == 'user') {
+          console.log(data.data.is_verified, data.data.role, data.data.warn_count);
+          if(data.data.warn_count >= 3) {
+            this.commonService.logout(this.app.getActiveNav());
+            this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
+          }
+          else if(data.data.role == 'user') {
             this.rootPage = UserTabsPage;
           }
           else if(data.data.role == 'company') {

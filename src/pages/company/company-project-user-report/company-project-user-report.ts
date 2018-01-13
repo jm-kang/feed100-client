@@ -19,13 +19,6 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyProjectUserReportPage {
   project_id;
-  // project_report_images
-  // project_report_story_summary_content
-  // project_report_pros_content
-  // project_report_cons_content
-  // project_report_overall_opinion_content
-  // project_report_registration_date
-  // proejct_report_is_select
 
   userReports = [];
 

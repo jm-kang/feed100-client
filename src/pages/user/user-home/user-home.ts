@@ -61,8 +61,8 @@ export class UserHomePage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserHomePage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserHomePage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserHome()
@@ -75,11 +75,12 @@ export class UserHomePage {
           this.proceedingProjects = data.data.proceeding_projects;
           this.newProjects = data.data.new_projects;
           this.newNewsfeeds = data.data.new_newsfeeds;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -88,7 +89,9 @@ export class UserHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  getAlarmAndInterviewNum() {
     this.userService.getAlarmAndInterviewNum()
     .subscribe(
       (data) => {
@@ -97,19 +100,16 @@ export class UserHomePage {
           this.userService.interviewNum = data.data.interview_num;
           this.badge.set(data.data.alarm_num);
         }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
       },
       (err) => {
         console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   openPageWrapper(page) {

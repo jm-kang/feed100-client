@@ -96,9 +96,7 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
   import { UserProjectPageModule } from '../pages/user/user-project/user-project.module';
     import { UserProjectFeedbackPageModule } from '../pages/user/user-project-feedback/user-project-feedback.module';
     import { UserProjectFeedbackFormPageModule } from '../pages/user/user-project-feedback-form/user-project-feedback-form.module';
-    import { UserProjectFeedbackModificationEditorPageModule } from '../pages/user/user-project-feedback-modification-editor/user-project-feedback-modification-editor.module';
     import { UserProjectFeedbackWritingEditorPageModule } from '../pages/user/user-project-feedback-writing-editor/user-project-feedback-writing-editor.module';
-    import { UserProjectFeedbackPopoverPageModule } from '../pages/user/user-project-feedback-popover/user-project-feedback-popover.module';
     import { UserProjectFeedbackListPageModule } from '../pages/user/user-project-feedback-list/user-project-feedback-list.module';
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
     import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
@@ -250,9 +248,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
       UserProjectPageModule,
         UserProjectFeedbackPageModule,
         UserProjectFeedbackFormPageModule,
-        UserProjectFeedbackModificationEditorPageModule,
         UserProjectFeedbackWritingEditorPageModule,
-        UserProjectFeedbackPopoverPageModule,
         UserProjectFeedbackListPageModule,
         UserProjectHomePageModule,
         UserProjectLinkPageModule,

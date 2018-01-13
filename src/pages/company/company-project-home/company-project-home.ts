@@ -52,13 +52,14 @@ export class CompanyProjectHomePage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectHomePage');
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload CompanyProjectHomePage');
+    this.companyService.companyProjectHomePage = '';
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectHomePage');
-
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyProjectHomePage');
+    this.companyService.companyProjectHomePage = this;
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -95,7 +96,7 @@ export class CompanyProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           });
         }
       },
@@ -105,6 +106,11 @@ export class CompanyProjectHomePage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   back() {

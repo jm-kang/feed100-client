@@ -50,7 +50,7 @@ export class UserProjectOpinionWritingEditorPage {
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     public storage: Storage,
-     public ModalWrapperPage: ModalWrapperPage,
+    public ModalWrapperPage: ModalWrapperPage,
     private domSanitizer: DomSanitizer) {      
   }
 

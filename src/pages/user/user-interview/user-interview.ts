@@ -29,10 +29,17 @@ export class UserInterviewPage {
     private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
+      
+  }
+  
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserInterviewPage');
+    this.userService.userInterviewPage = '';
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserInterviewPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad UserInterviewPage');
+    this.userService.userInterviewPage = this;
 
     let loading = this.commonService.presentLoading();
 
@@ -44,32 +51,12 @@ export class UserInterviewPage {
       (data) => {
         if(data.success == true) {
           this.interviews = data.data;
+          this.getAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-
-    this.userService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.userService.alarmNum = data.data.alarm_num;
-          this.userService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           })
         }
       },
@@ -80,8 +67,25 @@ export class UserInterviewPage {
     );
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserInterviewPage');
+  getAlarmAndInterviewNum() {
+    this.userService.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.userService.alarmNum = data.data.alarm_num;
+          this.userService.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   accordion() {

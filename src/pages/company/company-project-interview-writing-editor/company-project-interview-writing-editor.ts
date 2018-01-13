@@ -50,10 +50,6 @@ export class CompanyProjectInterviewWritingEditorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewWritingEditorPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewWritingEditorPage');
     this.nickname = this.ModalWrapperPage.modalParams.nickname;
     this.project_participant_id = this.ModalWrapperPage.modalParams.project_participant_id;
     this.ordinal = this.ModalWrapperPage.modalParams.ordinal;

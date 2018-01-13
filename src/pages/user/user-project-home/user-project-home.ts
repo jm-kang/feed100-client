@@ -55,13 +55,14 @@ export class UserProjectHomePage {
     public userService: UserServiceProvider,
     ) {}
 
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserProjectHomePage');
+    this.userService.userProjectHomePage = '';
+  }  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectHomePage');
-
+    this.userService.userProjectHomePage = this;
     let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
 
@@ -96,6 +97,7 @@ export class UserProjectHomePage {
           
           this.minOpinionNum = Math.round(data.data.max_participant_num / 3);
           
+          this.myOpinionNum = 0;
           for(let feedback of this.feedbacks) {
             if(feedback.is_my_opinion) {
               this.myOpinionNum += 1;
@@ -110,7 +112,7 @@ export class UserProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewDidLoad();
           });
         }
       },
@@ -119,6 +121,11 @@ export class UserProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.ionViewDidLoad();
+    refresher.complete();
   }
 
   back() {
@@ -158,7 +165,7 @@ export class UserProjectHomePage {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
     userProjectReportFormModal.onDidDismiss(data => {
       if(data == "refresh") {
-        this.ionViewDidEnter();
+        this.ionViewDidLoad();
       }
     });
     userProjectReportFormModal.present();

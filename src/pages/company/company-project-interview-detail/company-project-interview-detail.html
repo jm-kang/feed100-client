@@ -22,6 +22,10 @@
 
 
 <ion-content class="outer-content interview-ion-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>                
   <div class="interview-wrapper" *ngFor="let interview of interviews; let count = index">
     <div class="space-20"></div>
     <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>

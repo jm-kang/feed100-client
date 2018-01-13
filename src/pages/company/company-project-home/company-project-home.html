@@ -31,11 +31,15 @@
         <button class="menu-button" ion-button icon-only (click)="openCompanyProjectSideMenuPage()">
           <ion-icon name="menu"></ion-icon>
         </button>
-       </ion-buttons> 
-    </ion-navbar>
-  </ion-header>
+      </ion-buttons> 
+  </ion-navbar>
+</ion-header>
 
-  <ion-content class="project-home-content-wrapper" #contentRef>
+<ion-content class="project-home-content-wrapper" #contentRef>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>                
   <div tappable class="project-card-main-image-wrapper" (click)="openCompanyProjectStoryPage()">
     <!-- <div class="shadow-header-top"></div> -->
     <img class="project-home-main-image" [src]="projectMainImage" />

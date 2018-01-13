@@ -57,10 +57,6 @@ export class UserProjectRewardFormPage {
     this.slides.lockSwipeToNext(true);
   }
 
-  ionViewDidEnter() {
-
-  }
-
   dismiss() {
     if(this.slides.getActiveIndex() == 2) {
       this.ModalWrapperPage.dismissModal("refresh");

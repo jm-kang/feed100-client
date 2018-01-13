@@ -24,6 +24,10 @@
 </ion-header>
 
 <ion-content padding-top class="outer-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>      
   <ion-grid *ngIf="projects.length">
     <ion-row>
       <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard(project.project_id)">

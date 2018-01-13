@@ -50,7 +50,7 @@ export class CompanyProjectUserProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyAccountModificationFormPage');
+    console.log('ionViewDidLoad CompanyProjectUserProfilePage');
     let loading = this.commonService.presentLoading();
     this.project_participant_id = this.navParams.get('project_participant_id');
 
