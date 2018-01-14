@@ -41,9 +41,13 @@ export class CompanyProjectSearchResultPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectSearchResultPage');
-
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectSearchResultPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectHome(this.project_id)
     .finally(() => {
@@ -83,7 +87,7 @@ export class CompanyProjectSearchResultPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -95,7 +99,8 @@ export class CompanyProjectSearchResultPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 

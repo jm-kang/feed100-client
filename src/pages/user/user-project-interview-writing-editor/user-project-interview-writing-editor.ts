@@ -66,6 +66,10 @@ export class UserProjectInterviewWritingEditorPage {
     this.interview_request_images = temp_interview_request_images;
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectInterviewWritingEditorPage');
+  }
+
   uploadFiles() {
     console.log("uploadFiles()");    
     return new Promise(
@@ -99,9 +103,9 @@ export class UserProjectInterviewWritingEditorPage {
   }
 
   completeEditor() {
-    console.log("completeEditor() : 완료 버튼");
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
@@ -117,7 +121,7 @@ export class UserProjectInterviewWritingEditorPage {
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
                 .then(() => {
-                  this.completeEditor();
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
                 });
               }
             },

@@ -9,7 +9,6 @@ import { CompanyInterviewPage } from '../company-interview/company-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { Badge } from '@ionic-native/badge';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -39,15 +38,10 @@ export class CompanyTabsPage {
     public navParams: NavParams,
     private push: Push,
     private uniqueDeviceId: UniqueDeviceID,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
     public nav: Nav) {
 
-  }
-
-  getInterviewNum() {
-    return this.companyService.interviewNum;
   }
 
   ionViewDidLoad() {
@@ -90,7 +84,7 @@ export class CompanyTabsPage {
       else {
         console.log('background');
       }
-      this.getAlarmAndInterviewNum(notification.message);
+      this.refreshCurrentPage();
     });
 
 
@@ -115,49 +109,22 @@ export class CompanyTabsPage {
     });
 
     pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-  
   }
 
-  getAlarmAndInterviewNum(message) {
-    this.commonService.isLoadingActive = false;
-    if(message == '새로운 인터뷰 답변이 도착했습니다. 확인해주세요!') {
-      if(this.companyService.companyProjectHomePage) this.companyService.companyProjectHomePage.ionViewDidLoad();
-      if(this.companyService.companyProjectInterviewDetailPage) this.companyService.companyProjectInterviewDetailPage.ionViewDidLoad();
-      if(this.companyService.companyProjectInterviewPage) this.companyService.companyProjectInterviewPage.ionViewDidLoad();
-      if(this.companyService.companyAlarmPage) this.companyService.companyAlarmPage.ionViewDidLoad();
-      if(this.companyService.companyInterviewPage) this.companyService.companyInterviewPage.ionViewDidLoad();
-      else {
-        this.companyService.getAlarmAndInterviewNum()
-        .subscribe(
-          (data) => {
-            if(data.success == true) {
-              this.companyService.alarmNum = data.data.alarm_num;
-              this.companyService.interviewNum = data.data.interview_num;
-              this.badge.set(data.data.alarm_num);
-            }
-          },
-          (err) => {
-            console.log(err);
-          }
-        );  
-      }
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyTabsPage');
+  }
+
+  getInterviewNum() {
+    return this.companyService.interviewNum;
+  }
+
+  refreshCurrentPage() {
+    let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+      console.log('refreshCurrentPage');
+      instance.ionViewWillEnter();
     }
-    else {
-      this.companyService.getAlarmAndInterviewNum()
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.companyService.alarmNum = data.data.alarm_num;
-            this.companyService.interviewNum = data.data.interview_num;
-            this.badge.set(data.data.alarm_num);
-          }
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-    this.commonService.isLoadingActive = true;
   }
 
 }

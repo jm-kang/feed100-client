@@ -20,6 +20,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>              
   <ion-item class="interview-content-top">
     <span item-left [innerHTML]="projectEndDate | amLocale:'ko' | amTimeAgo | progressState"></span>
     <span item-right>총 {{maxInterviewNum}}개의 인터뷰 중 {{totalInterviewNum}}개 이용</span>

@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content, Platform } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { AdminServiceProvider } from '../../../providers/admin-service/admin-service';
 /**
@@ -54,13 +52,13 @@ export class AdminProjectHomePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectHomePage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     console.log('ionViewDidEnter AdminProjectHomePage');
-
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.adminService.getProjectHome(this.project_id)
     .finally(() => {
@@ -95,7 +93,7 @@ export class AdminProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -104,7 +102,12 @@ export class AdminProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {

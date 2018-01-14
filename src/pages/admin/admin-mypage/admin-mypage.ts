@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { AdminServiceProvider } from '../../../providers/admin-service/admin-service';
 
@@ -38,7 +36,6 @@ export class AdminMypagePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public adminService: AdminServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
@@ -46,9 +43,10 @@ export class AdminMypagePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminMypagePage');
+    this.commonService.isLoadingActive = true;
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
     console.log('ionViewDidEnter AdminMypagePage');
     let loading = this.commonService.presentLoading();
     
@@ -68,11 +66,12 @@ export class AdminMypagePage {
           this.endProjects = data.data.end_projects;
           this.proceedingProjectNum = this.proceedingProjects.length;
           this.endProjectNum = this.endProjects.length;
+          this.adminService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -81,28 +80,12 @@ export class AdminMypagePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
-    this.adminService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.adminService.alarmNum = data.data.alarm_num;
-          this.adminService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-    
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   openAdminAccountModificationFormPage() {
@@ -111,7 +94,7 @@ export class AdminMypagePage {
     adminAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewWillEnter();
         }
       }
     );

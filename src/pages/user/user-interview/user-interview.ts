@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 /**
@@ -26,21 +24,18 @@ export class UserInterviewPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public appCtrl: App,    
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
       
   }
-  
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload UserInterviewPage');
-    this.userService.userInterviewPage = '';
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserInterviewPage');
-    this.userService.userInterviewPage = this;
+    this.commonService.isLoadingActive = true;
+  }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserInterviewPage');
     let loading = this.commonService.presentLoading();
 
     this.userService.getInterviews()
@@ -51,12 +46,12 @@ export class UserInterviewPage {
       (data) => {
         if(data.success == true) {
           this.interviews = data.data;
-          this.getAlarmAndInterviewNum();
+          this.userService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -67,24 +62,9 @@ export class UserInterviewPage {
     );
   }
 
-  getAlarmAndInterviewNum() {
-    this.userService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.userService.alarmNum = data.data.alarm_num;
-          this.userService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 
@@ -105,8 +85,6 @@ export class UserInterviewPage {
     }
   }
 
-  // 추가된 함수
-
   getAlarmNum() {
     return this.userService.alarmNum;
   }
@@ -119,5 +97,4 @@ export class UserInterviewPage {
     this.navCtrl.push('UserConfigurePage');
   }
 
-  // 추가된 함수 끝
 }

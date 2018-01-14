@@ -34,16 +34,15 @@ export class UserProjectInterviewDetailPage {
     public userService: UserServiceProvider) {
   }
 
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload UserProjectInterviewDetailPage');
-    this.userService.userProjectInterviewDetailPage = '';
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectInterviewDetailPage');
-    this.userService.userProjectInterviewDetailPage = this;
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectInterviewDetailPage');
+    let loading = this.commonService.presentLoading();
     
     this.userService.getInterview(this.project_id)
     .finally(() => {
@@ -77,7 +76,7 @@ export class UserProjectInterviewDetailPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -89,7 +88,8 @@ export class UserProjectInterviewDetailPage {
   }
   
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 
@@ -110,17 +110,13 @@ export class UserProjectInterviewDetailPage {
         "interview_request_images" : JSON.parse(JSON.stringify(interview_request_images))}
       }
     );
+    userProjectInterviewWritingEditorModal.present();
     userProjectInterviewWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.commonService.isLoadingActive = false;
-          this.navCtrl.getViews().forEach((value) => {
-            value.instance.ionViewDidLoad();
-          });
-          this.commonService.isLoadingActive = true;
+          this.ionViewWillEnter();
         }
       }
     );
-    userProjectInterviewWritingEditorModal.present();
   }
 }

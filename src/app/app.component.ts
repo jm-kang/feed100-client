@@ -59,7 +59,7 @@ export class MyApp {
         if(data.success == true) {
           console.log(data.data.is_verified, data.data.role, data.data.warn_count);
           if(data.data.warn_count >= 3) {
-            this.commonService.logout(this.app.getActiveNav());
+            this.commonService.logout(this.app.getActiveNavs()[0]);
             this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
           }
           else if(data.data.role == 'user') {
@@ -73,7 +73,7 @@ export class MyApp {
           }
         }
         else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.app.getActiveNav())
+          this.commonService.apiRequestErrorHandler(data, this.app.getActiveNavs()[0])
           .then(() => {
             console.log('apiRequestErrorHandler');
             this.verifyLoginState();

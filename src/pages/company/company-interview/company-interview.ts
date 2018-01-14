@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -26,20 +24,17 @@ export class CompanyInterviewPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload CompanyInterviewPage');
-    this.companyService.companyInterviewPage = '';
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyInterviewPage');
-    this.companyService.companyInterviewPage = this;
+    this.commonService.isLoadingActive = true;
+  }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyInterviewPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getInterviews()
@@ -50,12 +45,12 @@ export class CompanyInterviewPage {
       (data) => {
         if(data.success == true) {
           this.projectInterviews = data.data;
-          this.getAlarmAndInterviewNum();
+          this.companyService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -66,24 +61,9 @@ export class CompanyInterviewPage {
     );
   }
 
-  getAlarmAndInterviewNum() {
-    this.companyService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 

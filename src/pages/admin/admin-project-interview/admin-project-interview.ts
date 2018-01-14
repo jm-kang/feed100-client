@@ -32,15 +32,14 @@ export class AdminProjectInterviewPage {
     public adminService: AdminServiceProvider) {
   }
 
-  back() {
-    this.navCtrl.pop();
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminProjectInterviewPage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
   }
 
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminProjectInterviewPage');
-    this.project_id = this.navParams.get('project_id');
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectInterviewPage');
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectInterviews(this.project_id)
@@ -60,7 +59,7 @@ export class AdminProjectInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -71,8 +70,14 @@ export class AdminProjectInterviewPage {
     );
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminProjectInterviewPage');
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
+  }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   openAdminProjectInterviewDetailPage(project_participant_id) {

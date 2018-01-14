@@ -64,8 +64,8 @@ export class CompanyConfigurePage {
     });
   }
 
-  ionViewDidLeave() {
-    this.onResumeSubscription.unsubscribe();
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ComapnyConfigurePage');
   }
 
   permissionCheck() {
@@ -136,15 +136,6 @@ export class CompanyConfigurePage {
   openCompanyAccountModificationFormPage() {
     let companyAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyAccountModificationFormPage'});
     companyAccountModificationFormModal.present();
-    companyAccountModificationFormModal.onWillDismiss(
-      (data) => {
-        if(data == "refresh") {
-          if(this.companyService.companyMypagePage) {
-            this.companyService.companyMypagePage.ionViewDidLoad();
-          }
-        }
-      }
-    );
   }
 
   logout() {

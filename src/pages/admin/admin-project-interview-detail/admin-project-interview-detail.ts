@@ -39,12 +39,13 @@ export class AdminProjectInterviewDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectInterviewDetailPage');
+    this.commonService.isLoadingActive = true;
+    this.project_participant_id = this.navParams.get('project_participant_id');
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminProjectInterviewDetailPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectInterviewDetailPage');
     let loading = this.commonService.presentLoading();
-    this.project_participant_id = this.navParams.get('project_participant_id');
     
     this.adminService.getInterview(this.project_participant_id)
     .finally(() => {
@@ -81,7 +82,7 @@ export class AdminProjectInterviewDetailPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -90,7 +91,12 @@ export class AdminProjectInterviewDetailPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {

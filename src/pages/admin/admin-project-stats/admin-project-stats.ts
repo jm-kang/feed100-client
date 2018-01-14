@@ -112,8 +112,13 @@ export class AdminProjectStatsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectStatsPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectStatsPage');
+    let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectParticipants(this.project_id)
     .finally(() => {
@@ -145,7 +150,7 @@ export class AdminProjectStatsPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

@@ -78,9 +78,9 @@ export class UserProjectLinkPage {
     });
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectLinkPage');    
     this.statusBar.styleDefault();
-    console.log('enter');
   }
 
 }

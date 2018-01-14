@@ -47,14 +47,15 @@ export class CompanyProjectSideMenuPage {
 
   }
   
-  back() {
-    this.navCtrl.pop();
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectSideMenuPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectSideMenuPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getSideMenuData(this.project_id)
     .finally(() => {
@@ -75,7 +76,7 @@ export class CompanyProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -87,8 +88,13 @@ export class CompanyProjectSideMenuPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
+  }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   openCompanyProjectReportPage() {

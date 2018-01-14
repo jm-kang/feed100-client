@@ -37,16 +37,15 @@ export class CompanyProjectInterviewDetailPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload CompanyProjectInterviewDetailPage');
-    this.companyService.companyProjectInterviewDetailPage = '';
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
-    this.companyService.companyProjectInterviewDetailPage = this;
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_participant_id = this.navParams.get('project_participant_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectInterviewDetailPage');
+    let loading = this.commonService.presentLoading();
     
     this.companyService.getInterview(this.project_participant_id)
     .finally(() => {
@@ -79,12 +78,11 @@ export class CompanyProjectInterviewDetailPage {
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 500);
-          this.interviewSyncronization();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -96,18 +94,9 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
-    refresher.complete();
-  }
-
-  interviewSyncronization() {
-    this.commonService.isLoadingActive = false;
-    this.navCtrl.getViews().forEach((value) => {
-      if(value.name != 'CompanyProjectInterviewDetailPage') {
-        value.instance.ionViewDidLoad();
-      }
-    });
     this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {
@@ -126,15 +115,15 @@ export class CompanyProjectInterviewDetailPage {
           "project_participant_id" : this.project_participant_id,
           "ordinal" : this.interviews.length + 1
         }
-      });
+    });
+    companyProjectInterviewWritingEditorModal.present();
     companyProjectInterviewWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidLoad();  
+          this.ionViewWillEnter();  
         }
       }
     );
-    companyProjectInterviewWritingEditorModal.present();
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {

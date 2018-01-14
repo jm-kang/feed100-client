@@ -89,6 +89,10 @@ export class UserTutorialPage {
     this.totalPageNum = this.tutorialSlides.length + 1;
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserTutorialPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }

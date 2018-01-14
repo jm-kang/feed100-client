@@ -41,6 +41,10 @@ export class UserLoginFormPage {
     console.log('ionViewDidLoad UserLoginFormPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserLoginFormPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }
@@ -55,6 +59,7 @@ export class UserLoginFormPage {
       return;
     }
 
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     this.commonService.localLogin(this.username, this.password, this.role)
@@ -66,24 +71,17 @@ export class UserLoginFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
-          switch(data.message) {
-            case 'username is unregistered':
-              this.commonService.showBasicAlert('이메일을 정확히 입력해주세요.');
-              break;
-            case 'password is not correct':
-              this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
-              break;
-            case 'email is not verified':
-              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
-              break;
-            case 'warning count is over':
-              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+          if(data.message == 'username is unregistered') {
+            this.commonService.showBasicAlert('이메일을 정확히 입력해주세요.');
+          }
+          else if(data.message == 'password is not correct') {
+            this.commonService.showBasicAlert('비밀번호를 정확히 입력해주세요.');
+          }
+          else { 
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -107,6 +105,7 @@ export class UserLoginFormPage {
   // }
 
   googleLogin() {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     this.googlePlus.login({})
@@ -123,27 +122,21 @@ export class UserLoginFormPage {
           this.storage.set('refreshToken', data.data.refreshToken);
           this.googlePlus.logout()
           .then(() => {
-            this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+            this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
           });
         }
         else if(data.success == false) {
-          switch(data.message) {
-            case 'app_id is unregistered':
-              this.navCtrl.push('UserSnsRegistrationFormPage', {
-                "provider" : "google",
-                "app_id" : res.userId
-              });
-              break;
-            case 'email is not verified':
-              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
-              break;
-            case 'warning count is over':
-              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+          if(data.message == 'app_id is unregistered') {
+            this.navCtrl.push('UserSnsRegistrationFormPage', {
+              "provider" : "google",
+              "app_id" : res.userId
+            });
+          }
+          else {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
+        
       },
       (err) => {
         console.log(err);
@@ -159,6 +152,7 @@ export class UserLoginFormPage {
   }
 
   facebookLogin() {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     this.fb.login(['public_profile', 'email'])
@@ -174,24 +168,17 @@ export class UserLoginFormPage {
         if(data.success == true) {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
         }
         else if(data.success == false) {
-          switch(data.message) {
-            case 'app_id is unregistered':
-              this.navCtrl.push('UserSnsRegistrationFormPage', {
-                "provider" : "facebook",
-                "app_id" : res.authResponse.userID
-              });
-              break;
-            case 'email is not verified':
-              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
-              break;
-            case 'warning count is over':
-              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+          if(data.message == 'app_id is unregistered') {
+            this.navCtrl.push('UserSnsRegistrationFormPage', {
+              "provider" : "facebook",
+              "app_id" : res.authResponse.userID
+            });
+          }
+          else {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },
@@ -210,6 +197,7 @@ export class UserLoginFormPage {
   }
 
   kakaoLogin() {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
     
     KakaoTalk.login(
@@ -227,26 +215,19 @@ export class UserLoginFormPage {
         this.zone.run(() => {
           this.storage.set('accessToken', data.data.accessToken);
           this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
         });
       }
       else if(data.success == false) {
         this.zone.run(() => {
-          switch(data.message) {
-            case 'app_id is unregistered':
-              this.navCtrl.push('UserSnsRegistrationFormPage', {
-                "provider" : "kakao",
-                "app_id" : result.id
-              });
-              break;
-            case 'email is not verified':
-              this.commonService.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');
-              break;
-            case 'warning count is over':
-              this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+          if(data.message == 'app_id is unregistered') {
+            this.navCtrl.push('UserSnsRegistrationFormPage', {
+              "provider" : "kakao",
+              "app_id" : result.id
+            });
+          }
+          else {
+             this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         });          
       }

@@ -47,9 +47,14 @@ export class UserProjectStoryQuizPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryQuizPage');
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectStoryQuizPage');
     let loading = this.commonService.presentLoading();
+    
     this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
       loading.dismiss();
@@ -87,7 +92,7 @@ export class UserProjectStoryQuizPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

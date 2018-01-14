@@ -15,6 +15,10 @@
   </ion-header>
 
   <ion-content #contentRef class="side-menu-content outer-content">
+    <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+        <ion-refresher-content>
+        </ion-refresher-content>
+    </ion-refresher>                
     <div class="side-menu-profile-box">
       <span class="avatar-image-background-wrapper cropper">
         <img class="avatar-image-background" [src]="projectMainImage" />

@@ -9,7 +9,6 @@ import { UserInterviewPage } from '../user-interview/user-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
-import { Badge } from '@ionic-native/badge';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -39,13 +38,8 @@ export class UserTabsPage {
     public nav: Nav,
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
-  }
-
-  getInterviewNum() {
-    return this.userService.interviewNum;
   }
 
   ionViewDidLoad() {
@@ -87,7 +81,7 @@ export class UserTabsPage {
       else {
         console.log('background');
       }
-      this.getAlarmAndInterviewNum(notification.message);
+      this.refreshCurrentPage();
     });
     
 
@@ -112,48 +106,22 @@ export class UserTabsPage {
     });
 
     pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-
   }
 
-  getAlarmAndInterviewNum(message) {
-    this.commonService.isLoadingActive = false;
-    if(message == '새로운 인터뷰가 도착했습니다. 응답해주세요!') {
-      if(this.userService.userProjectSideMenuPage) this.userService.userProjectSideMenuPage.ionViewDidLoad();
-      if(this.userService.userProjectHomePage) this.userService.userProjectHomePage.ionViewDidLoad();
-      if(this.userService.userProjectInterviewDetailPage) this.userService.userProjectInterviewDetailPage.ionViewDidLoad();
-      if(this.userService.userAlarmPage) this.userService.userAlarmPage.ionViewDidLoad();
-      if(this.userService.userInterviewPage) this.userService.userInterviewPage.ionViewDidLoad();
-      else {
-        this.userService.getAlarmAndInterviewNum()
-        .subscribe(
-          (data) => {
-            if(data.success == true) {
-              this.userService.alarmNum = data.data.alarm_num;
-              this.userService.interviewNum = data.data.interview_num;
-              this.badge.set(data.data.alarm_num);
-            }
-          },
-          (err) => {
-            console.log(err);
-          }
-        );  
-      }
-    }
-    else {
-      this.userService.getAlarmAndInterviewNum()
-      .subscribe(
-        (data) => {
-          if(data.success == true) {
-            this.userService.alarmNum = data.data.alarm_num;
-            this.userService.interviewNum = data.data.interview_num;
-            this.badge.set(data.data.alarm_num);
-          }
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
-    }
-    this.commonService.isLoadingActive = true;
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserTabsPage');
   }
+
+  getInterviewNum() {
+    return this.userService.interviewNum;
+  }
+
+  refreshCurrentPage() {
+    let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+      console.log('refreshCurrentPage');
+      instance.ionViewWillEnter();
+    }
+  }
+
 }

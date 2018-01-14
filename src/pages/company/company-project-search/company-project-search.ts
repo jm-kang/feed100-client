@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
 
 /**
@@ -39,6 +37,10 @@ export class CompanyProjectSearchPage {
     this.projectMainImage = this.navParams.get('project_main_image');
     this.projectName = this.navParams.get('project_name');
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectSearchPage');
   }
 
   back() {

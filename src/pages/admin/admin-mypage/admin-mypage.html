@@ -22,6 +22,10 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>              
   <ion-item margin-top class="mypage-profile-wrapper avatar-span-wrapper item-flex">
     <span item-start class="avatar-image avatar-span cropper">
        <img class="avatar-span-image" [src]="avatarImage" />

@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 
@@ -38,20 +36,18 @@ export class CompanyMypagePage {
     public navParams: NavParams, 
     public modalCtrl: ModalController,
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
     this.segmentProjectCondition = "proceedingProject";
   }
 
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload CompanyMypagePage');
-    this.companyService.companyMypagePage = '';
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyMypagePage');
-    this.companyService.companyMypagePage = this;
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyMypagePage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyInfo()
@@ -70,12 +66,12 @@ export class CompanyMypagePage {
           this.endProjects = data.data.end_projects;
           this.proceedingProjectNum = this.proceedingProjects.length;
           this.endProjectNum = this.endProjects.length;
-          this.getAlarmAndInterviewNum();
+          this.companyService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -86,24 +82,9 @@ export class CompanyMypagePage {
     );
   }
 
-  getAlarmAndInterviewNum() {
-    this.companyService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 
@@ -113,7 +94,7 @@ export class CompanyMypagePage {
     companyAccountModificationFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidLoad();
+          this.ionViewWillEnter();
         }
       }
     );
@@ -123,44 +104,8 @@ export class CompanyMypagePage {
     this.navCtrl.parent.select(1);
   }
 
-  // 내 프로젝트 or not
   accessProjectCard(project_id) {
-    let loading = this.commonService.presentLoading();
-
-    this.companyService.getIsMyProject(project_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.data.is_my_project) {
-            this.openCompanyProjectHomePage(project_id);
-          }
-          else {
-            this.openCompanyProjectStoryPage(project_id);
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.accessProjectCard(project_id);
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-  }
-
-  openCompanyProjectHomePage(project_id) {
-    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
-  }
-
-  openCompanyProjectStoryPage(project_id) {
-    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
+    this.companyService.accessProjectCard(this, project_id);    
   }
 
   openCompanyProjectRegistrationPage() {

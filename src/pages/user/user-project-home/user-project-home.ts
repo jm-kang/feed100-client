@@ -43,7 +43,6 @@ export class UserProjectHomePage {
 
   projectHashtags = [];
 
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -55,16 +54,15 @@ export class UserProjectHomePage {
     public userService: UserServiceProvider,
     ) {}
 
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload UserProjectHomePage');
-    this.userService.userProjectHomePage = '';
-  }  
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
-    this.userService.userProjectHomePage = this;
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');    
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectHomePage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -106,13 +104,11 @@ export class UserProjectHomePage {
               this.isReportWrited = (feedback.project_report_registration_date) ? true : false;
             }
           }
-          console.log(this.minOpinionNum, this.myOpinionNum, this.isReportWrited);
-
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -124,7 +120,8 @@ export class UserProjectHomePage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 
@@ -163,11 +160,12 @@ export class UserProjectHomePage {
 
   openUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
-    userProjectReportFormModal.onDidDismiss(data => {
-      if(data == "refresh") {
-        this.ionViewDidLoad();
-      }
-    });
     userProjectReportFormModal.present();
+    userProjectReportFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewWillEnter();
+        }
+    });
   }
 }

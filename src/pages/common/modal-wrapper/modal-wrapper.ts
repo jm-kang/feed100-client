@@ -42,6 +42,10 @@ export class ModalWrapperPage {
     console.log(JSON.stringify(this.modalParams));
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter ModalWrapperPage');
+  }
+
   dismissModal(data?) {
     if(data) {
       this.viewCtrl.dismiss(data);

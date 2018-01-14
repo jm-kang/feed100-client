@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
+import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../common-service/common-service';
 
 import 'rxjs/add/operator/map';
@@ -20,16 +21,11 @@ import 'rxjs/add/operator/finally';
 export class CompanyServiceProvider {
   alarmNum = 0;
   interviewNum = 0;
-  companyInterviewPage;
-  companyMypagePage;
-  companyAlarmPage;
-  companyProjectHomePage;
-  companyProjectInterviewPage;
-  companyProjectInterviewDetailPage;
 
   constructor(
     public http: Http,
     public storage: Storage,
+    private badge: Badge,    
     public commonService: CommonServiceProvider) {
     console.log('Hello CompanyServiceProvider Provider');
   }
@@ -264,6 +260,63 @@ export class CompanyServiceProvider {
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
+  }
+
+  setAlarmAndInterviewNum() {
+    this.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.alarmNum = data.data.alarm_num;
+          this.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // 내 프로젝트 or not
+  accessProjectCard(componentRef, project_id) {
+    this.commonService.isLoadingActive = true;
+    let loading = this.commonService.presentLoading();
+
+    this.getIsMyProject(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(data.data.is_my_project) {
+            this.openCompanyProjectHomePage(componentRef, project_id);
+          }
+          else {
+            this.openCompanyProjectStoryPage(componentRef, project_id);
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, componentRef.navCtrl)
+          .then(() => {
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+  }
+  
+  openCompanyProjectHomePage(componentRef, project_id) {
+    componentRef.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
+  }
+
+  openCompanyProjectStoryPage(componentRef, project_id) {
+    componentRef.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
   }
 
 }

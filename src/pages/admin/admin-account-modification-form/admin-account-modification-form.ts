@@ -45,8 +45,13 @@ export class AdminAccountModificationFormPage {
     private domSanitizer: DomSanitizer) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminAccountModificationFormPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminAccountModificationFormPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminAccountModificationFormPage');
     let loading = this.commonService.presentLoading();
     
     this.adminService.getAdminInfo()
@@ -65,7 +70,7 @@ export class AdminAccountModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -149,9 +154,9 @@ export class AdminAccountModificationFormPage {
   }
 
   modifyAccount() {
-    console.log("수정 완료");
-    
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
+
     this.uploadFile()
     .then(() => {
       this.adminService.updateAccount(this.avatarImage, this.nickname, this.introduction)
@@ -167,7 +172,7 @@ export class AdminAccountModificationFormPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.modifyAccount();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

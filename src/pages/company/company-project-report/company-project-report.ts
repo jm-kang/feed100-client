@@ -336,9 +336,14 @@ export class CompanyProjectReportPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectReportPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);  
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectReportPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectReport(this.project_id)
     .finally(() => {
@@ -450,7 +455,7 @@ export class CompanyProjectReportPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -460,7 +465,6 @@ export class CompanyProjectReportPage {
       }
     );
     this.userReportLength = this.userReports.length;
-    console.log("length: " + this.userReportLength);
   }
 
   slideChanged() {
@@ -545,13 +549,10 @@ export class CompanyProjectReportPage {
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 
-  // CompanyProjectUserReportDetailPage() {
-  //   this.modalCtrl.create
-  // }
-
   bestSelection(project_participant_id, nickname) {
     this.commonService.showConfirmAlert(nickname + '님의 피드백을 선정하시겠습니까?',
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         
         this.companyService.selectReport(project_participant_id)
@@ -578,7 +579,7 @@ export class CompanyProjectReportPage {
             else if(data.success == false) {
               this.commonService.apiRequestErrorHandler(data, this.navCtrl)
               .then(() => {
-                this.bestSelection(project_participant_id, nickname);
+                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
               });
             }
           },

@@ -57,9 +57,14 @@ export class AdminProjectStoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectStoryPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);  
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectStoryPage');
+    let loading = this.commonService.presentLoading();
 
     this.adminService.getProject(this.project_id)
     .finally(() => {
@@ -94,7 +99,7 @@ export class AdminProjectStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -163,6 +168,7 @@ export class AdminProjectStoryPage {
     }
     this.commonService.showConfirmAlert(message, 
     () => {
+      this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
   
       this.adminService.updateProjectPrivateState(this.project_id, value)
@@ -183,7 +189,7 @@ export class AdminProjectStoryPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.commonService.showBasicAlert('오류가 발생했습니다.');
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

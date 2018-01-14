@@ -46,15 +46,16 @@ export class AdminProjectSideMenuPage {
     public adminService: AdminServiceProvider) {
 
   }
-  
-  back() {
-    this.navCtrl.pop();
-  }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminProjectSideMenuPage');
-    let loading = this.commonService.presentLoading();
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminProjectSideMenuPage');
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+  
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectSideMenuPage');
+    let loading = this.commonService.presentLoading();
 
     this.adminService.getSideMenuData(this.project_id)
     .finally(() => {
@@ -75,7 +76,7 @@ export class AdminProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -85,6 +86,16 @@ export class AdminProjectSideMenuPage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
+  }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   openAdminProjectReportPage() {

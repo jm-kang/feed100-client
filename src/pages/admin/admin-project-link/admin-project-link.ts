@@ -79,9 +79,9 @@ export class AdminProjectLinkPage {
     });
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectLinkPage');    
     this.statusBar.styleDefault();
-    console.log('enter');
   }
 
 }

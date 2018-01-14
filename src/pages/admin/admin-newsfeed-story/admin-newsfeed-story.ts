@@ -18,6 +18,7 @@ import { AdminServiceProvider } from '../../../providers/admin-service/admin-ser
 })
 export class AdminNewsfeedStoryPage {
   @ViewChild(Slides) slides: Slides;
+  newsfeed_id;
   bgHori:   number = 0 ; 
   lastBgH:  number = 0 ;
   mobWidth: number = 0 ;
@@ -63,11 +64,16 @@ export class AdminNewsfeedStoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminNewsfeedStoryPage');
-    let loading = this.commonService.presentLoading();
-    let newsfeed_id = this.navParams.get('newsfeed_id');
+    this.commonService.isLoadingActive = true;
+    this.newsfeed_id = this.navParams.get('newsfeed_id');
     this.slides.lockSwipeToPrev(true);  
+  }
 
-    this.adminService.getNewsfeed(newsfeed_id)
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminNewsfeedStoryPage');
+    let loading = this.commonService.presentLoading();
+
+    this.adminService.getNewsfeed(this.newsfeed_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -94,7 +100,7 @@ export class AdminNewsfeedStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -144,10 +150,10 @@ export class AdminNewsfeedStoryPage {
   }
 
   clickLike() {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
-    let newsfeed_id = this.navParams.get('newsfeed_id');
 
-    this.adminService.newsfeedLike(newsfeed_id)
+    this.adminService.newsfeedLike(this.newsfeed_id)
     .finally(() => {
       loading.dismiss();
     })
@@ -160,7 +166,7 @@ export class AdminNewsfeedStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.clickLike();
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
           })
         }
       },
@@ -182,13 +188,13 @@ export class AdminNewsfeedStoryPage {
 
   writeNewsfeedComment() {
     if(this.newsfeedComment != '') {
+      this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
       let newsfeed_comment_content = this.newsfeedComment;
       this.newsfeedComment = '';
       this.newsfeedComments = [];
-      let newsfeed_id = this.navParams.get('newsfeed_id');
 
-      this.adminService.writeNewsfeedComment(newsfeed_id, newsfeed_comment_content)
+      this.adminService.writeNewsfeedComment(this.newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();
       })
@@ -202,7 +208,7 @@ export class AdminNewsfeedStoryPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.writeNewsfeedComment();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },
@@ -227,10 +233,10 @@ export class AdminNewsfeedStoryPage {
     }
     this.commonService.showConfirmAlert(message, 
     () => {
+      this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
-      let newsfeed_id = this.navParams.get('newsfeed_id');
   
-      this.adminService.updateNewsfeedPrivateState(newsfeed_id, value)
+      this.adminService.updateNewsfeedPrivateState(this.newsfeed_id, value)
       .finally(() => {
         loading.dismiss();
       })
@@ -248,7 +254,7 @@ export class AdminNewsfeedStoryPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.commonService.showBasicAlert('오류가 발생했습니다.');
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

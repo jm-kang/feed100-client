@@ -69,21 +69,16 @@ export class UserProjectSideMenuPage {
     public userService: UserServiceProvider,
     public modalCtrl: ModalController) {
   }
-  
-  back() {
-    this.navCtrl.pop();
-  }
-
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload UserProjectSideMenuPage');
-    this.userService.userProjectSideMenuPage = '';
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSideMenuPage');
-    this.userService.userProjectSideMenuPage = this;
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectSideMenuPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getSideMenuData(this.project_id)
     .finally(() => {
@@ -123,7 +118,7 @@ export class UserProjectSideMenuPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -135,8 +130,13 @@ export class UserProjectSideMenuPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
+  }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   scrollingFun(e) {
@@ -169,14 +169,14 @@ export class UserProjectSideMenuPage {
 
   opneUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
+    userProjectReportFormModal.present();
     userProjectReportFormModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidLoad();
+          this.ionViewWillEnter();
         }
       }
     );
-    userProjectReportFormModal.present();
   }
 
   openUserProjectReportPage() {

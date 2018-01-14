@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
 import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content, Platform } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -40,7 +38,6 @@ export class CompanyProjectHomePage {
 
   projectHashtags = [];
 
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -51,17 +48,16 @@ export class CompanyProjectHomePage {
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
-
-  ionViewWillUnload() {
-    console.log('ionViewWillUnload CompanyProjectHomePage');
-    this.companyService.companyProjectHomePage = '';
-  }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
-    this.companyService.companyProjectHomePage = this;
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectHomePage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectHome(this.project_id)
     .finally(() => {
@@ -96,7 +92,7 @@ export class CompanyProjectHomePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -105,11 +101,11 @@ export class CompanyProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
-
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 

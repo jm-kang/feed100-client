@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
+import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../common-service/common-service';
 
 import 'rxjs/add/operator/map';
@@ -24,6 +25,7 @@ export class AdminServiceProvider {
   constructor(
     public http: Http,
     public storage: Storage,
+    private badge: Badge,        
     public commonService: CommonServiceProvider) {
     console.log('Hello AdminServiceProvider Provider');
   }
@@ -249,6 +251,22 @@ export class AdminServiceProvider {
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
+  }
+
+  setAlarmAndInterviewNum() {
+    this.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.alarmNum = data.data.alarm_num;
+          this.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
 }

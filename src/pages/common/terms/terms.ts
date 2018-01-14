@@ -24,6 +24,10 @@ export class TermsPage {
     console.log('ionViewDidLoad TermsPage');
   }
   
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter TermsPage');
+  }
+
   dismiss() {
     this.ModalWrapperPage.dismissModal();
   }

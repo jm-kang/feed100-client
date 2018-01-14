@@ -267,6 +267,11 @@ export class CompanyHelpPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyHelpPage');
   }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyHelpPage');
+  }
+
   dismiss() {
     this.ModalWrapperPage.dismissModal();
   }

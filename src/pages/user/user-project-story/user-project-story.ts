@@ -54,10 +54,15 @@ export class UserProjectStoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
     this.isFeedback = this.navParams.get('isFeedback');
     this.slides.lockSwipeToPrev(true);  
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectStoryPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getProject(this.project_id)
     .finally(() => {
@@ -91,7 +96,7 @@ export class UserProjectStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

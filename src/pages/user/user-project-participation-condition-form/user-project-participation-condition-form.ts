@@ -46,10 +46,16 @@ export class UserProjectParticipationConditionFormPage {
     public appCtrl: App) {
   }
 
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectParticipationConditionFormPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.ModalWrapperPage.modalParams.project_id;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectParticipationConditionFormPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
@@ -88,7 +94,7 @@ export class UserProjectParticipationConditionFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -126,6 +132,7 @@ export class UserProjectParticipationConditionFormPage {
   }
 
   openUserProjectStoryPage() {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     this.userService.projectParticipation(this.project_id, this.participationConditionSlides)
@@ -151,7 +158,7 @@ export class UserProjectParticipationConditionFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.openUserProjectStoryPage();
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
           });
         }
       },

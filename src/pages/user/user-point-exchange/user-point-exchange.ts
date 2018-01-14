@@ -31,6 +31,10 @@ export class UserPointExchangePage {
     console.log('ionViewDidLoad UserPointExchangePage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserPointExchangePage');
+  }
+
   back() {
     this.navCtrl.pop();
   }

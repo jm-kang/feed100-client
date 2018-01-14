@@ -30,8 +30,13 @@ export class AdminAlarmPage {
     public adminService: AdminServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminAlarmPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminAlarmPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminAlarmPage');
     let loading = this.commonService.presentLoading();
     
     this.adminService.getAlarms()
@@ -47,7 +52,7 @@ export class AdminAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -57,6 +62,12 @@ export class AdminAlarmPage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   accessAlarmItem(link, project_id, alarm_id) {

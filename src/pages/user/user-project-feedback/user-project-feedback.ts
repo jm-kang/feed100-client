@@ -59,18 +59,22 @@ export class UserProjectFeedbackPage {
     private photoViewer: PhotoViewer,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider
-  ) {
+) {
     this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackPage');
+    this.commonService.isLoadingActive = true;
     this.segmentOpinionsCondition = "all";
-    
-    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.feedback_id = this.navParams.get('feedback_id');
+  }
+  
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getFeedback(this.project_id, this.feedback_id)
     .finally(() => {
@@ -105,7 +109,7 @@ export class UserProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -117,7 +121,8 @@ export class UserProjectFeedbackPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 
@@ -139,17 +144,13 @@ export class UserProjectFeedbackPage {
       params: { "nickname" : nickname,
       "feedback_id" : feedback_id }
     });
+    userProjectOpinionWritingEditorModal.present();
     userProjectOpinionWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.commonService.isLoadingActive = false;
-          this.navCtrl.getViews().forEach((value) => {
-            value.instance.ionViewDidLoad();
-          });
-          this.commonService.isLoadingActive = true;
+          this.ionViewWillEnter();
         }
       }
     );
-    userProjectOpinionWritingEditorModal.present();
   }
 }

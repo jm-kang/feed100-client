@@ -32,8 +32,13 @@ export class AdminProjectUserInfoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectUserInfoPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectUserInfoPage');
+    let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectParticipants(this.project_id)
     .finally(() => {
@@ -48,7 +53,7 @@ export class AdminProjectUserInfoPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

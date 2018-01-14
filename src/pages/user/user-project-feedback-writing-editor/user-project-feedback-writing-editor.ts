@@ -68,6 +68,10 @@ export class UserProjectFeedbackWritingEditorPage {
     this.feedbackImages = this.ModalWrapperPage.modalParams.feedbackImages;
   }
 
+  ionViewWillEnter() {    
+    console.log('ionViewWillEnter UserProjectFeedbackWritingEditorPage');
+  }
+
   completeEditor() {
     let data = { feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, feedbackHashtags: this.feedbackHashtags };
     this.ModalWrapperPage.dismissModal(data);

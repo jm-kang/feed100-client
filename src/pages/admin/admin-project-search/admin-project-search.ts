@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { AdminProjectSearchResultPage } from '../admin-project-search-result/admin-project-search-result';
 
 /**
@@ -41,8 +39,8 @@ export class AdminProjectSearchPage {
     this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
-    // this.statusBar.hide(); 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectSearchPage');
   }
 
   back() {

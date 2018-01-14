@@ -14,7 +14,6 @@ import { LoginPageModule } from '../pages/common/login/login.module';
   import { CompanyLoginFormPageModule } from '../pages/common/company-login-form/company-login-form.module';
   import { CompanyRegistrationFormPageModule } from '../pages/common/company-registration-form/company-registration-form.module';
 import { AppIntroPageModule } from '../pages/common/app-intro/app-intro.module';
-import { ContactPageModule } from '../pages/common/contact/contact.module';
 import { NoticePageModule } from '../pages/common/notice/notice.module';
 import { PrivateInfoPolicyPageModule } from '../pages/common/private-info-policy/private-info-policy.module';
 import { TermsPageModule } from '../pages/common/terms/terms.module';
@@ -172,7 +171,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
       CompanyLoginFormPageModule,
       CompanyRegistrationFormPageModule,
     AppIntroPageModule,
-    ContactPageModule,
     NoticePageModule,
     PrivateInfoPolicyPageModule,
     TermsPageModule,

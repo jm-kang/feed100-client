@@ -39,10 +39,14 @@ export class UserProjectFeedbackListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackListPage');
+    this.commonService.isLoadingActive = true;
     this.segmentFeedbacksCondition = "nonParticipationFeedback";
-    
-    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackListPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -66,7 +70,7 @@ export class UserProjectFeedbackListPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -78,7 +82,8 @@ export class UserProjectFeedbackListPage {
   }
 
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 

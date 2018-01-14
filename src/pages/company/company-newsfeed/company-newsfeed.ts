@@ -1,8 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -25,7 +23,6 @@ export class CompanyNewsfeedPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
 
@@ -33,6 +30,11 @@ export class CompanyNewsfeedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyNewsfeedPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyNewsfeedPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getNewsfeeds()
@@ -43,12 +45,12 @@ export class CompanyNewsfeedPage {
       (data) => {
         if(data.success == true) {
           this.newsfeeds = data.data;
-          this.getAlarmAndInterviewNum();
+          this.companyService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -59,24 +61,9 @@ export class CompanyNewsfeedPage {
     );    
   }
 
-  getAlarmAndInterviewNum() {
-    this.companyService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
   doRefresh(refresher) {
-    this.ionViewDidLoad();
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
     refresher.complete();
   }
 

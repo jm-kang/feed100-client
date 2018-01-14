@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Observable';
+import { Badge } from '@ionic-native/badge';
 import { CommonServiceProvider } from '../common-service/common-service';
 
 import 'rxjs/add/operator/map';
@@ -20,16 +21,11 @@ import 'rxjs/add/operator/finally';
 export class UserServiceProvider {
   alarmNum = 0;
   interviewNum = 0;
-  userInterviewPage;
-  userMypagePage;
-  userAlarmPage;
-  userProjectHomePage;
-  userProjectInterviewDetailPage;
-  userProjectSideMenuPage;
   
   constructor(
     public http: Http,
     public storage: Storage,
+    private badge: Badge,
     public commonService: CommonServiceProvider) {
     console.log('Hello UserServiceProvider Provider');
   }
@@ -325,5 +321,174 @@ export class UserServiceProvider {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
   }
+
+
+  setAlarmAndInterviewNum() {
+    this.getAlarmAndInterviewNum()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.alarmNum = data.data.alarm_num;
+          this.interviewNum = data.data.interview_num;
+          this.badge.set(data.data.alarm_num);
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  // 진행중
+  // 	참여o - 프로젝트 홈
+  // 	참여x
+  // 		인원 꽉참 - 스토리
+  // 		인원 안참
+  // 			프로필 노등록 - 프로필 수정 후 참여조건 검사 후 스토리
+  // 			프로필 등록 - 참여조건 검사 후 스토리
+  // 종료
+  // 	참여o
+  // 		보상 전
+  //      심사중 - 알림
+  //      심사끝 - 보상 페이지
+  // 		보상 후 - 스토리
+  // 	참여x - 스토리
+  accessProjectCard(componentRef, project_id) {
+    this.commonService.isLoadingActive = true;
+    let loading = this.commonService.presentLoading();
+    let messages = [
+      '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
+      '아쉽게도 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
+      '프로젝트에 참가하려면 먼저 프로필을 등록해야 합니다!<br/>프로필 등록 페이지로 이동하시겠습니까?',
+      '프로젝트에 참가하려면 먼저 간단한 설문조사에 응해야 합니다!<br/>참가하시겠습니까?',
+      '프로젝트를 성공적으로 수행하여 보상을 받을 수 있습니다!<br/>보상 페이지로 이동하시겠습니까?',
+      '아직 심사가 진행중입니다!<br/>심사는 프로젝트 종료 후 최대 2일까지 걸릴 수 있습니다.<br/>다음에 다시 시도해주세요.',      
+      '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
+    ]
+
+    this.getUserAndProjectAndParticipation(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(data.data.project_info.isProceeding) {
+            if(data.data.project_participation_info) {
+              this.commonService.showConfirmAlert(messages[0], 
+                () => {
+                  this.openUserProjectHomePage(componentRef, project_id);
+                }
+              );
+            }
+            else {
+              if(data.data.project_info.participant_num >= data.data.project_info.max_participant_num) {
+                this.commonService.showConfirmAlert(messages[1], 
+                  () => {
+                    this.openUserProjectStoryPage(componentRef, project_id);
+                  }
+                );
+              }
+              else {
+                if(!data.data.age) {
+                  this.commonService.showConfirmAlert(messages[2], 
+                    () => {
+                      this.openUserProfileModificationFormPage(componentRef);
+                    }
+                  );
+                }
+                else {
+                  this.commonService.showConfirmAlert(messages[3], 
+                    () => {
+                      this.openUserProjectParticipationConditionFormPage(componentRef, project_id);
+                    }
+                  );
+                }
+              }
+            }
+          }
+          else {
+            if(data.data.project_participation_info) {
+              if(!data.data.project_participation_info.project_reward_date) {
+                this.commonService.showConfirmAlert(messages[4], 
+                  () => {
+                    if(data.data.project_info.is_judge_proceeding) {
+                      this.commonService.showBasicAlert(messages[5])
+                    }
+                    else { 
+                      this.openUserProjectRewardFormPage(componentRef, project_id);
+                    }    
+                  }
+                );
+              }
+              else {
+                this.commonService.showConfirmAlert(messages[6], 
+                  () => {
+                    this.openUserProjectStoryPage(componentRef, project_id);
+                  }
+                );
+              }
+            }
+            else {
+              this.commonService.showConfirmAlert(messages[6], 
+                () => {
+                  this.openUserProjectStoryPage(componentRef, project_id);
+                }
+              );
+            }
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, componentRef.navCtrl)
+          .then(() => {
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
+  }
+
+  openUserProjectHomePage(componentRef, project_id) {
+    componentRef.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
+  }
+
+  openUserProfileModificationFormPage(componentRef) {
+    let userProfileModificationFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
+    userProfileModificationFormModal.present();
+    userProfileModificationFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          componentRef.ionViewWillEnter();
+        }
+      }
+    );
+  }
+
+  openUserProjectStoryPage(componentRef, project_id) {
+    componentRef.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
+  }
+
+  openUserProjectParticipationConditionFormPage(componentRef, project_id) {
+    let userProjectParticipationConditionFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectParticipationConditionFormPage', params: { "project_id" : project_id }});
+    userProjectParticipationConditionFormModal.present();
+  }
+
+  openUserProjectRewardFormPage(componentRef, project_id) {
+    let userProjectRewardFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
+    userProjectRewardFormModal.present();
+    userProjectRewardFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          componentRef.ionViewWillEnter();
+        }
+      }
+    );
+  }
+
 
 }

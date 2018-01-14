@@ -52,6 +52,11 @@ export class UserAccountModificationFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAccountModificationFormPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserAccountModificationFormPage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserInfo()
@@ -75,7 +80,7 @@ export class UserAccountModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -168,9 +173,9 @@ export class UserAccountModificationFormPage {
   }
 
   modifyAccount() {
-    console.log("수정 완료");
-
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
+
     this.uploadFile()
     .then(() => {
       this.userService.updateAccount(this.avatarImage, this.nickname, this.introduction)
@@ -186,7 +191,7 @@ export class UserAccountModificationFormPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.modifyAccount();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

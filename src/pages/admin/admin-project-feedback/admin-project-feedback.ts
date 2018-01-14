@@ -57,19 +57,18 @@ export class AdminProjectFeedbackPage {
     this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
-  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectFeedbackPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminProjectFeedbackPage');
+    this.commonService.isLoadingActive = true;
     this.segmentOpinionsCondition = "all";
-
-    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.feedback_id = this.navParams.get('feedback_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminProjectFeedbackPage');
+    let loading = this.commonService.presentLoading();
 
     this.adminService.getFeedback(this.project_id, this.feedback_id)
     .finally(() => {
@@ -102,7 +101,7 @@ export class AdminProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -112,6 +111,12 @@ export class AdminProjectFeedbackPage {
       }
     );
 
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {

@@ -61,8 +61,13 @@ export class AdminHomePage {
     public adminService: AdminServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter AdminHomePage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AdminHomePage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AdminHomePage');
     let loading = this.commonService.presentLoading();
     
     this.adminService.getAdminHome()
@@ -75,11 +80,12 @@ export class AdminHomePage {
           this.proceedingProjects = data.data.proceeding_projects;
           this.newProjects = data.data.new_projects;
           this.newNewsfeeds = data.data.new_newsfeeds;
+          this.adminService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -88,28 +94,12 @@ export class AdminHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
-    this.adminService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.adminService.alarmNum = data.data.alarm_num;
-          this.adminService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   openPageWrapper(page) {

@@ -51,8 +51,13 @@ export class CompanyProjectUserProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectUserProfilePage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_participant_id = this.navParams.get('project_participant_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectUserProfilePage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectParticipant(this.project_participant_id)
     .finally(() => {
@@ -77,7 +82,7 @@ export class CompanyProjectUserProfilePage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
