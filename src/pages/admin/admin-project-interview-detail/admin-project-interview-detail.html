@@ -60,7 +60,19 @@
         <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)">
           <img class="avatar-span-image" [src]="interview.avatar_image" />
         </span>
-        <h3 class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)" [innerHTML]="interview.nickname"></h3>
+        <h3>
+          <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)">
+            {{interview.nickname}}
+            &ensp;<ins class="key-tag">20180116</ins>
+          </span>
+          <span class="item-tag-wrapper">
+            <span class="btn-item-more">
+              <button ion-button (click)="reportContent()">
+                <ion-icon name="md-more"></ion-icon>
+              </button>
+            </span>
+          </span>
+        </h3>
         <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
       </ion-item>
       <ion-card-content>

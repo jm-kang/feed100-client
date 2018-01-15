@@ -76,7 +76,17 @@
           <span item-start class="avatar-image avatar-span cropper">
             <img class="avatar-span-image" [src]="newsfeedComment.avatar_image" />
           </span>
-          <h5 [innerHTML]="newsfeedComment.nickname"></h5>
+          <h5>
+            {{newsfeedComment.nickname}}
+            &ensp;<ins class="key-tag">20180116</ins>
+            <span class="item-tag-wrapper">
+              <span class="btn-item-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
+          </h5>
           <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
           <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date | amLocale:'ko' | amTimeAgo"></h6>
         </ion-item>

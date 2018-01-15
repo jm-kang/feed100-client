@@ -92,7 +92,10 @@
             <span class="best-badge" *ngIf="feedback.is_best">
               <span>BEST</span>
             </span>
-            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(feedback.project_participant_id)">{{feedback.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(feedback.project_participant_id)">
+              {{feedback.nickname}}
+              &ensp;<ins class="key-tag">20180116</ins>
+            </span>
             <span float-right class="empathy-wrapper">
               <span><span class="text-empathy">공감</span> {{feedback.empathy_num}}</span>
               <span><span class="text-nonempathy">비공감</span> {{feedback.non_empathy_num}}</span>
