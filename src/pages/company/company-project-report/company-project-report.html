@@ -135,6 +135,13 @@
                 <span>선정</span>
               </span>
               <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
+              <span class="item-tag-wrapper">
+                <span class="btn-item-more">
+                  <button ion-button (click)="reportContent()">
+                    <ion-icon name="md-more"></ion-icon>
+                  </button>
+                </span>
+              </span>
             </h2>
             <p>{{userReport.project_report_registration_date | amDateFormat: 'YYYY-MM-DD'}}에 작성됨</p>
             <!-- <h1 class="new-tag" item-end *ngIf="userReport.isNew">NEW</h1> -->

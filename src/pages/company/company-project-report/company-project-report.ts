@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, ActionSheetController, AlertController } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -223,14 +223,14 @@ export class CompanyProjectReportPage {
       title: '첫인상 평가',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }],
       average: 0,
       totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
+      labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
       options: {
         scales: {
@@ -257,14 +257,14 @@ export class CompanyProjectReportPage {
       title: '추천 지수',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }],
       average: 0,
       totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
+      labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
       options: {
         scales: {
@@ -287,40 +287,40 @@ export class CompanyProjectReportPage {
         }
       },
     } ,
-    {
-      title: '서비스 만족도',
-      // 서버에서 데이터 필요한 부분
-      datasets: [{
-        data: [0, 0, 0, 0, 0]
-      }],
-      average: 0,
-      totalNum: 0,
-      colors: [
-        {backgroundColor:'rgba(255,100,0,0.8)'},
-      ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
-      type: 'bar',
-      options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
-        legend: {
-          display: false
-        },
-        title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '4. 프로젝트 통계'
-        }
-      },
-    }
+    // {
+    //   title: '서비스 만족도',
+    //   // 서버에서 데이터 필요한 부분
+    //   datasets: [{
+    //     data: [0, 0, 0, 0, 0]
+    //   }],
+    //   average: 0,
+    //   totalNum: 0,
+    //   colors: [
+    //     {backgroundColor:'rgba(255,100,0,0.8)'},
+    //   ],
+    //   labels: ['1점', '2점', '3점', '4점', '5점'],
+    //   type: 'bar',
+    //   options: {
+    //     scales: {
+    //         yAxes: [{
+    //             ticks: {
+    //                 beginAtZero:true
+    //             }
+    //         }]
+    //     },
+    //     legend: {
+    //       display: false
+    //     },
+    //     title: {
+    //       display: true,
+    //       fontSize: 25,
+    //       fontStyle: 'bold',
+    //       fontColor: '#ffffff',
+    //       lineHeight: '3',
+    //       text: '4. 프로젝트 통계'
+    //     }
+    //   },
+    // }
   ];
 
   userReports = [];
@@ -331,7 +331,9 @@ export class CompanyProjectReportPage {
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
-    public photoViewer: PhotoViewer) {
+    public photoViewer: PhotoViewer,
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController,) {
   }
 
   ionViewDidLoad() {
@@ -429,10 +431,10 @@ export class CompanyProjectReportPage {
               (this.tempProjectStatSlides[1].datasets[0].data[participants[i].project_recommendation_rate-1])++;
               this.tempProjectStatSlides[1].totalNum++;
             }
-            if(participants[i].project_satisfaction_rate) {
-              (this.tempProjectStatSlides[2].datasets[0].data[participants[i].project_satisfaction_rate-1])++;
-              this.tempProjectStatSlides[2].totalNum++;
-            }
+            // if(participants[i].project_satisfaction_rate) {
+            //   (this.tempProjectStatSlides[2].datasets[0].data[participants[i].project_satisfaction_rate-1])++;
+            //   this.tempProjectStatSlides[2].totalNum++;
+            // }
             // projectStatSlides
 
           }
@@ -442,7 +444,7 @@ export class CompanyProjectReportPage {
 
           this.tempAverage(0);
           this.tempAverage(1);
-          this.tempAverage(2);
+          // this.tempAverage(2);
           this.projectStatSlides = this.tempProjectStatSlides;
 
           this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
@@ -462,6 +464,51 @@ export class CompanyProjectReportPage {
     this.userReportLength = this.userReports.length;
     console.log("length: " + this.userReportLength);
   }
+
+  reportContent() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '신고하기',
+          role: 'destructive',
+          handler: () => {
+            this.report();
+          }
+        },{
+          text: '취소하기',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  report() {
+    let alert = this.alertCtrl.create({
+      title: '신고',
+      subTitle: '해당 내용을 위법/위해<br />댓글로 신고하시겠습니까?',
+      buttons: [
+        {
+          text: '취소',
+          role: 'cancel',
+          handler: data => {
+            console.log('취소');
+          }
+        },
+        {
+          text: '확인',
+          handler: data => {
+            console.log('확인');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
   slideChanged() {
     if(this.slides.isBeginning()) {
@@ -533,7 +580,7 @@ export class CompanyProjectReportPage {
         average = data * i + average;
       }
       average = average / this.tempProjectStatSlides[index].totalNum;
-      this.tempProjectStatSlides[index].average = average;
+      this.tempProjectStatSlides[index].average = average / 2;
     }
   }
 

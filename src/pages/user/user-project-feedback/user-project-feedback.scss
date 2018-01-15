@@ -193,15 +193,6 @@ page-user-project-feedback {
         border: 1.25px solid #a8a8a8;
     }
 
-    .opinions .opinion-tag {
-        position: absolute;
-        right: 14px;
-        padding: 2px 13px;
-        font-size: 1.1rem;
-        font-weight: 500;
-        border-radius: 50px;
-    }
-
     .opinions .empathy-tag {
         color: #fff;
         background-color: #ff6400
@@ -241,4 +232,29 @@ page-user-project-feedback {
     .opinions ion-list {
         margin: -1px 0 56px;
     }
+}
+
+.opinion-tag-wrapper {
+    position: absolute;
+    right: 14px;
+}
+
+.opinions .opinion-tag {
+    padding: 2px 13px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 50px;
+}
+
+.opinions .btn-opinion-more {
+    position: relative;
+    top:-2px;
+}
+
+.opinions .btn-opinion-more .button {
+    background-color: transparent !important;
+    color: #a8a8a8;
+    padding-top:0 !important;
+    margin-top: 0 !important;
+    // height:10px;
 }

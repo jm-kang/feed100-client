@@ -4,7 +4,6 @@ page-user-newsfeed-story {
         margin-top: -0.3rem;
     }
 
-
     .progress-inner {
         background-color: #FDBA02;
     }
@@ -241,4 +240,22 @@ page-user-newsfeed-story {
     font-size: 1.4rem;
     margin-bottom: 0px;
     margin-top: 0px !important;
+}
+
+.item-tag-wrapper {
+    position: absolute;
+    right: 6px;
+}
+
+.btn-item-more {
+    position: relative;
+    top:-2px;
+}
+
+.btn-item-more .button {
+    background-color: transparent !important;
+    color: #a8a8a8;
+    padding-top:0 !important;
+    margin-top: 0 !important;
+    // height:10px;
 }

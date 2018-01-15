@@ -18,11 +18,11 @@
     </ion-navbar>
   </ion-header>
   <ion-slides class="reward-slides" pager="false" (ionSlideDidChange)="slideChanged()">
-    <ion-slide>
+    <!-- <ion-slide>
       <div class="reward-question">
         이 서비스에 <span class="color-primary">만족</span> 하셨나요?
       </div>
-      <rating [(ngModel)]="satisfaction" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 0)"></rating>
+      <rating [(ngModel)]="satisfaction" max="10" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 0)"></rating>
       <div class="slide-next-button-wrapper">
         <span>
           <button ion-button clear *ngIf="!isQuestionWrited[0]" disabled>
@@ -33,19 +33,29 @@
           </button>
         </span>
       </div>
-    </ion-slide>
+    </ion-slide> -->
     <ion-slide>
       <div class="reward-question">
-        이 서비스를 주변 지인에게 <span class="color-primary">추천</span> 하실 의향이 있나요?
+        이 제품이나 서비스를 동료나 친구들에게<br /><span class="color-primary">추천</span>할 의향이 얼마나 되시나요?
       </div>
-      <rating [(ngModel)]="recommendation" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 1)"></rating>
+      <!-- <rating [(ngModel)]="recommendation" max="10" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 1)"></rating> -->
+      <ion-grid class="rating-grid">
+        <ion-row>
+          <ion-col col *ngFor="let stat of recommendationStats; let i = index" (click)="clickRecommendation(stat, i)">
+            <!-- 비활성화 -->
+            <span class="unfill-stat" *ngIf="!stat">{{i+1}}</span>
+            <!-- 활성화 -->
+            <span class="fill-stat" *ngIf="stat">{{i+1}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <div class="slide-next-button-wrapper">
         <span>
-          <button ion-button clear *ngIf="!isQuestionWrited[1]" disabled>
-            <ion-icon color="semiDark" name="ios-arrow-dropright-outline"></ion-icon>
+          <button ion-button clear *ngIf="!isQuestionWrited[0]" disabled>
+            <ion-icon color="semiDark" name="ios-checkmark-circle-outline"></ion-icon>
           </button>
-          <button ion-button clear *ngIf="isQuestionWrited[1]" (click)="goNextSlide(1)">
-            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
+          <button ion-button clear *ngIf="isQuestionWrited[0]" (click)="goNextSlide(0)">
+            <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
           </button>
         </span>
       </div>
@@ -116,7 +126,7 @@
       </ion-list>
       <div class="slide-next-button-wrapper">
         <span>
-          <button ion-button clear (click)="goNextSlide(2)">
+          <button ion-button clear (click)="goNextSlide(1)">
             완료
           </button>
         </span>

@@ -12,7 +12,6 @@ import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
-import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-history/user-point-usage-history';
 
 @Component({
   templateUrl: 'app.html'

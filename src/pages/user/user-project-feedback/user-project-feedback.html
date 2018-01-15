@@ -20,12 +20,10 @@
       </span>
     </ion-title>
     <ion-buttons end>
-        <!-- 피드백 추가  -->
-       <!-- <button ion-button *ngIf="isMyFeedback" (click)="presentPopover($event)">
-        <ion-icon name="more"></ion-icon>
+      <!-- 피드백 추가  -->
+      <button ion-button (click)="reportContent()">
+        <ion-icon name="md-more"></ion-icon>
       </button>
-      <button ion-button *ngIf="!isMyFeedback"></button>   -->
-      <button ion-button></button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -89,16 +87,23 @@
           </span>
           <h3>
             {{opinion.nickname}}
-            <span class="empathy-tag opinion-tag">공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="empathy-tag opinion-tag">공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
             {{opinion.opinion | replaceBrTag}}
           </div>
-
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image"/>
-          </span> 
+          </span>
+          
         </ion-item>
         <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">
           <span item-start class="avatar-image avatar-span cropper">
@@ -106,7 +111,14 @@
           </span>
           <h3>
             {{opinion.nickname}}
-            <span class="non-empathy-tag opinion-tag">비공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="non-empathy-tag opinion-tag">비공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
@@ -131,7 +143,14 @@
           </span>
           <h3>
             {{opinion.nickname}}
-            <span class="empathy-tag opinion-tag">공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="empathy-tag opinion-tag">공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
@@ -156,7 +175,14 @@
           </span>
           <h3>
             {{opinion.nickname}}
-            <span class="non-empathy-tag opinion-tag">비공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="non-empathy-tag opinion-tag">비공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">

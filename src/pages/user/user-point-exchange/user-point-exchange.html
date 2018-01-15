@@ -7,7 +7,7 @@
 <ion-header class="price-statement-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
-      <button class="pop-button" ion-button (click)="back()" icon-only>
+      <button ion-button (click)="back()" icon-only>
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
@@ -33,14 +33,15 @@
         <ion-list no-lines class="underline-input">
         
           <ion-item>
-            <ion-label [ngStyle]="{'color': exchangePoint > totalPoint? '#f53d3d' : '#383838', 'font-weight': exchangePoint > totalPoint? 'bold' : 'normal'}" fixed>환전 포인트</ion-label>
-            <ion-input padding-right type="tel" [(ngModel)]="exchangePoint"></ion-input><span item-right class="total-point-tag">p</span>
+            <ion-label fixed>환전 포인트</ion-label>
+            <ion-select [(ngModel)]="exchangePointNum" placeholder="환전 금액 선택" [selectOptions]="selectExchangePointOptions" okText="완료" cancelText="취소">
+              <ion-option *ngFor="let exchangePoint of exchangePoints" [value]="exchangePoint" [disabled]="exchangePoint > totalPoint">{{exchangePoint}} p</ion-option>
+            </ion-select>
           </ion-item>
-          <div class="input-warn" text-right *ngIf="exchangePoint > totalPoint">환전 포인트가 현재 보유 포인트보다 많습니다!</div>
         
           <ion-item>
             <ion-label fixed>은행명</ion-label>
-            <ion-select [(ngModel)]="bankName" placeholder="선택" [selectOptions]="selectOptions" okText="완료" cancelText="취소">
+            <ion-select [(ngModel)]="bankName" placeholder="은행 선택" [selectOptions]="selectBankOptions" okText="완료" cancelText="취소">
               <ion-option *ngFor="let bank of banks" [value]="bank">{{bank}}</ion-option>
             </ion-select>
           </ion-item>
@@ -55,7 +56,7 @@
             <ion-input type="text" [(ngModel)]="name"></ion-input>
           </ion-item>
 
-          <button class="exchange-button" [disabled]="exchangePoint == 0 || !exchangePoint || exchangePoint > totalPoint || !bankName || accountNumber == 0 || !accountNumber || !name" ion-button block (click)="exchange()">환전하기</button>
+          <button class="exchange-button" [disabled]="!exchangePointNum || !bankName || accountNumber == 0 || !accountNumber || !name" ion-button block (click)="exchange()">환전하기</button>
         
         </ion-list>
       </div>

@@ -23,6 +23,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class UserProjectFeedbackFormPage {
   @ViewChild(Slides) slides: Slides;
 
+  impressionStats = [false,false,false,false,false,false,false,false,false,false];
+
   project_id;
 
   projectName: String = "";
@@ -93,6 +95,19 @@ export class UserProjectFeedbackFormPage {
     )
   }
 
+  clickImpression(stat:boolean, index:number) {
+    if(!stat) {
+      for(let i = 0; i < this.impressionStats.length; i++) {
+        this.impressionStats[i] = false;
+      }
+      this.impressionStats[index] = true;
+      this.rate = index + 1;
+      this.isSecondQuestionWrited = true;
+    } else {
+      this.isSecondQuestionWrited = false;
+    }
+  }
+
   back() {
     this.navCtrl.pop();
   }
@@ -103,15 +118,6 @@ export class UserProjectFeedbackFormPage {
   
   sanitize(url: string){
     return this.domSanitizer.bypassSecurityTrustUrl(url);
-  }
-
-  onModelChange(newVal) {
-    if(newVal > 0) {
-      this.isSecondQuestionWrited = true;
-    } else {
-      this.isSecondQuestionWrited = false;
-    }
-    console.log(this.rate);
   }
 
   slideChanged() {
