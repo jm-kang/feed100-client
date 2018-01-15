@@ -174,4 +174,5 @@
     <allow-navigation href="http://192.168.35.239:8100" />
     <allow-navigation href="http://192.168.35.149:8100" />
     <allow-navigation href="http://192.168.35.184:8100" />
+    <allow-navigation href="http://192.168.35.233:8100" />
 </widget>

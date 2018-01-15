@@ -46,7 +46,7 @@ export class AdminProjectSearchResultPage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidEnter AdminProjectSearchResultPage');
+    console.log('ionViewWillEnter AdminProjectSearchResultPage');
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectHome(this.project_id)

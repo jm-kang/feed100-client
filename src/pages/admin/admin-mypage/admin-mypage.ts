@@ -47,7 +47,7 @@ export class AdminMypagePage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidEnter AdminMypagePage');
+    console.log('ionViewWillEnter AdminMypagePage');
     let loading = this.commonService.presentLoading();
     
     this.adminService.getAdminInfo()

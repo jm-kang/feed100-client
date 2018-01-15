@@ -91,6 +91,8 @@ export class UserAlarmPage {
             case "newInterview":
               this.openUserProjectInterviewDetailPage(project_id);
               break;
+            case "warning":
+              this.commonService.showBasicAlert('부적절한 활동으로 인하여 해당 프로젝트에서 제외되었습니다.<br>경고 3회 누적 시 서비스 이용이 제한될 수 있습니다.');
           }
         }
         else if(data.success == false) {

@@ -54,7 +54,6 @@ export class AdminProjectUserReportPage {
               this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
             }
           }
-          console.log(JSON.stringify(this.userReports));
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

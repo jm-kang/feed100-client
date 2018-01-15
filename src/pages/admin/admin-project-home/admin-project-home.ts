@@ -57,7 +57,7 @@ export class AdminProjectHomePage {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewDidEnter AdminProjectHomePage');
+    console.log('ionViewWillEnter AdminProjectHomePage');
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectHome(this.project_id)
