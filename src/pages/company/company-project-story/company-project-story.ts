@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, Platform } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -48,15 +48,21 @@ export class CompanyProjectStoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
+    public platform: Platform,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectStoryPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);  
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectStoryPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getProject(this.project_id)
     .finally(() => {
@@ -65,7 +71,14 @@ export class CompanyProjectStoryPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.isLink = (data.data.project_link != null) ? true : false;
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.project_android_link != null) ? true : false;
+            this.project_link = data.data.project_android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.project_ios_link != null) ? true : false;
+            this.project_link = data.data.project_ios_link;
+          }
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;
           this.nickname = data.data.nickname;
@@ -76,7 +89,6 @@ export class CompanyProjectStoryPage {
           this.progressState = data.data.project_end_date;
           this.projectSummary = data.data.project_summary;
           this.projectRegistrationDate = data.data.project_registration_date;
-          this.project_link = data.data.project_link;
           this.projectStorySlides = JSON.parse(data.data.project_story);
 
           this.totalPageNum = this.projectStorySlides.length + 1;
@@ -84,7 +96,7 @@ export class CompanyProjectStoryPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

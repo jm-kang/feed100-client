@@ -50,9 +50,14 @@ export class UserProjectFeedbackFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackFormPage');
+    this.commonService.isLoadingActive = true;
     this.slides.lockSwipeToNext(true);
+    this.project_id = this.navParams.get('project_id');    
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackFormPage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
@@ -84,7 +89,7 @@ export class UserProjectFeedbackFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -135,21 +140,22 @@ export class UserProjectFeedbackFormPage {
     { page: 'UserProjectFeedbackWritingEditorPage',
       params: { project_id: this.project_id, feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, projectHashtags: this.projectHashtags, feedbackHashtags: this.feedbackHashtags }
     });
-    userProjectFeedbackWritingEditorModal.onDidDismiss(data => {
-      if(data) {
-        this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
-        this.feedbackImages = data.feedbackImages;
-        this.feedbackHashtags = data.feedbackHashtags;
-        if(this.feedbackContent != "") {
-          this.isFirstQuestionWrited = true;
-          this.slides.lockSwipeToNext(false);
-        } else {
-          this.isFirstQuestionWrited = false;
-          this.slides.lockSwipeToNext(true);
-        }
-      }
-    });
     userProjectFeedbackWritingEditorModal.present();
+    userProjectFeedbackWritingEditorModal.onWillDismiss(
+      (data) => {
+        if(data) {
+          this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+          this.feedbackImages = data.feedbackImages;
+          this.feedbackHashtags = data.feedbackHashtags;
+          if(this.feedbackContent != "") {
+            this.isFirstQuestionWrited = true;
+            this.slides.lockSwipeToNext(false);
+          } else {
+            this.isFirstQuestionWrited = false;
+            this.slides.lockSwipeToNext(true);
+          }
+        }
+    });
   }
 
   photoView(url) {
@@ -192,6 +198,7 @@ export class UserProjectFeedbackFormPage {
     //프로젝트 안끝났고 참여중인 프로젝트 아니고 인원 꽉 안찼으면
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 피드백 내용에 따라 보상이 달라질 수 있습니다.', 
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
@@ -225,7 +232,7 @@ export class UserProjectFeedbackFormPage {
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
                 .then(() => {
-                  this.openUserProjectHomePage();
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
                 });
               }
             },

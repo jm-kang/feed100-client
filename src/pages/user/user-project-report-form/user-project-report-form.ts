@@ -63,10 +63,16 @@ export class UserProjectReportFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectReportFormPage');
-    // navParams.get에만 해당되는 값을 넘겨야한다.
+    this.commonService.isLoadingActive = true;
     this.project_id = this.ModalWrapperPage.modalParams.project_id;    
-    
+    this.slides.lockSwipeToPrev(true);
+    this.slides.lockSwipeToNext(true);     
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectReportFormPage');
     let loading = this.commonService.presentLoading();
+
     this.userService.getProjectReport(this.project_id)
     .finally(() => {
       loading.dismiss();
@@ -84,7 +90,7 @@ export class UserProjectReportFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -93,9 +99,6 @@ export class UserProjectReportFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
-
-    this.slides.lockSwipeToPrev(true);
-    this.slides.lockSwipeToNext(true);     
   }
 
   deleteImage(i) {
@@ -192,6 +195,7 @@ export class UserProjectReportFormPage {
   submit() {
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적적한 글 작성시 제재를 받을 수 있습니다.',
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
@@ -208,7 +212,7 @@ export class UserProjectReportFormPage {
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
                 .then(() => {
-                  this.submit();
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
                 });
               }
             },

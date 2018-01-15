@@ -42,13 +42,13 @@ export class UserProjectSearchResultPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectSearchResultPage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectSearchResultPage');
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectSearchResultPage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -88,7 +88,7 @@ export class UserProjectSearchResultPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -97,6 +97,12 @@ export class UserProjectSearchResultPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {

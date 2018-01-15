@@ -52,9 +52,14 @@ export class UserProjectReportPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectReportPage');
+    this.commonService.isLoadingActive = true;
     this.project_id = this.ModalWrapperPage.modalParams.project_id;    
-    
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectReportPage');
     let loading = this.commonService.presentLoading();
+    
     this.userService.getProjectReport(this.project_id)
     .finally(() => {
       loading.dismiss();
@@ -85,7 +90,7 @@ export class UserProjectReportPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

@@ -44,10 +44,13 @@ export class UserProfileModificationFormPage {
     public ModalWrapperPage: ModalWrapperPage) {
   }
   
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProfileModificationFormPage');
-    this.slides.lockSwipes(true);
+    this.slides.lockSwipes(true);    
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProfileModificationFormPage');
   }
 
   skip() {
@@ -115,7 +118,7 @@ export class UserProfileModificationFormPage {
   }
 
   modifyProfile() {
-    console.log("프로필 작성 완료");
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     let num = Math.floor(Math.random() * 3) + 1; // 1 ~ 3
@@ -140,7 +143,7 @@ export class UserProfileModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.modifyProfile();
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요');
           })
         }
       },

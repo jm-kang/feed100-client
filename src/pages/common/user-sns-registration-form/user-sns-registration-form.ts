@@ -40,6 +40,10 @@ export class UserSnsRegistrationFormPage {
     this.app_id = this.navParams.get('app_id');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserSnsRegistrationFormPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }
@@ -62,7 +66,7 @@ export class UserSnsRegistrationFormPage {
       return;
     }
     else {
-      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
       if(!this.username.match(regExp)) {
         this.commonService.showBasicAlert('이메일 형식이 올바르지 않습니다.');
         return;
@@ -89,6 +93,7 @@ export class UserSnsRegistrationFormPage {
       return;
     }
 
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
 
     this.commonService.SNSRegister(this.username, this.role, this.nickname, this.provider, this.app_id)
@@ -98,20 +103,18 @@ export class UserSnsRegistrationFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {"isLogin" : true}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('UserLoginForm', {}, {animate: true, direction: 'forward'});
+          this.commonService.showBasicAlert('해당 계정으로 이메일을 전송하였습니다.<br/>이메일 인증 완료 후 로그인해주세요.');
         }
         else if(data.success == false) {
-          switch(data.message) {
-            case 'username is already registered':
-              this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
-              break;
-            case 'nickname is already registered':
-              this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
-              break;
-            default:
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+          if(data.message == 'username is already registered') {
+            this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
+          }
+          else if(data.message == 'nickname is already registered') {
+            this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
+          }
+          else {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl);
           }
         }
       },

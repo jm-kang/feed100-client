@@ -50,7 +50,7 @@ export class UserProjectOpinionWritingEditorPage {
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     public storage: Storage,
-     public ModalWrapperPage: ModalWrapperPage,
+    public ModalWrapperPage: ModalWrapperPage,
     private domSanitizer: DomSanitizer) {      
   }
 
@@ -58,10 +58,11 @@ export class UserProjectOpinionWritingEditorPage {
     console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
     this.nickname = this.ModalWrapperPage.modalParams.nickname;
     this.feedback_id = this.ModalWrapperPage.modalParams.feedback_id;
+    this.opinionContent = this.opinionContent.replace(/<br *\/?>/gi, '\n');
   }
 
-  ionViewDidEnter() {    
-    this.opinionContent = this.opinionContent.replace(/<br *\/?>/gi, '\n');
+  ionViewWillEnter() {    
+    console.log('ionViewWillEnter UserProjectOpinionWritingEditorPage');
   }
 
   dismiss() {
@@ -118,6 +119,7 @@ export class UserProjectOpinionWritingEditorPage {
   registerOpinion() {
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFile()
         .then(() => {
@@ -144,7 +146,7 @@ export class UserProjectOpinionWritingEditorPage {
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
                 .then(() => {
-                  this.registerOpinion();
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
                 });
               }
             },

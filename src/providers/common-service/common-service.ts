@@ -25,6 +25,8 @@ import 'rxjs/add/operator/finally';
 */
 @Injectable()
 export class CommonServiceProvider {
+  isLoadingActive = true;
+  modalWrapperPage;
 
   constructor(
     public http: Http,
@@ -43,9 +45,9 @@ export class CommonServiceProvider {
   }
   
   getServerUrl() {
-    // return 'http://192.168.10.52:3000';
+    return 'http://192.168.35.233:3000';
     // return 'http://localhost:3000';
-    return 'http://www.feed100.me';
+    // return 'http://www.feed100.me';
   } 
 
   getHeaders(tokenType): Promise<any> {
@@ -126,13 +128,6 @@ export class CommonServiceProvider {
       headers.delete('Content-type');
       return this.http.post(url, formData, { headers: headers }).map(res => res.json());
     });
-    // let headers = new Headers();
-
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.post(url, formData, { headers: headers }).map(res => res.json());
-    // });
   }
 
   localLogin(username, password, role) {
@@ -146,9 +141,6 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   SNSLogin(provider, app_id, role) {
@@ -162,9 +154,6 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   localRegister(username, password, role, nickname) {
@@ -180,9 +169,6 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   SNSRegister(username, role, nickname, provider, app_id) {
@@ -199,17 +185,18 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return this.http.post(url, data, { headers: headers }).map(res => res.json());
   }
 
   logout(navCtrl) {
+    this.isLoadingActive = true;
     let loading = this.presentLoading();
 
-    Observable.fromPromise(navCtrl.popAll())
+    if(this.modalWrapperPage) {
+      console.log('ModalWrapperPage dismissModal');
+      this.modalWrapperPage.dismissModal();
+    }
+    Observable.fromPromise(this.app.getRootNavs()[0].setRoot(LoginPage))
     .finally(() => {
-      this.app.getRootNavs()[0].setRoot(LoginPage);
       this.statusBar.show();
       this.uniqueDeviceID.get()
       .then((uuid: any) => {
@@ -217,7 +204,6 @@ export class CommonServiceProvider {
         .subscribe(
           (data) => {
             this.storage.clear();
-            // this.showBasicAlert('로그아웃되었습니다.');
           },
           (err) => {
             console.log(err);
@@ -233,10 +219,10 @@ export class CommonServiceProvider {
     })
     .subscribe(
       (data) => {
-        console.log('popAll success');
+        console.log('setRoot success');
       },
       (err) => {
-        console.log('popAll Error: ', err);
+        console.log('setRoot Error: ', err);
       }
     )
   }
@@ -247,14 +233,6 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return Observable.fromPromise(this.storage.get('refreshToken'))
-    // .mergeMap((refreshToken) => {
-    //   headers.append('x-refresh-token', refreshToken);
-    //   return this.http.post(url, {}, { headers: headers }).map(res => res.json());
-    // });
   }
 
   deleteDeviceToken(uuid) {
@@ -263,18 +241,10 @@ export class CommonServiceProvider {
     .mergeMap((headers) => {
       return this.http.delete(url, { headers: headers }).map(res => res.json());
     });
-
-    // let headers = new Headers();
-    // headers.append('Content-type', 'application/json');
-    // return Observable.fromPromise(this.storage.get('accessToken'))
-    // .mergeMap((accessToken) => {
-    //   headers.append('x-access-token', accessToken);
-    //   return this.http.delete(url, { headers: headers }).map(res => res.json());
-    // });
   }
 
   apiRequestErrorHandler(data, navCtrl) {
-    console.log(data.message);
+    console.log("apiRequestErrorHandler : " + data.message);
     return new Promise(
       (resolve, reject) => {
         if(data.message == 'jwt expired') { // 토큰 만료
@@ -303,6 +273,14 @@ export class CommonServiceProvider {
         }
         else if(data.message == 'version is not match') { // 버전 업데이트
           this.showUpdateAlert('FEED100의 새로운 버전이 있습니다.<br/>안정적인 서비스 이용을 위해 새로운 버전으로 업데이트 해주세요.'); 
+        }
+        else if(data.message == 'email is not verified') { // 이메일 인증 전
+          this.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');          
+          this.logout(navCtrl);
+        }
+        else if(data.message == 'warning count is over') { // 이용 정지
+          this.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');          
+          this.logout(navCtrl);
         }
         else { // 에러
           console.log('error : ' + data.message);
@@ -361,10 +339,13 @@ export class CommonServiceProvider {
 
   presentLoading() {
     let loading = this.loadingCtrl.create({
-      spinner: "dots"
+      spinner: "dots",
+      duration: 5000
     });
-
-    loading.present();
+    if(this.isLoadingActive) {
+      loading.present();
+      this.isLoadingActive = false;
+    }
 
     return loading;
   }

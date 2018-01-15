@@ -52,6 +52,11 @@ export class UserAccountModificationFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserAccountModificationFormPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserAccountModificationFormPage');
     let loading = this.commonService.presentLoading();
     
     this.userService.getUserInfo()
@@ -75,7 +80,7 @@ export class UserAccountModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -127,7 +132,7 @@ export class UserAccountModificationFormPage {
             let withoutKorean = data.nickname.replace(/[가-힣]/g, '');
             let withoutEnglish = data.nickname.replace(/[0-9a-zA-z]/g, '');
             let byte = withoutKorean.length + withoutEnglish.length * 2;
-            if(!this.nickname.match(regExp) || byte < 4 || byte > 16) {
+            if(!data.nickname.match(regExp) || byte < 4 || byte > 16) {
               this.commonService.showBasicAlert('닉네임은 한글 2 ~ 8자, 영문, 숫자 4 ~ 16자 이내로 입력해주세요.');
             }
             else {
@@ -168,9 +173,9 @@ export class UserAccountModificationFormPage {
   }
 
   modifyAccount() {
-    console.log("수정 완료");
-
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
+
     this.uploadFile()
     .then(() => {
       this.userService.updateAccount(this.avatarImage, this.nickname, this.introduction)
@@ -186,7 +191,7 @@ export class UserAccountModificationFormPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.modifyAccount();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

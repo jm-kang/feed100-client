@@ -110,18 +110,17 @@ export class UserProjectFeedbackPage {
     alert.present();
   }
   
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectFeedbackPage');
+    this.commonService.isLoadingActive = true;
     this.segmentOpinionsCondition = "all";
-
-    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.feedback_id = this.navParams.get('feedback_id');
+  }
+  
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackPage');
+    let loading = this.commonService.presentLoading();
 
     this.userService.getFeedback(this.project_id, this.feedback_id)
     .finally(() => {
@@ -156,7 +155,7 @@ export class UserProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -164,8 +163,13 @@ export class UserProjectFeedbackPage {
         console.log(err);
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
-    );
+    );    
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {
@@ -186,13 +190,13 @@ export class UserProjectFeedbackPage {
       params: { "nickname" : nickname,
       "feedback_id" : feedback_id }
     });
+    userProjectOpinionWritingEditorModal.present();
     userProjectOpinionWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();
+          this.ionViewWillEnter();
         }
       }
     );
-    userProjectOpinionWritingEditorModal.present();
   }
 }

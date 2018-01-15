@@ -23,6 +23,10 @@
     <div class="shadow-top"></div>
 </ion-header>
 <ion-content padding-top>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>        
   <ion-grid *ngIf="newsfeeds.length">
     <ion-row>
       <ion-col col-6 *ngFor="let newsfeed of newsfeeds" margin-bottom>

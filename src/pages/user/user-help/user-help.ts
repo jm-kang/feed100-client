@@ -191,6 +191,10 @@ export class UserHelpPage {
     console.log('ionViewDidLoad UserHelpPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserHelpPage');
+  }
+
   dismiss() {
     this.ModalWrapperPage.dismissModal();
   }

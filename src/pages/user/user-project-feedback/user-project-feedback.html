@@ -29,6 +29,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content>
+    </ion-refresher-content>
+  </ion-refresher>        
   <ion-slides *ngIf="feedbackImages.length" pager [style.height.px]="slideHeight">
     <ion-slide (click)="photoView(feedbackImage.img)" tappable class="feedback-image-slide" *ngFor="let feedbackImage of feedbackImages; let i = index">
       <div class="cropper" [style.height]="100+'%'">

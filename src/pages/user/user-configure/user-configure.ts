@@ -8,6 +8,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { Subscribable } from 'rxjs/Observable';
 /**
  * Generated class for the UserConfigurePage page.
  *
@@ -24,6 +25,7 @@ export class UserConfigurePage {
   isPushAlarm = true;
   flag = false;
   onResumeSubscription: Subscription;
+  onPauseSubscription: Subscription;
 
   constructor(
     public navCtrl: NavController,
@@ -36,8 +38,14 @@ export class UserConfigurePage {
     public platform: Platform,
     public push: Push,
     private openNativeSettings: OpenNativeSettings,
-     public emailComposer: EmailComposer) {
+    public emailComposer: EmailComposer) {
     this.viewCtrl.showBackButton(true);
+  }
+
+  ionViewWillUnload() {
+    console.log('ionViewWillUnload UserConfigurePage');    
+    this.onResumeSubscription.unsubscribe();
+    this.onPauseSubscription.unsubscribe();
   }
 
   ionViewDidLoad() {
@@ -49,13 +57,20 @@ export class UserConfigurePage {
       console.log('resume');
       this.permissionCheck();
     });
+
+    this.onPauseSubscription = this.platform.pause
+    .subscribe(() => {
+      console.log('pause');
+      this.flag = false;
+    });
   }
 
-  ionViewDidLeave() {
-    this.onResumeSubscription.unsubscribe();
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserConfigurePage');
   }
 
   permissionCheck() {
+    console.log('flag : ' + this.flag);
     // to check if we have permission
     this.push.hasPermission()
     .then((res: any) => {
@@ -75,7 +90,6 @@ export class UserConfigurePage {
   updateItem() {
     if(this.flag) {
       this.openNativeSettings.open("application_details");
-      this.flag = false;
     }
   }
 
@@ -126,21 +140,66 @@ export class UserConfigurePage {
   }
 
   openContactPage() {
-    this.emailComposer.isAvailable().then((available: boolean) =>{
-      if(available) {
-        //Now we know we can send
-      }
-     });
-     
-     let email = {
-       to: 'feed100.help@gmail.com',
-       subject: '',
-       body: '<br><br><br>- FEED100 Version: 1.0.0',
-       isHtml: true
-     };
-     
-     // Send a text message using default options
-     this.emailComposer.open(email);
+    this.commonService.showBasicAlert('feed100.help@gmail.com<br/>으로 문의해주세요!');
+  }
+
+  openProjectCodePage() {
+    let alert = this.alertCtrl.create({
+      title: '프로젝트 코드를 입력해주세요.',
+      inputs: [
+        {
+          name: 'code',
+        }
+      ],
+      buttons: [
+        {
+          text: '취소',
+          role: 'cancel',
+          handler: data => {
+            console.log('취소');
+          }
+        },
+        {
+          text: '완료',
+          handler: data => {
+            let loading = this.commonService.presentLoading();
+            
+            this.userService.redeem(data.code)
+            .finally(() => {
+              loading.dismiss();
+            })
+            .subscribe(
+              (data) => {
+                if(data.success == true) {
+                  if(data.data.project_id) {
+                    this.accessProjectCard(data.data.project_id);
+                  }
+                  else {
+                    this.commonService.showBasicAlert('코드가 정확하지 않습니다.');
+                  }
+                }
+                else if(data.success == false) {
+                  this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                  .then(() => {
+                    this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.')                    
+                  })
+                }
+              },
+              (err) => {
+                console.log(JSON.stringify(err));
+                this.commonService.showBasicAlert('오류가 발생했습니다.')
+              }
+            );
+          }
+        }
+      ]
+    });
+    
+    alert.present();
+  }
+
+  accessProjectCard(project_id) {
+    this.userService.accessProjectCard(this, project_id);    
   }
 
   openUserAccountModificationFormPage() {

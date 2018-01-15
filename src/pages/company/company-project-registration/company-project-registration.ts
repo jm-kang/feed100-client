@@ -78,9 +78,9 @@ export class CompanyProjectRegistrationPage {
     });
   }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectRegistrationPage');
     this.statusBar.styleDefault();
-    console.log('enter');
   }
 
 }

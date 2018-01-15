@@ -50,13 +50,13 @@ export class CompanyProjectInterviewWritingEditorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewWritingEditorPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewWritingEditorPage');
     this.nickname = this.ModalWrapperPage.modalParams.nickname;
     this.project_participant_id = this.ModalWrapperPage.modalParams.project_participant_id;
     this.ordinal = this.ModalWrapperPage.modalParams.ordinal;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectInterviewWritingEditorPage');
   }
 
   uploadFiles() {
@@ -92,9 +92,9 @@ export class CompanyProjectInterviewWritingEditorPage {
   }
 
   completeEditor() {
-    console.log("completeEditor() : 완료 버튼");
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없습니다.', 
       () => {
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
@@ -122,7 +122,7 @@ export class CompanyProjectInterviewWritingEditorPage {
               else if(data.success == false) {
                 this.commonService.apiRequestErrorHandler(data, this.navCtrl)
                 .then(() => {
-                  this.completeEditor();
+                  this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
                 });
               }
             },

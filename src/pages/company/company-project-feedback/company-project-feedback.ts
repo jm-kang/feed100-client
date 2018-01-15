@@ -59,19 +59,18 @@ export class CompanyProjectFeedbackPage {
     this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
   }
-  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectFeedbackPage');
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectFeedbackPage');
+    this.commonService.isLoadingActive = true;
     this.segmentOpinionsCondition = "all";
-
-    let loading = this.commonService.presentLoading();
     this.project_id = this.navParams.get('project_id');
     this.feedback_id = this.navParams.get('feedback_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectFeedbackPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getFeedback(this.project_id, this.feedback_id)
     .finally(() => {
@@ -104,7 +103,7 @@ export class CompanyProjectFeedbackPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -113,7 +112,12 @@ export class CompanyProjectFeedbackPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   reportContent() {

@@ -41,12 +41,13 @@ export class CompanyProjectInterviewDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
+    this.commonService.isLoadingActive = true;
+    this.project_participant_id = this.navParams.get('project_participant_id');
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewDetailPage');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectInterviewDetailPage');
     let loading = this.commonService.presentLoading();
-    this.project_participant_id = this.navParams.get('project_participant_id');
     
     this.companyService.getInterview(this.project_participant_id)
     .finally(() => {
@@ -83,7 +84,7 @@ export class CompanyProjectInterviewDetailPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -92,7 +93,12 @@ export class CompanyProjectInterviewDetailPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   reportContent() {
@@ -155,15 +161,15 @@ export class CompanyProjectInterviewDetailPage {
           "project_participant_id" : this.project_participant_id,
           "ordinal" : this.interviews.length + 1
         }
-      });
+    });
+    companyProjectInterviewWritingEditorModal.present();
     companyProjectInterviewWritingEditorModal.onWillDismiss(
       (data) => {
         if(data == "refresh") {
-          this.ionViewDidEnter();  
+          this.ionViewWillEnter();  
         }
       }
     );
-    companyProjectInterviewWritingEditorModal.present();
   }
 
   openCompanyProjectUserProfilePage(project_participant_id) {

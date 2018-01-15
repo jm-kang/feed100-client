@@ -47,9 +47,14 @@ export class UserProjectStoryQuizPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryQuizPage');
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectStoryQuizPage');
     let loading = this.commonService.presentLoading();
+    
     this.userService.getProjectParticipation(this.project_id)
     .finally(() => {
       loading.dismiss();
@@ -61,6 +66,13 @@ export class UserProjectStoryQuizPage {
             this.projectName = data.data.project_name;
             this.projectMainImage = data.data.project_main_image;
             this.storyQuizSlides = JSON.parse(data.data.project_story_quiz);
+
+            let index = this.slides.getActiveIndex();
+            if(!this.storyQuizSlides[index].value) {
+              this.slides.lockSwipeToNext(true);
+            } else {
+              this.slides.lockSwipeToNext(false);
+            }        
           }
           else {
             if(data.message == "project is not proceeding") {
@@ -80,7 +92,7 @@ export class UserProjectStoryQuizPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -90,15 +102,6 @@ export class UserProjectStoryQuizPage {
       }
     )
 
-  }
-
-  ionViewDidEnter() {
-    let index = this.slides.getActiveIndex();
-    if(!this.storyQuizSlides[index].value) {
-      this.slides.lockSwipeToNext(true);
-    } else {
-      this.slides.lockSwipeToNext(false);
-    }
   }
 
   dismiss() {

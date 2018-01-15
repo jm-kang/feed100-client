@@ -1,0 +1,159 @@
+page-admin-project-price-statement {
+    
+}
+
+.price-statement-header {
+    background-color: #fff;
+    
+    ion-buttons[start] {
+        order: 1;
+    }
+
+    .toolbar-title {
+        -webkit-box-pack: inherit !important;
+        padding: 0;
+        font-size: 1.6rem !important;
+    }
+
+    .title-ios {
+        padding-right: 34px;
+        padding-left: 34px;
+    }
+}
+
+.price-statement-content {
+    background-color: #EDEDEF;
+
+    .price-statement-card {
+        -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        
+        background-color: #f7f7f7;
+        .item:last-child {
+            border: 0 !important;
+        }
+        .item {
+            padding-left: 36px;
+            background-color: transparent !important;
+            transition: unset;
+            border: 0 ;
+            border-bottom: 0;
+            -webkit-tap-highlight-color: transparent;
+
+            .item-inner {
+                border-bottom: 0;
+                padding-right: 36px;
+            }
+
+            .label {
+                margin-right: 0;
+                white-space: unset;
+                overflow: unset;
+            }
+
+            .label:nth-child(1) {
+                margin-top: 16px;
+            }
+
+            .label-md:nth-child(1) {
+                margin-bottom: 3px;
+            }
+
+            .label:nth-last-child(1) {
+                margin-bottom: 16px;
+                margin-top: 0;
+                font-weight: bold;
+                font-size: 1.5rem;
+            }
+
+            .type-title {
+                font-size: 1.8rem !important;
+                text-transform: uppercase;
+            }
+
+            .registration-date {
+                font-weight: 500;
+                color: #383838;
+            }
+
+            .project-price {
+                font-size: 3.5rem;
+                font-weight: 200;
+                text-decoration-color: #ff6400 !important;
+                margin-right: 5px;
+            }
+            .price-tag {
+                font-size: 2.5rem;
+                font-weight: 300;
+            }
+
+            .sale-badge {
+                font-size: 1.1rem;
+                margin-left: 8px;
+            }
+        }
+
+        .card-header {
+            .label-ios:nth-child(1) {
+                margin-bottom: 0;
+            }
+            .label-md:nth-child(1) {
+                margin-bottom: 1px;
+            }
+        }
+
+        .price-statement-card-item {
+            .label:nth-child(1) {
+                margin-top: 0;
+            }
+        }
+
+        .end-card-item {
+            border-bottom: 3px dashed #e7e7e7;
+        }
+
+        .price-card-feedback-wrapper {
+            display: flex;
+            padding-left: 36px;
+            padding-right: 36px;
+
+            .item {
+                width: auto;
+                margin-right: 24px;
+                padding-left: 0;
+                .item-inner {
+                    border-bottom: 0;
+                    padding-right: 0;
+                }
+                .label:nth-child(1) {
+                    margin-top: 16px;
+                }
+            }
+
+            .item:nth-last-child(1) {
+                margin-right: 0px;
+                text-align: right;
+                position: absolute;
+                right: 64px;
+            }
+        }
+    }
+}
+
+.price-statement-footer {
+    margin-top: 36px;
+    margin-bottom: 36px;
+    font-size: 1rem;
+    color: #ff6400;
+    .email {
+        margin-top: 5px;
+        font-size: 1.8rem;
+    }
+    .summary {
+        margin-top: 3px;
+        color: #a8a8a8;
+        font-size: 1rem;
+    }
+}

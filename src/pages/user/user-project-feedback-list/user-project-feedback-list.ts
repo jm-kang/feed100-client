@@ -39,13 +39,14 @@ export class UserProjectFeedbackListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectFeedbackListPage');
+    this.commonService.isLoadingActive = true;
     this.segmentFeedbacksCondition = "nonParticipationFeedback";
+    this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectFeedbackListPage');    
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectFeedbackListPage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -69,7 +70,7 @@ export class UserProjectFeedbackListPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -78,6 +79,12 @@ export class UserProjectFeedbackListPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   openUserProjectFeedbackPage(feedback_id) {

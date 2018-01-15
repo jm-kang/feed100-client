@@ -30,8 +30,13 @@ export class CompanyAlarmPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyAlarmPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyAlarmPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyAlarmPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getAlarms()
@@ -47,7 +52,7 @@ export class CompanyAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -59,7 +64,14 @@ export class CompanyAlarmPage {
 
   }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
+  }
+
   accessAlarmItem(link, project_id, alarm_id) {
+    this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
     
     this.companyService.alarmRead(alarm_id)
@@ -85,7 +97,7 @@ export class CompanyAlarmPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.accessAlarmItem(link, project_id, alarm_id);
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
           })
         }
       },
@@ -101,47 +113,12 @@ export class CompanyAlarmPage {
     this.navCtrl.pop();
   }
 
+  accessProjectCard(project_id) {
+    this.companyService.accessProjectCard(this, project_id);
+  }
+
   openCompanyProjectInterviewPage(project_id) {
     this.navCtrl.push('CompanyProjectInterviewPage', { "project_id" : project_id });
   }
 
-  // 내 프로젝트 or not
-  accessProjectCard(project_id) {
-    let loading = this.commonService.presentLoading();
-
-    this.companyService.getIsMyProject(project_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.data.is_my_project) {
-            this.openCompanyProjectHomePage(project_id);
-          }
-          else {
-            this.openCompanyProjectStoryPage(project_id);
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.accessProjectCard(project_id);
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-  }
-
-  openCompanyProjectHomePage(project_id) {
-    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
-  }
-
-  openCompanyProjectStoryPage(project_id) {
-    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
-  }
 }

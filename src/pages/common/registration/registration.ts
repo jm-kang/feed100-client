@@ -21,6 +21,10 @@ export class RegistrationPage {
     console.log('ionViewDidLoad RegistrationPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter RegistrationPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }

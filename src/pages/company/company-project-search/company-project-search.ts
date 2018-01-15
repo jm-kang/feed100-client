@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
-// import { StatusBar } from '@ionic-native/status-bar';
-
 import { CompanyProjectSearchResultPage } from '../company-project-search-result/company-project-search-result';
 
 /**
@@ -41,8 +39,8 @@ export class CompanyProjectSearchPage {
     this.project_id = this.navParams.get('project_id');
   }
 
-  ionViewDidEnter() {
-    // this.statusBar.hide(); 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectSearchPage');
   }
 
   back() {

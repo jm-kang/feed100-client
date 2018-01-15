@@ -59,8 +59,8 @@ export class UserProjectRewardFormPage {
     this.slides.lockSwipeToNext(true);
   }
 
-  ionViewDidEnter() {
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectRewardFormPage');
   }
 
   dismiss() {
@@ -103,6 +103,7 @@ export class UserProjectRewardFormPage {
   goNextSlide(index) {
     switch(index) {
       case 0:
+       this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
 
         this.userService.reward(this.project_id, this.satisfaction, this.recommendation)
@@ -128,7 +129,7 @@ export class UserProjectRewardFormPage {
             else if(data.success == false) {
               this.commonService.apiRequestErrorHandler(data, this.navCtrl)
               .then(() => {
-                this.goNextSlide(index);
+                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
               });
             }
           },

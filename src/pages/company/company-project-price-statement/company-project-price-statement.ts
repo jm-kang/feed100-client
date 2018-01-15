@@ -42,8 +42,13 @@ export class CompanyProjectPriceStatementPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectPriceStatementPage');
-    let loading = this.commonService.presentLoading();
+    this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectPriceStatementPage');
+    let loading = this.commonService.presentLoading();
 
     this.companyService.getSideMenuData(this.project_id)
     .finally(() => {
@@ -67,7 +72,7 @@ export class CompanyProjectPriceStatementPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidLoad();
+            this.ionViewWillEnter();
           });
         }
       },

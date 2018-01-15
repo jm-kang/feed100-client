@@ -45,8 +45,13 @@ export class CompanyAccountModificationFormPage {
     private domSanitizer: DomSanitizer) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyAccountModificationFormPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyAccountModificationFormPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyAccountModificationFormPage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyInfo()
@@ -65,7 +70,7 @@ export class CompanyAccountModificationFormPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -149,8 +154,8 @@ export class CompanyAccountModificationFormPage {
   }
 
   modifyAccount() {
-    console.log("수정 완료");
-    
+    this.commonService.isLoadingActive = true;
+
     let loading = this.commonService.presentLoading();
     this.uploadFile()
     .then(() => {
@@ -167,7 +172,7 @@ export class CompanyAccountModificationFormPage {
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
             .then(() => {
-              this.modifyAccount();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
             })
           }
         },

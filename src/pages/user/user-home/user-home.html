@@ -25,6 +25,10 @@
 </ion-header>
 
 <ion-content class="outer-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>    
   <ion-slides class="feed100-intro-slides" pager scroll="true" loop autoplay="5000" effect="fade" speed="500">
     <ion-slide *ngFor="let feed100IntroSlide of feed100IntroSlides">
       <div tappable (click)="openPageWrapper(feed100IntroSlide.link)">

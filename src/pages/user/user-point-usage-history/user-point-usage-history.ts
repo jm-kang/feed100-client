@@ -58,6 +58,10 @@ export class UserPointUsageHistoryPage {
     this.segmentHistoryCondition = "all";
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserPointUsageHistoryPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }

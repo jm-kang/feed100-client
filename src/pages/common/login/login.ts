@@ -43,6 +43,10 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter LoginPage');
+  }
+
   openCompanyLoginFormPage() {
     this.navCtrl.push('CompanyLoginFormPage');
   }

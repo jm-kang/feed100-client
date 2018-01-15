@@ -48,6 +48,10 @@ export class AppIntroPage {
     console.log('ionViewDidLoad AppIntroPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter AppIntroPage');
+  }
+
   dismiss() {
     this.ModalWrapperPage.dismissModal();
   }

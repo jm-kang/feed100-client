@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/common/login/login';
 import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
 import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
+import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
@@ -40,11 +41,13 @@ export class MyApp {
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
 
-      let isAppIntroChecked = localStorage.getItem('isAppIntroChecked');
-      if (!isAppIntroChecked) {
-        this.openAppIntroPage();
-        localStorage.setItem('isAppIntroChecked', 'true');
-      }
+      setTimeout(() => {
+        let isAppIntroChecked = localStorage.getItem('isAppIntroChecked');
+        if (!isAppIntroChecked) {
+          this.openAppIntroPage();
+          localStorage.setItem('isAppIntroChecked', 'true');
+        }
+      }, 1000);
     });
   }
 
@@ -53,15 +56,23 @@ export class MyApp {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          if(data.data.role == 'user') {
+          console.log(data.data.is_verified, data.data.role, data.data.warn_count);
+          if(data.data.warn_count >= 3) {
+            this.commonService.logout(this.app.getActiveNavs()[0]);
+            this.commonService.showBasicAlert('해당 계정은 경고 3회 누적으로 인해 서비스를 이용하실 수 없습니다.');
+          }
+          else if(data.data.role == 'user') {
             this.rootPage = UserTabsPage;
           }
           else if(data.data.role == 'company') {
             this.rootPage = CompanyTabsPage;
           }
+          else if(data.data.role == 'admin') {
+            this.rootPage = AdminTabsPage;
+          }
         }
         else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.app.getActiveNav())
+          this.commonService.apiRequestErrorHandler(data, this.app.getActiveNavs()[0])
           .then(() => {
             console.log('apiRequestErrorHandler');
             this.verifyLoginState();

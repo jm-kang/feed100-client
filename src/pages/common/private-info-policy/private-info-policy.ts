@@ -25,6 +25,10 @@ export class PrivateInfoPolicyPage {
     console.log('ionViewDidLoad PrivateInfoPolicyPage');
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter PrivateInfoPolicyPage');
+  }
+
   dismiss() {
     this.ModalWrapperPage.dismissModal();
   }

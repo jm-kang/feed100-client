@@ -1,8 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 
-import { Badge } from '@ionic-native/badge';
-
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
 /**
@@ -25,14 +23,18 @@ export class CompanyNewsfeedPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public appCtrl: App,
-    private badge: Badge,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider) {
 
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyNewsfeedPage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyNewsfeedPage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyNewsfeedPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getNewsfeeds()
@@ -43,11 +45,12 @@ export class CompanyNewsfeedPage {
       (data) => {
         if(data.success == true) {
           this.newsfeeds = data.data;
+          this.companyService.setAlarmAndInterviewNum();
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -55,29 +58,13 @@ export class CompanyNewsfeedPage {
         console.log(JSON.stringify(err));
         this.commonService.showBasicAlert('오류가 발생했습니다.')
       }
-    );
-    
-    this.companyService.getAlarmAndInterviewNum()
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.companyService.alarmNum = data.data.alarm_num;
-          this.companyService.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewDidEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+    );    
+  }
 
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   openCompanyNewsfeedStoryPage(newsfeed_id) {

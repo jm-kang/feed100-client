@@ -49,8 +49,8 @@ export class NoticePage {
     console.log('ionViewDidLoad NoticePage');
   }
 
-  ionViewDidEnter() {
-    console.log('enter');
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter NoticePage');
   }
   
   dismiss() {

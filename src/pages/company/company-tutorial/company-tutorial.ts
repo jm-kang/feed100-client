@@ -81,6 +81,10 @@ export class CompanyTutorialPage {
     this.totalPageNum = this.tutorialSlides.length + 1;
   }
 
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyTutorialPage');
+  }
+
   back() {
     this.navCtrl.pop();
   }

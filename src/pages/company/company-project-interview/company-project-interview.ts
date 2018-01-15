@@ -32,15 +32,14 @@ export class CompanyProjectInterviewPage {
     public companyService: CompanyServiceProvider) {
   }
 
-  back() {
-    this.navCtrl.pop();
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyProjectInterviewPage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
   }
 
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyProjectInterviewPage');
-    this.project_id = this.navParams.get('project_id');
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyProjectInterviewPage');
     let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectInterviews(this.project_id)
@@ -50,7 +49,6 @@ export class CompanyProjectInterviewPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          console.log(JSON.stringify(data.data));
           this.projectName = data.data.project_name;
           this.projectEndDate = data.data.project_end_date;
           this.totalInterviewNum = data.data.total_interview_num;
@@ -60,7 +58,7 @@ export class CompanyProjectInterviewPage {
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -71,8 +69,14 @@ export class CompanyProjectInterviewPage {
     );
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CompanyProjectInterviewPage');
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
+  }
+
+  back() {
+    this.navCtrl.pop();
   }
 
   openCompanyProjectInterviewDetailPage(project_participant_id) {

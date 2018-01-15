@@ -23,21 +23,21 @@ export class CompanyHomePage {
     {
       link: 'AppIntroPage',
       bg: 'assets/img/feed100-intro-slide1.png',
-      title: '린 스타트업의 첫걸음',
-      content: 'FEED100은 정성적 데이터를 통해<br>아이디어 검증 및 시장 분석하는 서비스입니다.',
+      title: '가치를 같이 만들어가요!',
+      content: '기업은 유저가 원하는 가치가 무엇인지!<br/>유저는 기업의 서비스를 더욱 가치있게!',
     },
     {
       link: 'TutorialPage',
       bg: 'assets/img/feed100-intro-slide2.png',
-      title: '튜토리얼 진행하기',
-      content: 'FEED100을 사용하기 전에<br>미리 FEED100을 경험해보세요.',
+      title: '이렇게 진행합니다!',
+      content: 'FEED100 서비스 튜토리얼을 확인해 주세요.<br/>단계별로 어떻게 진행하는지 확인할 수 있습니다.',
     },
     {
       link: 'HelpPage',
       bg: 'assets/img/feed100-intro-slide3.png',
-      title: '도움말 확인하기',
-      content: '도움말을 확인해보세요<br>FEED100이 필요한 이유를 찾을 수 있습니다.',
-    },
+      title: '어려움이 있으신가요?',
+      content: '궁금한 점이 있다면 도움말을 확인해 보세요!<br/>여러분을 위하여 최선을 다하겠습니다.',
+    }
   ];
   
   // 진행중인 프로젝트
@@ -58,8 +58,13 @@ export class CompanyHomePage {
     public companyService: CompanyServiceProvider) {
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter CompanyHomePage');
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad CompanyHomePage');
+    this.commonService.isLoadingActive = true;
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter CompanyHomePage');
     let loading = this.commonService.presentLoading();
     
     this.companyService.getCompanyHome()
@@ -72,11 +77,12 @@ export class CompanyHomePage {
           this.proceedingProjects = data.data.proceeding_projects;
           this.newProjects = data.data.new_projects;
           this.newNewsfeeds = data.data.new_newsfeeds;
+          this.companyService.setAlarmAndInterviewNum();          
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           })
         }
       },
@@ -85,6 +91,12 @@ export class CompanyHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   openPageWrapper(page) {
@@ -119,55 +131,12 @@ export class CompanyHomePage {
     manualModal.present();
   }
 
-  openFaqPage() {
-    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
-    faqModal.present();
-  }
-
   openCompanyNewsfeedStoryPage(newsfeed_id) {
     this.navCtrl.push('CompanyNewsfeedStoryPage', { "newsfeed_id" : newsfeed_id });
   }
 
-  // 내 프로젝트 or not
   accessProjectCard(project_id) {
-    let loading = this.commonService.presentLoading();
-
-    this.companyService.getIsMyProject(project_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.data.is_my_project) {
-            this.openCompanyProjectHomePage(project_id);
-          }
-          else {
-            this.openCompanyProjectStoryPage(project_id);
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.accessProjectCard(project_id);
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
-  }
-
-  openCompanyProjectHomePage(project_id) {
-    // let companyProjectHomeModal = this.modalCtrl.create(CompanyProjectHomePage, { "project_id" : project_id });
-    // companyProjectHomeModal.present();
-    this.navCtrl.push('CompanyProjectHomePage', { "project_id" : project_id });
-  }
-
-  openCompanyProjectStoryPage(project_id) {
-    this.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
+    this.companyService.accessProjectCard(this, project_id);
   }
 
   openCompanyProjectRegistrationPage() {
@@ -176,12 +145,10 @@ export class CompanyHomePage {
   }
 
   openCompanyAlarmPage() {
-    // this.navCtrl.push(CompanyAlarmPage);
     this.navCtrl.push('CompanyAlarmPage');
   }
 
   openCompanyConfigurePage() {
-    // this.navCtrl.push(CompanyConfigurePage);
     this.navCtrl.push('CompanyConfigurePage');
   }
 

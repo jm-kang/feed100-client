@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App, ModalController, Content, Platform } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { platformBrowser } from '@angular/platform-browser/src/browser';
 /**
  * Generated class for the UserProjectHomePage page.
  *
@@ -18,7 +19,6 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 })
 export class UserProjectHomePage {
   @ViewChild("contentRef") contentHandle: Content;
-
   project_id;
 
   projectMainImage: String = "";
@@ -43,26 +43,26 @@ export class UserProjectHomePage {
 
   projectHashtags = [];
 
-
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public appCtrl: App,
     public modalCtrl: ModalController,
+    public platform: Platform,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');    
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter UserProjectHomePage');
-
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter UserProjectHomePage');
     let loading = this.commonService.presentLoading();
-    this.project_id = this.navParams.get('project_id');
 
     this.userService.getProjectHome(this.project_id)
     .finally(() => {
@@ -71,6 +71,14 @@ export class UserProjectHomePage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.project_android_link != null) ? true : false;
+            this.project_link = data.data.project_android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.project_ios_link != null) ? true : false;
+            this.project_link = data.data.project_ios_link;
+          }
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;
           this.nickname = data.data.nickname;
@@ -79,16 +87,15 @@ export class UserProjectHomePage {
           this.participantNum = data.data.participant_num;
           this.maxParticipantNum = data.data.max_participant_num;
           this.progressState = data.data.project_end_date;
-          this.isLink = (data.data.project_link != null) ? true : false;
           this.interview_num = data.data.interview_num;
           this.projectRegistrationDate = data.data.project_registration_date;
-          this.project_link = data.data.project_link;
           this.projectHashtags = JSON.parse(data.data.project_hashtags);
           
           this.feedbacks = data.data.feedbacks;
           
           this.minOpinionNum = Math.round(data.data.max_participant_num / 3);
           
+          this.myOpinionNum = 0;
           for(let feedback of this.feedbacks) {
             if(feedback.is_my_opinion) {
               this.myOpinionNum += 1;
@@ -97,13 +104,11 @@ export class UserProjectHomePage {
               this.isReportWrited = (feedback.project_report_registration_date) ? true : false;
             }
           }
-          console.log(this.minOpinionNum, this.myOpinionNum, this.isReportWrited);
-
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
           .then(() => {
-            this.ionViewDidEnter();
+            this.ionViewWillEnter();
           });
         }
       },
@@ -112,6 +117,12 @@ export class UserProjectHomePage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {
@@ -149,11 +160,12 @@ export class UserProjectHomePage {
 
   openUserProjectReportFormPage() {
     let userProjectReportFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectReportFormPage', params: { "project_id" : this.project_id }});
-    userProjectReportFormModal.onDidDismiss(data => {
-      if(data == "refresh") {
-        this.ionViewDidEnter();
-      }
-    });
     userProjectReportFormModal.present();
+    userProjectReportFormModal.onWillDismiss(
+      (data) => {
+        if(data == "refresh") {
+          this.ionViewWillEnter();
+        }
+    });
   }
 }
