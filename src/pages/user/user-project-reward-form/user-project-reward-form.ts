@@ -31,7 +31,7 @@ export class UserProjectRewardFormPage {
   project_id;
   satisfaction: number = 0;
   recommendation: number = 0;
-  isQuestionWrited = [false, false, false];
+  isQuestionWrited = [false, false];
   isBest = false;
   isSelect = false;
   feedbackPoint: number = 0;
@@ -41,6 +41,8 @@ export class UserProjectRewardFormPage {
   projectPoint: number = 0;
   exp: number = 0;
   interviewNum = 0;
+
+  recommendationStats = [false,false,false,false,false,false,false,false,false,false];
 
   constructor(
     public navCtrl: NavController, 
@@ -62,7 +64,7 @@ export class UserProjectRewardFormPage {
   }
 
   dismiss() {
-    if(this.slides.getActiveIndex() == 2) {
+    if(this.slides.getActiveIndex() == 1) {
       this.ModalWrapperPage.dismissModal("refresh");
     }
     else {
@@ -79,39 +81,29 @@ export class UserProjectRewardFormPage {
       }
     }
     if(this.slides.getActiveIndex() == 1) {
-      if(!this.isQuestionWrited[1]) {
-        this.slides.lockSwipeToNext(true);  
-      } else {
-        this.slides.lockSwipeToNext(true);  
-      }
-    }
-    if(this.slides.getActiveIndex() == 2) {
       this.slides.lockSwipes(true);
     }
   }
 
-  onModelChange(newVal, index) {
-    if(newVal > 0) {
-      this.isQuestionWrited[index] = true;
-      if(index == 1) {
-        this.slides.lockSwipeToNext(true);
-      }
-      else {
-        this.slides.lockSwipeToNext(false);
-      }
-    } else {
-      this.isQuestionWrited[index] = false;
-      this.slides.lockSwipeToNext(true);
-    }
-  }
+  // onModelChange(newVal, index) {
+  //   if(newVal > 0) {
+  //     this.isQuestionWrited[index] = true;
+  //     if(index == 1) {
+  //       this.slides.lockSwipeToNext(true);
+  //     }
+  //     else {
+  //       this.slides.lockSwipeToNext(false);
+  //     }
+  //   } else {
+  //     this.isQuestionWrited[index] = false;
+  //     this.slides.lockSwipeToNext(true);
+  //   }
+  // }
 
   goNextSlide(index) {
     switch(index) {
       case 0:
-        this.slides.slideNext(500);
-        break;
-      case 1:
-        this.commonService.isLoadingActive = true;
+       this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
 
         this.userService.reward(this.project_id, this.satisfaction, this.recommendation)
@@ -147,7 +139,7 @@ export class UserProjectRewardFormPage {
           }
         );
         break;
-      case 2:
+      case 1:
         this.dismiss();
         break;
     }
@@ -161,6 +153,20 @@ export class UserProjectRewardFormPage {
   //     }
   //   }
   // }
+
+  clickRecommendation(stat:boolean, index:number) {
+    if(!stat) {
+      for(let i = 0; i < this.recommendationStats.length; i++) {
+        this.recommendationStats[i] = false;
+      }
+      this.recommendationStats[index] = true;
+      this.recommendation = index + 1;
+      this.isQuestionWrited[0] = true;
+    } else {
+      this.isQuestionWrited[index] = false;
+      this.slides.lockSwipeToNext(true);
+    }
+  }
 
   panEnd() {
     if(this.contentHandle.scrollTop <= -90) {

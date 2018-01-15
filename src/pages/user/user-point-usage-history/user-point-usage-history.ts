@@ -22,11 +22,13 @@ export class UserPointUsageHistoryPage {
   totalPoint = 4000;
   totalSavePoint = 24000;
   totalExchangePoint = 20000;
+  isFold:boolean=true;
 
   pointUsages = [
     {
       type: "exchange",
-      content: "피드백 2017123001055 홍길동",
+      content: "",
+      isPaid: false,
       point: "20000",
       totalPoint: "4000",
       date: "2017-12-14 12:00:00",
@@ -34,6 +36,7 @@ export class UserPointUsageHistoryPage {
     {
       type: "save",
       content: "대학생의 공부자료실, 클래스에이드",
+      isPaid: true,
       point: "14000",
       totalPoint: "24000",
       date: "2017-12-13 23:00:00",
@@ -41,6 +44,7 @@ export class UserPointUsageHistoryPage {
     {
       type: "save",
       content: "강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
+      isPaid: true,
       point: "10000",
       totalPoint: "10000",
       date: "2017-12-12 06:00:00",
@@ -64,6 +68,14 @@ export class UserPointUsageHistoryPage {
 
   changeSegment() {
     this.content.scrollToTop();
+  }
+
+  fold(fold:number) {
+    if(fold == 0) {
+      this.isFold = false;
+    } else {
+      this.isFold = true;
+    }
   }
 
 }

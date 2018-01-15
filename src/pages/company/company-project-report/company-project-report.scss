@@ -27,6 +27,18 @@ page-company-project-report {
                 margin-bottom : 0 !important;
             }
         }
+
+        .btn-item-more .button {
+            font-size: 2rem;
+        }
+
+        .btn-item-more .button .icon {
+            color: #a8a8a8 !important;
+        }
+
+        .btn-item-more {
+            top:-2px !important;
+        }
     }
     
 }

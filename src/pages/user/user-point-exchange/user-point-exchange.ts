@@ -21,7 +21,9 @@ export class UserPointExchangePage {
   name: String = "";
   bankName: String = "";
   banks = ['경남은행','광주은행','국민은행','기업은행','농협중앙회','대구은행','부산은행','산업은행','서울은행','수협','시티은행','신한은행','신협','우리은행','우체국','시티은행','전북은행','SC','제주은행','하나은행','새마을금고'];
+  exchangePoints = [10000,20000,30000,40000,50000];
   accountNumber: number;
+  exchangePointNum: String;
   exchangePoint: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

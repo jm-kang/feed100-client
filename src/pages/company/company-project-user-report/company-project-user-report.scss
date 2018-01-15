@@ -4,7 +4,6 @@ page-company-project-user-report {
     }
 }
 
-
 .project-user-report-header {
     ion-buttons[start] {
         order: 1;
@@ -89,6 +88,21 @@ page-company-project-user-report {
             font-size: 1.4rem;
             color: #383838;
             font-weight: bold;
+            .item-tag-wrapper {
+                right: 12px;
+            }
+            .item-tag-wrapper {
+                position: absolute;
+                right: 6px;
+            }
+            
+            .btn-item-more {
+                top:4px;
+            }
+            
+            .btn-item-more .button {
+                font-size: 2rem;
+            }
         }
         p {
             font-size: 1.1rem;

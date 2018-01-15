@@ -22,11 +22,65 @@ page-user-point-usage-history {
     ion-card-header {
         text-overflow: unset;
         white-space: unset;
-
         h3 {
             color: #787878;
             font-size: 1.4rem;
-            margin-bottom: 6px !important;
+            line-height: 1.5;
+            display: inline-block;
+            margin-bottom: 6px !important;   
+        }
+
+        .is-paid-badge {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .is-paid-badge.paid {
+            background-color: #ff6700;
+            display: inline-block;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            padding: 4px 16px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .is-paid-badge .not-paid {
+            background-color: #e5dfda;
+            display: inline-block;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            padding: 4px 16px;
+            font-weight: bold;
+            color: #93918f;
+        }
+
+        .is-paid-badge .icon {
+            margin-left: 8px;
+            color: #ff6700;
+            // font-weight: bold;
+        }
+
+        .is-paid-badge-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .not-paid-help {
+            padding-left: 8px;
+            color: #f2eeeb;
+        }
+
+        .not-paid-summary {
+            font-size: 1.2rem;
+            color: #787878;
+            background-color:#eee;
+            padding: 16px 16px;
+            margin: 0 -16px;
+            font-weight: normal;
+            line-height: 1.35;
+            transition: all 0.3s linear;
+            margin-bottom: 8px;
         }
 
         p {

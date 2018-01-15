@@ -20,7 +20,10 @@
       </span>
     </ion-title>
     <ion-buttons end>
-      <button ion-button></button>
+      <!-- 피드백 추가  -->
+      <button ion-button (click)="reportContent()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -88,7 +91,14 @@
           </span>
           <h3>
             <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
-            <span class="empathy-tag opinion-tag">공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="empathy-tag opinion-tag">공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
@@ -104,7 +114,14 @@
           </span>
           <h3>
             <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
-            <span class="non-empathy-tag opinion-tag">비공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="non-empathy-tag opinion-tag">비공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
@@ -129,7 +146,14 @@
           </span>
           <h3>
             <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
-            <span class="empathy-tag opinion-tag">공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="empathy-tag opinion-tag">공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
@@ -154,7 +178,14 @@
           </span>
           <h3>
             <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(opinion.project_participant_id)">{{opinion.nickname}}</span>
-            <span class="non-empathy-tag opinion-tag">비공감</span>
+            <span class="opinion-tag-wrapper">
+              <span class="non-empathy-tag opinion-tag">비공감</span>
+              <span class="btn-opinion-more">
+                <button ion-button (click)="reportContent()">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
