@@ -34,7 +34,10 @@
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="interview.avatar_image" />
       </span>
-      <h2 [innerHTML]="interview.nickname"></h2>
+      <h2>
+        {{interview.nickname}}
+        &ensp;<ins class="key-tag">20180116</ins>
+      </h2>
       <p *ngIf="interview.ordinal">{{interview.ordinal}}차 인터뷰</p>
       <div item-end class="interview-item-end">
         <ion-note *ngIf="interview.interview_response_registration_date" #progressState [innerHTML]="interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo"></ion-note>

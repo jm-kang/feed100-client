@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController, AlertController  } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -34,7 +34,9 @@ export class AdminProjectInterviewDetailPage {
     private photoViewer: PhotoViewer, 
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
-    public adminService: AdminServiceProvider) {
+    public adminService: AdminServiceProvider,
+    public actionSheetCtrl: ActionSheetController,
+    public alertCtrl: AlertController,) {
   }
 
   ionViewDidLoad() {
@@ -97,6 +99,50 @@ export class AdminProjectInterviewDetailPage {
     this.commonService.isLoadingActive = true;
     this.ionViewWillEnter();
     refresher.complete();
+  }
+
+  reportContent() {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '신고하기',
+          role: 'destructive',
+          handler: () => {
+            this.report();
+          }
+        },{
+          text: '취소하기',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  report() {
+    let alert = this.alertCtrl.create({
+      title: '신고',
+      subTitle: '해당 내용을 위법/위해<br />댓글로 신고하시겠습니까?',
+      buttons: [
+        {
+          text: '취소',
+          role: 'cancel',
+          handler: data => {
+            console.log('취소');
+          }
+        },
+        {
+          text: '확인',
+          handler: data => {
+            console.log('확인');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
   back() {
