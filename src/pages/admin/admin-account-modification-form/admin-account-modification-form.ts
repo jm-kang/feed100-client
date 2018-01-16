@@ -32,7 +32,6 @@ export class AdminAccountModificationFormPage {
   nickname: String = "";
   username: String = "";
   registrationDate: String = "";
-  introduction: String = "";
 
   constructor(
     public navCtrl: NavController, 
@@ -63,7 +62,6 @@ export class AdminAccountModificationFormPage {
         if(data.success == true) {
           this.avatarImage = data.data.avatar_image;
           this.username = data.data.username;
-          this.introduction = data.data.introduction;
           this.nickname = data.data.nickname;
           this.registrationDate = data.data.user_registration_date;
         }
@@ -159,7 +157,7 @@ export class AdminAccountModificationFormPage {
 
     this.uploadFile()
     .then(() => {
-      this.adminService.updateAccount(this.avatarImage, this.nickname, this.introduction)
+      this.adminService.updateAccount(this.avatarImage, this.nickname)
       .finally(() => {
         loading.dismiss();
       })

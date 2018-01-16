@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { SlicePipe } from '@angular/common';
-import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ModalController, PopoverController, ActionSheetController } from 'ionic-angular';
 
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
@@ -24,6 +24,7 @@ export class UserProjectFeedbackPage {
 
   project_id;
   feedback_id;
+  user_id;
 
   slideHeight: number;
   mobWidth: number;
@@ -59,55 +60,10 @@ export class UserProjectFeedbackPage {
     private photoViewer: PhotoViewer,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController,
+    public actionSheetCtrl: ActionSheetController
   ) {
     this.mobWidth = (window.innerWidth);
     this.slideHeight = this.mobWidth * 4 / 5;
-  }
-
-  reportContent() {
-    let actionSheet = this.actionSheetCtrl.create({
-      buttons: [
-        {
-          text: '신고하기',
-          role: 'destructive',
-          handler: () => {
-            this.report();
-          }
-        },{
-          text: '취소하기',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
-  report() {
-    let alert = this.alertCtrl.create({
-      title: '신고',
-      subTitle: '해당 내용을 위법/위해<br />댓글로 신고하시겠습니까?',
-      buttons: [
-        {
-          text: '취소',
-          role: 'cancel',
-          handler: data => {
-            console.log('취소');
-          }
-        },
-        {
-          text: '확인',
-          handler: data => {
-            console.log('확인');
-          }
-        }
-      ]
-    });
-    alert.present();
   }
   
   ionViewDidLoad() {
@@ -130,6 +86,7 @@ export class UserProjectFeedbackPage {
       (data) => {
         if(data.success == true) {
           let feedback = data.data.feedback;
+          this.user_id = feedback.user_id;
           this.projectName = data.data.project_name;
           this.avatarImage = feedback.avatar_image;
           this.nickname = feedback.nickname;
@@ -170,6 +127,58 @@ export class UserProjectFeedbackPage {
     this.commonService.isLoadingActive = true;
     this.ionViewWillEnter();
     refresher.complete();
+  }
+
+  reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: '신고하기',
+          role: 'destructive',
+          handler: () => {
+            this.commonService.showConfirmAlert('해당 내용을 부적절한<br>게시글로 신고하시겠습니까?', 
+            () => {
+              this.commonService.isLoadingActive = true;
+              let loading = this.commonService.presentLoading();
+              
+              this.userService.reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id)
+              .finally(() => {
+                loading.dismiss();
+              })
+              .subscribe(
+                (data) => {
+                  if(data.success == true) {
+                    this.commonService.showBasicAlert('신고가 접수되었습니다.');
+                  }
+                  else if(data.success == false) {
+                    if(data.message == 'already reported') {
+                      this.commonService.showBasicAlert('이미 신고가 접수되었습니다.');
+                    }
+                    else {
+                      this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                      .then(() => {
+                        this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                      });
+                    }
+                  }
+                },
+                (err) => {
+                  console.log(err);
+                  this.commonService.showBasicAlert('오류가 발생했습니다.');
+                }
+              );    
+            });        
+          }
+        },{
+          text: '취소하기',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   back() {

@@ -42,7 +42,7 @@
             <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
             <span class="item-tag-wrapper">
               <span class="btn-item-more">
-                <button ion-button (click)="reportContent()">
+                <button ion-button (click)="reportProject(project_id, userReport.project_participant_id, null, null, null, userReport.project_participant_id)">
                   <ion-icon name="md-more"></ion-icon>
                 </button>
               </span>

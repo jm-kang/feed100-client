@@ -113,14 +113,41 @@ export class AdminNewsfeedStoryPage {
     );
   }
 
-  reportContent() {
+  sanctionNewsfeed(newsfeed_id, newsfeed_comment_id) {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: '신고하기',
+          text: '삭제하기',
           role: 'destructive',
           handler: () => {
-            this.report();
+            this.commonService.showConfirmAlert('해당 내용을 삭제하시겠습니까?', 
+            () => {
+              this.commonService.isLoadingActive = true;
+              let loading = this.commonService.presentLoading();
+              
+              this.adminService.sanctionNewsfeed(newsfeed_id, newsfeed_comment_id)
+              .finally(() => {
+                loading.dismiss();
+              })
+              .subscribe(
+                (data) => {
+                  if(data.success == true) {
+                    this.ionViewWillEnter();
+                    this.commonService.showBasicAlert('삭제되었습니다.');
+                  }
+                  else if(data.success == false) {
+                    this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                    .then(() => {
+                      this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                    });
+                  }
+                },
+                (err) => {
+                  console.log(err);
+                  this.commonService.showBasicAlert('오류가 발생했습니다.');
+                }
+              );    
+            });        
           }
         },{
           text: '취소하기',
@@ -132,29 +159,6 @@ export class AdminNewsfeedStoryPage {
       ]
     });
     actionSheet.present();
-  }
-
-  report() {
-    let alert = this.alertCtrl.create({
-      title: '신고',
-      subTitle: '해당 댓글을 위법/위해<br />댓글로 신고하시겠습니까?',
-      buttons: [
-        {
-          text: '취소',
-          role: 'cancel',
-          handler: data => {
-            console.log('취소');
-          }
-        },
-        {
-          text: '확인',
-          handler: data => {
-            console.log('확인');
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   back() {

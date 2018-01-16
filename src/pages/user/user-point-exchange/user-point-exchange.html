@@ -34,29 +34,29 @@
         
           <ion-item>
             <ion-label fixed>환전 포인트</ion-label>
-            <ion-select [(ngModel)]="exchangePointNum" placeholder="환전 금액 선택" [selectOptions]="selectExchangePointOptions" okText="완료" cancelText="취소">
-              <ion-option *ngFor="let exchangePoint of exchangePoints" [value]="exchangePoint" [disabled]="exchangePoint > totalPoint">{{exchangePoint}} p</ion-option>
+            <ion-select [(ngModel)]="exchangePoint" placeholder="환전 금액 선택" okText="완료" cancelText="취소">
+              <ion-option *ngFor="let point of exchangePoints" [value]="point" [disabled]="point > totalPoint">{{point}} p</ion-option>
             </ion-select>
           </ion-item>
         
           <ion-item>
             <ion-label fixed>은행명</ion-label>
-            <ion-select [(ngModel)]="bankName" placeholder="은행 선택" [selectOptions]="selectBankOptions" okText="완료" cancelText="취소">
+            <ion-select [(ngModel)]="bankName" placeholder="은행 선택" okText="완료" cancelText="취소">
               <ion-option *ngFor="let bank of banks" [value]="bank">{{bank}}</ion-option>
             </ion-select>
           </ion-item>
 
           <ion-item>
             <ion-label fixed>계좌번호</ion-label>
-            <ion-input type="tel" [(ngModel)]="accountNumber"></ion-input>
+            <ion-input type="tel" placeholder="- 제외" [(ngModel)]="accountNumber"></ion-input>
           </ion-item>
         
           <ion-item>
             <ion-label fixed>예금주</ion-label>
-            <ion-input type="text" [(ngModel)]="name"></ion-input>
+            <ion-input type="text" placeholder="정확히 입력해주세요." [(ngModel)]="accountHolderName"></ion-input>
           </ion-item>
 
-          <button class="exchange-button" [disabled]="!exchangePointNum || !bankName || accountNumber == 0 || !accountNumber || !name" ion-button block (click)="exchange()">환전하기</button>
+          <button class="exchange-button" [disabled]="!exchangePoint || !bankName || accountNumber == 0 || !accountNumber || !accountHolderName" ion-button block (click)="exchange()">환전하기</button>
         
         </ion-list>
       </div>

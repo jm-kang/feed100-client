@@ -32,7 +32,6 @@ export class UserAccountModificationFormPage {
   nickname: String = "";
   username: String = "";
   registrationDate: String = "";
-  introduction: String = "";
   gender: String = "";
   age: String = "";
   job: String = "";
@@ -74,7 +73,6 @@ export class UserAccountModificationFormPage {
           this.job = data.data.job;
           this.region = data.data.region;
           this.marriage = data.data.marriage;
-          this.introduction = data.data.introduction;
           this.registrationDate = data.data.user_registration_date;
         }
         else if(data.success == false) {
@@ -178,7 +176,7 @@ export class UserAccountModificationFormPage {
 
     this.uploadFile()
     .then(() => {
-      this.userService.updateAccount(this.avatarImage, this.nickname, this.introduction)
+      this.userService.updateAccount(this.avatarImage, this.nickname)
       .finally(() => {
         loading.dismiss();
       })

@@ -13,12 +13,12 @@ export class TypeToTextPipe implements PipeTransform {
   /**
    * Takes a value and makes it lowercase.
    */
-  transform(value: string) {
+  transform(value: boolean) {
     if(value == null) return 0;
 
-    if(value == "save") {
+    if(value == true) {
       return "적립";
-    } else if (value == "exchange") {
+    } else if (value == false) {
       return "환전";
     }
   }

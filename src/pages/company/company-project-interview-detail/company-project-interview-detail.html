@@ -64,7 +64,7 @@
           <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)" [innerHTML]="interview.nickname"></span>
           <span class="item-tag-wrapper">
             <span class="btn-item-more">
-              <button ion-button (click)="reportContent()">
+              <button ion-button (click)="reportProject(interview.project_id, interview.project_participant_id, null, null, interview.interview_id, null)">
                 <ion-icon name="md-more"></ion-icon>
               </button>
             </span>

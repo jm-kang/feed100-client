@@ -50,12 +50,11 @@ export class AdminServiceProvider {
     });
   }
 
-  updateAccount(avatar_image, nickname, introduction) {
+  updateAccount(avatar_image, nickname) {
     let url = this.commonService.getServerUrl() + '/admin/api/admin/account';
     let data = {
       "avatar_image" : avatar_image,
-      "nickname" : nickname,
-      "introduction" : introduction
+      "nickname" : nickname
     };
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
@@ -86,6 +85,22 @@ export class AdminServiceProvider {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
+
+  sanctionNewsfeed(newsfeed_id, newsfeed_comment_id) {
+    let url = this.commonService.getServerUrl() + '/admin/api/admin/sanction/newsfeed/' + newsfeed_id + '/' + newsfeed_comment_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.delete(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  sanctionProject(project_id, user_id, project_participant_id) {
+    let url = this.commonService.getServerUrl() + '/admin/api/admin/sanction/project/' + project_id + '/' + user_id + '/' + project_participant_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.delete(url, { headers: headers }).map(res => res.json());
+    });
+  } 
 
   getInterviews() {
     let url = this.commonService.getServerUrl() + '/admin/api/admin/interviews';

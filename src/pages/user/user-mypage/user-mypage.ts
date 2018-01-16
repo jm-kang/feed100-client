@@ -22,7 +22,6 @@ export class UserMypagePage {
   levelClass: String = '';
   nickname: String = '';
   username;
-  introduction;
   point = 0;
   exp = 0;
   maxExp = 0;
@@ -70,7 +69,6 @@ export class UserMypagePage {
           this.levelClass = data.data.level_class;
           this.nickname = data.data.nickname;
           this.username = data.data.username;
-          this.introduction = data.data.introduction;
           this.point = data.data.point;
           this.exp = data.data.experience_point;
           this.maxExp = data.data.required_experience_point;

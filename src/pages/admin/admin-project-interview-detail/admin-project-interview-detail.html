@@ -63,11 +63,11 @@
         <h3>
           <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(interview.project_participant_id)">
             {{interview.nickname}}
-            &ensp;<ins class="key-tag">20180116</ins>
+            &ensp;<ins class="key-tag">{{interview.interview_id}}</ins>
           </span>
           <span class="item-tag-wrapper">
             <span class="btn-item-more">
-              <button ion-button (click)="reportContent()">
+              <button ion-button (click)="sanctionProject(interview.project_id, interview.user_id, project_participant_id)">
                 <ion-icon name="md-more"></ion-icon>
               </button>
             </span>

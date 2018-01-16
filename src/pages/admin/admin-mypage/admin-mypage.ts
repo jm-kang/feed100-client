@@ -20,7 +20,6 @@ export class AdminMypagePage {
   avatarImage: String = '';
   levelClass: String = '';
   username: String = '';
-  introduction: String = '';
   nickname: String = '';
   proceedingProjectNum = 0;
   endProjectNum = 0;
@@ -60,7 +59,6 @@ export class AdminMypagePage {
           this.avatarImage = data.data.avatar_image;
           this.levelClass = 'Admin';
           this.username = data.data.username;
-          this.introduction = data.data.introduction;
           this.nickname = data.data.nickname;
           this.proceedingProjects = data.data.proceeding_projects;
           this.endProjects = data.data.end_projects;

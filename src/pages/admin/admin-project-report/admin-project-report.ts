@@ -223,14 +223,14 @@ export class AdminProjectReportPage {
       title: '첫인상 평가',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }],
       average: 0,
       totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
+      labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
       options: {
         scales: {
@@ -257,14 +257,14 @@ export class AdminProjectReportPage {
       title: '추천 지수',
       // 서버에서 데이터 필요한 부분
       datasets: [{
-        data: [0, 0, 0, 0, 0]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }],
       average: 0,
       totalNum: 0,
       colors: [
         {backgroundColor:'rgba(255,100,0,0.8)'},
       ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
+      labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
       options: {
         scales: {
@@ -287,40 +287,6 @@ export class AdminProjectReportPage {
         }
       },
     } ,
-    {
-      title: '서비스 만족도',
-      // 서버에서 데이터 필요한 부분
-      datasets: [{
-        data: [0, 0, 0, 0, 0]
-      }],
-      average: 0,
-      totalNum: 0,
-      colors: [
-        {backgroundColor:'rgba(255,100,0,0.8)'},
-      ],
-      labels: ['1점', '2점', '3점', '4점', '5점'],
-      type: 'bar',
-      options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        },
-        legend: {
-          display: false
-        },
-        title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '4. 프로젝트 통계'
-        }
-      },
-    }
   ];
 
   userReports = [];
@@ -434,10 +400,6 @@ export class AdminProjectReportPage {
               (this.tempProjectStatSlides[1].datasets[0].data[participants[i].project_recommendation_rate-1])++;
               this.tempProjectStatSlides[1].totalNum++;
             }
-            if(participants[i].project_satisfaction_rate) {
-              (this.tempProjectStatSlides[2].datasets[0].data[participants[i].project_satisfaction_rate-1])++;
-              this.tempProjectStatSlides[2].totalNum++;
-            }
             // projectStatSlides
 
           }
@@ -447,7 +409,6 @@ export class AdminProjectReportPage {
 
           this.tempAverage(0);
           this.tempAverage(1);
-          this.tempAverage(2);
           this.projectStatSlides = this.tempProjectStatSlides;
 
           this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
@@ -537,7 +498,7 @@ export class AdminProjectReportPage {
         average = data * i + average;
       }
       average = average / this.tempProjectStatSlides[index].totalNum;
-      this.tempProjectStatSlides[index].average = average;
+      this.tempProjectStatSlides[index].average = average / 2;
     }
   }
 

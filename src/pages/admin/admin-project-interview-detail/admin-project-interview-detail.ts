@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController, AlertController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -35,8 +35,7 @@ export class AdminProjectInterviewDetailPage {
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
     public adminService: AdminServiceProvider,
-    public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController,) {
+    public actionSheetCtrl: ActionSheetController) {
   }
 
   ionViewDidLoad() {
@@ -101,14 +100,41 @@ export class AdminProjectInterviewDetailPage {
     refresher.complete();
   }
 
-  reportContent() {
+  sanctionProject(project_id, user_id, project_participant_id) {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
-          text: '신고하기',
+          text: '제재하기',
           role: 'destructive',
           handler: () => {
-            this.report();
+            this.commonService.showConfirmAlert('해당 사용자를 프로젝트에서<br>제외하시겠습니까?', 
+            () => {
+              this.commonService.isLoadingActive = true;
+              let loading = this.commonService.presentLoading();
+              
+              this.adminService.sanctionProject(project_id, user_id, project_participant_id)
+              .finally(() => {
+                loading.dismiss();
+              })
+              .subscribe(
+                (data) => {
+                  if(data.success == true) {
+                    this.back();
+                    this.commonService.showBasicAlert('프로젝트에서 제외되었습니다.');
+                  }
+                  else if(data.success == false) {
+                    this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                    .then(() => {
+                      this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                    });
+                  }
+                },
+                (err) => {
+                  console.log(err);
+                  this.commonService.showBasicAlert('오류가 발생했습니다.');
+                }
+              );    
+            });        
           }
         },{
           text: '취소하기',
@@ -120,29 +146,6 @@ export class AdminProjectInterviewDetailPage {
       ]
     });
     actionSheet.present();
-  }
-
-  report() {
-    let alert = this.alertCtrl.create({
-      title: '신고',
-      subTitle: '해당 내용을 위법/위해<br />댓글로 신고하시겠습니까?',
-      buttons: [
-        {
-          text: '취소',
-          role: 'cancel',
-          handler: data => {
-            console.log('취소');
-          }
-        },
-        {
-          text: '확인',
-          handler: data => {
-            console.log('확인');
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   back() {

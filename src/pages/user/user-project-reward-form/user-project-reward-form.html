@@ -18,22 +18,6 @@
     </ion-navbar>
   </ion-header>
   <ion-slides class="reward-slides" pager="false" (ionSlideDidChange)="slideChanged()">
-    <!-- <ion-slide>
-      <div class="reward-question">
-        이 서비스에 <span class="color-primary">만족</span> 하셨나요?
-      </div>
-      <rating [(ngModel)]="satisfaction" max="10" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 0)"></rating>
-      <div class="slide-next-button-wrapper">
-        <span>
-          <button ion-button clear *ngIf="!isQuestionWrited[0]" disabled>
-            <ion-icon color="semiDark" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-          <button ion-button clear *ngIf="isQuestionWrited[0]" (click)="goNextSlide(0)">
-            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-        </span>
-      </div>
-    </ion-slide> -->
     <ion-slide>
       <div class="reward-question">
         이 제품이나 서비스를 동료나 친구들에게<br /><span class="color-primary">추천</span>할 의향이 얼마나 되시나요?
