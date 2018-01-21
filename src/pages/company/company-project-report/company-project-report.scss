@@ -86,6 +86,9 @@ page-company-project-report {
     .project-story-summary-content {
         padding-top: 0px !important;
         background-color: transparent !important;
+        .slide-zoom {
+            height: 100%;
+        }
         .project-story-summary-title {
             .item {
                 span {

@@ -20,27 +20,30 @@
         </button>
       </ion-buttons>
     </ion-navbar>
+    <div class="tab-top-notice">
+      주의!
+      <button class="accordion-button" float-right (click)="accordion()">
+        <ion-icon name="ios-arrow-down" *ngIf="!activeAccordion"></ion-icon>
+        <ion-icon name="ios-arrow-up" *ngIf="activeAccordion"></ion-icon>
+      </button>
+    </div>
+    <div class="subNotice" *ngIf="activeAccordion">
+      <p>* 자세한 사항은 도움말의 '인터뷰' 부분을 확인해 주세요! *</p>
+      <p>기업과 유저간 대화 형식으로 진행됩니다.</p>
+      <p>인터뷰는 기업이 질문하고 유저가 답변하는 방식으로 진행됩니다.</p>
+      <p>인터뷰는 프로젝트 종료 하루 전에 요청이 마감됩니다.</p>
+      <p>주어진 인터뷰 횟수를 적극 활용하여 다양한 응답을 이끌어내세요!</p>
+    </div>
 </ion-header>
 <ion-content>
   <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
       <ion-refresher-content>
       </ion-refresher-content>
   </ion-refresher>              
-  <div class="tab-top-notice">
-    주의!
-    <button class="accordion-button" float-right (click)="accordion()">
-      <ion-icon name="ios-arrow-down" *ngIf="!activeAccordion"></ion-icon>
-      <ion-icon name="ios-arrow-up" *ngIf="activeAccordion"></ion-icon>
-    </button>
+  <div class="empty-content" *ngIf="projectInterviews.length == 0">
+    <span class="grey-text">아직 진행 중인 프로젝트 인터뷰가 없습니다.</span>
   </div>
-  <div class="subNotice" *ngIf="activeAccordion">
-    <p>* 자세한 사항은 도움말의 '인터뷰' 부분을 확인해 주세요! *</p>
-    <p>기업과 유저간 대화 형식으로 진행됩니다.</p>
-    <p>인터뷰는 기업이 질문하고 유저가 답변하는 방식으로 진행됩니다.</p>
-    <p>인터뷰는 프로젝트 종료 하루 전에 요청이 마감됩니다.</p>
-    <p>주어진 인터뷰 횟수를 적극 활용하여 다양한 응답을 이끌어내세요!</p>
-  </div>
-  <ion-list>
+  <ion-list *ngIf="projectInterviews.length != 0">
     <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let projectInterview of projectInterviews" (click)="openAdminProjectInterviewPage(projectInterview.project_id)">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="projectInterview.project_main_image" />

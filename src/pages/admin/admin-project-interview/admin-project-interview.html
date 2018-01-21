@@ -29,7 +29,10 @@
     <span item-right>총 {{maxInterviewNum}}개의 인터뷰 중 {{totalInterviewNum}}개 이용</span>
   </ion-item>
 
-  <ion-list>
+  <div class="empty-content" *ngIf="interviews.length == 0">
+    <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
+  </div>
+  <ion-list *ngIf="interviews.length != 0">
     <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openAdminProjectInterviewDetailPage(interview.project_participant_id)">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="interview.avatar_image" />

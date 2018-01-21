@@ -22,12 +22,6 @@
 
 
 <ion-content class="project-user-report-content" no-bounce>
-  <!-- <div class="report-group-title" text-right padding-right>
-      {{userReports.length}}개의 보고서가 등록되었습니다.
-  </div> -->
-  <div text-center *ngIf = "!userReports.length" class="empty-inner">
-    <p>등록된 심층 피드백이 없습니다.</p>
-  </div>
   <ion-slides *ngIf = "userReports.length" pager=false loop="false" spaceBetween="-28">
     <ion-slide *ngFor="let userReport of userReports" style="overflow-y: scroll; display: block;">
       <ion-card class="user-report-card">
@@ -101,3 +95,6 @@
     </ion-slide>
   </ion-slides>
 </ion-content>
+<div class="empty-content content-absolute" *ngIf = "userReports.length == 0">
+  <span class="dark-trans-text under-icon">아직 등록된 심층 피드백이 없습니다.</span>
+</div>

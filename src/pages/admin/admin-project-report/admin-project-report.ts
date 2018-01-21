@@ -32,7 +32,6 @@ export class AdminProjectReportPage {
   participantNum: number = 0;
   maxParticipantNum: number = 0;
   progressState: String = "";
-  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 심층 피드백"
   projectRegistrationDate: String = "";
 
   currentPageNum: number = 0;
@@ -181,41 +180,7 @@ export class AdminProjectReportPage {
   projectUserParticipationConditionSlides = [];
   tempProjectUserParticipationConditionSlides = [];
 
-  projectBestFeedbacks = [
-    {
-      avatar_image: 'assets/img/user-avatar-image.png',
-      is_best: true,
-      nickname: '지코',
-      empathy_num: 10,
-      non_empathy_num: 2,
-      project_feedback_registration_date: '2017-09-16 00:00:00',
-      project_participant_id: 1,
-      project_feedback: "[\"We are we are we artist baby We are we are we artist ZICO 뭔가 예감 좋아 번뜩 악상이 떠올라 금토일도 월요일같이 사는 내게 상 줄 거야 Alright 올해도 스케줄 꽉 찼고 길 가면 다 알아보고 Fanxy child 겁나 핫하고 그런데도 나 외로워 What should I do\"]",
-      project_feedback_hashtags: "[\"기능\", \"기타\"]",
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image2.png',
-      is_best: true,
-      nickname: '설현',
-      empathy_num: 10,
-      non_empathy_num: 2,
-      project_feedback_registration_date: '2017-09-18 00:00:00',
-      project_participant_id: 1,
-      project_feedback: "[\"어제도 오늘도 네모난 새장 속에 갇혀서 왜 이러고 사는지 참 알쏭달쏭해 삐뚤어질 거야 삐딱해질 거야 뭔가 보여줄 거야 난 달라질 거야 지겨운 건 그만 잔소리도 그만 내가 좋은 내 모습은 유별나서 미움 받는다 해도 상관 말고 살아 될 대로 되라지 오늘 하루가 끝인 것처럼 마음 놓고 뛰어 숨이 벅차 올라 죽을 것처럼 내가 원하는 곳 끝까지 가볼래 난 시작할래 난 이제부터야\"]",
-      project_feedback_hashtags: "[\"기능\", \"괜찮아요\"]",
-    },
-    {
-      avatar_image: 'assets/img/user-avatar-image3.png',
-      is_best: true,
-      nickname: '비와이',
-      empathy_num: 10,
-      non_empathy_num: 2,
-      project_feedback_registration_date: '2017-09-20 00:00:00',
-      project_participant_id: 1,
-      project_feedback: "[\"래퍼 딱지를 떼는 중 이젠 MC로 폼 잡고 걸어가고 싶어 예술가의 길로 확실히 단단해져버린 내 신념과 Ego 새 역사는 다시금 써지네 내 발자취로 산 증인의 삶 그 삶을 위한 권능을 원해 I need more power 단순히 내 바지 주머니가\"]",
-      project_feedback_hashtags: "[\"엄지\", \"Forever\"]",
-    },
-  ];
+  projectBestFeedbacks = [];
 
   projectStatSlides = [];
   tempProjectStatSlides = [

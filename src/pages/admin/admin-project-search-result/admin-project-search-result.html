@@ -43,9 +43,8 @@
     <div class="shadow-top"></div>
   </div>
   <div class="search-result-content-wrapper">
-    <div class="search-result-content outer-content empty-search-result" *ngIf="feedbackResults.length == 0">
-      <ion-icon name="md-alert"></ion-icon>
-      <div>검색 결과가 없습니다.</div>
+    <div class="empty-content content-absolute" *ngIf="feedbackResults.length == 0">
+      <span class="dark-text under-icon">검색 결과가 없습니다.</span>
     </div>
     <div class="search-result-content outer-content" *ngIf="feedbackResults.length > 0">
       <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 

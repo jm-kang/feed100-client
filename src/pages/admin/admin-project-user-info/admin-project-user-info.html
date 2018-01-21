@@ -21,21 +21,21 @@
 </ion-header>
 
 <ion-content class="project-user-info-content">
-    <div class="user-list">
-      <ion-list>
-        <ion-list-header>
-          유저 통계
-        </ion-list-header>
-        <ion-item class="avatar-span-wrapper" tappable (click)="openAdminProjectUserParticipationConditionStatsPage()">
-          <h4>프로젝트 참여 조건 통계</h4>
-          <ion-icon item-end name="ios-arrow-forward"></ion-icon>
-        </ion-item>
-        <ion-item class="avatar-span-wrapper" tappable (click)="openAdminProjectUserProfileStatsPage()">
-          <h4>유저 기본 정보 통계</h4>
-          <ion-icon item-end name="ios-arrow-forward"></ion-icon>
-        </ion-item>
-      </ion-list>
-    </div>
+  <div class="user-list">
+    <ion-list>
+      <ion-list-header>
+        유저 통계
+      </ion-list-header>
+      <ion-item class="avatar-span-wrapper" tappable (click)="openAdminProjectUserParticipationConditionStatsPage()">
+        <h4>프로젝트 참여 조건 통계</h4>
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </ion-item>
+      <ion-item class="avatar-span-wrapper" tappable (click)="openAdminProjectUserProfileStatsPage()">
+        <h4>유저 기본 정보 통계</h4>
+        <ion-icon item-end name="ios-arrow-forward"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
   
   <div class="user-list">
     <ion-list>
@@ -59,5 +59,8 @@
         </span>
       </ion-item>
     </ion-list>
+  </div>
+  <div class="empty-content m-t-30 h-0" *ngIf="users.length == 0">
+    <span class="dark-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
   </div>
 </ion-content>

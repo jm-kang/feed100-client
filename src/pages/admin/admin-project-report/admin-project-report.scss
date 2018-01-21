@@ -74,6 +74,9 @@ page-admin-project-report {
     .project-story-summary-content {
         padding-top: 0px !important;
         background-color: transparent !important;
+        .slide-zoom {
+            height: 100%;
+        }
         .project-story-summary-title {
             .item {
                 span {
@@ -121,7 +124,7 @@ page-admin-project-report {
         display: block;
         .slide-title {
             color: #fff;
-            padding-top: 16px;
+            padding-top: 16px !important;
             .item-inner {
                 border-bottom: 0px !important;
                 h3 {

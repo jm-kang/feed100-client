@@ -53,3 +53,53 @@ ion-spinner {
 .key-tag {
     color : rgb(255, 0, 212);
 }
+
+.empty-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+        font-size: 1.5rem;
+    }
+
+    .grey-text {
+        color: #d8d8d8;
+    }
+
+    .dark-text {
+        color: #989898;
+    }
+
+    .dark-trans-text {
+        color: rgba(152,152,152,0.8);
+    }
+    
+    .empty-button {
+        position: absolute;
+        margin-top: 32px;
+        font-weight: bold;
+    }
+
+    .icon {
+        font-size: 2rem;
+    }
+}
+
+.feed100-text {
+    color: #ff6700;
+}
+
+.h-0 {
+    height: auto !important;
+}
+
+.m-t-60 {
+    margin-top: 60px !important;
+}
+
+.empty-content.content-absolute {
+    position:absolute;
+    top:0;bottom:0;right:0;left: 0;
+}
