@@ -1,7 +1,3 @@
-import { AdminProjectUserReportPage } from './../pages/admin/admin-project-user-report/admin-project-user-report';
-import { CompanyProjectReportPage } from './../pages/company/company-project-report/company-project-report';
-import { AdminProjectReportPage } from './../pages/admin/admin-project-report/admin-project-report';
-import { CompanyProjectInterviewDetailPage } from './../pages/company/company-project-interview-detail/company-project-interview-detail';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,16 +13,12 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
-import { AdminProjectSearchResultPage } from '../pages/admin/admin-project-search-result/admin-project-search-result';
-import { AdminProjectStatsPage } from '../pages/admin/admin-project-stats/admin-project-stats';
-import { AdminProjectUserInfoPage } from '../pages/admin/admin-project-user-info/admin-project-user-info';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage:any = LoginPage;
-  rootPage:any = AdminProjectUserReportPage;
+  rootPage:any = LoginPage;
 
   constructor(
     platform: Platform,
@@ -44,7 +36,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      // this.verifyLoginState();
+      this.verifyLoginState();
       // keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
