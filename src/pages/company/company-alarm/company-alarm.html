@@ -20,7 +20,10 @@
       <ion-refresher-content>
       </ion-refresher-content>
   </ion-refresher>          
-  <ion-list>
+  <div class="empty-content" *ngIf="alarms.length == 0">
+    <span class="grey-text">아직 진행 중인 프로젝트 인터뷰가 없습니다.</span>
+  </div>
+  <ion-list *ngIf="alarms.length != 0">
     <ion-item tappable class="interview-item avatar-span-wrapper item-flex" *ngFor="let alarm of alarms" (click)="accessAlarmItem(alarm.alarm_link, alarm.project_id, alarm.alarm_id)">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="alarm.project_main_image" />

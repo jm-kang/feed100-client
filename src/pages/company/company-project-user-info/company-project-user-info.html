@@ -60,4 +60,7 @@
       </ion-item>
     </ion-list>
   </div>
+  <div class="empty-content m-t-30 h-0" *ngIf="users.length == 0">
+    <span class="dark-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
+  </div>
 </ion-content>

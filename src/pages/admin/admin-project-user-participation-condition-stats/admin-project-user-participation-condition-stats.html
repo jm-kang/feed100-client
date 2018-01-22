@@ -36,7 +36,11 @@
       <div class="stats-summary" text-left>
         <span *ngFor="let data of stat.datasets[0].data; let j=index"><span class="square-dot" [style.background]="colors[0].backgroundColor[j]"></span>{{stat.labels[j]}} : <strong>{{data}}</strong> 명 <small>({{(stat.totalNum == 0) ? 0 : data/stat.totalNum*100 | round:1}}%)</small><span *ngIf="j+1 != stat.datasets[0].data.length">,</span></span>
       </div>
-      
+    </ion-slide>
+    <ion-slide class="story-content-slide project-story-summary-content" *ngIf="stats.length == 0">
+      <div class="empty-content content-absolute">
+        <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+      </div>
     </ion-slide>
   </ion-slides>
 </ion-content>
