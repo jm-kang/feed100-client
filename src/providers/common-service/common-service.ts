@@ -46,8 +46,7 @@ export class CommonServiceProvider {
   
   getServerUrl() {
     // return 'http://192.168.35.233:3000';
-    // return 'http://localhost:3000';
-    return 'http://www.feed100.me';
+    return 'https://www.feed100.me';
   } 
 
   getHeaders(tokenType): Promise<any> {

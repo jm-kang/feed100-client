@@ -23,6 +23,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="10000" />
     <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -85,58 +86,6 @@
             <string>Allow the app to access your photos</string>
         </config-file>
     </platform>
-    <allow-navigation href="http://192.168.0.3:8100" />
-    <allow-navigation href="http://192.168.0.181:8100" />
-    <allow-navigation href="http://192.168.0.8:8100" />
-    <allow-navigation href="http://192.168.0.15:8100" />
-    <allow-navigation href="http://172.30.1.26:8100" />
-    <allow-navigation href="http://192.168.0.46:8100" />
-    <allow-navigation href="http://192.168.0.21:8100" />
-    <allow-navigation href="http://192.168.0.90:8100" />
-    <allow-navigation href="http://172.30.1.28:8100" />
-    <allow-navigation href="http://172.30.1.50:8100" />
-    <allow-navigation href="http://192.168.35.100:8100" />
-    <allow-navigation href="http://192.168.10.52:8100" />
-    <allow-navigation href="http://192.168.0.132:8100" />
-    <allow-navigation href="http://192.168.0.238:8100" />
-    <allow-navigation href="http://192.168.0.29:8100" />
-    <allow-navigation href="http://192.168.0.13:8100" />
-    <allow-navigation href="https://*youtube.com/*" />
-    <allow-navigation href="http://192.168.56.1:8100" />
-    <allow-navigation href="http://192.168.43.10:8100" />
-    <allow-navigation href="http://192.168.0.2:8100" />
-    <allow-navigation href="http://192.168.0.148:8100" />
-    <allow-navigation href="http://192.168.0.4:8100" />
-    <allow-navigation href="http://10.3.130.160:8100" />
-    <allow-navigation href="http://172.30.1.27:8100" />
-    <allow-navigation href="http://172.30.1.36:8100" />
-    <allow-navigation href="http://192.168.0.32:8100" />
-    <allow-navigation href="http://192.168.0.7:8100" />
-    <allow-navigation href="http://192.168.0.17:8100" />
-    <allow-navigation href="http://172.20.10.5:8100" />
-    <allow-navigation href="http://192.168.0.25:8100" />
-    <allow-navigation href="http://172.30.1.22:8100" />
-    <allow-navigation href="http://192.168.1.208:8100" />
-    <allow-navigation href="http://192.168.0.18:8100" />
-    <allow-navigation href="http://172.30.1.37:8100" />
-    <allow-navigation href="http://192.168.35.28:8100" />
-    <allow-navigation href="http://172.30.94.86:8100" />
-    <allow-navigation href="http://172.30.1.57:8100" />
-    <allow-navigation href="http://192.168.0.31:8100" />
-    <allow-navigation href="http://192.168.35.143:8100" />
-    <allow-navigation href="http://192.168.0.147:8100" />
-    <allow-navigation href="http://192.168.0.40:8100" />
-    <allow-navigation href="http://172.30.1.25:8100" />
-    <allow-navigation href="http://192.168.10.98:8100" />
-    <allow-navigation href="http://10.211.55.2:8100" />
-    <allow-navigation href="http://192.168.0.10:8100" />
-    <allow-navigation href="http://192.168.0.115:8100" />
-    <allow-navigation href="http://192.168.35.31:8100" />
-    <allow-navigation href="http://192.168.35.105:8100" />
-    <allow-navigation href="http://192.168.35.239:8100" />
-    <allow-navigation href="http://192.168.35.149:8100" />
-    <allow-navigation href="http://192.168.35.184:8100" />
-    <allow-navigation href="http://192.168.35.233:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com-sarriaroman-photoviewer" spec="^1.1.10" />
@@ -175,4 +124,5 @@
     <plugin name="phonegap-plugin-push" spec="^2.0.0">
         <variable name="SENDER_ID" value="889490373924" />
     </plugin>
+    <allow-navigation href="http://192.168.35.36:8100" />
 </widget>
