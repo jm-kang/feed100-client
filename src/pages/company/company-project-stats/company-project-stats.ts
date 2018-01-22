@@ -75,32 +75,6 @@ export class CompanyProjectStatsPage {
         },
       },
     } ,
-    // {
-    //   title: '서비스 만족도',
-    //   // 서버에서 데이터 필요한 부분
-    //   datasets: [{
-    //     data: [0, 0, 0, 0, 0]
-    //   }],
-    //   average: 0,
-    //   totalNum: 0,
-    //   colors: [
-    //     {backgroundColor:'rgba(255,100,0,0.4)'},
-    //   ],
-    //   labels: ['1점', '2점', '3점', '4점', '5점'],
-    //   type: 'bar',
-    //   options: {
-    //     scales: {
-    //         yAxes: [{
-    //             ticks: {
-    //                 beginAtZero:true
-    //             }
-    //         }]
-    //     },
-    //     legend: {
-    //       display: false
-    //     },
-    //   },
-    // } 
   ]
 
   constructor(
@@ -136,14 +110,9 @@ export class CompanyProjectStatsPage {
               (this.tempStats[1].datasets[0].data[data.data[i].project_recommendation_rate-1])++;
               this.tempStats[1].totalNum++;
             }
-            // if(data.data[i].project_satisfaction_rate) {
-            //   (this.tempStats[2].datasets[0].data[data.data[i].project_satisfaction_rate-1])++;
-            //   this.tempStats[2].totalNum++;
-            // }
           }
           this.tempAverage(0);
           this.tempAverage(1);
-          // this.tempAverage(2);
           this.stats = this.tempStats;
           
         }

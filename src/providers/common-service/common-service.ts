@@ -45,9 +45,8 @@ export class CommonServiceProvider {
   }
   
   getServerUrl() {
-    return 'http://192.168.35.233:3000';
-    // return 'http://localhost:3000';
-    // return 'http://www.feed100.me';
+    // return 'http://192.168.35.233:3000';
+    return 'https://www.feed100.me';
   } 
 
   getHeaders(tokenType): Promise<any> {
@@ -308,9 +307,9 @@ export class CommonServiceProvider {
     confirm.present();
   }
 
-  showBasicAlert(subTitle) {
+  showBasicAlert(message) {
     let alert = this.alertCtrl.create ({
-      subTitle: subTitle,
+      message: message,
       buttons: ['확인'],
       enableBackdropDismiss: false
     });

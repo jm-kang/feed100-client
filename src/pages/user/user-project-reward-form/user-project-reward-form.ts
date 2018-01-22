@@ -29,7 +29,6 @@ export class UserProjectRewardFormPage {
   transparentPercent: number = 0;
 
   project_id;
-  satisfaction: number = 0;
   recommendation: number = 0;
   isQuestionWrited = [false, false];
   isBest = false;
@@ -85,28 +84,13 @@ export class UserProjectRewardFormPage {
     }
   }
 
-  // onModelChange(newVal, index) {
-  //   if(newVal > 0) {
-  //     this.isQuestionWrited[index] = true;
-  //     if(index == 1) {
-  //       this.slides.lockSwipeToNext(true);
-  //     }
-  //     else {
-  //       this.slides.lockSwipeToNext(false);
-  //     }
-  //   } else {
-  //     this.isQuestionWrited[index] = false;
-  //     this.slides.lockSwipeToNext(true);
-  //   }
-  // }
-
   goNextSlide(index) {
     switch(index) {
       case 0:
-       this.commonService.isLoadingActive = true;
+        this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
 
-        this.userService.reward(this.project_id, this.satisfaction, this.recommendation)
+        this.userService.reward(this.project_id, this.recommendation)
         .finally(() => {
           loading.dismiss();
         })

@@ -1,6 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Content } from 'ionic-angular';
 
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
+
 /**
  * Generated class for the UserPointUsageHistoryPage page.
  *
@@ -17,49 +20,71 @@ export class UserPointUsageHistoryPage {
   @ViewChild(Content) content: Content;
 
   segmentHistoryCondition: String = "";
-  savePointUsageNum: number = 2;
-  exchangePointUsageNum: number = 1;
-  totalPoint = 4000;
-  totalSavePoint = 24000;
-  totalExchangePoint = 20000;
-  isFold:boolean=true;
+  savePointNum: number = 0;
+  exchangePointNum: number = 0;
+  totalPoint = 0;
+  totalSavePoint = 0;
+  totalExchangePoint = 0;
+  isFold: boolean = true;
 
-  pointUsages = [
-    {
-      type: "exchange",
-      content: "",
-      isPaid: false,
-      point: "20000",
-      totalPoint: "4000",
-      date: "2017-12-14 12:00:00",
-    },
-    {
-      type: "save",
-      content: "대학생의 공부자료실, 클래스에이드",
-      isPaid: true,
-      point: "14000",
-      totalPoint: "24000",
-      date: "2017-12-13 23:00:00",
-    },
-    {
-      type: "save",
-      content: "강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
-      isPaid: true,
-      point: "10000",
-      totalPoint: "10000",
-      date: "2017-12-12 06:00:00",
-    }
-  ]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  pointHistories = []
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public commonService: CommonServiceProvider,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserPointUsageHistoryPage');
+    this.commonService.isLoadingActive = true;
     this.segmentHistoryCondition = "all";
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserPointUsageHistoryPage');
+    let loading = this.commonService.presentLoading();
+    
+    this.userService.getPointHistory()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.pointHistories = data.data;
+          this.savePointNum = this.exchangePointNum = this.totalSavePoint = this.totalExchangePoint = this.totalPoint = 0;
+          for(let pointHistory of this.pointHistories) {
+            if(pointHistory.is_accumulated) {
+              this.savePointNum++;
+              this.totalSavePoint += pointHistory.point;
+            }
+            else {
+              this.exchangePointNum++;
+              this.totalExchangePoint += pointHistory.point;
+            }
+          }
+          this.totalPoint = this.totalSavePoint - this.totalExchangePoint;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );    
+  }
+
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   back() {

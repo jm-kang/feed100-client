@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController } from 'ionic-angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
@@ -28,8 +28,7 @@ export class CompanyProjectUserReportPage {
     public photoViewer: PhotoViewer,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
-    public actionSheetCtrl: ActionSheetController,
-    public alertCtrl: AlertController,) {
+    public actionSheetCtrl: ActionSheetController) {
   }
 
   ionViewDidLoad() {
@@ -73,14 +72,45 @@ export class CompanyProjectUserReportPage {
 
   }
 
-  reportContent() {
+  reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
           text: '신고하기',
           role: 'destructive',
           handler: () => {
-            this.report();
+            this.commonService.showConfirmAlert('해당 내용을 부적절한<br>게시글로 신고하시겠습니까?', 
+            () => {
+              this.commonService.isLoadingActive = true;
+              let loading = this.commonService.presentLoading();
+              
+              this.companyService.reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id)
+              .finally(() => {
+                loading.dismiss();
+              })
+              .subscribe(
+                (data) => {
+                  if(data.success == true) {
+                    this.commonService.showBasicAlert('신고가 접수되었습니다.');
+                  }
+                  else if(data.success == false) {
+                    if(data.message == 'already reported') {
+                      this.commonService.showBasicAlert('이미 신고가 접수되었습니다.');
+                    }
+                    else {
+                      this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+                      .then(() => {
+                        this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+                      });
+                    }
+                  }
+                },
+                (err) => {
+                  console.log(err);
+                  this.commonService.showBasicAlert('오류가 발생했습니다.');
+                }
+              );    
+            });        
           }
         },{
           text: '취소하기',
@@ -92,29 +122,6 @@ export class CompanyProjectUserReportPage {
       ]
     });
     actionSheet.present();
-  }
-
-  report() {
-    let alert = this.alertCtrl.create({
-      title: '신고',
-      subTitle: '해당 댓글을 위법/위해<br />댓글로 신고하시겠습니까?',
-      buttons: [
-        {
-          text: '취소',
-          role: 'cancel',
-          handler: data => {
-            console.log('취소');
-          }
-        },
-        {
-          text: '확인',
-          handler: data => {
-            console.log('확인');
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   back() {

@@ -78,10 +78,10 @@
           </span>
           <h5>
             {{newsfeedComment.nickname}}
-            &ensp;<ins class="key-tag">20180116</ins>
+            &ensp;<ins class="key-tag">{{newsfeedComment.newsfeed_comment_id}}</ins>
             <span class="item-tag-wrapper">
               <span class="btn-item-more">
-                <button ion-button (click)="reportContent()">
+                <button ion-button (click)="sanctionNewsfeed(newsfeed_id, newsfeedComment.newsfeed_comment_id)">
                   <ion-icon name="md-more"></ion-icon>
                 </button>
               </span>

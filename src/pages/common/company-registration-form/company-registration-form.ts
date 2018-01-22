@@ -112,7 +112,7 @@ export class CompanyRegistrationFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.navCtrl.setRoot('CompanyLoginForm', {}, {animate: true, direction: 'forward'});
+          this.navCtrl.setRoot('CompanyLoginFormPage', {}, {animate: true, direction: 'forward'});
           this.commonService.showBasicAlert('해당 계정으로 이메일을 전송하였습니다.<br/>이메일 인증 완료 후 로그인해주세요.');
         }
         else if(data.success == false) {

@@ -199,7 +199,7 @@ export class UserProjectReportFormPage {
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
-          this.userService.projectReport(this.project_id, (this.project_report_images.length) ? this.project_report_images : null, this.storySummaryContent, this.prosContent, this.consContent, this.overallOpinionContent)
+          this.userService.writeProjectReport(this.project_id, (this.project_report_images.length) ? this.project_report_images : null, this.storySummaryContent, this.prosContent, this.consContent, this.overallOpinionContent)
           .finally(() => {
             loading.dismiss();
           })
