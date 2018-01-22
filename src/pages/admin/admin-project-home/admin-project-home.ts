@@ -68,11 +68,11 @@ export class AdminProjectHomePage {
       (data) => {
         if(data.success == true) {
           if(this.platform.is('android')) {
-            this.isLink = (data.data.project_android_link != null) ? true : false;
+            this.isLink = (data.data.project_android_link) ? true : false;
             this.project_link = data.data.project_android_link;
           }
           else if(this.platform.is('ios')) {
-            this.isLink = (data.data.project_ios_link != null) ? true : false;
+            this.isLink = (data.data.project_ios_link) ? true : false;
             this.project_link = data.data.project_ios_link;
           }
           this.projectMainImage = data.data.project_main_image;

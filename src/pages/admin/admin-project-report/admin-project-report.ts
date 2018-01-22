@@ -376,7 +376,7 @@ export class AdminProjectReportPage {
           this.tempAverage(1);
           this.projectStatSlides = this.tempProjectStatSlides;
 
-          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
+          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 4;
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)
