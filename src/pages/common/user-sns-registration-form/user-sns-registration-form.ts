@@ -89,7 +89,7 @@ export class UserSnsRegistrationFormPage {
     }
 
     if(!this.isCheck) {
-      this.commonService.showBasicAlert('이용약관 및 개인정보 취급방침에 동의해주세요.');
+      this.commonService.showBasicAlert('이용약관 및 개인정보처리방침에 동의해주세요.');
       return;
     }
 
