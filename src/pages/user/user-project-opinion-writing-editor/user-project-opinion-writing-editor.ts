@@ -58,7 +58,7 @@ export class UserProjectOpinionWritingEditorPage {
     console.log('ionViewDidLoad UserProjectOpinionWritingEditorPage');
     this.nickname = this.ModalWrapperPage.modalParams.nickname;
     this.feedback_id = this.ModalWrapperPage.modalParams.feedback_id;
-    this.opinionContent = this.opinionContent.replace(/<br *\/?>/gi, '\n');
+    this.opinionContent = this.opinionContent;
   }
 
   ionViewWillEnter() {    

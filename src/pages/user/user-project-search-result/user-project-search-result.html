@@ -13,7 +13,7 @@
         </button>
       </ion-buttons>
       
-        <div class="active-button-wrapper hashtags-chooser-wraaper">
+        <div class="active-button-wrapper hashtags-chooser-wrapper">
           <ion-buttons>
             <button clear *ngIf="searchResults.length == 0" ion-button class="inactive-button">필터를 등록해주세요.</button>
             <button color="light" *ngFor="let searchResult of searchResults" ion-button class="active-button" (click)="inactiveHashtag(searchResult)">
@@ -32,7 +32,7 @@
     </ion-refresher-content>
   </ion-refresher>        
   <div class="search-wrapper">
-    <div class="inactive-button-wrapper hashtags-chooser-wraaper" *ngIf="projectHashtags.length > 0">
+    <div class="inactive-button-wrapper hashtags-chooser-wrapper" *ngIf="projectHashtags.length > 0">
       <ion-buttons>
         <button ion-button clear class="inactive-all all-button" (click)="activeAllHashtag()">ALL</button>
         <button *ngFor="let projectHashtag of projectHashtags" ion-button clear class="inactive-button" (click)="activeHashtag(projectHashtag)">

@@ -23,7 +23,6 @@ export class CompanyProjectReportPage {
   
   isFirstSlide: boolean = true;
   isFeedback: boolean = true;
-  isLink: boolean = true;
 
   projectMainImage: String = "";
   avatarImage: String = "";

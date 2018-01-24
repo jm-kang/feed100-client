@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, ViewController, App, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, ViewController, App, Content, Platform } from 'ionic-angular';
 
 import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
@@ -58,6 +58,7 @@ export class UserProjectReportFormPage {
     public userService: UserServiceProvider,
     public ModalWrapperPage: ModalWrapperPage,
     public appCtrl: App,
+    public platform: Platform,
     private domSanitizer: DomSanitizer) {
   }
 
@@ -80,12 +81,17 @@ export class UserProjectReportFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.projectMainImage = data.data.project_main_image;
-          this.isLink = data.data.project_link; 
           if(data.data.project_report_registration_date) {
             this.commonService.showBasicAlert('이미 심층 피드백을 작성하셨습니다!');
             this.dismiss();
           }
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.project_android_link) ? true : false; 
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.project_ios_link) ? true : false;
+          }
+          this.projectMainImage = data.data.project_main_image;
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

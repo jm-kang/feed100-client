@@ -87,6 +87,11 @@ ion-spinner {
     }
 }
 
+.item h2, .item h3 {
+    overflow: inherit;
+    text-overflow: ellipsis;
+}
+
 .feed100-text {
     color: #ff6700;
 }
@@ -114,4 +119,10 @@ ion-spinner {
 .empty-content.content-absolute {
     position:absolute;
     top:0;bottom:0;right:0;left: 0;
+}
+
+.pre-line {
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: pre-line;
 }

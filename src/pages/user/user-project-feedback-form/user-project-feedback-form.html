@@ -47,7 +47,7 @@
 
       <div class="underline-input-button-wrapper">
         <button ion-button clear class="underline-input" (click)="openUserProjectFeedbackWritingEditorPage()">
-          <div [innerHTML]="feedbackContent | slicetextarea:0:100:4 "></div>
+          <div class="pre-line">{{feedbackContent | slicetextarea:0:100:4 | replaceBrTag}}</div>
           <div *ngIf="feedbackHashtags.length > 0" class="feedback-hashtags-wrapper">
             <span class="feedback-hashtag" *ngFor="let feedbackHashtag of feedbackHashtags">#{{feedbackHashtag}}</span>
           </div>

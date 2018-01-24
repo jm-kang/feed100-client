@@ -92,7 +92,6 @@ export class AdminProjectUserProfileStatsPage {
           fontStyle: 'bold',
           fontColor: '#ffffff',
           lineHeight: '3',
-          text: '1. 유저 정보'
         }
       },
     },

@@ -55,7 +55,7 @@ export class UserProjectFeedbackWritingEditorPage {
     console.log('ionViewDidLoad UserProjectFeedbackWritingEditorPage');
     this.projectHashtags = this.ModalWrapperPage.modalParams.projectHashtags;
     if(this.ModalWrapperPage.modalParams.feedbackContent.length > 0) {
-      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent.replace(/<br *\/?>/gi, '\n');
+      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent;
     }
     for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackHashtags.length; i++) {
       this.feedbackHashtags.push(this.ModalWrapperPage.modalParams.feedbackHashtags[i]);

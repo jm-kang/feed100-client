@@ -84,61 +84,61 @@ page-user-project-search-result {
 }
 
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper,
-.hashtags-chooser-wraaper.active-button-wrapper,
-.hashtags-chooser-wraaper.inactive-button-wrapper {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper,
+.hashtags-chooser-wrapper.active-button-wrapper,
+.hashtags-chooser-wrapper.inactive-button-wrapper {
     display: flex;
 }
 
-.hashtags-chooser-wraaper.inactive-button-wrapper {
+.hashtags-chooser-wrapper.inactive-button-wrapper {
     padding: 5px 16px;
 }
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper {
     padding-right: 16px;
 }
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper ion-buttons,
-.hashtags-chooser-wraaper.active-button-wrapper ion-buttons,
-.hashtags-chooser-wraaper.inactive-button-wrapper ion-buttons {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons,
+.hashtags-chooser-wrapper.active-button-wrapper ion-buttons,
+.hashtags-chooser-wrapper.inactive-button-wrapper ion-buttons {
     display: inline-flex;
     overflow-x: scroll;
 }
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wraaper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wraaper.inactive-button-wrapper ion-buttons .button {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
+.hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
+.hashtags-chooser-wrapper.inactive-button-wrapper ion-buttons .button {
     height: 28px;
     font-size: 1.3rem;
     font-weight: 500;
     margin-right: 0.5rem;
 }
 
-.hashtags-chooser-wraaper .inactive-button {
+.hashtags-chooser-wrapper .inactive-button {
     color: #6f6f6f !important;
     background-color: transparent !important;
 }
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wraaper.active-button-wrapper ion-buttons button {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
+.hashtags-chooser-wrapper.active-button-wrapper ion-buttons button {
     color: #ff6400;
     background-color: #f0f0f0;
     border-radius: 50px;
     padding: 2px 16px;
 }
 
-.toolbar-content .hashtags-chooser-wraaper.active-button-wrapper ion-icon,
-.hashtags-chooser-wraaper.active-button-wrapper ion-icon {  
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-icon,
+.hashtags-chooser-wrapper.active-button-wrapper ion-icon {  
     color: #d3d3d3;
     padding-left: 5px;
     font-size: 1.3rem;
 }
 
-.hashtags-chooser-wraaper .button-md {
+.hashtags-chooser-wrapper .button-md {
     text-transform: none !important;
     overflow: initial;
 }
 
-.hashtags-chooser-wraaper .button-md .button-inner {
+.hashtags-chooser-wrapper .button-md .button-inner {
     width: fit-content;
 }

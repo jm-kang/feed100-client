@@ -144,7 +144,8 @@ export class UserProjectFeedbackFormPage {
     userProjectFeedbackWritingEditorModal.onWillDismiss(
       (data) => {
         if(data) {
-          this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+          // this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
+          this.feedbackContent = data.feedbackContent;
           this.feedbackImages = data.feedbackImages;
           this.feedbackHashtags = data.feedbackHashtags;
           if(this.feedbackContent != "") {
