@@ -57,7 +57,7 @@
       </h3>
       <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
     </ion-item>
-    <p class="feedback-comment pre-line">{{feedback | replaceBrTag}}}</p>
+    <p class="feedback-comment pre-line">{{feedback}}</p>
     <div class="hashtag-wrapper">
       <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
         #{{feedbackHashtag}}

@@ -101,16 +101,12 @@ export class UserProjectFeedbackFormPage {
   }
 
   clickImpression(stat:boolean, index:number) {
-    if(!stat) {
-      for(let i = 0; i < this.impressionStats.length; i++) {
-        this.impressionStats[i] = false;
-      }
-      this.impressionStats[index] = true;
-      this.rate = index + 1;
-      this.isSecondQuestionWrited = true;
-    } else {
-      this.isSecondQuestionWrited = false;
+    for(let i = 0; i < this.impressionStats.length; i++) {
+      this.impressionStats[i] = false;
     }
+    this.impressionStats[index] = true;
+    this.rate = index + 1;
+    this.isSecondQuestionWrited = true;
   }
 
   back() {
@@ -144,7 +140,6 @@ export class UserProjectFeedbackFormPage {
     userProjectFeedbackWritingEditorModal.onWillDismiss(
       (data) => {
         if(data) {
-          // this.feedbackContent = data.feedbackContent.replace(/(?:\r\n|\r|\n)/g, '<br />');
           this.feedbackContent = data.feedbackContent;
           this.feedbackImages = data.feedbackImages;
           this.feedbackHashtags = data.feedbackHashtags;

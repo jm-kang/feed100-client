@@ -299,9 +299,11 @@ export class CompanyProjectReportPage {
 
           for(let i=0; i<this.userReports.length; i++) {
             this.userReports[i].project_report_images = JSON.parse(this.userReports[i].project_report_images);
-            for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
-              this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
-            }
+            if(this.userReports[i].project_report_images) { 
+              for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
+                this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
+              }
+            }              
           }
           
           for(let i = 0; i < participants.length; i++) {

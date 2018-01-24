@@ -116,13 +116,17 @@ export class UserProjectOpinionWritingEditorPage {
     )
   }
 
-  registerOpinion() {
+  registerOpinion() {    
+    if(this.commonService.hasEmoji(this.opinionContent)) {
+      return false;
+    }
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
       () => {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFile()
         .then(() => {
+          this.opinionContent = this.commonService.textAreaFilter(this.opinionContent);
           this.userService.registerOpinion(this.feedback_id, this.isEmpathy, this.opinionContent, (this.opinionImage) ? [this.opinionImage] : null)
           .finally(() => {
             loading.dismiss();

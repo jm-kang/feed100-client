@@ -73,6 +73,10 @@ export class UserProjectFeedbackWritingEditorPage {
   }
 
   completeEditor() {
+    if(this.commonService.hasEmoji(this.feedbackContent)) {
+      return false;
+    }
+    this.feedbackContent = this.commonService.textAreaFilter(this.feedbackContent);
     let data = { feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, feedbackHashtags: this.feedbackHashtags };
     this.ModalWrapperPage.dismissModal(data);
   }

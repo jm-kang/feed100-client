@@ -87,11 +87,6 @@ ion-spinner {
     }
 }
 
-.item h2, .item h3 {
-    overflow: inherit;
-    text-overflow: ellipsis;
-}
-
 .feed100-text {
     color: #ff6700;
 }
@@ -122,7 +117,7 @@ ion-spinner {
 }
 
 .pre-line {
-    word-break: break-all;
-    word-wrap: break-word;
-    white-space: pre-line;
+    word-break: break-all !important;
+    word-wrap: break-word !important;
+    white-space: pre-line !important;
 }

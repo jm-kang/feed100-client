@@ -27,6 +27,7 @@ import 'rxjs/add/operator/finally';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPage;
+  isDevMode = true;
 
   constructor(
     public http: Http,
@@ -50,23 +51,42 @@ export class CommonServiceProvider {
   } 
 
   getHeaders(tokenType): Promise<any> {
+    if(this.isDevMode) {
+      return this.getDevHeader(tokenType);
+    }
+    else {
+      return new Promise(
+        (resolve, reject) => {
+          this.appVersion.getVersionNumber().then((version) => {
+            this.storage.get(tokenType + 'Token')
+            .then((token) => {
+              let headers = new Headers();
+              if(this.platform.is('ios')) {
+                headers.append('platform', 'ios');
+              }
+              else if(this.platform.is('android')) {
+                headers.append('platform', 'android');
+              }
+              headers.append('Content-type', 'application/json');            
+              headers.append('version', version);
+              headers.append('x-' + tokenType + '-token', token);
+              resolve(headers);
+            });
+          });
+        }
+      );
+    }
+  }
+
+  getDevHeader(tokenType): Promise<any> {
     return new Promise(
       (resolve, reject) => {
-        this.appVersion.getVersionNumber().then((version) => {
-          this.storage.get(tokenType + 'Token')
-          .then((token) => {
-            let headers = new Headers();
-            if(this.platform.is('ios')) {
-              headers.append('platform', 'ios');
-            }
-            else if(this.platform.is('android')) {
-              headers.append('platform', 'android');
-            }
-            headers.append('Content-type', 'application/json');            
-            headers.append('version', version);
-            headers.append('x-' + tokenType + '-token', token);
-            resolve(headers);
-          });
+        this.storage.get(tokenType + 'Token')
+        .then((token) => {
+          let headers = new Headers();
+          headers.append('Content-type', 'application/json');
+          headers.append('x-' + tokenType + '-token', token);
+          resolve(headers);
         });
       }
     );
@@ -287,6 +307,22 @@ export class CommonServiceProvider {
         }
       }
     );
+  }
+
+  hasEmoji(content) {
+    let regExp = /^[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\_\`\~\!\@\#\$\%\^\&\*\(\)\-\=\+\\\{\}\[\]\'\"\;\:\<\,\>\.\?\/\|\₩\s]+$/;     
+    if(!content.match(regExp)) {
+      this.showBasicAlert('내용에 부적절한 글자가 포함되어 있습니다.<br/>확인 후 다시 시도해주세요.<br/>ex) 이모티콘, 특수문자');
+      return true;
+    }
+    return false;
+  }
+  
+  textAreaFilter(content) {
+    content = content.replace(/^(\s)*/g, '');
+    content = content.replace(/( )+( )+/g, ' ');
+    content = content.replace(/(\n)+( )*(\n)+( )*(\n)+/g, '\n\n');
+    return content;
   }
 
   showUpdateAlert(message) {
