@@ -1,35 +1,35 @@
 page-user-project-feedback-writing-editor {
-    .hashtags-chooser-wraaper.active-button-wrapper {
+    .hashtags-chooser-wrapper.active-button-wrapper {
         padding: 5px 16px;
     }
 
-    .hashtags-chooser-wraaper ion-buttons {
+    .hashtags-chooser-wrapper ion-buttons {
         margin: 0;
     }
 
-    .hashtags-chooser-wraaper.inactive-button-wrapper {
+    .hashtags-chooser-wrapper.inactive-button-wrapper {
         border-bottom: 1px solid #eee;
         background-color: #fff;
     }
 
-    .hashtags-chooser-wraaper.active-button-wrapper,
-    .hashtags-chooser-wraaper.active-button-wrapper ion-buttons {
+    .hashtags-chooser-wrapper.active-button-wrapper,
+    .hashtags-chooser-wrapper.active-button-wrapper ion-buttons {
         display: block;
     }
 
-    .hashtags-chooser-wraaper.active-button-wrapper button  {
+    .hashtags-chooser-wrapper.active-button-wrapper button  {
         margin: 0;
         padding: 2px 8px !important;
     }
 
-    .hashtags-chooser-wraaper.active-button-wrapper .inactive-button {
+    .hashtags-chooser-wrapper.active-button-wrapper .inactive-button {
         color: #999 !important;
     }
 
-    .hashtags-chooser-wraaper.active-button-wrapper ion-icon {
+    .hashtags-chooser-wrapper.active-button-wrapper ion-icon {
         color: #888;
     }
-    .toolbar-content .hashtags-chooser-wraaper.inactive-button-wrapper ion-buttons {
+    .toolbar-content .hashtags-chooser-wrapper.inactive-button-wrapper ion-buttons {
         display: inline-flex;
         overflow-x: scroll;
     }

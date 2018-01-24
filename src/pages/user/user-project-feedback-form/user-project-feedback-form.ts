@@ -140,8 +140,7 @@ export class UserProjectFeedbackFormPage {
     userProjectFeedbackWritingEditorModal.onWillDismiss(
       (data) => {
         if(data) {
-          console.log(JSON.stringify(data));
-          this.feedbackContent = data.feedbackContent;
+        this.feedbackContent = data.feedbackContent;
           this.feedbackImages = data.feedbackImages;
           this.feedbackHashtags = data.feedbackHashtags;
           if(this.feedbackContent != "") {
