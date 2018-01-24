@@ -139,17 +139,12 @@ export class UserProjectRewardFormPage {
   // }
 
   clickRecommendation(stat:boolean, index:number) {
-    if(!stat) {
-      for(let i = 0; i < this.recommendationStats.length; i++) {
-        this.recommendationStats[i] = false;
-      }
-      this.recommendationStats[index] = true;
-      this.recommendation = index + 1;
-      this.isQuestionWrited[0] = true;
-    } else {
-      this.isQuestionWrited[index] = false;
-      this.slides.lockSwipeToNext(true);
+    for(let i = 0; i < this.recommendationStats.length; i++) {
+      this.recommendationStats[i] = false;
     }
+    this.recommendationStats[index] = true;
+    this.recommendation = index + 1;
+    this.isQuestionWrited[0] = true;
   }
 
   panEnd() {

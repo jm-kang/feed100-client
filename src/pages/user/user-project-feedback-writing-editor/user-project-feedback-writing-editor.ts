@@ -55,7 +55,7 @@ export class UserProjectFeedbackWritingEditorPage {
     console.log('ionViewDidLoad UserProjectFeedbackWritingEditorPage');
     this.projectHashtags = this.ModalWrapperPage.modalParams.projectHashtags;
     if(this.ModalWrapperPage.modalParams.feedbackContent.length > 0) {
-      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent.replace(/<br *\/?>/gi, '\n');
+      this.feedbackContent = this.ModalWrapperPage.modalParams.feedbackContent;
     }
     for( let i=0; i < this.ModalWrapperPage.modalParams.feedbackHashtags.length; i++) {
       this.feedbackHashtags.push(this.ModalWrapperPage.modalParams.feedbackHashtags[i]);
@@ -73,6 +73,10 @@ export class UserProjectFeedbackWritingEditorPage {
   }
 
   completeEditor() {
+    if(this.commonService.hasEmoji(this.feedbackContent)) {
+      return false;
+    }
+    this.feedbackContent = this.commonService.textAreaFilter(this.feedbackContent);
     let data = { feedbackContent: this.feedbackContent, feedbackImages: this.feedbackImages, feedbackHashtags: this.feedbackHashtags };
     this.ModalWrapperPage.dismissModal(data);
   }
