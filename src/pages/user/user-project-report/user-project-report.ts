@@ -82,9 +82,11 @@ export class UserProjectReportPage {
             this.project_report_is_select = data.data.project_report_is_select;
 
             this.project_report_images = JSON.parse(data.data.project_report_images);
-            for(let j=0; j<this.project_report_images.length; j++) {
-              this.project_report_images[j] = {img : this.project_report_images[j]};
-            }  
+            if(this.project_report_images.length) {
+              for(let j=0; j<this.project_report_images.length; j++) {
+                this.project_report_images[j] = {img : this.project_report_images[j]};
+              }  
+            }
           }
         }
         else if(data.success == false) {
