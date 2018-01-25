@@ -136,9 +136,9 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'empathy'">
-      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+      <div text-center *ngIf = "empathyNum == 0" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
-        <p>처음으로 토론에 참여해보세요!</p>
+        <p>아직 공감 의견이 없습니다.</p>
       </div>
       <div *ngFor="let opinion of opinions; let j = index">
         <ion-item *ngIf="opinion.is_empathy" class="empathy-opinion">
@@ -168,9 +168,9 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'nonEmpathy'">
-      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+      <div text-center *ngIf = "nonEmpathyNum == 0" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
-        <p>처음으로 토론에 참여해보세요!</p>
+        <p>아직 비공감 의견이 없습니다.</p>
       </div>
       <div *ngFor="let opinion of opinions; let k = index">
         <ion-item *ngIf="!opinion.is_empathy" class="non-empathy-opinion">

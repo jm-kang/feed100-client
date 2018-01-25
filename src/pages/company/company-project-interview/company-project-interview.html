@@ -17,17 +17,17 @@
       </span>
     </ion-title>
   </ion-navbar>
+  <ion-item class="interview-content-top">
+    <span item-left [innerHTML]="projectEndDate | amLocale:'ko' | amTimeAgo | progressState"></span>
+    <span item-right>총 {{maxInterviewNum}}개의 인터뷰 중 {{totalInterviewNum}}개 이용</span>
+  </ion-item>
 </ion-header>
 
 <ion-content>
   <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
       <ion-refresher-content>
       </ion-refresher-content>
-  </ion-refresher>                
-  <ion-item class="interview-content-top">
-    <span item-left [innerHTML]="projectEndDate | amLocale:'ko' | amTimeAgo | progressState"></span>
-    <span item-right>총 {{maxInterviewNum}}개의 인터뷰 중 {{totalInterviewNum}}개 이용</span>
-  </ion-item>
+  </ion-refresher>
 
   <div class="empty-content" *ngIf="interviews.length == 0">
     <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>

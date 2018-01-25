@@ -103,12 +103,16 @@ export class UserProjectInterviewWritingEditorPage {
   }
 
   completeEditor() {
+    if(this.commonService.hasEmoji(this.interview_response)) {
+      return false;
+    }
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
       () => {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
+          this.interview_response = this.commonService.textAreaFilter(this.interview_response);
           this.userService.responseInterview(this.interview_id, this.interview_response, (this.interview_response_images.length) ? this.interview_response_images : null)
           .finally(() => {
             loading.dismiss();

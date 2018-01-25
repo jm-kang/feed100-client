@@ -29,9 +29,16 @@ p {
     background-color: #FE6B01;
     position: absolute;
     top: 0px;
-    left: 22px; 
     font-size: 10px;
     padding: 2px 4.5px;
+}
+
+.badge-button-wrapper-badge.badge-md {
+    left: 16px;
+}
+
+.badge-button-wrapper-badge.badge-ios {
+    left: 20px;
 }
 
 .tabs .tab-button-icon {
@@ -51,6 +58,12 @@ p {
     // min-width: 8px;
     // right: calc(50% - 25px) !important;
     background-color: #FE6B01;
+    left: 38px;
+    right: auto !important;
+}
+
+.tab-badge.badge-md {
+    padding: 0 4px;
 }
 
 .header .toolbar-background {

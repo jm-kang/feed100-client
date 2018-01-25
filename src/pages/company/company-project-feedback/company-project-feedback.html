@@ -57,7 +57,7 @@
       </h3>
       <p [innerHTML]="feedbackRegistrationDate | amLocale:'ko' | amTimeAgo"></p>
     </ion-item>
-    <p class="feedback-comment" [innerHTML]="feedback | replaceBrTag"></p>
+    <p class="feedback-comment pre-line">{{feedback}}</p>
     <div class="hashtag-wrapper">
       <span tappable ion-button outline *ngFor="let feedbackHashtag of feedbackHashtags" (click)="openCompanyProjectSearchResultPage([feedbackHashtag])" >
         #{{feedbackHashtag}}
@@ -102,7 +102,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion | replaceBrTag}}
+            {{opinion.opinion}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -125,7 +125,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion | replaceBrTag}}
+            {{opinion.opinion}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -135,7 +135,7 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'empathy'">
-      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+      <div text-center *ngIf = "empathyNum == 0" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
         <p>아직 공감 의견이 없습니다.</p>
       </div>
@@ -157,7 +157,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion | replaceBrTag}}
+            {{opinion.opinion}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />
@@ -167,7 +167,7 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'nonEmpathy'">
-      <div text-center *ngIf = "!opinions.length" class="empty-inner">
+      <div text-center *ngIf = "nonEmpathyNum == 0" class="empty-inner">
         <ion-icon name="chatbubbles"></ion-icon>
         <p>아직 비공감 의견이 없습니다.</p>
       </div>
@@ -189,7 +189,7 @@
           </h3>
           <p class="registration-date" [innerHTML]="opinion.opinion_registration_date | amLocale:'ko' | amTimeAgo"></p>
           <div class="opinion-content">
-            {{opinion.opinion | replaceBrTag}}
+            {{opinion.opinion}}
           </div>
           <span *ngIf="opinion.opinion_image" (click)="photoView(opinion.opinion_image)" item-end tappable class="opinion-image-wrapper cropper">
               <img class="opinion-image" [src]="opinion.opinion_image" />

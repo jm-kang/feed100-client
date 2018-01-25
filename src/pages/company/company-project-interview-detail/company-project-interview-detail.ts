@@ -101,7 +101,7 @@ export class CompanyProjectInterviewDetailPage {
     refresher.complete();
   }
 
-  reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
+  reportInterview(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {

@@ -1,5 +1,6 @@
 page-admin-project-report {
     .user-report-card {
+        background-color: #fff;
         margin-bottom: 20px;
         .best-badge {
             padding: 3px 8px;
@@ -28,8 +29,13 @@ page-admin-project-report {
             }
         }
     }
+
+    .feedback-card {
+        background-color: #fff;
+    }
     
 }
+
 
 .project-report-content {
     .progress-inner {

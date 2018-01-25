@@ -88,26 +88,17 @@ page-user-project-search-result {
 .hashtags-chooser-wrapper.active-button-wrapper,
 .hashtags-chooser-wrapper.inactive-button-wrapper {
     display: flex;
-}
-
-.hashtags-chooser-wrapper.inactive-button-wrapper {
-    padding: 5px 16px;
-}
-
-.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper {
-    padding-right: 16px;
-}
-
-.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons,
-.hashtags-chooser-wrapper.active-button-wrapper ion-buttons,
-.hashtags-chooser-wrapper.inactive-button-wrapper ion-buttons {
-    display: inline-flex;
     overflow-x: scroll;
 }
 
-.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wrapper.inactive-button-wrapper ion-buttons .button {
+.hashtags-chooser-wrapper.inactive-button-wrapper {
+    padding-bottom: 8px;
+    padding-top: 4px;
+}
+
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper button,
+.hashtags-chooser-wrapper.active-button-wrapper button,
+.hashtags-chooser-wrapper.inactive-button-wrapper button {
     height: 28px;
     font-size: 1.3rem;
     font-weight: 500;
@@ -119,8 +110,8 @@ page-user-project-search-result {
     background-color: transparent !important;
 }
 
-.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper ion-buttons button,
-.hashtags-chooser-wrapper.active-button-wrapper ion-buttons button {
+.toolbar-content .hashtags-chooser-wrapper.active-button-wrapper button,
+.hashtags-chooser-wrapper.active-button-wrapper button {
     color: #ff6400;
     background-color: #f0f0f0;
     border-radius: 50px;

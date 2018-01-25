@@ -90,7 +90,7 @@
               </span>
             </span>
           </h5>
-          <p [innerHTML]="newsfeedComment.newsfeed_comment_content"></p>
+          <p class="pre-line">{{newsfeedComment.newsfeed_comment_content}}</p>
           <h6 [innerHTML]="newsfeedComment.newsfeed_comment_registration_date | amLocale:'ko' | amTimeAgo"></h6>
         </ion-item>
       </ion-list>
@@ -106,13 +106,13 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+    <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <h3>by. {{nickname}}</h3>
     </ion-item>
-    <ion-item *ngIf="!isFirstSlide && !isLastSlide" start class="bar-item-wrapper item-flex page-num">
+    <ion-item *ngIf="!isFirstSlide && !isLastSlide" start class="bar-item-wrapper item-flex page-num p-l-30">
       <ion-icon name="ios-browsers-outline" item-start></ion-icon>
       <p>{{currentPageNum}} / {{totalPageNum}}</p>
     </ion-item>

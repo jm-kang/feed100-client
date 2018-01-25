@@ -96,37 +96,39 @@
       <div class="empty-content content-absolute" *ngIf="projectBestFeedbacks.length == 0">
         <span class="dark-trans-text under-icon">아직 베스트 피드백이 없습니다.</span>
       </div>
-      <ion-card class="feedback-card" *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
-        <ion-card-header *ngIf="projectBestFeedback.is_best">
-          <ion-item class="avatar-span-wrapper item-flex">
-            <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">
-              <img class="avatar-span-image" [src]="projectBestFeedback.avatar_image" />
-            </span>
-            <h3>
-              <span class="best-badge" *ngIf="projectBestFeedback.is_best">
-                <span>BEST</span>
-              </span>
-              <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">{{projectBestFeedback.nickname}}</span>
-              <span float-right class="empathy-wrapper">
-                <span><span class="text-empathy">공감</span> {{projectBestFeedback.empathy_num}}</span>
-                <span><span class="text-nonempathy">비공감</span> {{projectBestFeedback.non_empathy_num}}</span>
-              </span>
-            </h3>
-            <p [innerHTML]="projectBestFeedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
-          </ion-item>
-        </ion-card-header>
-        <ion-card-content class="feedback-content" *ngIf="projectBestFeedback.is_best">
-          <div class="feedback-summary" text-left tappable (click)="openAdminProjectFeedbackPage(projectBestFeedback.project_participant_id)">
-            {{(projectBestFeedback.project_feedback | jsonParse)[0] | slicetext:100 | replaceBrTag}}
-            <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+      <div *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
+          <div class="feedback-card" *ngIf="projectBestFeedback.is_best">
+            <div class="feedback-header">
+              <ion-item class="avatar-span-wrapper item-flex">
+                <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">
+                  <img class="avatar-span-image" [src]="projectBestFeedback.avatar_image" />
+                </span>
+                <h3>
+                  <span class="best-badge" *ngIf="projectBestFeedback.is_best">
+                    <span>BEST</span>
+                  </span>
+                  <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">{{projectBestFeedback.nickname}}</span>
+                  <span float-right class="empathy-wrapper">
+                    <span><span class="text-empathy">공감</span> {{projectBestFeedback.empathy_num}}</span>
+                    <span><span class="text-nonempathy">비공감</span> {{projectBestFeedback.non_empathy_num}}</span>
+                  </span>
+                </h3>
+                <p [innerHTML]="projectBestFeedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
+              </ion-item>
+            </div>
+            <div class="feedback-content">
+              <div class="feedback-summary" text-left tappable (click)="openAdminProjectFeedbackPage(projectBestFeedback.project_participant_id)">
+                {{(projectBestFeedback.project_feedback | jsonParse)[0] | slicetext:100}}
+                <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+              </div>
+              <div text-left class="hashtag-wrapper">
+                <span tappable ion-button outline *ngFor="let feedbackHashtag of projectBestFeedback.project_feedback_hashtags | jsonParse" (click)="openAdminProjectSearchResultPage([feedbackHashtag])" >
+                  #{{feedbackHashtag}}
+                </span> 
+              </div>
+            </div>
           </div>
-          <div text-left class="hashtag-wrapper">
-            <span tappable ion-button outline *ngFor="let feedbackHashtag of projectBestFeedback.project_feedback_hashtags | jsonParse" (click)="openAdminProjectSearchResultPage([feedbackHashtag])" >
-              #{{feedbackHashtag}}
-            </span> 
-          </div>
-        </ion-card-content>
-      </ion-card>
+        </div>
     </ion-slide>
 
     <ion-slide class="story-content-slide" *ngFor="let projectStatSlide of projectStatSlides; let statIndex = index">
@@ -166,12 +168,12 @@
         </ion-item>
       </div>
       <div class="project-story-summary-list">
-        <div text-right class="total-length" *ngIf="userReports.length > 0">총 {{userReports.length}}개</div>
+        <div text-right class="total-length m-r-16" *ngIf="userReports.length > 0">총 {{userReports.length}}개</div>
         <div class="empty-content content-absolute" *ngIf="userReports.length == 0">
           <span class="dark-trans-text under-icon">아직 등록된 심층 피드백이 없습니다.</span>
         </div>
     
-        <ion-card tappable class="user-report-card" *ngFor="let userReport of userReports">
+        <div tappable class="user-report-card" *ngFor="let userReport of userReports">
           <ion-item class="report-card-header">
             <ion-avatar item-start>
               <img [src]="userReport.avatar_image">
@@ -199,25 +201,25 @@
             <div class="report-item-wrapper" *ngIf="userReport.project_report_story_summary_content">
               <h4 text-left padding-left margin-top class="report-item-question">Q1. 이 서비스에 대해 요약해서 설명해주세요!</h4>
               <div class="report-item-answer">
-                {{userReport.project_report_story_summary_content | replaceBrTag}}
+                {{userReport.project_report_story_summary_content}}
               </div>
             </div>
             <div class="report-item-wrapper">
                 <h4 text-left padding-left margin-top class="report-item-question">Q2. 해당 서비스에 대해 만족스러웠던 점은?</h4>
                 <div class="report-item-answer">
-                  {{userReport.project_report_pros_content | replaceBrTag}}
+                  {{userReport.project_report_pros_content}}
                 </div>
               </div>
               <div class="report-item-wrapper">
                 <h4 text-left padding-left margin-top class="report-item-question">Q3. 해당 서비스에 대해 아쉬웠던 부분은?</h4>
                 <div class="report-item-answer">
-                  {{userReport.project_report_cons_content | replaceBrTag}}
+                  {{userReport.project_report_cons_content}}
                 </div>
               </div>
               <div class="report-item-wrapper">
                 <h4 text-left padding-left margin-top class="report-item-question">Q4. 기타 의견 및 총평</h4>
                 <div class="report-item-answer">
-                  {{userReport.project_report_overall_opinion_content | replaceBrTag}}
+                  {{userReport.project_report_overall_opinion_content}}
                 </div>
               </div>
             </div>
@@ -228,14 +230,14 @@
             <div class="report-card-footer-wrapper" *ngIf="userReport.project_report_is_select">
               <h1>선정된 보고서입니다.</h1>
             </div>
-        </ion-card>
+          </div>
       </div>
     </ion-slide>
 
     <ion-slide padding class="project-last-slide">
       <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
         <button ion-button clear (click)="goFirstSlide()">
-          <h1 class="title">&lt; 스토리 다시보기</h1>
+          <h1 class="title">&lt; 결과 보고서 다시보기</h1>
         </button>
       </ion-buttons>
       <div class="project-last-slide-wrapper">
@@ -254,13 +256,13 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+    <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="avatarImage" />
       </span>
       <h3>{{nickname}}</h3>
     </ion-item>
-    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num p-l-30">
       <ion-icon name="ios-browsers-outline" item-start></ion-icon>
       <p>{{currentPageNum}} / {{totalPageNum}}</p>
     </ion-item>

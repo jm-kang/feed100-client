@@ -65,7 +65,7 @@
           </span>
         </ion-title>
         <ion-buttons end>
-          <button class="next-submit-button" ion-button clear [disabled]="50 > (storySummaryContent | textcount)" (click)="goNextSlide()">
+          <button class="next-submit-button" ion-button clear [disabled]="50 > (storySummaryContent | textcount)" (click)="goNextSlide(storySummaryContent)">
             다음
           </button>
         </ion-buttons>
@@ -94,7 +94,7 @@
           </span>
         </ion-title>
         <ion-buttons end>
-          <button class="next-submit-button" class="next-submit-button" ion-button clear [disabled]="50 > (prosContent | textcount)" (click)="goNextSlide()">
+          <button class="next-submit-button" class="next-submit-button" ion-button clear [disabled]="50 > (prosContent | textcount)" (click)="goNextSlide(prosContent)">
             다음
           </button>
         </ion-buttons>
@@ -123,7 +123,7 @@
           </span>
         </ion-title>
         <ion-buttons end>
-          <button class="next-submit-button" ion-button clear [disabled]="50 > (consContent | textcount)" (click)="goNextSlide()">
+          <button class="next-submit-button" ion-button clear [disabled]="50 > (consContent | textcount)" (click)="goNextSlide(consContent)">
             다음
           </button>
         </ion-buttons>

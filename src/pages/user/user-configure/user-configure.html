@@ -20,9 +20,10 @@
     <ion-list-header>
       고객지원
     </ion-list-header>
+    <span tappable class="push-alarm-button" (click)="updateItem()"></span>
     <ion-item>
       <ion-label>푸쉬 알림 설정</ion-label>
-      <ion-toggle color="primary" [(ngModel)]="isPushAlarm" (ionChange)="updateItem()"></ion-toggle>
+      <ion-toggle color="primary" [(ngModel)]="isPushAlarm"></ion-toggle>
     </ion-item>
   </ion-list>
   <ion-list class="config-list">

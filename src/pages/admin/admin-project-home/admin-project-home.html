@@ -106,7 +106,7 @@
       </ion-card-header>
       <ion-card-content class="feedback-content">
         <div class="feedback-summary" tappable (click)="openAdminProjectFeedbackPage(feedback.project_participant_id)">
-          {{(feedback.project_feedback | jsonParse)[0] | slicetext:100 | replaceBrTag}}
+          {{(feedback.project_feedback | jsonParse)[0] | slicetext:100}}
           <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span> -->
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>

@@ -49,25 +49,25 @@
         <div class="report-item-wrapper" *ngIf="project_report_story_summary_content">
           <h4 text-left padding-left margin-top class="report-item-question">Q1. 이 서비스에 대해 요약해서 설명해주세요!</h4>
           <div class="report-item-answer">
-            {{project_report_story_summary_content | replaceBrTag}}
+            {{project_report_story_summary_content}}
           </div>
         </div>
         <div class="report-item-wrapper">
           <h4 text-left padding-left margin-top class="report-item-question">Q2. 해당 서비스에 대해 만족스러웠던 점은?</h4>
           <div class="report-item-answer">
-            {{project_report_pros_content | replaceBrTag}}
+            {{project_report_pros_content}}
           </div>
         </div>
         <div class="report-item-wrapper">
           <h4 text-left padding-left margin-top class="report-item-question">Q3. 해당 서비스에 대해 아쉬웠던 부분은?</h4>
           <div class="report-item-answer">
-            {{project_report_cons_content | replaceBrTag}}
+            {{project_report_cons_content}}
           </div>
         </div>
         <div class="report-item-wrapper">
           <h4 text-left padding-left margin-top class="report-item-question">Q4. 기타 의견 및 총평</h4>
           <div class="report-item-answer">
-            {{project_report_overall_opinion_content | replaceBrTag}}
+            {{project_report_overall_opinion_content}}
           </div>
         </div>
       </div>

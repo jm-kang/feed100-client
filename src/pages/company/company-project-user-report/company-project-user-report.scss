@@ -24,6 +24,7 @@ page-company-project-user-report {
 }
 
 .user-report-card {
+    background-color: #fff;
     width: calc(100% - 36px);
     margin: 18px;
     // height: auto;
@@ -84,6 +85,9 @@ page-company-project-user-report {
     }
 
     .report-card-header {
+        .item-inner {
+            border-bottom : 0 !important;
+        }
         h2 {
             font-size: 1.4rem;
             color: #383838;

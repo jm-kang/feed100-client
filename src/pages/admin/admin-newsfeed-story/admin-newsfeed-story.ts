@@ -237,6 +237,9 @@ export class AdminNewsfeedStoryPage {
   }
 
   writeNewsfeedComment() {
+    if(this.commonService.hasEmoji(this.newsfeedComment)) {
+      return false;
+    }
     if(this.newsfeedComment != '') {
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
@@ -244,6 +247,7 @@ export class AdminNewsfeedStoryPage {
       this.newsfeedComment = '';
       this.newsfeedComments = [];
 
+      newsfeed_comment_content = this.commonService.textAreaFilter(newsfeed_comment_content);
       this.adminService.writeNewsfeedComment(this.newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();
