@@ -27,7 +27,7 @@ import 'rxjs/add/operator/finally';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPage;
-  isDevMode = true;
+  isDevMode = false;
 
   constructor(
     public http: Http,
