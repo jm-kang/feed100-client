@@ -66,14 +66,13 @@ page-company-newsfeed-story {
     .comment-textarea-wrapper {
         display: inline-flex;
         width: 100%;
-        padding: 0 16px 0 8px;;
+        padding: 0 16px 7px 30px;;
     }
 
     .comment-textarea-wrapper ion-textarea {
         background-color: #fff;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
-        
     }
 
     .comment-textarea-wrapper ion-textarea textarea {

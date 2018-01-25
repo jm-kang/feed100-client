@@ -72,14 +72,13 @@ page-user-newsfeed-story {
     .comment-textarea-wrapper {
         display: inline-flex;
         width: 100%;
-        padding: 0 16px 0 8px;;
+        padding: 0 16px 7px 30px;;
     }
 
     .comment-textarea-wrapper ion-textarea {
         background-color: #fff;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
-        
     }
 
     .comment-textarea-wrapper ion-textarea textarea {
@@ -258,4 +257,9 @@ page-user-newsfeed-story {
     padding-top:0 !important;
     margin-top: 0 !important;
     // height:10px;
+}
+
+.story-back-button {
+    bottom: 12px;
+    position: absolute;
 }

@@ -34,3 +34,16 @@ page-user-configure {
 .config-list .item.item-block .item-inner {
     border-bottom-color: #e7e7e7;
 }
+
+.push-alarm-button {
+    position: absolute;
+    z-index: 99;
+    right: 14px;
+    height: 2.6em;
+    width: 4em;
+    background-color: transparent;
+}
+
+.push-alarm-button.activated {
+    background-color: transparent;
+}

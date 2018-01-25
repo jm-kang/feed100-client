@@ -238,12 +238,16 @@ export class UserNewsfeedStoryPage {
 
   writeNewsfeedComment() {
     if(this.newsfeedComment != '') {
+      if(this.commonService.hasEmoji(this.newsfeedComment)) {
+        return false;
+      }
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
       let newsfeed_comment_content = this.newsfeedComment;
       this.newsfeedComment = '';
       this.newsfeedComments = [];
       
+      newsfeed_comment_content = this.commonService.textAreaFilter(newsfeed_comment_content);
       this.userService.writeNewsfeedComment(this.newsfeed_id, newsfeed_comment_content)
       .finally(() => {
         loading.dismiss();

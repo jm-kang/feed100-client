@@ -121,3 +121,20 @@ ion-spinner {
     word-wrap: break-word !important;
     white-space: pre-line !important;
 }
+
+.item h2, .item h3 {
+    text-overflow: ellipsis;
+    overflow: inherit;
+}
+
+.p-l-30 {
+    padding-left: 30px !important;
+}
+
+[padding] h1:first-child, [padding] h2:first-child, [padding] h3:first-child, [padding] h4:first-child, [padding] h5:first-child, [padding] h6:first-child {
+    margin-top: 0 !important;
+}
+
+.m-r-16 {
+    margin-right: 16px !important;
+}

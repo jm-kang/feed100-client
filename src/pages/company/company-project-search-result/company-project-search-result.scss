@@ -1,14 +1,18 @@
 page-company-project-search-result {
-    ion-buttons[start] {
+   ion-buttons[start] {
         order: 1;
     }
 
     ion-content {
         background-color: rgba(38,38,38,0.2) !important;
     }
-    // .scroll-content {
-    //     margin-top: 0 !important;
-    // }
+    .scroll-content {
+        margin-top: 105px !important;
+    }
+
+    ion-refresher {
+        top: 105px !important;
+    }
 
     .toolbar-ios {
         padding-top: calc(20px + 4px);

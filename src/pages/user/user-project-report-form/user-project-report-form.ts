@@ -140,12 +140,12 @@ export class UserProjectReportFormPage {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
-  textCount(content:any) {
-    let temp: any;
-    temp = content.replace(/<br *\/?>/gi, '');
-    temp = content.replace(/(?:\r\n|\r|\n|\s)/g, '');
-    return temp.length;
-  }
+  // textCount(content:any) {
+  //   let temp: any;
+  //   temp = content.replace(/<br *\/?>/gi, '');
+  //   temp = content.replace(/(?:\r\n|\r|\n|\s)/g, '');
+  //   return temp.length;
+  // }
 
   slideChanged() {
     let index = this.slides.getActiveIndex();
@@ -199,12 +199,19 @@ export class UserProjectReportFormPage {
   }
 
   submit() {
+    if(this.commonService.hasEmoji(this.overallOpinionContent)) {
+      return false;
+    }
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적적한 글 작성시 제재를 받을 수 있습니다.',
       () => {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
+          this.storySummaryContent = this.commonService.textAreaFilter(this.storySummaryContent);
+          this.prosContent = this.commonService.textAreaFilter(this.prosContent);
+          this.consContent = this.commonService.textAreaFilter(this.consContent);
+          this.overallOpinionContent = this.commonService.textAreaFilter(this.overallOpinionContent);
           this.userService.writeProjectReport(this.project_id, (this.project_report_images.length) ? this.project_report_images : null, this.storySummaryContent, this.prosContent, this.consContent, this.overallOpinionContent)
           .finally(() => {
             loading.dismiss();
@@ -232,7 +239,11 @@ export class UserProjectReportFormPage {
     );
   }
 
-  goNextSlide() {
+  goNextSlide(content) {
+    // console.log(content);
+    if(this.commonService.hasEmoji(content)) {
+      return false;
+    }
     this.slides.lockSwipeToNext(false);
     this.slides.slideNext(500);
     this.slides.lockSwipeToNext(true);

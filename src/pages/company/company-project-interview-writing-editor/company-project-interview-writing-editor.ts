@@ -92,12 +92,16 @@ export class CompanyProjectInterviewWritingEditorPage {
   }
 
   completeEditor() {
+    if(this.commonService.hasEmoji(this.interviewContent)) {
+      return false;
+    }
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없습니다.', 
       () => {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.uploadFiles()
         .then(() => {
+          this.interviewContent = this.commonService.textAreaFilter(this.interviewContent);
           this.companyService.requestInterview(this.project_participant_id, this.interviewContent, (this.interviewImages.length) ? this.interviewImages : null)
           .finally(() => {
             loading.dismiss();
