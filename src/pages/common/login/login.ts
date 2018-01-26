@@ -20,7 +20,7 @@ export class LoginPage {
       loginBg: 'assets/img/login-bg0.png',
       loginTopImg: 'assets/img/logo.png',
       title: '',
-      content: '가치를 같이 만들어가요!유저가 원하는 가치가 무엇인지!<br>기업의 서비스를 더욱 가치있게!<br>'
+      content: '가치를 같이 만들어가요!<br>유저가 원하는 가치가 무엇인지!<br>기업의 서비스를 더욱 가치있게!'
     },
     {
       loginBg: 'assets/img/login-bg1.png',

@@ -128,10 +128,10 @@ export class UserProjectReportFormPage {
 
   checkImageNum() {
     if(this.project_report_images.length >= 2) {
-      this.slides.lockSwipeToNext(false);
+      // this.slides.lockSwipeToNext(false);
       this.isWrited = false;
     } else {
-      this.slides.lockSwipeToNext(true);
+      // this.slides.lockSwipeToNext(true);
       this.isWrited = true;
     }
   }
@@ -247,7 +247,6 @@ export class UserProjectReportFormPage {
     this.slides.lockSwipeToNext(false);
     this.slides.slideNext(500);
     this.slides.lockSwipeToNext(true);
-    this.slides.lockSwipeToPrev(false);
   }
 
   // swipeEvent(e) {
