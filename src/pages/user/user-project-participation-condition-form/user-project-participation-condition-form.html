@@ -33,7 +33,7 @@
         <span class="q-mark-number">{{i+1}}</span>
       </div>
       <div class="question" [innerHTML]="participationConditionSlide.question"></div>
-      <div class="question-summary"><span class="text-red">경고!</span> 신중하게 대답해주세요.</div>
+      <div class="question-summary"><span class="text-red">주의!</span> 신중하게 대답해주세요.</div>
       <div class="participation-condition-options-wrapper" *ngIf="6 > participationConditionSlide.options.length">
         <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
           <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
