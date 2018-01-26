@@ -4,7 +4,6 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Subscription } from 'rxjs';
 import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { Storage } from '@ionic/storage';
-import { EmailComposer } from '@ionic-native/email-composer';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -22,7 +21,6 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 })
 export class CompanyConfigurePage {
   isPushAlarm = true;
-  flag = false;
   onResumeSubscription: Subscription;
   onPauseSubscription: Subscription;
   
@@ -36,15 +34,13 @@ export class CompanyConfigurePage {
     public alertCtrl: AlertController,
     public platform: Platform,
     public push: Push,
-    private openNativeSettings: OpenNativeSettings,
-    public emailComposer: EmailComposer) {
+    private openNativeSettings: OpenNativeSettings) {
     this.viewCtrl.showBackButton(true);
   }
 
   ionViewWillUnload() {
     console.log('ionViewWillUnload CompanyConfigurePage');    
     this.onResumeSubscription.unsubscribe();
-    this.onPauseSubscription.unsubscribe();
   }
 
   ionViewDidLoad() {
@@ -55,12 +51,6 @@ export class CompanyConfigurePage {
     .subscribe(() => {
       console.log('resume');
       this.permissionCheck();
-    });
-
-    this.onPauseSubscription = this.platform.pause
-    .subscribe(() => {
-      console.log('pause');
-      this.flag = false;
     });
   }
 
@@ -79,16 +69,11 @@ export class CompanyConfigurePage {
         console.log('We do not have permission to send push notifications');
         this.isPushAlarm = false;
       }
-      setTimeout(() => {
-        this.flag = true;
-      }, 1000);
     });
   }
 
   updateItem() {
-    if(this.flag) {
-      this.openNativeSettings.open("application_details");
-    }
+    this.openNativeSettings.open("application_details");
   }
 
   back() {
