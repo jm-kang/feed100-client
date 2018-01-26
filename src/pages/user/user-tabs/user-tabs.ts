@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, App, Nav } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App, Nav, ModalController } from 'ionic-angular';
 
 import { UserHomePage } from '../user-home/user-home';
 import { UserProjectPage } from '../user-project/user-project';
@@ -36,6 +36,7 @@ export class UserTabsPage {
     public navParams: NavParams, 
     public appCtrl: App,
     public nav: Nav,
+    public modalCtrl: ModalController,
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
     public commonService: CommonServiceProvider,
@@ -106,6 +107,11 @@ export class UserTabsPage {
     });
 
     pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+
+    this.commonService.showNoticeAlert('현재 베타테스트 진행중입니다.<br>공지사항을 반드시 확인해주세요!', 
+    () => {
+      this.openNoticePage();
+    });
   }
 
   ionViewWillEnter() {
@@ -122,6 +128,11 @@ export class UserTabsPage {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }
+  }
+
+  openNoticePage() {
+    let noticeModal = this.modalCtrl.create('ModalWrapperPage', {page: 'NoticePage'});
+    noticeModal.present();
   }
 
 }

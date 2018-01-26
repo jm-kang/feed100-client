@@ -27,7 +27,7 @@ import 'rxjs/add/operator/finally';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPage;
-  isDevMode = true;
+  isDevMode = false;
 
   constructor(
     public http: Http,
@@ -336,6 +336,21 @@ export class CommonServiceProvider {
             console.log('업데이트');
             this.market.open('com.potenbrothers.feed100');
           }
+        }
+      ],
+      enableBackdropDismiss: false
+    });
+    confirm.present();
+  }
+
+  showNoticeAlert(message, handler) {
+    let confirm = this.alertCtrl.create ({
+      title: '공지사항',
+      message: message,
+      buttons: [
+        {
+          text: '확인',
+          handler: handler
         }
       ],
       enableBackdropDismiss: false
