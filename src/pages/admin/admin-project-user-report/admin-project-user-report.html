@@ -24,7 +24,7 @@
 <ion-content class="project-user-report-content" no-bounce>
   <ion-slides *ngIf = "userReports.length" pager=false loop="false" spaceBetween="-28">
     <ion-slide *ngFor="let userReport of userReports" style="overflow-y: scroll; display: block;">
-      <ion-card class="user-report-card">
+      <div class="user-report-card">
         <ion-item class="report-card-header">
           <ion-avatar item-start>
             <img [src]="userReport.avatar_image">
@@ -33,10 +33,7 @@
             <span class="best-badge" *ngIf="userReport.project_report_is_select">
               <span>선정</span>
             </span>
-            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(userReport.project_participant_id)">
-              {{userReport.nickname}}
-              &ensp;<ins class="key-tag">{{userReport.project_participant_id}}</ins>
-            </span>
+            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
             <span class="item-tag-wrapper">
               <span class="btn-item-more">
                 <button ion-button (click)="sanctionProject(project_id, userReport.user_id, userReport.project_participant_id)">
@@ -91,7 +88,7 @@
         <div class="report-card-footer-wrapper" *ngIf="userReport.project_report_is_select">
           <h1>선정된 보고서입니다.</h1>
         </div>
-      </ion-card>
+      </div>
     </ion-slide>
   </ion-slides>
 </ion-content>
