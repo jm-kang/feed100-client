@@ -33,7 +33,10 @@
             <span class="best-badge" *ngIf="userReport.project_report_is_select">
               <span>선정</span>
             </span>
-            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(userReport.project_participant_id)">{{userReport.nickname}}</span>
+            <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(userReport.project_participant_id)">
+              {{userReport.nickname}}
+              &ensp;<ins class="key-tag">{{userReport.project_participant_id}}</ins>
+            </span>
             <span class="item-tag-wrapper">
               <span class="btn-item-more">
                 <button ion-button (click)="sanctionProject(project_id, userReport.user_id, userReport.project_participant_id)">
