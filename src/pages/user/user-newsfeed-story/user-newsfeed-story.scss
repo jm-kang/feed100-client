@@ -263,3 +263,19 @@ page-user-newsfeed-story {
     bottom: 12px;
     position: absolute;
 }
+
+.newsfeed-textarea {
+    background-color: #fff;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    padding: 8px;
+    margin: 0 !important;
+    font-size: 1.5rem;
+    max-height: 80px;
+    overflow-y: scroll !important;
+    border: 0px;
+    width: 100%;
+    min-height: 36px;
+}

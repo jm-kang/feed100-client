@@ -23,11 +23,6 @@
             </span>
           </span>
         </ion-title>
-        <ion-buttons end>
-          <button class="next-submit-button" ion-button clear [disabled]="isWrited" (click)="goNextSlide()">
-            다음
-          </button>
-        </ion-buttons>
       </ion-navbar>
       <div class="question">Q1. 직접 사용해본 사진</div>
       <div class="question-summary">서비스를 사용하신 모습이 담긴 인증 사진을 2개 이상 올려주세요!</div>
@@ -94,6 +89,9 @@
           </span>
         </ion-title>
         <ion-buttons end>
+          <button class="next-submit-button" ion-button clear (click)="goPrevSlide()">
+            이전
+          </button>
           <button class="next-submit-button" class="next-submit-button" ion-button clear [disabled]="50 > (prosContent | textcount)" (click)="goNextSlide(prosContent)">
             다음
           </button>
@@ -123,6 +121,9 @@
           </span>
         </ion-title>
         <ion-buttons end>
+          <button class="next-submit-button" ion-button clear (click)="goPrevSlide()">
+            이전
+          </button>
           <button class="next-submit-button" ion-button clear [disabled]="50 > (consContent | textcount)" (click)="goNextSlide(consContent)">
             다음
           </button>
@@ -152,6 +153,9 @@
           </span>
         </ion-title>
         <ion-buttons end>
+          <button class="next-submit-button" ion-button clear (click)="goPrevSlide()">
+            이전
+          </button>
           <button class="submit-btn" ion-button clear [disabled]="100 > (overallOpinionContent | textcount)" (click)="submit()">
             완료
           </button>

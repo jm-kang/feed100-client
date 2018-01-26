@@ -127,8 +127,12 @@ ion-spinner {
     overflow: inherit;
 }
 
-.p-l-30 {
+.item-ios.p-l-30 {
     padding-left: 30px !important;
+}
+
+.item-md.p-l-30 {
+    padding-left: 16px !important;
 }
 
 [padding] h1:first-child, [padding] h2:first-child, [padding] h3:first-child, [padding] h4:first-child, [padding] h5:first-child, [padding] h6:first-child {

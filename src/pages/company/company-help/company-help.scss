@@ -5,11 +5,16 @@ page-company-help {
 .help-page-content{
     background-color: rgba(38,38,38,0.8);
     strong {
+        font-weight: bold;
         color: #ff6700;
     }
     b {
-        color: #ff6700;
-        font-weight: normal;
+        font-weight: bold;
+        color: #f53d3d;
+    }
+    b.dark-text {
+        font-weight: bold;
+        color: inherit !important;
     }
     .help-navbar {
         background-color: #fff;

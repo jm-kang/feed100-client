@@ -43,6 +43,9 @@
         <span class="usage-type">총 잔여 포인트</span>&ensp;
         <span class="usage-point total-point">{{totalPoint}}</span>&ensp;<span class="usage-point-tag">p</span>
       </div>
+      <div *ngIf="pointHistories.length == 0" class="empty-content content-absolute">
+        <span class="dark-trans-text under-icon">포인트 사용 내역이 없습니다.</span>
+      </div>
       <div *ngFor="let pointHistory of pointHistories">
         <ion-card class="usage-card"> 
           <ion-card-header>
@@ -77,8 +80,8 @@
         <span class="usage-type">총 적립 포인트</span>&ensp;
         <span class="usage-point total-save-point">{{totalSavePoint}}</span>&ensp;<span class="usage-point-tag">p</span>
       </div>
-      <div text-center *ngIf = "savePointNum == 0" class="empty-inner">
-        <p>적립 내역이 없습니다!</p>
+      <div *ngIf="savePointNum == 0" class="empty-content content-absolute">
+        <span class="dark-trans-text under-icon">아직 적립된 포인트가 없습니다.</span>
       </div>
       <div *ngFor="let pointHistory of pointHistories">
         <ion-card class="usage-card" *ngIf="pointHistory.is_accumulated">
@@ -105,8 +108,8 @@
         <span class="usage-type">총 환전 포인트</span>&ensp;
         <span class="usage-point total-exchange-point">{{totalExchangePoint}}</span>&ensp;<span class="usage-point-tag">p</span>
       </div>
-      <div text-center *ngIf = "exchangePointNum == 0" class="empty-inner">
-        <p>환전 내역이 없습니다!</p>
+      <div *ngIf="exchangePointNum == 0" class="empty-content content-absolute">
+        <span class="dark-trans-text under-icon">아직 적립된 포인트가 없습니다.</span>
       </div>
       <div *ngFor="let pointHistory of pointHistories">
         <ion-card class="usage-card" *ngIf="!pointHistory.is_accumulated"> 

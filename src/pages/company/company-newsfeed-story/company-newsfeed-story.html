@@ -123,8 +123,10 @@
 
     <div class="comment-textarea-wrapper" *ngIf="isLastSlide">
       <!-- <ion-item>  -->
-        <ion-textarea rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></ion-textarea>
-        <button (click)="writeNewsfeedComment()">작성</button>
+      <textarea class="newsfeed-textarea" rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="newsfeedComment"></textarea>
+      <button (click)="writeNewsfeedComment()">
+        <ion-icon name="md-send"></ion-icon>
+      </button>    
     </div>
   </ion-navbar>
 </ion-footer>

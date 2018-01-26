@@ -25,19 +25,19 @@ export class AppIntroPage {
       description: '소중한 의견이 모여 더 나은 서비스를 만듭니다.',
     },
     {
-      title: '서비스를 소개하고<br>잠재 고객과 소통하세요!',
+      title: '원하는 고객에게<br>리얼 피드백을!',
       imageUrl: 'assets/img/appintro2.png',
-      description: 'FEED100으로 서비스를<br>더 나은 방향으로 발전시켜보세요!',
+      description: '고객과 직접 소통하며 성공으로 이끌어 보세요!',
     },
     {
-      title: '다양한 서비스를<br>경험하고 피드백 해주세요!',
+      title: '포인트가 쭉쭉~<br>현금으로 환전까지!',
       imageUrl: 'assets/img/appintro3.png',
-      description: '프로젝트에서 피드백과 인터뷰로<br><strong>포인트</strong>를 쌓아보세요!',
+      description: '다양한 서비스를 경험하고<br>소중한 피드백을 들려주세요!',
     },
     {
       title: 'FEED100<br>지금 사용해 보세요!',
       imageUrl: 'assets/img/appintro4.png',
-      description: '새로운 서비스들을 지금 바로 만나보세요!',
+      description: '가치를 같이 만들어가는<br>맞춤형 피드백 플랫폼!',
     }
   ];
 

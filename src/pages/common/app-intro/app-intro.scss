@@ -31,7 +31,7 @@ page-app-intro {
         text-transform: none;
         font-size: 1.4em;
         font-weight: bold;
-        background: #ff6700;
+        background: rgba(255,103,0,0.8);
       }
       .slide-background {
         width: 100% !important;
@@ -70,6 +70,9 @@ page-app-intro {
       b {
         font-weight: 500;
       }
+      h2 {
+        line-height: 1.5;
+      }
       p {
         margin-top: 0;
         padding: 0 40px;
@@ -83,7 +86,7 @@ page-app-intro {
       .image-wrapper {
         width: 100vw;
         height: 70vh;
-        padding-top: 20px;
+        padding-top: 10px;
         position: absolute;
         bottom: 0;
         img {
