@@ -54,9 +54,13 @@
             <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
               <img style="max-height: 10rem;" [src]="help.topImg" />
             </div>
-            <div class="text-wrapper" [innerHTML]="help.content"></div>
+            <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
               <img [src]="help.bottomImg" />
+            </div>
+            <div class="text-wrapper" *ngIf="help.content2" [innerHTML]="help.content2"></div>
+            <div class="image-wrapper" *ngIf="help.bottomImg2">
+              <img [src]="help.bottomImg2" />
             </div> 
           </div>
         </div>
