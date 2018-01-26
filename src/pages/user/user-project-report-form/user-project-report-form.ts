@@ -149,17 +149,17 @@ export class UserProjectReportFormPage {
 
   slideChanged() {
     let index = this.slides.getActiveIndex();
-    // switch(index) {
-    //   case 0:
-    //     this.slides.lockSwipeToPrev(true);
-    //     break;
-    //   case 1:
-    //   case 2:
-    //   case 3:
-    //     this.slides.lockSwipeToPrev(false);
-    //   default:
-    //     break;
-    // }
+    switch(index) {
+      case 0:
+        this.slides.lockSwipeToPrev(true);
+        break;
+      case 1:
+      case 2:
+      case 3:
+        this.slides.lockSwipeToPrev(false);
+      default:
+        break;
+    }
   }
 
   dismiss() {
@@ -245,9 +245,9 @@ export class UserProjectReportFormPage {
       return false;
     }
     this.slides.lockSwipeToNext(false);
-    this.slides.slideNext(300);
+    this.slides.slideNext(500);
     this.slides.lockSwipeToNext(true);
-    // this.slides.lockSwipeToPrev(false);
+    this.slides.lockSwipeToPrev(false);
   }
 
   // swipeEvent(e) {
@@ -280,11 +280,5 @@ export class UserProjectReportFormPage {
       // this.transparentPercent = 1 - (this.scrollVert /20);
       // document.querySelector(".slide-question-content .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
     }
-  }
-
-  goPrevSlide() {
-    this.slides.lockSwipeToPrev(false);
-    this.slides.slidePrev(300);
-    this.slides.lockSwipeToPrev(true);
   }
 }
