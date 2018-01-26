@@ -110,7 +110,9 @@ export class UserTabsPage {
 
     this.commonService.showNoticeAlert('현재 베타테스트 진행중입니다.<br>공지사항을 반드시 확인해주세요!', 
     () => {
-      this.openNoticePage();
+      if(!this.commonService.isDevMode) {
+        this.openNoticePage();
+      }
     });
   }
 

@@ -31,8 +31,8 @@
           </ion-item>
           <div class="content-wrapper" padding *ngIf="help.showDetails">
             <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
-            <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-              <img style="max-height: 10rem;" [src]="help.topImg" />
+            <div style="width: 100vw; margin-left: -16px;" class="image-wrapper" *ngIf="help.topImg">
+              <img style="max-height: 17rem;" [src]="help.topImg" />
             </div>
             <div class="text-wrapper" [innerHTML]="help.content"></div>
             <div class="image-wrapper" *ngIf="help.bottomImg">
