@@ -9,6 +9,19 @@ page-user-project-report {
         color: #c8c8c8;
     }
     .user-report-card {
+        border-radius: 9px;
         margin-bottom: 18px;
+    }
+}
+
+
+.report-card-header {
+    .avatar-image {
+        min-width: 2.4em;
+        min-height: 2.4em;
+        .avatar-span-image {
+            width: 2.4em;
+            height: 2.4em;
+        }
     }
 }

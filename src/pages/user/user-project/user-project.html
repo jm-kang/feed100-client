@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header class="tabs-header">
-    <ion-navbar hideBackButton="true">
+    <ion-navbar hideBackButton="true" class="navbar-border-bottom">
       <ion-buttons start>
         <button class="badge-button-wrapper" ion-button clear (click)="openUserAlarmPage()">
           <ion-icon name="notifications">
@@ -20,7 +20,6 @@
         </button>
       </ion-buttons>
     </ion-navbar>
-    <div class="shadow-top"></div>
 </ion-header>
 
 <ion-content padding-top class="outer-content">
@@ -30,28 +29,46 @@
   </ion-refresher>      
   <ion-grid *ngIf="projects.length">
     <ion-row>
-      <ion-card tappable *ngFor="let project of projects" class="project-card" (click)="accessProjectCard(project.project_id)">
+      <div tappable *ngFor="let project of projects" class="project-card card-div" (click)="accessProjectCard(project.project_id)">
         <div class="project-card-main-image-wrapper">
           <img [src]="project.project_main_image" />
           <div class="project-card-overlay-wrapper">
             <span class="project-card-overlay">
-              <span float-left class="project-card-overlay-item" [innerHTML]="project.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
-              <span float-right class="project-card-overlay-item">{{project.participant_num}} / {{project.max_participant_num}}</span>
+              <span class="project-card-overlay-item e-card-tag" *ngIf="(project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'">종&ensp;료</span>
+              <span class="project-card-overlay-item m-card-tag" *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료') && (project.is_my_project)">참&ensp;여</span>
+              <span class="project-card-overlay-item f-card-tag" *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료') && !(project.is_my_project) && (project.max_participant_num == project.participant_num)">FULL</span>
+              <span class="project-card-overlay-item i-card-tag" *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료') && !(project.is_my_project) && (project.max_participant_num != project.participant_num) && (((project.project_end_date | amLocale:'ko' | amTimeAgo | slice:-4:-2) == '시간') || ((project.max_participant_num - project.participant_num) <= (project.max_participant_num/10)))">임&ensp;박</span>
+              <span class="project-card-overlay-item p-card-tag" *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료') && !(project.is_my_project) && (project.max_participant_num != project.participant_num) && !(((project.project_end_date | amLocale:'ko' | amTimeAgo | slice:-4:-2) == '시간') || ((project.max_participant_num - project.participant_num) <= (project.max_participant_num/10)))">진&ensp;행</span>
+            </span>
+          </div>
+          <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
+        </div>
+        <div text-left class="card-content">
+          <p class="project-card-summary"><b class="project-card-name">{{project.project_name}}</b><br><br>{{project.project_summary}}</p>
+          <progress-bar *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료')" [progress]="project.participant_num | divide : project.max_participant_num"></progress-bar>
+          <progress-bar *ngIf="((project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료')" progress="100" class="dark-progress-bar"></progress-bar>
+          <div *ngIf="(project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
+            <span class="project-state-icon">
+              <img src="assets/img/calendar.png" />
+            </span>
+            <span class="project-state-content">
+              {{project.project_end_date | amLocale:'ko' | amTimeAgo | progressState}}
+            </span>
+            <span margin-left class="project-state-icon">
+              <img src="assets/img/people.png" />
+            </span>
+            <span class="project-state-content">
+              <b *ngIf="(project.max_participant_num - project.participant_num) == 0">FULL</b>
+              <b *ngIf="(project.max_participant_num - project.participant_num) != 0">{{project.max_participant_num - project.participant_num}}명 참여 가능</b>
+            </span>
+          </div>
+          <div *ngIf="(project.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+            <span class="project-state-content">
+              <b class="end-text">프로젝트가 종료되었습니다.</b>
             </span>
           </div>
         </div>
-        <progress-bar [progress]="project.participant_num | divide : project.max_participant_num"></progress-bar>
-        <ion-card-content text-left>
-          <span class="project-card-name">{{project.project_name}} : </span>
-          <span class="project-card-summary" [innerHTML]="project.project_summary"></span>
-        </ion-card-content>
-        <ion-item float-left class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span cropper">
-            <img class="avatar-span-image" [src]="project.avatar_image" />
-          </span>
-          <p>by. {{project.nickname}}</p>
-        </ion-item>
-      </ion-card>
+      </div>
     </ion-row>
   </ion-grid>
 </ion-content>

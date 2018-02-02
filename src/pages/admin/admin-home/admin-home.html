@@ -28,9 +28,9 @@
       <ion-refresher-content>
       </ion-refresher-content>
   </ion-refresher>              
-  <ion-slides class="feed100-intro-slides" pager scroll="true" loop autoplay="5000" effect="fade" speed="500">
-    <ion-slide *ngFor="let feed100IntroSlide of feed100IntroSlides">
-      <div tappable (click)="openPageWrapper(feed100IntroSlide.link)">
+  <ion-slides class="feed100-intro-slides" pager scroll="true" autoplay="3000" effect="fade" speed="500">
+    <ion-slide *ngFor="let feed100IntroSlide of feed100IntroSlides" tappable (click)="openPageWrapper(feed100IntroSlide.link)">
+      <div>
         <img class="feed100-intro-slide-bg" [src]="feed100IntroSlide.bg" />
         <div class="feed100-intro-slide-wrapper">
           <span>
@@ -50,28 +50,43 @@
   </div>
   <ion-slides *ngIf = "proceedingProjects.length" pager=false loop="false" spaceBetween="-23">
     <ion-slide *ngFor="let proceedingProject of proceedingProjects">
-      <ion-card tappable class="project-card" (click)="accessProjectCard(proceedingProject.project_id)">
+      <div tappable class="project-card card-div" (click)="accessProjectCard(proceedingProject.project_id)">
         <div class="project-card-main-image-wrapper">
           <img [src]="proceedingProject.project_main_image" />
           <div class="project-card-overlay-wrapper">
             <span class="project-card-overlay">
-              <span float-left class="project-card-overlay-item" [innerHTML]="proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
-              <span float-right class="project-card-overlay-item">{{proceedingProject.participant_num}} / {{proceedingProject.max_participant_num}}</span>
+              <span class="project-card-overlay-item e-card-tag" *ngIf="((proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료')">종&ensp;료</span>
+              <span class="project-card-overlay-item p-card-tag" *ngIf="((proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료')">진&ensp;행</span>
+            </span>
+          </div>
+          <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
+        </div>
+        <div text-left class="card-content">
+          <p class="project-card-summary"><b class="project-card-name">{{proceedingProject.project_name}}</b><br><br>{{proceedingProject.project_summary}}</p>
+          <progress-bar *ngIf="((proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료')" [progress]="proceedingProject.participant_num | divide : proceedingProject.max_participant_num"></progress-bar>
+          <progress-bar *ngIf="((proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료')" progress="100" class="dark-progress-bar"></progress-bar>
+          <div *ngIf="(proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
+            <span class="project-state-icon">
+              <img src="assets/img/calendar.png" />
+            </span>
+            <span class="project-state-content">
+              {{proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState}}
+            </span>
+            <span margin-left class="project-state-icon">
+              <img src="assets/img/people.png" />
+            </span>
+            <span class="project-state-content">
+              <b *ngIf="(proceedingProject.max_participant_num - proceedingProject.participant_num) == 0">FULL</b>
+              <b *ngIf="(proceedingProject.max_participant_num - proceedingProject.participant_num) != 0">{{proceedingProject.max_participant_num - proceedingProject.participant_num}}명 참여 가능</b>
+            </span>
+          </div>
+          <div *ngIf="(proceedingProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+            <span class="project-state-content">
+              <b class="end-text">프로젝트가 종료되었습니다.</b>
             </span>
           </div>
         </div>
-        <progress-bar [progress]="proceedingProject.participant_num | divide : proceedingProject.max_participant_num"></progress-bar>
-        <ion-card-content text-left>
-          <span class="project-card-name">{{proceedingProject.project_name}} : </span>
-          <span class="project-card-summary" [innerHTML]="proceedingProject.project_summary"></span>
-        </ion-card-content>
-        <ion-item float-left class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span cropper">
-            <img class="avatar-span-image" [src]="proceedingProject.avatar_image" />
-          </span>
-          <p>by. {{proceedingProject.nickname}}</p>
-        </ion-item>
-      </ion-card>
+      </div>
     </ion-slide>
   </ion-slides>
 
@@ -83,28 +98,43 @@
   </div>
   <ion-slides *ngIf = "newProjects.length" pager=false loop="false" spaceBetween="-23">
     <ion-slide *ngFor="let newProject of newProjects">
-      <ion-card tappable class="project-card" (click)="accessProjectCard(newProject.project_id)">
+      <div tappable class="project-card card-div" (click)="accessProjectCard(newProject.project_id)">
         <div class="project-card-main-image-wrapper">
           <img [src]="newProject.project_main_image" />
           <div class="project-card-overlay-wrapper">
             <span class="project-card-overlay">
-              <span float-left class="project-card-overlay-item" [innerHTML]="newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState"></span>
-              <span float-right class="project-card-overlay-item">{{newProject.participant_num}} / {{newProject.max_participant_num}}</span>
+              <span class="project-card-overlay-item e-card-tag" *ngIf="((newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료')">종&ensp;료</span>
+              <span class="project-card-overlay-item p-card-tag" *ngIf="((newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료')">진&ensp;행</span>
+            </span>
+          </div>
+          <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
+        </div>
+        <div text-left class="card-content">
+          <p class="project-card-summary"><b class="project-card-name">{{newProject.project_name}}</b><br><br>{{newProject.project_summary}}</p>
+          <progress-bar *ngIf="((newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료')" [progress]="newProject.participant_num | divide : newProject.max_participant_num"></progress-bar>
+          <progress-bar *ngIf="((newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료')" progress="100" class="dark-progress-bar"></progress-bar>
+          <div *ngIf="(newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
+            <span class="project-state-icon">
+              <img src="assets/img/calendar.png" />
+            </span>
+            <span class="project-state-content">
+              {{newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState}}
+            </span>
+            <span margin-left class="project-state-icon">
+              <img src="assets/img/people.png" />
+            </span>
+            <span class="project-state-content">
+              <b *ngIf="(newProject.max_participant_num - newProject.participant_num) == 0">FULL</b>
+              <b *ngIf="(newProject.max_participant_num - newProject.participant_num) != 0">{{newProject.max_participant_num - newProject.participant_num}}명 참여 가능</b>
+            </span>
+          </div>
+          <div *ngIf="(newProject.project_end_date | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+            <span class="project-state-content">
+              <b class="end-text">프로젝트가 종료되었습니다.</b>
             </span>
           </div>
         </div>
-        <progress-bar [progress]="newProject.participant_num | divide : newProject.max_participant_num"></progress-bar>
-        <ion-card-content text-left>
-          <span class="project-card-name">{{newProject.project_name}} : </span>
-          <span class="project-card-summary" [innerHTML]="newProject.project_summary"></span>
-        </ion-card-content>
-        <ion-item float-left class="avatar-span-wrapper item-flex">
-          <span item-start class="avatar-image avatar-span cropper">
-            <img class="avatar-span-image" [src]="newProject.avatar_image" />
-          </span>
-          <p>by. {{newProject.nickname}}</p>
-        </ion-item>
-      </ion-card>
+      </div>
     </ion-slide>
   </ion-slides>
   
@@ -114,15 +144,14 @@
   <div text-center *ngIf = "!newNewsfeeds.length" class="empty-inner">
     <p>새로운 뉴스피드가 없습니다!</p>
   </div>
-  <ion-slides *ngIf = "newNewsfeeds.length" pager=false loop="false" spaceBetween="-23" slidesPerView="2">
+  <ion-slides class="m-16" *ngIf = "newNewsfeeds.length" pager=false loop="false" spaceBetween="-23" slidesPerView="2">
     <ion-slide *ngFor="let newNewsfeed of newNewsfeeds">
-      <ion-card tappable class="newsfeed-card" (click)="openAdminNewsfeedStoryPage(newNewsfeed.newsfeed_id)">
+      <div tappable class="newsfeed-card" (click)="openAdminNewsfeedStoryPage(newNewsfeed.newsfeed_id)">
         <img [src]="newNewsfeed.newsfeed_main_image" />
-        <ion-card-content text-left [innerHTML]="newNewsfeed.newsfeed_name">
-        </ion-card-content>
-      </ion-card>
+        <div class="card-content" text-left>
+            {{newNewsfeed.newsfeed_name}}
+        </div>
+      </div>
     </ion-slide>
   </ion-slides>
-
-
 </ion-content>

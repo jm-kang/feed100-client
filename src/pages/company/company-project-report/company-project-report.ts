@@ -49,12 +49,7 @@ export class CompanyProjectReportPage {
       display: false
     },
     title: {
-      display: true,
-      fontSize: 25,
-      fontStyle: 'bold',
-      fontColor: '#ffffff',
-      lineHeight: '3',
-      text: '2. 참여 조건 통계'
+      display: false,
     }
   };
   
@@ -78,12 +73,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '1. 유저 정보'
+          display: false,
         }
       },
     },
@@ -104,7 +94,13 @@ export class CompanyProjectReportPage {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    userCallback: function(label, index, labels) {
+                      // when the floored value is the same as the value we have a whole number
+                      if (Math.floor(label) === label) {
+                          return label;
+                      }
+                    },
                 }
             }]
         },
@@ -112,12 +108,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '1. 유저 정보'
+          display: false,
         }
       },
     },
@@ -139,12 +130,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '1. 유저 정보'
+          display: false,
         }
       },
     },
@@ -166,12 +152,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '1. 유저 정보'
+          display: false,
         }
       },
     }
@@ -201,7 +182,13 @@ export class CompanyProjectReportPage {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    userCallback: function(label, index, labels) {
+                      // when the floored value is the same as the value we have a whole number
+                      if (Math.floor(label) === label) {
+                          return label;
+                      }
+                    },
                 }
             }]
         },
@@ -209,12 +196,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '4. 프로젝트 통계'
+          display: false,
         }
       },
     },
@@ -227,7 +209,7 @@ export class CompanyProjectReportPage {
       average: 0,
       totalNum: 0,
       colors: [
-        {backgroundColor:'rgba(255,100,0,0.8)'},
+        {backgroundColor:'rgba(255,188,0,0.8)'},
       ],
       labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
@@ -235,7 +217,13 @@ export class CompanyProjectReportPage {
         scales: {
             yAxes: [{
                 ticks: {
-                    beginAtZero:true
+                    beginAtZero:true,
+                    userCallback: function(label, index, labels) {
+                      // when the floored value is the same as the value we have a whole number
+                      if (Math.floor(label) === label) {
+                          return label;
+                      }
+                    },
                 }
             }]
         },
@@ -243,12 +231,7 @@ export class CompanyProjectReportPage {
           display: false
         },
         title: {
-          display: true,
-          fontSize: 25,
-          fontStyle: 'bold',
-          fontColor: '#ffffff',
-          lineHeight: '3',
-          text: '4. 프로젝트 통계'
+          display: false,
         }
       },
     } ,
@@ -378,7 +361,7 @@ export class CompanyProjectReportPage {
           this.tempAverage(1);
           this.projectStatSlides = this.tempProjectStatSlides;
 
-          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3;
+          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 4;
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

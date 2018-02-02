@@ -20,7 +20,7 @@
   <div class="hashtag-wrapper" padding>
     <div class="project-name">{{projectName}}</div>
     <div class="search-info">원하시는 #해시태그를 선택해 주세요!</div>
-    <div class="search-info padding-bottom">Skip하시면 모든 프로젝트를 볼 수 있습니다.</div>
+    <!-- <div class="search-info padding-bottom">Skip하시면 모든 프로젝트를 볼 수 있습니다.</div> -->
     <ion-buttons *ngFor="let projectHashtag of projectHashtags">
       <button ion-button clear class="inactive-button" *ngIf="!projectHashtag.isActiveHashtag" (click)="activeHashtag(projectHashtag)">
         #{{projectHashtag.value}}

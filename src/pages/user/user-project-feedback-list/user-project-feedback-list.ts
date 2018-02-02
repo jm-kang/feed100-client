@@ -56,7 +56,9 @@ export class UserProjectFeedbackListPage {
       (data) => {
         if(data.success == true) {
           this.projectName = data.data.project_name;
-          this.feedbacks = data.data.feedbacks;
+          this.feedbacks = data.data.feedbacks.filter((feedback) => {
+            return feedback.is_my_feedback == 0;
+          });
           this.participationFeedbackNum = 0;
           this.nonParticipationFeedbackNum = 0;
           for(let feedback of this.feedbacks) {

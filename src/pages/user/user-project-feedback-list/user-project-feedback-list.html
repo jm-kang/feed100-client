@@ -39,8 +39,8 @@
   <div [ngSwitch]="segmentFeedbacksCondition" class="feedback-list">
     <ion-list *ngSwitchCase="'all'">
       <div *ngFor="let feedback of feedbacks">
-        <ion-card class="feedback-card"> 
-          <ion-card-header>
+        <div class="feedback-card"> 
+          <div class="card-header">
             <ion-item class="avatar-span-wrapper item-flex">
               <span item-start class="avatar-image avatar-span cropper">
                 <img class="avatar-span-image" [src]="feedback.avatar_image" />
@@ -56,20 +56,20 @@
               </h3>
               <p [innerHTML]="feedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
-          </ion-card-header>
-          <ion-card-content class="feedback-content">
+          </div>
+          <div class="feedback-content">
             <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100}}   
+              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100 }}   
               <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>
             <div class="hashtag-wrapper">
-              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
-                #{{feedbackHashtag}}
-              </span>
+            <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+              #{{feedbackHashtag}}
+            </span> 
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
 
@@ -79,8 +79,8 @@
         <p>모든 토론에 참여하셨습니다!</p>
       </div>
       <div *ngFor="let feedback of feedbacks">
-        <ion-card class="feedback-card" *ngIf="!feedback.is_my_opinion"> 
-          <ion-card-header>
+        <div class="feedback-card" *ngIf="!feedback.is_my_opinion"> 
+          <div class="card-header">
             <ion-item class="avatar-span-wrapper item-flex">
               <span item-start class="avatar-image avatar-span cropper">
                 <img class="avatar-span-image" [src]="feedback.avatar_image" />
@@ -96,20 +96,20 @@
               </h3>
               <p [innerHTML]="feedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
-          </ion-card-header>
-          <ion-card-content class="feedback-content">
+          </div>
+          <div class="feedback-content">
             <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100}}   
+              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100 }}   
               <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>
             <div class="hashtag-wrapper">
-              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
-                #{{feedbackHashtag}}
-              </span>
+            <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+              #{{feedbackHashtag}}
+            </span> 
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
 
@@ -119,8 +119,8 @@
         <p>아직 토론에 참여하시지 않으셨군요!<br>지금 바로 토론에 참여하여 포인트를 얻어보세요!</p>
       </div>
       <div *ngFor="let feedback of feedbacks">
-        <ion-card class="feedback-card" *ngIf="feedback.is_my_opinion"> 
-          <ion-card-header>
+        <div class="feedback-card" *ngIf="feedback.is_my_opinion"> 
+          <div class="card-header">
             <ion-item class="avatar-span-wrapper item-flex">
               <span item-start class="avatar-image avatar-span cropper">
                 <img class="avatar-span-image" [src]="feedback.avatar_image" />
@@ -136,20 +136,20 @@
               </h3>
               <p [innerHTML]="feedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
-          </ion-card-header>
-          <ion-card-content class="feedback-content">
+          </div>
+          <div class="feedback-content">
             <div class="feedback-summary" tappable (click)="openUserProjectFeedbackPage(feedback.project_participant_id)">
-              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100}}   
+              {{(feedback.project_feedback | jsonParse)[0] | slicetext:100 }}   
               <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
               <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
             </div>
             <div class="hashtag-wrapper">
-              <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
-                #{{feedbackHashtag}}
-              </span>
+            <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openUserProjectSearchResultPage([feedbackHashtag])" >
+              #{{feedbackHashtag}}
+            </span> 
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
   </div>

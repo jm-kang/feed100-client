@@ -25,12 +25,13 @@ page-company-project-price-statement {
     background-color: #EDEDEF;
 
     .price-statement-card {
-        -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+        border-radius: 9px;
+        -webkit-box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 10px rgba(0,0,0,0.1);
+        box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 10px rgba(0,0,0,0.1) !important;
         padding-top: 8px;
         padding-bottom: 8px;
         
-        background-color: #f7f7f7;
+        background-color: #fff;
         .item:last-child {
             border: 0 !important;
         }

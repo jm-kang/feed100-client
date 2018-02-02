@@ -50,13 +50,13 @@ export class AdminProjectUserProfilePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminAccountModificationFormPage');
+    console.log('ionViewDidLoad AdminProjectUserProfilePage');
     this.commonService.isLoadingActive = true;
     this.project_participant_id = this.navParams.get('project_participant_id');
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter AdminAccountModificationFormPage');
+    console.log('ionViewWillEnter AdminProjectUserProfilePage');
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectParticipant(this.project_participant_id)

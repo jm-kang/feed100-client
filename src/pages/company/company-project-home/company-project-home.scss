@@ -1,4 +1,10 @@
 page-company-project-home {
+    .toolbar-title {
+        padding-left: 0 !important;
+        .item-ios {
+            padding-left: 0 !important;
+        }
+    }
     .project-card-main-image-wrapper {
         z-index: 1;
         display: grid;

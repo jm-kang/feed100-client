@@ -23,9 +23,9 @@
   <div>
     <div class="user-report-card">
       <ion-item class="report-card-header">
-        <ion-avatar item-start>
-          <img [src]="avatar_image">
-        </ion-avatar>
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="avatar_image" />
+        </span>
         <h2>
           <span class="best-badge" *ngIf="project_report_is_select">
             <span>선정</span>

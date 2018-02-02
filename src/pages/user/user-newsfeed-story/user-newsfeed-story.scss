@@ -1,4 +1,10 @@
 page-user-newsfeed-story {
+
+    .toolbar-content-md {
+        .comment-textarea-wrapper {
+            padding-left: 16px !important;
+        }
+    }
     .story-slide .title {
         color: #FDBA02;
         margin-top: -0.3rem;
@@ -199,7 +205,7 @@ page-user-newsfeed-story {
 }
 
 .avatar-span .avatar-span-image {
-    border-radius: 50%;
+    border-radius: 50px;
     overflow: hidden;
     width: 1.4em;
     height: 1.4em;

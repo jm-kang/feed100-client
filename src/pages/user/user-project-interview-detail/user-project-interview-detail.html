@@ -36,7 +36,7 @@
       <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>
       <div class="space-30"></div>
       <!-- ========================Company============================= -->
-      <ion-card class="left-interview-card">
+      <div class="left-interview-card interview-card">
         <ion-item class="avatar-span-wrapper">
           <span item-start class="avatar-image avatar-span cropper">
             <img class="avatar-span-image" [src]="interview.project_main_image" />
@@ -44,9 +44,9 @@
           <h3 [innerHTML]="interview.project_name"></h3>
           <p>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
         </ion-item>
-        <ion-card-content>
+        <div class="card-content">
           <p class="interview-comment pre-line">{{interview.interview_request}}</p>
-        </ion-card-content>
+        </div>
         <div class="feedback-images small-feedback-images" *ngIf="interview.interview_request_images">
           <span class="image-box" *ngFor="let image of interview.interview_request_images; let j = index">
             <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
@@ -59,9 +59,9 @@
           답변하기
           <ion-icon name="md-create"></ion-icon>
         </button>
-      </ion-card>
+      </div>
       <!-- ==========================USER=============================== -->
-      <ion-card class="right-interview-card" *ngIf="interview.interview_response">
+      <div class="right-interview-card interview-card" *ngIf="interview.interview_response">
         <ion-item class="avatar-span-wrapper">
           <h3 text-right [innerHTML]="interview.nickname"></h3>
           <p text-right>{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
@@ -69,9 +69,9 @@
             <img class="avatar-span-image" [src]="interview.avatar_image" />
           </span>
         </ion-item>
-        <ion-card-content>
+        <div class="card-content">
           <p class="interview-comment pre-line">{{interview.interview_response}}</p>
-        </ion-card-content>
+        </div>
         <div class="feedback-images small-feedback-images" *ngIf="interview.interview_response_images">
           <span class="image-box" *ngFor="let image of interview.interview_response_images; let j = index">
             <span tappable (click)="photoView(image.img)" class="feedback-image-wrapper cropper">
@@ -84,7 +84,7 @@
           답변 완료
           <ion-icon name="ios-checkmark-circle"></ion-icon>
         </div>
-      </ion-card>
+      </div>
     </div>
   </div>
 </ion-content>

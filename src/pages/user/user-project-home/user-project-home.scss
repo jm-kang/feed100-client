@@ -1,4 +1,11 @@
 page-user-project-home {
+    .toolbar-title {
+        padding-left: 0 !important;
+        .item-ios {
+            padding-left: 0 !important;
+        }
+    }
+    
     .project-card-main-image-wrapper {
         z-index: 1;
         display: grid;
@@ -89,10 +96,10 @@ page-user-project-home {
 
 
     .summary {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         color: #686868;
-        line-height: 1.4;
-        margin-bottom: 23px;
+        line-height: 1.5;
+        margin-bottom: 30px;
         margin-top: 8px;
         font-weight: 500;
     }
@@ -155,6 +162,7 @@ page-user-project-home {
 .project-home-content h1 {
     font-size: 2rem;
     margin: 0;
+    margin-bottom:24px;
     color: #383838;
     font-weight: bold;
 }
@@ -194,10 +202,31 @@ page-user-project-home {
 }
 
 .project-home-content {
-    padding: 25px !important;
+    padding: 35px 25px !important;
     display: block;
     position: relative;
     background-color: #fff;
+
+    .project-state-wrapper {
+        margin-top: 24px;
+        color: #787878;
+        font-size: 1.2rem;
+        display:flex;
+        align-items:center;
+        justify-content:baseline;
+        line-height: 1 !important;
+        height: 23px;
+    }
+
+    
+    .project-state-icon img {
+        width: 21px;
+        // margin-right: 7px;
+    }
+    
+    .project-state-wrapper span {
+        padding-right: 7px;
+    }
 }
 
 .slice-tag {
@@ -213,6 +242,7 @@ page-user-project-home {
     font-size: 1.2rem;
     color: #585858;
     font-weight: bold;
+    display: inline-block;
 }
 
 .project-home-content .participant-wrapper span small {
@@ -244,7 +274,7 @@ page-user-project-home {
 
 .feedbacks-header {
     margin: 0;
-    padding: 16px 17px 20px 17px;
+    padding: 24px 17px 20px 17px;
     display: flex;
 }
 
@@ -309,16 +339,20 @@ page-user-project-home {
 
 .feedback-card {
     margin: 5px 12px 20px 12px ;
+    background-color: #fff !important;
+    border-radius: 8px;
+    border: 1px solid #d8d8d8;
 }
 
 .feedback-card .card-header {
-    padding: 10px 18px 0 18px;
+    padding: 15px 18px 0 18px;
 }
 
 .feedback-card .feedback-summary,
 .feedback-comment,
 .opinion-content {
     white-space: pre-line !important;
+    line-height: 1.6;
 }
 
 .feedback-card .feedback-summary,
@@ -326,8 +360,9 @@ page-user-project-home {
     margin-top: -12px;
 }
 .feedback-card .feedback-content {
-    padding: 0 18px 18px 18px;
-    font-size: 1.2rem;
+    padding-top: 10px !important;
+    padding-bottom: 30px !important;
+    font-size: 1.3rem;
     color: #383838;
 }
 
@@ -342,8 +377,10 @@ page-user-project-home {
 
 .feedback-card .avatar-span-wrapper h3 {
     color: #383838;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bold;
+    display: flex;
+    align-items: left;
 }
 
 .feedback-card .avatar-span-wrapper p {
@@ -352,14 +389,14 @@ page-user-project-home {
 }
 
 .feedback-card .avatar-span {
-    min-height: 3.5rem;
-    min-width: 3.5rem;
+    min-height: 3.8rem;
+    min-width: 3.8rem;
     margin-right: 8px;
 }
 
 .feedback-card .avatar-span .avatar-span-image {
-    height: 3.5rem;
-    width: 3.5rem;
+    height: 3.8rem;
+    width: 3.8rem;
 }
 
 .feedback-card .hashtag-wrapper {
@@ -368,6 +405,8 @@ page-user-project-home {
 
 .empathy-wrapper {
     font-size: 1.1rem;
+    position: absolute;
+    right: 16px;
 }
 
 .empathy-wrapper .text-empathy {
@@ -377,6 +416,28 @@ page-user-project-home {
 .empathy-wrapper .text-nonempathy {
     color: #787878;
     padding-left: 8px;
+}
+
+.project-home-content-wrapper {
+    .card-overlay-top {
+        height: 100%;
+        background: linear-gradient(rgba(0,0,0,0.2), transparent); /* Standard syntax */
+        justify-content: flex-end;
+        align-items: baseline;
+        display: flex;
+        padding:0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .project-card-overlay {
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 }
 
 .project-home-content-wrapper .fab {
@@ -444,20 +505,23 @@ page-user-project-home {
 .feedback-card h3 {
     position: initial;
     margin-bottom: 2px;
+    line-height: 1.4;
 }
 
 .best-badge {
     padding: 1px 8px;
+    padding-top: 2px;
     background-color: #FE6B01;
     border-radius: 50px;
     display: inline-flex;
     position: relative;
     margin-right: 3px;
-    top: -0.55px;
+    line-height: 1.4;
+    
 }
 
 .best-badge span {
-    font-size: 8px;
+    font-size: 10px;
     font-weight: bold;
     color: #fff;
 }
@@ -467,6 +531,10 @@ page-user-project-home {
     color: #383838;
     margin-top: 8px;
     font-size: 1.1rem;
+}
+
+.feedback-card .item-block .item-inner {
+    border-bottom: 0 !important;
 }
 
 .hashtag-wrapper span {

@@ -16,6 +16,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/finally';
+import { isDevMode } from '@angular/core/src/application_ref';
 
 /*
   Generated class for the CommonServiceProvider provider.
@@ -47,6 +48,9 @@ export class CommonServiceProvider {
   
   getServerUrl() {
     // return 'http://192.168.35.233:3000';
+    if(this.isDevMode) {
+      return 'http://192.168.35.32:3000';
+    }
     return 'https://www.feed100.me';
   } 
 

@@ -1,4 +1,11 @@
 page-admin-project-home {
+    .toolbar-title {
+        padding-left: 0 !important;
+        .item-ios {
+            padding-left: 0 !important;
+        }
+    }
+    
     .project-card-main-image-wrapper {
         z-index: 1;
         display: grid;
@@ -31,16 +38,6 @@ page-admin-project-home {
     // .bar-button {
     //     color: #fff;
     // }
-
-    .project-card-overlay {
-        padding-bottom: 10px;
-        background: rgba(38,38,38,0.3); /* For browsers that do not support gradients */
-        background: -webkit-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(transparent, rgba(38,38,38,0.3)); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(transparent, rgba(38,38,38,0.3)); /* Standard syntax */
-    }
-
     ion-content {
         position: relative !important;
     }

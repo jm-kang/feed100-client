@@ -1,5 +1,6 @@
 page-company-project-report {
     .user-report-card {
+        border-radius: 9px;
         margin-bottom: 20px;
         .best-badge {
             padding: 3px 8px;
@@ -41,13 +42,42 @@ page-company-project-report {
         }
     }
 
+    
     .feedback-card {
         background-color: #fff;
+        .avatar-span-image {
+            border-radius: 50px;
+        }
     }
-    
+    .story-footer .bar-button {
+        color: #383838;
+    }
+    .avatar-span-wrapper h3 {
+        color: #383838;
+    }
 }
 
 .project-report-content {
+    .scroll-content {
+        background-color: #efeff4 !important;
+    }
+    
+    .story-first-slide {
+        h2 {
+            color: #383838 !important;
+            margin-bottom: 16px !important;
+            font-size: 3rem !important;
+        }
+        .project-state-wrapper span {
+            color: #787878;
+        }
+        .summary {
+            color: #585858 !important;
+            font-size: 1.5rem !important;
+            line-height: 1.6;
+        }
+    }
+
     .progress-inner {
         background-color: #FE6B01;
     }
@@ -88,8 +118,6 @@ page-company-project-report {
     }
     
     .project-story-summary-content {
-        padding-top: 0px !important;
-        margin-top: 8px !important;
         background-color: transparent !important;
         .slide-zoom {
             height: 100%;
@@ -109,9 +137,12 @@ page-company-project-report {
             }
         }
         .project-story-summary-list {
+            .user-report-card {
+                border: 1px solid #d9d9d9;
+            }
             .total-length {
                 font-size: 1.2rem !important;
-                color: #c8c8c8 !important;
+                color: #989898 !important;
             }
             .card {
                 padding: 10px 0;
@@ -136,10 +167,75 @@ page-company-project-report {
         }
     }
 
+    .report-section-slide {
+        .slide-zoom {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .report-section-wrapper {
+            text-align: left;
+            .number-under-devide {
+                padding-bottom: 7px;
+                border-bottom: 0.55px solid #383838;
+                font-weight: 200;
+                font-size: 2rem;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            h2 {
+                padding-left: 2px;
+                padding-right: 2px;
+                margin-top: 5px;
+                font-size: 4rem;
+                color: #181818;
+                font-weight: 200;
+            }
+        }
+    }
+
     .story-content-slide {
         padding-top: 25px;
         overflow-y: scroll;
         display: block;
+        .report-content-header {
+            h2 {
+                color: #181818;
+                padding: 5px 4px;
+                font-size: 3rem;
+                margin: 0 auto;
+                margin-top: 24px;
+                margin-bottom: 0px;
+            }
+
+            h3 {
+                color: #181818;
+                max-width: 70%;
+                padding: 5px 4px;
+                font-size: 2.2rem;
+                margin: 0 auto;
+                margin-top: 24px;
+                margin-bottom: 0px;
+            }
+
+            h4 {
+                margin-top: 0;
+                padding-top: 5px;
+                font-size: 1.6rem;
+                color: #585858;
+                display: inline-block;
+                margin-bottom: 30px;
+                border-top: 0.55px solid #383838;
+            }
+        }
+        .story-content-slide-content {
+            padding: 30px 16px !important;
+            position: relative !important;
+            color: #383838 !important;
+            background: transparent !important;
+        }
         .slide-title {
             color: #fff;
             padding-top: 16px;
@@ -152,9 +248,9 @@ page-company-project-report {
             }
         }
         .sub-slide-title {
-            font-size: 1.6rem;
-            color: #fff;
-            font-weight: bold;
+            font-size: 1.7rem;
+            color: #383838;
+            font-weight: normal;
         }
         .square-dot {
             width: 1rem;
@@ -166,25 +262,30 @@ page-company-project-report {
         .stat-summary-block {
             margin-right:8px !important;
             display: inline-block;
+            font-weight: normal;
+            color: #585858;
+            strong {
+                color: #383838;
+            }
         }
     
         .chart-wrapper {
             canvas {
-                height: 45vh !important;
-                width: 45vh !important;
+                height: 35vh !important;
+                width: 35vh !important;
                 margin: 0 auto;
             }
         }
-        .stat-title.item {
-            margin-top: 8px;
-            padding-left: 0px !important;
-            .item-inner {
-                padding-right: 0px !important;
-                border-bottom: 0 !important;
+        .stat-title {
+            margin-top: 12px;
+            margin-bottom: 30px;
+            .rating {
+                display: inline-block;
             }
-            span:nth-last-child(1) {
+            span {
+                margin-left: 10px;
                 color: #ff6400;
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
         }
 
@@ -215,13 +316,13 @@ page-company-project-report {
             text-align: center;
             h3 {
                 font-size: 1.4rem;
-                color: #e8e8e8;
+                color: #989898;
             }
 
             h2 {
                 font-size: 1.8rem;
                 font-weight: bold;
-                color: #fff;
+                color: #383838;
                 margin-bottom: 0px !important;
             }
         }
@@ -231,6 +332,15 @@ page-company-project-report {
 .project-report-footer {
     ion-buttons[start] {
         order: 1;
+    }
+
+    .page-num {
+        ion-icon{
+            color: #383838 !important;
+        }
+        p {
+            color: #383838 !important;
+        }
     }
 
     .item-block .item-inner {
@@ -253,3 +363,25 @@ div.feedback-content {
 .hashtag-wrapper {
     line-height: 2.5;
 }
+
+
+.yellow-rating {
+    ul.rating li {
+        color: rgba(249,187,45,0.8) !important;
+    }
+
+    span {
+        color: rgb(249,187,45) !important;
+    }
+}
+
+.report-section1 {color:#ff6400!important}
+.report-section1-devide {border-top-color:#ff6700!important;border-bottom-color:#ff6700!important;}
+.report-section2 {color:#5f6400!important}
+.report-section2-devide {border-top-color:#5f6400!important;border-bottom-color:#5f6400!important;}
+.report-section3 {color:#cf6400!important}
+.report-section3-devide {border-top-color:#cf6400!important;border-bottom-color:#cf6400!important;}
+.report-section4 {color:#0f6400!important}
+.report-section4-devide {border-top-color:#0f6400!important;border-bottom-color:#0f6400!important;}
+.report-section5 {color:#9f6700!important}
+.report-section5-devide {border-top-color:#9f6700!important;border-bottom-color:#9f6700!important}

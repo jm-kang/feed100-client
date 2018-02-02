@@ -77,10 +77,17 @@ page-user-project-story {
 
 .story-slide .scroll-content {
     margin-bottom: 0 !important;
-    padding-bottom: 60px;
     background-color: rgba(0,0,0,0.7);
 }
 
+.story-slide.content-md .scroll-content {
+    padding-bottom: 61px;
+}
+
+
+.story-slide.content-ios .scroll-content {
+    padding-bottom: 59px;
+}
 .story-slide .slides {
     margin-left: 16px;
 }
@@ -250,4 +257,3 @@ page-user-project-story {
     width: 100%;
     height: 100%;
 } 
-

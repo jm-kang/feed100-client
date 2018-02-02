@@ -47,8 +47,8 @@
         <span class="dark-trans-text under-icon">포인트 사용 내역이 없습니다.</span>
       </div>
       <div *ngFor="let pointHistory of pointHistories">
-        <ion-card class="usage-card"> 
-          <ion-card-header>
+        <div class="usage-card"> 
+          <div class="card-header">
             <h3 *ngIf="pointHistory.is_accumulated">{{pointHistory.project_name}}</h3>
             <!-- 입금 전 -->
             <div class="is-paid-badge-wrapper" *ngIf="!pointHistory.is_accumulated && !pointHistory.is_completed">
@@ -60,8 +60,8 @@
               <div class="is-paid-badge paid">입금 완료</div>
             </div>
             <p [innerHTML]="pointHistory.point_history_registration_date | amDateFormat: 'YYYY-MM-DD'"></p>
-          </ion-card-header>
-          <ion-card-content class="usage-content" text-right>
+          </div>
+          <div class="usage-content" text-right>
             <div class="usage-point-wrapper">
               <span class="usage-type bold" [ngStyle]="{'color': !pointHistory.is_accumulated ? '#f53d3d' : '#4688f1'}">{{pointHistory.is_accumulated | typeToText}}</span>&ensp;
               <span class="usage-point">{{pointHistory.point}}</span>&ensp;<span class="usage-point-tag">p</span>
@@ -70,8 +70,8 @@
               <span class="usage-type">잔여 포인트</span>&ensp;
               <span class="usage-point">{{pointHistory.total_point}}</span>&ensp;<span class="usage-point-tag">p</span>
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
 
@@ -84,12 +84,12 @@
         <span class="dark-trans-text under-icon">아직 적립된 포인트가 없습니다.</span>
       </div>
       <div *ngFor="let pointHistory of pointHistories">
-        <ion-card class="usage-card" *ngIf="pointHistory.is_accumulated">
-          <ion-card-header>
+        <div class="usage-card" *ngIf="pointHistory.is_accumulated">
+          <div class="card-header">
             <h3>{{pointHistory.project_name}}</h3>
             <p [innerHTML]="pointHistory.point_history_registration_date | amDateFormat: 'YYYY-MM-DD'"></p>
-          </ion-card-header>
-          <ion-card-content class="usage-content" text-right>
+          </div>
+          <div class="usage-content" text-right>
             <div class="usage-point-wrapper">
               <span class="usage-type bold" [ngStyle]="{'color': !pointHistory.is_accumulated ? '#f53d3d' : '#4688f1'}">{{pointHistory.is_accumulated | typeToText}}</span>&ensp;
               <span class="usage-point">{{pointHistory.point}}</span>&ensp;<span class="usage-point-tag">p</span>
@@ -98,8 +98,8 @@
               <span class="usage-type">잔여 포인트</span>&ensp;
               <span class="usage-point">{{pointHistory.total_point}}</span>&ensp;<span class="usage-point-tag">p</span>
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
 
@@ -112,9 +112,8 @@
         <span class="dark-trans-text under-icon">아직 적립된 포인트가 없습니다.</span>
       </div>
       <div *ngFor="let pointHistory of pointHistories">
-        <ion-card class="usage-card" *ngIf="!pointHistory.is_accumulated"> 
-          <ion-card-header>
-            
+        <div class="usage-card" *ngIf="!pointHistory.is_accumulated"> 
+          <div class="card-header">
             <!-- 입금 전 -->
             <div class="is-paid-badge-wrapper" *ngIf="!pointHistory.is_completed">
               <div class="is-paid-badge"><span class="not-paid">입금 전</span><ion-icon class="bold" *ngIf="isFold" (click)="fold(0)" name="ios-information-circle-outline"></ion-icon><ion-icon *ngIf="!isFold" (click)="fold(1)" name="ios-information-circle"></ion-icon></div>
@@ -125,8 +124,8 @@
               <div class="is-paid-badge paid">입금 완료</div>
             </div>
             <p [innerHTML]="pointHistory.point_history_registration_date | amDateFormat: 'YYYY-MM-DD'"></p>
-          </ion-card-header>
-          <ion-card-content class="usage-content" text-right>
+          </div>
+          <div class="usage-content" text-right>
             <div class="usage-point-wrapper">
               <span class="usage-type bold" [ngStyle]="{'color': !pointHistory.is_accumulated ? '#f53d3d' : '#4688f1'}">{{pointHistory.is_accumulated | typeToText}}</span>&ensp;
               <span class="usage-point">{{pointHistory.point}}</span>&ensp;<span class="usage-point-tag">p</span>
@@ -135,8 +134,8 @@
               <span class="usage-type">잔여 포인트</span>&ensp;
               <span class="usage-point">{{pointHistory.total_point}}</span>&ensp;<span class="usage-point-tag">p</span>
             </div>
-          </ion-card-content>
-        </ion-card>
+          </div>
+        </div>
       </div>
     </ion-list>
   </div>

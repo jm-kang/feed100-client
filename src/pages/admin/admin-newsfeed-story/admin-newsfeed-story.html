@@ -26,7 +26,7 @@
       </div>
       <p class="summary" [innerHTML]="newsfeedSummary"></p>
       <h5>{{newsfeedRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
-      <h6>* 이 스토리는 {{newsfeedSource}} 게시물입니다.</h6>
+      <h6 *ngIf="newsfeedSource">* 이 스토리는 {{newsfeedSource}} 게시물입니다.</h6>
     </ion-slide>
     <ion-slide class="story-content-slide" has-bouncing="false" overflow-scroll="false" *ngFor="let newsfeedStorySlide of newsfeedStorySlides">
       <img [src]="newsfeedStorySlide.storyImage"/>
