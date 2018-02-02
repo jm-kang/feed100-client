@@ -19,7 +19,15 @@ page-user-point-usage-history {
         }
     }
 
-    ion-card-header {
+    .usage-card {
+        padding: 24px 28px;
+        margin: 16px;
+        border-radius: 8px;
+        background-color: #fff;
+        border: 1px solid #d8d8d8;
+    }
+
+    .card-header {
         text-overflow: unset;
         white-space: unset;
         h3 {
@@ -27,13 +35,14 @@ page-user-point-usage-history {
             font-size: 1.4rem;
             line-height: 1.5;
             display: inline-block;
-            margin-bottom: 6px !important;   
+            margin-bottom: 6px !important;
+            margin-top: 0;
         }
 
         .is-paid-badge {
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
+            
         }
 
         .is-paid-badge.paid {
@@ -86,6 +95,8 @@ page-user-point-usage-history {
         p {
             color: #383838;
             font-size: 1.4rem;
+            margin-top: 0;
+            padding-left: 4px;
         }
     }
     .usage-content {

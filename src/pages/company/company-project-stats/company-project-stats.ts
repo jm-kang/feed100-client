@@ -38,11 +38,17 @@ export class CompanyProjectStatsPage {
       type: 'bar',
       options: {
         scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+          yAxes: [{
+            ticks: {
+                beginAtZero:true,
+                userCallback: function(label, index, labels) {
+                  // when the floored value is the same as the value we have a whole number
+                  if (Math.floor(label) === label) {
+                      return label;
+                  }
+                },
+              }
+          }]
         },
         legend: {
           display: false
@@ -58,17 +64,23 @@ export class CompanyProjectStatsPage {
       average: 0,
       totalNum: 0,
       colors: [
-        {backgroundColor:'rgba(255,100,0,0.4)'},
+        {backgroundColor:'rgba(255,188,0,0.8)'},
       ],
       labels: ['1점', '2점', '3점', '4점', '5점', '6점', '7점', '8점', '9점', '10점'],
       type: 'bar',
       options: {
         scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
+          yAxes: [{
+            ticks: {
+                beginAtZero:true,
+                userCallback: function(label, index, labels) {
+                  // when the floored value is the same as the value we have a whole number
+                  if (Math.floor(label) === label) {
+                      return label;
+                  }
+                },
+              }
+          }]
         },
         legend: {
           display: false

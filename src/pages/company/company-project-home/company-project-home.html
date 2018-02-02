@@ -43,7 +43,7 @@
   <div tappable class="project-card-main-image-wrapper" (click)="openCompanyProjectStoryPage()">
     <!-- <div class="shadow-header-top"></div> -->
     <img class="project-home-main-image" [src]="projectMainImage" />
-
+    <div class="card-overlay-top"></div>
     <div class="project-card-overlay-wrapper">
       <span text-center class="project-card-overlay">
         <span class="project-card-overlay-item">
@@ -62,10 +62,32 @@
     </ion-item> -->
     <p class="summary">{{projectSummary}}</p>
     <div class="participant-wrapper">
-      <span>{{progressState | amLocale:'ko' | amTimeAgo | progressState}}</span>
-      <span float-right>{{participantNum}} / {{maxParticipantNum}} <small>({{participantNum | divide : maxParticipantNum}}%)</small></span>
+      <span></span>
+      <span *ngIf="((progressState | amLocale:'ko' | amTimeAgo | progressState) != '종료')" float-right>{{maxParticipantNum}}명 중 {{participantNum}}명 참여 <small>({{participantNum | divide : maxParticipantNum}}%)</small></span>
+      <span *ngIf="((progressState | amLocale:'ko' | amTimeAgo | progressState) == '종료')" float-right>{{participantNum}}명 참여</span>
     </div>
-    <progress-bar [progress]="participantNum | divide : maxParticipantNum"></progress-bar>
+    <progress-bar *ngIf="((progressState | amLocale:'ko' | amTimeAgo | progressState) != '종료')" [progress]="participantNum | divide : maxParticipantNum"></progress-bar>
+    <progress-bar *ngIf="((progressState | amLocale:'ko' | amTimeAgo | progressState) == '종료')" progress="100" class="dark-progress-bar"></progress-bar>
+    <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
+      <span class="project-state-icon">
+        <img src="assets/img/calendar.png" />
+      </span>
+      <span class="project-state-content">
+        {{progressState | amLocale:'ko' | amTimeAgo | progressState}}
+      </span>
+      <span margin-left class="project-state-icon">
+        <img src="assets/img/people.png" />
+      </span>
+      <span class="project-state-content">
+        <b *ngIf="(maxParticipantNum - participantNum) == 0">FULL</b>
+        <b *ngIf="(maxParticipantNum - participantNum) != 0">{{maxParticipantNum - participantNum}}명 참여 가능</b>
+      </span>
+    </div>
+    <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+      <span class="project-state-content">
+        <b class="end-text">프로젝트가 종료되었습니다.</b>
+      </span>
+    </div>
     <div *ngIf="isLink">
       <button class="open-link-button" ion-button (click)="openCompanyProjectLinkPage()">링크</button>
     </div>
@@ -82,8 +104,8 @@
       <ion-icon name="text"></ion-icon>
       <p>아직 등록된 피드백이 없습니다.</p>
     </div>
-    <ion-card class="feedback-card" *ngFor="let feedback of feedbacks">
-      <ion-card-header>
+    <div class="feedback-card" *ngFor="let feedback of feedbacks"> 
+      <div class="card-header">
         <ion-item class="avatar-span-wrapper item-flex">
           <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(feedback.project_participant_id)">
             <img class="avatar-span-image" [src]="feedback.avatar_image" />
@@ -100,20 +122,20 @@
           </h3>
           <p [innerHTML]="feedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
         </ion-item>
-      </ion-card-header>
-      <ion-card-content class="feedback-content">
+      </div>
+      <div class="feedback-content">
         <div class="feedback-summary" tappable (click)="openCompanyProjectFeedbackPage(feedback.project_participant_id)">
-          {{(feedback.project_feedback | jsonParse)[0] | slicetext:100}}
-          <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span> -->
+          {{(feedback.project_feedback | jsonParse)[0] | slicetext:100 }}   
+          <!-- <span class="slice-tag" *ngIf="(feedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
           <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
         </div>
         <div class="hashtag-wrapper">
         <span tappable ion-button outline *ngFor="let feedbackHashtag of feedback.project_feedback_hashtags | jsonParse" (click)="openCompanyProjectSearchResultPage([feedbackHashtag])" >
           #{{feedbackHashtag}}
-        </span>
+        </span> 
         </div>
-      </ion-card-content>
-    </ion-card>
+      </div>
+    </div>
   </div>
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="openCompanyProjectInterviewPage()"><ion-icon name="text"></ion-icon></button>

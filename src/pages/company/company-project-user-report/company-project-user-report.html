@@ -32,9 +32,9 @@
     <ion-slide *ngFor="let userReport of userReports" style="overflow-y: scroll; display: block;">
       <div class="user-report-card">
         <ion-item class="report-card-header">
-          <ion-avatar item-start>
-            <img [src]="userReport.avatar_image">
-          </ion-avatar>
+          <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(userReport.project_participant_id)">
+            <img class="avatar-span-image" [src]="userReport.avatar_image" />
+          </span>
           <h2>
             <span class="best-badge" *ngIf="userReport.project_report_is_select">
               <span>선정</span>

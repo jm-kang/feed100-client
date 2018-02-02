@@ -49,8 +49,8 @@
       <span class="dark-text under-icon">검색 결과가 없습니다.</span>
     </div>
     <div class="search-result-content outer-content" *ngIf="feedbackResults.length > 0">
-      <ion-card class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
-        <ion-card-header>
+      <div class="feedback-card" *ngFor="let feedbackResult of feedbackResults"> 
+        <div class="card-header">
           <ion-item class="avatar-span-wrapper item-flex">
             <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(feedbackResult.project_participant_id)">
               <img class="avatar-span-image" [src]="feedbackResult.avatar_image" />
@@ -67,15 +67,15 @@
             </h3>
             <p [innerHTML]="feedbackResult.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
           </ion-item>
-        </ion-card-header>
-        <ion-card-content class="feedback-content">
+        </div>
+        <div class="feedback-content">
           <div class="feedback-summary" tappable (click)="openCompanyProjectFeedbackPage(feedbackResult.project_participant_id)">
-            {{(feedbackResult.project_feedback | jsonParse)[0] | slicetext:100}}
-            <!-- <span class="slice-tag" *ngIf="(feedbackResult.project_feedback | jsonParse)[0].length > 100"> ...</span> -->
+            {{(feedbackResult.project_feedback | jsonParse)[0] | slicetext:100 }}   
+            <!-- <span class="slice-tag" *ngIf="(feedbackResult.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
             <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
           </div>
-        </ion-card-content>
-      </ion-card>
+        </div>
+      </div>
     </div>
   </div>
 

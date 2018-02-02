@@ -1,9 +1,12 @@
 page-user-project {
-    .project-card {
+    .project-card:nth-child(1) {
         margin-top: 0;
     }
     .header {
         background-color: #fff;
+    }
+    .grid {
+        padding: 0 !important;
     }
 }
 

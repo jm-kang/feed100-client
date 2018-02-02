@@ -33,11 +33,11 @@
       </ion-avatar>
       <div *ngIf="isFold">
         <div>
-          <span class="notice-content" [innerHTML]="interview_request | slicetext:20"></span>
+          <span class="notice-content pre-line">{{interview_request | slicetext:20}}</span>
         </div>
       </div>
       <div *ngIf="!isFold" class="editor-content">
-        <span class="notice-content" [innerHTML]="interview_request"></span>
+        <span class="notice-content nowrap">{{interview_request}}</span>
         <div class="feedback-images small-feedback-images">
           <span class="image-box" *ngFor="let image of interview_request_images; let i = index">
             <span class="feedback-image-wrapper cropper" tappable (click)="photoView(image.img)">

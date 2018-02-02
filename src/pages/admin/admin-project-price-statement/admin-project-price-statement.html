@@ -22,7 +22,7 @@
 
 
 <ion-content class="price-statement-content" padding>
-  <ion-card class="price-statement-card">
+  <div class="price-statement-card">
     <ion-item class="card-header">
       <ion-label stacked color="semiDark">TYPE
         <span class="registration-date" float-right>결제일 : {{projectPaymentDate | amDateFormat: 'YY.MM.DD'}}</span>
@@ -69,9 +69,9 @@
     </div>
     <ion-item class="price-statement-card-item last-price-item">
       <ion-label stacked color="semiDark">인터뷰 개수</ion-label>
-      <ion-label color="dark">최대 {{interviewNum}}건</ion-label>
+      <ion-label color="dark">{{interviewNum}}건</ion-label>
     </ion-item>
-  </ion-card>
+  </div>
 
   <div text-center class="price-statement-footer">
     명세서가 잘못된 경우 아래 이메일로 연락 주시기 바랍니다.

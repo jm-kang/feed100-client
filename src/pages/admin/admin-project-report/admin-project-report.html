@@ -5,9 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-content class="story-slide project-report-content" no-bounce>
-  <div class="story-main-image-wrapper">
+  <!-- <div class="story-main-image-wrapper">
     <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
-  </div>
+  </div> -->
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide class="story-first-slide" padding>
       <ion-buttons class="slide-title-wrapper">
@@ -29,36 +29,52 @@
           <img src="assets/img/people.png" />
         </span>
         <span class="project-state-content">
-          {{participantNum}}명 / {{maxParticipantNum}}명
+          {{participantNum}}명 참여
+        </span>
+        <span margin-left class="project-state-icon">
+          <!-- <ion-icon name="md-people" item-start></ion-icon> -->
+          <img src="assets/img/report.png" />
+        </span>
+        <span class="project-state-content">
+          {{userReports.length}}개 작성
         </span>
       </div>
       <p class="summary">
         1. 유저 정보<br>
         2. 참여 조건 통계<br>
-        3. 베스트 피드백<br>
-        4. 프로젝트 통계<br>
-        5. 심층 피드백
+        3. 프로젝트 통계<br>
+        4. Feedback
       </p>
       <h5>{{projectRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
 
     </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">1.</div>
+        <h2 class="report-section1">유저 정보</h2>
+      </div>
+    </ion-slide>
+  
     <ion-slide class="story-content-slide" *ngFor="let projectUserProfileSlide of projectUserProfileSlides">
       <div *ngIf="projectUserProfileSlide.totalNum != 0">
+        <div class="report-content-header">
+          <h2>{{projectUserProfileSlide.title}}</h2>
+          <h4 class="report-section1 report-section1-devide">유저 정보</h4>
+        </div>
         <div class="chart-wrapper">
           <canvas baseChart width="100%" height="100%" [colors]="projectUserProfileSlide.colors" [datasets]="projectUserProfileSlide.datasets" [labels]="projectUserProfileSlide.labels" [chartType]="projectUserProfileSlide.type" [options]="projectUserProfileSlide.options"></canvas> 
         </div>
-        <div text-left class="story-content-slide-content">
-          <h3 class="sub-slide-title">{{projectUserProfileSlide.title}}</h3>
-          프로젝트 참여인원 <strong>{{projectUserProfileSlide.totalNum}}</strong> 명 중<br>
+        <div class="story-content-slide-content">
+          <!-- <h3 class="sub-slide-title">{{projectUserProfileSlide.title}}</h3> -->
+          <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectUserProfileSlide.totalNum}}</strong> 명 중</h3>
           <span class="stat-summary-block" *ngFor="let data of projectUserProfileSlide.datasets[0].data; let userProfileDataIndex=index"><span class="square-dot" [style.background]="projectUserProfileSlide.colors[0].backgroundColor[userProfileDataIndex]"></span>{{projectUserProfileSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserProfileSlide.totalNum == 0) ? 0 : data/projectUserProfileSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectUserProfileSlide.datasets[0].data.length">,</span></span>
         </div>
       </div>
       <div *ngIf="projectUserProfileSlide.totalNum == 0">
-        <div class="project-story-summary-title">
-          <ion-item class="slide-title">
-            <h3>1. 유저 정보</h3>
-            <h4 class="sub-slide-title m-t-15 m-l-15">{{projectUserProfileSlide.title}}</h4>
-          </ion-item>
+        <div class="report-content-header">
+          <h2>{{projectUserProfileSlide.title}}</h2>
+          <h4>유저 정보</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -66,94 +82,72 @@
       </div>
     </ion-slide>
 
-    <ion-slide class="story-content-slide" *ngFor="let projectUserParticipationConditionSlide of projectUserParticipationConditionSlides">
-      <div class="chart-wrapper">
-        <canvas baseChart width="100%" height="100%" [colors]="colors" [datasets]="projectUserParticipationConditionSlide.datasets" [labels]="projectUserParticipationConditionSlide.labels" [chartType]="type" [options]="options"></canvas> 
-      </div>
-      <div text-left class="story-content-slide-content">
-        <h3 class="sub-slide-title">{{projectUserParticipationConditionSlide.question}}</h3>
-        프로젝트 참여인원 <strong>{{projectUserParticipationConditionSlide.totalNum}}</strong> 명 중<br>
-        <span class="stat-summary-block" *ngFor="let data of projectUserParticipationConditionSlide.datasets[0].data; let participationConditionIndex=index"><span class="square-dot" [style.background]="colors[0].backgroundColor[participationConditionIndex]"></span>{{projectUserParticipationConditionSlide.labels[participationConditionIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserParticipationConditionSlide.totalNum == 0) ? 0 : data/projectUserParticipationConditionSlide.totalNum*100 | round:1}}%)</small><span *ngIf="participationConditionIndex+1 != projectUserParticipationConditionSlide.datasets[0].data.length">,</span></span>
-      </div>
-    </ion-slide>
-    <ion-slide class="story-content-slide project-story-summary-content" *ngIf="projectUserParticipationConditionSlides.length == 0">
-      <div class="project-story-summary-title">
-        <ion-item class="slide-title">
-          <h3>2. 참여 조건 통계</h3>
-        </ion-item>
-      </div>
-      <div class="empty-content content-absolute">
-        <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">2.</div>
+        <h2 class="report-section2">참여 조건 통계</h2>
       </div>
     </ion-slide>
 
-    <ion-slide class="story-content-slide project-story-summary-content">
-      <div class="project-story-summary-title">
-        <ion-item class="slide-title">
-          <h3>3. 베스트 피드백</h3>
-        </ion-item>
+    <ion-slide class="story-content-slide" *ngFor="let projectUserParticipationConditionSlide of projectUserParticipationConditionSlides">
+      <div class="report-content-header">
+        <h3>Q. {{projectUserParticipationConditionSlide.question}}</h3>
+        <h4 class="report-section2 report-section2-devide">참여 조건 통계</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="projectBestFeedbacks.length == 0">
-        <span class="dark-trans-text under-icon">아직 베스트 피드백이 없습니다.</span>
+      <div class="chart-wrapper">
+        <canvas baseChart width="100%" height="100%" [colors]="colors" [datasets]="projectUserParticipationConditionSlide.datasets" [labels]="projectUserParticipationConditionSlide.labels" [chartType]="type" [options]="options"></canvas> 
       </div>
-      <div *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
-          <div class="feedback-card" *ngIf="projectBestFeedback.is_best">
-            <div class="feedback-header">
-              <ion-item class="avatar-span-wrapper item-flex">
-                <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">
-                  <img class="avatar-span-image" [src]="projectBestFeedback.avatar_image" />
-                </span>
-                <h3>
-                  <span class="best-badge" *ngIf="projectBestFeedback.is_best">
-                    <span>BEST</span>
-                  </span>
-                  <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">{{projectBestFeedback.nickname}}</span>
-                  <span float-right class="empathy-wrapper">
-                    <span><span class="text-empathy">공감</span> {{projectBestFeedback.empathy_num}}</span>
-                    <span><span class="text-nonempathy">비공감</span> {{projectBestFeedback.non_empathy_num}}</span>
-                  </span>
-                </h3>
-                <p [innerHTML]="projectBestFeedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
-              </ion-item>
-            </div>
-            <div class="feedback-content">
-              <div class="feedback-summary" text-left tappable (click)="openAdminProjectFeedbackPage(projectBestFeedback.project_participant_id)">
-                {{(projectBestFeedback.project_feedback | jsonParse)[0] | slicetext:100}}
-                <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
-              </div>
-              <div text-left class="hashtag-wrapper">
-                <span tappable ion-button outline *ngFor="let feedbackHashtag of projectBestFeedback.project_feedback_hashtags | jsonParse" (click)="openAdminProjectSearchResultPage([feedbackHashtag])" >
-                  #{{feedbackHashtag}}
-                </span> 
-              </div>
-            </div>
-          </div>
+      <div class="story-content-slide-content">
+        <!-- <h3 class="sub-slide-title">{{projectUserParticipationConditionSlide.question}}</h3> -->
+        <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectUserParticipationConditionSlide.totalNum}}</strong> 명 중</h3>
+        <span class="stat-summary-block" *ngFor="let data of projectUserParticipationConditionSlide.datasets[0].data; let participationConditionIndex=index"><span class="square-dot" [style.background]="colors[0].backgroundColor[participationConditionIndex]"></span>{{projectUserParticipationConditionSlide.labels[participationConditionIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserParticipationConditionSlide.totalNum == 0) ? 0 : data/projectUserParticipationConditionSlide.totalNum*100 | round:1}}%)</small><span *ngIf="participationConditionIndex+1 != projectUserParticipationConditionSlide.datasets[0].data.length">,</span></span>
+      </div>
+      <div *ngIf="projectUserParticipationConditionSlide.totalNum == 0">
+        <div class="report-content-header">
+          <h3>{{projectUserParticipationConditionSlide.question}}</h3>
+          <h4>참여 조건 통계</h4>
         </div>
+        <div class="empty-content content-absolute">
+          <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">3.</div>
+        <h2 class="report-section3">프로젝트 통계</h2>
+      </div>
     </ion-slide>
 
     <ion-slide class="story-content-slide" *ngFor="let projectStatSlide of projectStatSlides; let statIndex = index">
       <div *ngIf="projectStatSlide.totalNum != 0">
+        <div class="report-content-header">
+          <h2>{{projectStatSlide.title}}</h2>
+          <h4 class="report-section3 report-section3-devide m-b-0">프로젝트 통계</h4>
+          <div class="stat-title" *ngIf="projectStatSlide.title == '첫인상 평가'">
+            <rating [(ngModel)]="projectStatSlide.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+            <span item-end>{{average(statIndex) | round:1}}</span>
+          </div>
+          <div class="stat-title yellow-rating" *ngIf="projectStatSlide.title == '추천 지수'">
+            <rating [(ngModel)]="projectStatSlide.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+            <span item-end>{{average(statIndex) | round:1}}</span>
+          </div>
+        </div>
         <div class="chart-wrapper">
           <canvas baseChart width="100%" height="100%" [colors]="projectStatSlide.colors" [datasets]="projectStatSlide.datasets" [labels]="projectStatSlide.labels" [chartType]="projectStatSlide.type" [options]="projectStatSlide.options"></canvas> 
         </div>
-        <div text-left class="story-content-slide-content">
-          <ion-item class="stat-title" text-right>
-            <h3 item-start class="sub-slide-title">{{projectStatSlide.title}}</h3>
-            <rating [(ngModel)]="projectStatSlide.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
-            <span item-end>{{average(statIndex) | round:1}}</span>
-          </ion-item>
+        <div class="story-content-slide-content">
           <div *ngIf="projectStatSlide.totalNum != 0">
-            프로젝트 참여인원 <strong>{{projectStatSlide.totalNum}}</strong> 명 중<br>
+            <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectStatSlide.totalNum}}</strong> 명 중</h3>
             <span class="stat-summary-block" *ngFor="let data of projectStatSlide.datasets[0].data; let userProfileDataIndex=index">{{projectStatSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectStatSlide.totalNum == 0) ? 0 : data/projectStatSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlide.datasets[0].data.length">,</span></span>
           </div>
         </div>
       </div>
       <div *ngIf="projectStatSlide.totalNum == 0">
-        <div class="project-story-summary-title">
-          <ion-item class="slide-title">
-            <h3>4. 프로젝트 통계</h3>
-            <h4 class="sub-slide-title m-t-15 m-l-15">{{projectStatSlide.title}}</h4>
-          </ion-item>
+        <div class="report-content-header">
+          <h3>{{projectStatSlide.title}}</h3>
+          <h4>프로젝트 통계</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -161,11 +155,61 @@
       </div>
     </ion-slide>
 
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">4.</div>
+        <h2 class="report-section4">Feedback</h2>
+      </div>
+    </ion-slide>
+
     <ion-slide class="story-content-slide project-story-summary-content">
-      <div class="project-story-summary-title">
-        <ion-item class="slide-title">
-          <h3>5. 심층 피드백</h3>
-        </ion-item>
+      <div class="report-content-header">
+        <h2>베스트 피드백</h2>
+        <h4 class="report-section4 report-section4-devide">Feedback</h4>
+      </div>
+      <div class="empty-content content-absolute" *ngIf="projectBestFeedbacks.length == 0">
+        <span class="dark-trans-text under-icon">아직 베스트 피드백이 없습니다.</span>
+      </div>
+      <div *ngFor="let projectBestFeedback of projectBestFeedbacks"> 
+        <div class="feedback-card" *ngIf="projectBestFeedback.is_best"> 
+          <div class="card-header">
+            <ion-item class="avatar-span-wrapper item-flex">
+              <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">
+                <img class="avatar-span-image" [src]="projectBestFeedback.avatar_image" />
+              </span>
+              <h3>
+                <span class="best-badge" *ngIf="projectBestFeedback.is_best">
+                  <span>BEST</span>
+                </span>
+                <span class="user-nickname-button" tappable (click)="openAdminProjectUserProfilePage(projectBestFeedback.project_participant_id)">{{projectBestFeedback.nickname}}</span>
+                <span float-right class="empathy-wrapper">
+                  <span><span class="text-empathy">공감</span> {{projectBestFeedback.empathy_num}}</span>
+                  <span><span class="text-nonempathy">비공감</span> {{projectBestFeedback.non_empathy_num}}</span>
+                </span>
+              </h3>
+              <p [innerHTML]="projectBestFeedback.project_feedback_registration_date | amLocale:'ko' | amTimeAgo"></p>
+            </ion-item>
+          </div>
+          <div class="feedback-content" text-left>
+            <div class="feedback-summary" tappable (click)="openAdminProjectFeedbackPage(projectBestFeedback.project_participant_id)">
+              {{(projectBestFeedback.project_feedback | jsonParse)[0] | slicetext:100 }}   
+              <!-- <span class="slice-tag" *ngIf="(projectBestFeedback.project_feedback | jsonParse)[0].length > 100"> ...</span>   -->
+              <div class="feedback-more-button">피드백 자세히 보러가기 ></div>
+            </div>
+            <div class="hashtag-wrapper">
+              <span tappable ion-button outline *ngFor="let feedbackHashtag of projectBestFeedback.project_feedback_hashtags | jsonParse" (click)="openAdminProjectSearchResultPage([feedbackHashtag])" >
+                #{{feedbackHashtag}}
+              </span> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  
+    <ion-slide class="story-content-slide project-story-summary-content">
+      <div class="report-content-header">
+        <h2>심층 피드백</h2>
+        <h4 class="report-section4 report-section4-devide">Feedback</h4>
       </div>
       <div class="project-story-summary-list">
         <div text-right class="total-length m-r-16" *ngIf="userReports.length > 0">총 {{userReports.length}}개</div>
@@ -175,9 +219,9 @@
     
         <div tappable class="user-report-card" *ngFor="let userReport of userReports">
           <ion-item class="report-card-header">
-            <ion-avatar item-start>
-              <img [src]="userReport.avatar_image">
-            </ion-avatar>
+            <span item-start class="avatar-image avatar-span cropper" tappable (click)="openAdminProjectUserProfilePage(userReport.project_participant_id)">
+              <img class="avatar-span-image" [src]="userReport.avatar_image" />
+            </span>
             <h2>
               <span class="best-badge" *ngIf="userReport.project_report_is_select">
                 <span>선정</span>
@@ -223,11 +267,11 @@
                 </div>
               </div>
             </div>
-            <div class="report-card-footer-wrapper" *ngIf="!userReport.project_report_is_select">
+            <div class="report-card-footer-wrapper p-b-16" *ngIf="!userReport.project_report_is_select">
               <button ion-button class="selection-button" block (click)="bestSelection(userReport.project_participant_id, userReport.nickname)">선정하기</button>
               <p>도움이 된 피드백을 선정해주세요.</p>
             </div>
-            <div class="report-card-footer-wrapper" *ngIf="userReport.project_report_is_select">
+            <div class="report-card-footer-wrapper p-b-16" *ngIf="userReport.project_report_is_select">
               <h1>선정된 보고서입니다.</h1>
             </div>
           </div>

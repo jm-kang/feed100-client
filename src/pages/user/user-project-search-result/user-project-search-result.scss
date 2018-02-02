@@ -4,12 +4,20 @@ page-user-project-search-result {
     }
 
     ion-content {
-        background-color: rgba(38,38,38,0.2) !important;
+        background-color: #f9f9f9 !important
     }
     // .scroll-content {
     //     // margin-top: 0 !important;
     //     margin-top: 111px;
     // }
+
+    ion-refresher {
+        top: 105px !important;
+    }
+
+    ion-navbar {
+        border-bottom: 1px solid #f0f0f0;
+    }
 
     .toolbar-ios {
         padding-top: calc(20px + 4px);
@@ -41,6 +49,7 @@ page-user-project-search-result {
     .search-result-content {
         height: 100%;
         background-color: #fff;
+        padding-top: 70px !important;
     }
 
     .search-result-content-wrapper {
@@ -80,6 +89,10 @@ page-user-project-search-result {
     .empty-search-result div {
         margin-top: 16px;
         font-size: 1.2em;
+    }
+
+    .feedback-card .feedback-content {
+        padding-bottom: 15px !important
     }
 }
 

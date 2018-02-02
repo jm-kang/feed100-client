@@ -23,20 +23,20 @@ export class UserHomePage {
     {
       link: 'AppIntroPage',
       bg: 'assets/img/feed100-intro-slide1.png',
-      title: '가치를 같이 만들어가요!',
-      content: '기업은 유저가 원하는 가치가 무엇인지!<br/>유저는 기업의 서비스를 더욱 가치있게!',
+      title: '',
+      content: '',
     },
     {
       link: 'TutorialPage',
       bg: 'assets/img/feed100-intro-slide2.png',
-      title: '이렇게 진행합니다!',
-      content: 'FEED100 서비스 튜토리얼을 확인해 주세요.<br/>단계별로 어떻게 진행하는지 확인할 수 있습니다.',
+      title: '',
+      content: '',
     },
     {
       link: 'HelpPage',
       bg: 'assets/img/feed100-intro-slide3.png',
-      title: '어려움이 있으신가요?',
-      content: '궁금한 점이 있다면 도움말을 확인해 보세요!<br/>여러분을 위하여 최선을 다하겠습니다.',
+      title: '',
+      content: '',
     }
   ];
   

@@ -16,7 +16,7 @@
         </button>
       </ion-buttons>
       <h2 [innerHTML]="projectName"></h2>
-      <div class="project-state-wrapper">
+      <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
         <span class="project-state-icon">
           <!-- <ion-icon name="md-calendar" item-start></ion-icon> -->
           <img src="assets/img/calendar.png" />
@@ -29,7 +29,13 @@
           <img src="assets/img/people.png" />
         </span>
         <span class="project-state-content">
-          {{participantNum}}명 / {{maxParticipantNum}}명
+          <b *ngIf="(maxParticipantNum - participantNum) == 0">FULL</b>
+          <b *ngIf="(maxParticipantNum - participantNum) != 0">{{maxParticipantNum - participantNum}}명 참여 가능</b>
+        </span>
+      </div>
+      <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+        <span class="project-state-content">
+          <b class="end-text" style="color:#c8c8c8!important;">프로젝트가 종료되었습니다.</b>
         </span>
       </div>
       <p class="summary" [innerHTML]="projectSummary"></p>

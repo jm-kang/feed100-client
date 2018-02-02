@@ -75,6 +75,15 @@ page-user-project-interview-detail {
         font-weight: bold;
     }
 
+    .right-interview-card h3 {
+        padding-left: 16px;
+    }
+
+    .left-interview-card h3 {
+        padding-right: 16px;
+    }
+
+
     .avatar-span-wrapper p {
         font-size: 1.2rem;
         color: #787878;
@@ -103,10 +112,10 @@ page-user-project-interview-detail {
 
     .card-content p {
         margin: 0;
-        padding: 16px;
+        padding: 24px 16px;
         color: #686868;
         font-size: 1.3rem;
-        line-height: 1.4;
+        line-height: 1.6;
     }
 
      .feedback-images {
@@ -114,8 +123,8 @@ page-user-project-interview-detail {
         width: -webkit-fill-available;
         display: inline-flex;
         overflow-x: scroll;
-        margin-top: 16px;
-        margin-bottom: 16px;
+        margin-top: 0px;
+        margin-bottom: 24px;
     }
 
     .small-feedback-images .feedback-image-wrapper {
@@ -150,6 +159,7 @@ page-user-project-interview-detail {
         border-top: 1px solid #e9e9e9;
         color: #787878;
         font-weight: bold;
+        background-color: #fff;
     }
 
     .reply-company-interview .icon {
@@ -182,7 +192,7 @@ page-user-project-interview-detail {
         -webkit-align-item:center;
         -webkit-justify-content:center;
         .line-content {
-            background-color: #efeff4;
+            background-color: #f9f9f9;
             color: #787878;
             font-weight: bold;
             width: auto;
@@ -196,4 +206,23 @@ page-user-project-interview-detail {
 
 .space-30 {
     margin-top: 30px;
+}
+
+.interview-card {
+    margin: 24px 16px;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #d9d9d9;
+
+    .item-block .item-inner {
+        border-bottom: 0;
+    }
+}
+
+.interview-card.right-interview-card {
+    border-top-right-radius: 0 !important;
+}
+
+.interview-card.left-interview-card {
+    border-top-left-radius: 0 !important;
 }

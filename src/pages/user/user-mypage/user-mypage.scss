@@ -1,7 +1,12 @@
 page-user-mypage {
     .outer-content {
-        height: 100%;
+        height: auto;
     }
+
+    .scroll-content {
+        border-top: 0 !important;
+    }
+
     .header {
         border-bottom : 1px solid #EEE;
     }
@@ -116,6 +121,10 @@ page-user-mypage {
     .segment-button-wrapper .segment-button h5 {
         font-size: 1.1rem;
         margin-top: 2px;
+    }
+
+    .grid {
+        padding: 0;
     }
 }
 

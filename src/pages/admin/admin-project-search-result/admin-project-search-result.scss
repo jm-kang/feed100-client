@@ -4,7 +4,7 @@ page-admin-project-search-result {
     }
 
     ion-content {
-        background-color: rgba(38,38,38,0.2) !important;
+        background-color: #f9f9f9 !important
     }
     .scroll-content {
         margin-top: 105px !important;
@@ -78,5 +78,9 @@ page-admin-project-search-result {
     .empty-search-result div {
         margin-top: 16px;
         font-size: 1.2em;
+    }
+
+    .feedback-card .feedback-content {
+        padding-bottom: 15px !important
     }
 }

@@ -26,11 +26,17 @@
     <span class="dark-text">데이터 수집을 기다리는 중입니다 ...</span>
   </div>
   <div class="stats-wrapper" *ngFor="let stat of stats; let i=index">
-    <ion-item text-right>
-      <span item-start>{{stat.title}}</span>
-      <rating [(ngModel)]="stat.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
-      <span item-end>{{average(i) | round:1}}</span> 
-    </ion-item>
+      <ion-item text-right>
+        <span item-start>{{stat.title}}</span>
+        <span *ngIf="stat.title == '첫인상 평가'" style="display: inline-flex;">
+          <rating [(ngModel)]="stat.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+          <span item-end>{{average(i) | round:1}}</span> 
+        </span>
+        <span class="yellow-rating" *ngIf="stat.title == '추천 지수'" style="display: inline-flex;">
+          <rating [(ngModel)]="stat.average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+          <span item-end>{{average(i) | round:1}}</span> 
+        </span>
+      </ion-item>
     <div class="chart-wrapper" *ngIf="stat.totalNum != 0">
       <canvas baseChart width="100%" height="100%" [colors]="stat.colors" [datasets]="stat.datasets" [labels]="stat.labels" [chartType]="stat.type" [options]="stat.options"></canvas> 
       <div class="space-20"></div>
