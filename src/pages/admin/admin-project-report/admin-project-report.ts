@@ -265,6 +265,7 @@ export class AdminProjectReportPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
+          console.log(JSON.stringify(data.data.project_participation_objective_conditions));
           this.projectMainImage = data.data.project_main_image;
           this.avatarImage = data.data.avatar_image;
           this.nickname = data.data.nickname;
@@ -285,6 +286,26 @@ export class AdminProjectReportPage {
               for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
                 this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
               }  
+            }
+          }
+
+          let project_participation_objective_conditions = JSON.parse(data.data.project_participation_objective_conditions);
+          for(let j = 0; j < project_participation_objective_conditions.length; j++) {
+            if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
+              let data = [];
+              let labels = [];
+              for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
+                labels.push(project_participation_objective_conditions[j].options[k].option);
+                data.push(0);
+              }
+              this.tempProjectUserParticipationConditionSlides.push({
+                question: project_participation_objective_conditions[j].question,
+                datasets: [{
+                  data: data,
+                }],
+                totalNum: 0,
+                labels: labels,
+              });
             }
           }
           
@@ -314,25 +335,9 @@ export class AdminProjectReportPage {
             // projectUserProfileSlides
 
             // projectUserParticipationConditionSlides
-            let project_participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
-            for(let j = 0; j < project_participation_objective_conditions.length; j++) {
-              if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
-                let data = [];
-                let labels = [];
-                for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
-                  labels.push(project_participation_objective_conditions[j].options[k].option);
-                  data.push(0);
-                }
-                this.tempProjectUserParticipationConditionSlides.push({
-                  question: project_participation_objective_conditions[j].question,
-                  datasets: [{
-                    data: data,
-                  }],
-                  totalNum: 0,
-                  labels: labels,
-                });
-              }
-              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(project_participation_objective_conditions[j].value);
+            let participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
+            for(let j = 0; j < participation_objective_conditions.length; j++) {
+              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(participation_objective_conditions[j].value);
               if(index > -1) {
                 this.tempProjectUserParticipationConditionSlides[j].datasets[0].data[index]++;
                 this.tempProjectUserParticipationConditionSlides[j].totalNum++;
@@ -505,5 +510,18 @@ export class AdminProjectReportPage {
 
   photoView(url) {
     this.photoViewer.show(url);
+  }
+
+  hasBestFeedback() {
+    if(this.projectBestFeedbacks.length == 0) {
+      return false;
+    } else {
+      for(let projectBestFeedback of this.projectBestFeedbacks) {
+        if(projectBestFeedback.is_best) {
+          return true;
+        }
+        return false;
+      }
+    }
   }
 }

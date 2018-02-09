@@ -288,6 +288,26 @@ export class CompanyProjectReportPage {
               }
             }              
           }
+
+          let project_participation_objective_conditions = JSON.parse(data.data.project_participation_objective_conditions);
+          for(let j = 0; j < project_participation_objective_conditions.length; j++) {
+            if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
+              let data = [];
+              let labels = [];
+              for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
+                labels.push(project_participation_objective_conditions[j].options[k].option);
+                data.push(0);
+              }
+              this.tempProjectUserParticipationConditionSlides.push({
+                question: project_participation_objective_conditions[j].question,
+                datasets: [{
+                  data: data,
+                }],
+                totalNum: 0,
+                labels: labels,
+              });
+            }
+          }
           
           for(let i = 0; i < participants.length; i++) {
             // projectUserProfileSlides
@@ -315,25 +335,9 @@ export class CompanyProjectReportPage {
             // projectUserProfileSlides
 
             // projectUserParticipationConditionSlides
-            let project_participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
-            for(let j = 0; j < project_participation_objective_conditions.length; j++) {
-              if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
-                let data = [];
-                let labels = [];
-                for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
-                  labels.push(project_participation_objective_conditions[j].options[k].option);
-                  data.push(0);
-                }
-                this.tempProjectUserParticipationConditionSlides.push({
-                  question: project_participation_objective_conditions[j].question,
-                  datasets: [{
-                    data: data,
-                  }],
-                  totalNum: 0,
-                  labels: labels,
-                });
-              }
-              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(project_participation_objective_conditions[j].value);
+            let participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
+            for(let j = 0; j < participation_objective_conditions.length; j++) {
+              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(participation_objective_conditions[j].value);
               if(index > -1) {
                 this.tempProjectUserParticipationConditionSlides[j].datasets[0].data[index]++;
                 this.tempProjectUserParticipationConditionSlides[j].totalNum++;
@@ -506,5 +510,18 @@ export class CompanyProjectReportPage {
 
   photoView(url) {
     this.photoViewer.show(url);
+  }
+
+  hasBestFeedback() {
+    if(this.projectBestFeedbacks.length == 0) {
+      return false;
+    } else {
+      for(let projectBestFeedback of this.projectBestFeedbacks) {
+        if(projectBestFeedback.is_best) {
+          return true;
+        }
+        return false;
+      }
+    }
   }
 }
