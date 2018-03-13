@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the UserProjectInterviewResponsePage page.
+ * Generated class for the CompanyProjectGroupInterviewQuestionEditorPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-user-project-interview-response',
-  templateUrl: 'user-project-interview-response.html',
+  selector: 'page-company-project-group-interview-question-editor',
+  templateUrl: 'company-project-group-interview-question-editor.html',
 })
-export class UserProjectInterviewResponsePage {
+export class CompanyProjectGroupInterviewQuestionEditorPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserProjectInterviewResponsePage');
+    console.log('ionViewDidLoad CompanyProjectGroupInterviewQuestionEditorPage');
   }
 
 }

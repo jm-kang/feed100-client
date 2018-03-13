@@ -130,7 +130,7 @@ import { CompanyProjectHomePageModule } from '../pages/company-dev/company-proje
   import { CompanyProjectReportPageModule } from '../pages/company-dev/company-project-report/company-project-report.module';
   import { CompanyProjectInterviewDetailPageModule } from '../pages/company-dev/company-project-interview-detail/company-project-interview-detail.module';
   import { CompanyProjectGroupInterviewPageModule } from '../pages/company-dev/company-project-group-interview/company-project-group-interview.module';
-    import { CompanyProjectGroupWritingEditorPageModule } from '../pages/company-dev/company-project-group-writing-editor/company-project-group-writing-editor.module';
+    import { CompanyProjectGroupInterviewQuestionEditorPageModule } from '../pages/company-dev/company-project-group-interview-question-editor/company-project-group-interview-question-editor.module';
 // company-dev //
 
 // user-dev //
@@ -147,7 +147,7 @@ import { UserTabsPageModule } from '../pages/user-dev/user-tabs/user-tabs.module
     import { UserProjectLinkPageModule } from '../pages/user-dev/user-project-link/user-project-link.module';
     import { UserProjectStoryQuizFormPageModule } from '../pages/user-dev/user-project-story-quiz-form/user-project-story-quiz-form.module';    
     import { UserProjectHomePageModule } from '../pages/user-dev/user-project-home/user-project-home.module';
-      import { UserProjectInterviewResponsePageModule } from '../pages/user-dev/user-project-interview-response/user-project-interview-response.module';
+      import { UserProjectInterviewAnswerPageModule } from '../pages/user-dev/user-project-interview-answer/user-project-interview-answer.module';
         import { UserProjectInterviewDetailPageModule } from '../pages/user-dev/user-project-interview-detail/user-project-interview-detail.module';
         import { UserProjectStoryVerticalPageModule } from '../pages/user-dev/user-project-story-vertical/user-project-story-vertical.module';
   import { UserNotificationPageModule } from '../pages/user-dev/user-notification/user-notification.module';
@@ -317,7 +317,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
       CompanyProjectReportPageModule,
       CompanyProjectInterviewDetailPageModule,
       CompanyProjectGroupInterviewPageModule,
-        CompanyProjectGroupWritingEditorPageModule,
+        CompanyProjectGroupInterviewQuestionEditorPageModule,
     
     UserConfigurePageModule,
       UserHelpPageModule,
@@ -332,7 +332,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
         UserProjectLinkPageModule,
         UserProjectStoryQuizFormPageModule,
         UserProjectHomePageModule,
-          UserProjectInterviewResponsePageModule,
+          UserProjectInterviewAnswerPageModule,
             UserProjectInterviewDetailPageModule,
             UserProjectStoryVerticalPageModule,
       UserNotificationPageModule,
