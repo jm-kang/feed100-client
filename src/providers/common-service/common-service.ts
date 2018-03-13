@@ -338,7 +338,12 @@ export class CommonServiceProvider {
           text: '업데이트',
           handler: () => {
             console.log('업데이트');
-            this.market.open('com.potenbrothers.feed100');
+            if(this.platform.is('android')) {
+              this.market.open('com.potenbrothers.feed100');
+            }
+            else if(this.platform.is('ios')) {
+              this.market.open('id1329537100');
+            }  
           }
         }
       ],
