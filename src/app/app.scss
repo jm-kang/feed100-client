@@ -41,6 +41,7 @@ ion-spinner {
     }
 }
 
+// 패드용 모달
 @media only screen and (min-height: 600px) and (min-width: 768px) {
     .modal-wrapper {
         left: 0;
@@ -50,10 +51,12 @@ ion-spinner {
     }
 }
 
+// 어드민 key id 값
 .key-tag {
     color : rgb(255, 0, 212);
 }
 
+// 데이터 비어있는 화면
 .empty-content {
     height: 100%;
     display: flex;
@@ -87,10 +90,22 @@ ion-spinner {
     }
 }
 
+.empty-content.content-absolute {
+    position:absolute;
+    top:0;bottom:0;right:0;left: 0;
+}
+
+.empty-inner.white-bg {
+    background-color: #fff !important;
+    background: #fff !important;
+}
+
+// 피드백 메인 텍스트 색상
 .feed100-text {
     color: #ff6700;
 }
 
+// height value
 .h-0 {
     height: auto !important;
 }
@@ -99,6 +114,7 @@ ion-spinner {
     height: 200px;
 }
 
+// margin value
 .m-t-60 {
     margin-top: 60px !important;
 }
@@ -123,15 +139,16 @@ ion-spinner {
     margin: 16px !important;
 }
 
+.m-r-16 {
+    margin-right: 16px !important;
+}
+
+// padding value
 .p-b-16 {
     padding-bottom: 16px !important;
 }
 
-.empty-content.content-absolute {
-    position:absolute;
-    top:0;bottom:0;right:0;left: 0;
-}
-
+// text type
 .pre-line {
     word-break: break-all !important;
     word-wrap: break-word !important;
@@ -144,6 +161,11 @@ ion-spinner {
     white-space: nowrap !important;
 }
 
+.line-height-1 {
+    line-height: 1 !important;
+}
+
+// item style
 .item h2, .item h3 {
     text-overflow: ellipsis;
     overflow: inherit;
@@ -161,28 +183,18 @@ ion-spinner {
     margin-top: 0 !important;
 }
 
-.m-r-16 {
-    margin-right: 16px !important;
-}
-
-.line-height-1 {
-    line-height: 1 !important;
-}
-
+// background style
 .outer-content {
     background: #f9f9f9 !important;
     background-color: #f9f9f9 !important;
 }
 
+// header style
 .navbar-border-bottom {
     border-bottom: 1px solid #e8e8e8 !important;
 }
 
-.empty-inner.white-bg {
-    background-color: #fff !important;
-    background: #fff !important;
-}
-
+// refresher style
 .has-refresher .scroll-content {
     border-top: 0 !important;
 }
@@ -190,3 +202,46 @@ ion-spinner {
 .refresher-pulling-icon, .refresher-refreshing-icon {
     color: #d8d8d8 !important;
 }
+
+// configure-page-style //
+.config-list .list-header {
+    color: #FE6B01 !important;
+    font-size: 1.2rem !important;
+}
+
+.config-list .list-header-ios {
+    color: #787878 !important;
+}
+
+.config-list .list-header-md {
+    margin-bottom: 0;
+}
+
+.config-list .item-ios.item-block {
+    background-color: #fff !important;
+}
+
+.config-list .item {
+    color: #383838;
+    font-size: 1.4rem;
+}
+
+.config-list .item.item-block .item-inner {
+    border-bottom-color: #e7e7e7;
+}
+
+.push-alarm-button {
+    position: absolute;
+    z-index: 99;
+    right: 0px;
+    height: 3.5em;
+    width: 6em;
+    background-color: transparent;
+}
+
+.push-alarm-button.activated {
+    background-color: transparent;
+}
+// configure-page-style //
+
+

@@ -1,10 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, Slides, Content } from 'ionic-angular';
-
-import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
-
-import { CommonServiceProvider } from '../../../providers/common-service/common-service';
-import { UserServiceProvider } from '../../../providers/user-service/user-service';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the UserProjectRewardFormPage page.
@@ -19,154 +14,12 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-project-reward-form.html',
 })
 export class UserProjectRewardFormPage {
-  @ViewChild("contentRef") contentHandle: Content;
-  @ViewChild(Slides) slides: Slides;
-  bgVert:   number = 0 ;
-  lastBgV:  number = 0 ;
-  
-  scrollVert:   number = 0 ;
-  lastScrollV:  number = 0 ;
-  transparentPercent: number = 0;
 
-  project_id;
-  recommendation: number = 0;
-  isQuestionWrited = [false, false];
-  isBest = false;
-  isSelect = false;
-  feedbackPoint: number = 0;
-  opinionPoint: number = 0;
-  interviewPoint: number = 0;
-  reportPoint: number = 0; // 심층 피드백 보상 금액
-  projectPoint: number = 0;
-  exp: number = 0;
-  interviewNum = 0;
-
-  recommendationStats = [false,false,false,false,false,false,false,false,false,false];
-
-  constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public viewCtrl: ViewController,
-    public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider,
-    public ModalWrapperPage: ModalWrapperPage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectRewardFormPage');
-    this.project_id = this.ModalWrapperPage.modalParams.project_id;
-    this.slides.lockSwipeToNext(true);
   }
 
-  ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectRewardFormPage');
-  }
-
-  dismiss() {
-    if(this.slides.getActiveIndex() == 1) {
-      this.ModalWrapperPage.dismissModal("refresh");
-    }
-    else {
-      this.ModalWrapperPage.dismissModal();
-    }
-  }
-
-  slideChanged() {
-    if(this.slides.getActiveIndex() == 0) {
-      if(!this.isQuestionWrited[0]) {
-        this.slides.lockSwipeToNext(true);  
-      } else {
-        this.slides.lockSwipeToNext(false);  
-      }
-    }
-    if(this.slides.getActiveIndex() == 1) {
-      this.slides.lockSwipes(true);
-    }
-  }
-
-  goNextSlide(index) {
-    switch(index) {
-      case 0:
-        this.commonService.isLoadingActive = true;
-        let loading = this.commonService.presentLoading();
-
-        this.userService.reward(this.project_id, this.recommendation)
-        .finally(() => {
-          loading.dismiss();
-        })
-        .subscribe(
-          (data) => {
-            if(data.success == true) {
-              this.isBest = data.data.feedback_is_best;
-              this.isSelect = data.data.report_is_select;
-              this.feedbackPoint = data.data.feedback_point;
-              this.opinionPoint = data.data.opinion_point;
-              this.interviewPoint = data.data.interview_point;
-              this.reportPoint = data.data.report_point;
-              this.projectPoint = data.data.project_point;
-              this.exp = data.data.experience_point;
-              this.interviewNum = data.data.interview_num;
-          
-              this.slides.lockSwipeToNext(false);
-              this.slides.slideNext(500);
-            }
-            else if(data.success == false) {
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-              .then(() => {
-                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-              });
-            }
-          },
-          (err) => {
-            console.log(err);
-            this.commonService.showBasicAlert('오류가 발생했습니다.');
-          }
-        );
-        break;
-      case 1:
-        this.dismiss();
-        break;
-    }
-  }
-
-  // swipeEvent(e) {
-  //   if(e.direction == 16) {
-  //     document.querySelector(".project-reward-page-content .scroll-content")['style'].background = 'transparent';
-  //     if(this.contentHandle.scrollTop > -90) {
-  //       this.dismiss();
-  //     }
-  //   }
-  // }
-
-  clickRecommendation(stat:boolean, index:number) {
-    for(let i = 0; i < this.recommendationStats.length; i++) {
-      this.recommendationStats[i] = false;
-    }
-    this.recommendationStats[index] = true;
-    this.recommendation = index + 1;
-    this.isQuestionWrited[0] = true;
-  }
-
-  panEnd() {
-    if(this.contentHandle.scrollTop <= -90) {
-      console.log('pan: ' + this.lastBgV);
-      document.querySelector(".project-reward-page-content .scroll-content")['style'].background = 'transparent';
-      this.dismiss();
-    }
-  }
-
-  scrollingEvent($e) {
-    var stepV = $e.scrollTop /10 ;
-    this.scrollVert = this.lastScrollV - stepV ;
-    if (this.scrollVert < 0) {
-       this.scrollVert = 0 ;
-    } else {
-       if (this.scrollVert > 100)
-          this.scrollVert = 100 ;
-    }
-    if(this.scrollVert < 20) {
-      // this.transparentPercent = 1 - (this.scrollVert /20);
-      // document.querySelector(".project-reward-page-content .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
-    }
-  }
 }

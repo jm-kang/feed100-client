@@ -1,3 +1,4 @@
+import { UserConfigurePage } from './../pages/user/user-configure/user-configure';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -7,8 +8,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/common/login/login';
-import { UserTabsPage } from '../pages/user-dev/user-tabs/user-tabs';
-import { CompanyProjectHomePage } from '../pages/company-dev/company-project-home/company-project-home';
+import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
+import { CompanyProjectHomePage } from '../pages/company/company-project-home/company-project-home';
 import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -18,6 +19,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
+  // rootPage:any = LoginPage;
   rootPage:any = LoginPage;
 
   constructor(

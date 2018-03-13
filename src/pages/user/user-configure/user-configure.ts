@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
 import { Subscribable } from 'rxjs/Observable';
+
 /**
  * Generated class for the UserConfigurePage page.
  *
