@@ -7,8 +7,8 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/common/login/login';
-import { UserTabsPage } from '../pages/user/user-tabs/user-tabs';
-import { CompanyTabsPage } from '../pages/company/company-tabs/company-tabs';
+import { UserTabsPage } from '../pages/user-dev/user-tabs/user-tabs';
+import { CompanyProjectHomePage } from '../pages/company-dev/company-project-home/company-project-home';
 import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -65,7 +65,7 @@ export class MyApp {
             this.rootPage = UserTabsPage;
           }
           else if(data.data.role == 'company') {
-            this.rootPage = CompanyTabsPage;
+            this.rootPage = CompanyProjectHomePage;
           }
           else if(data.data.role == 'admin') {
             this.rootPage = AdminTabsPage;
