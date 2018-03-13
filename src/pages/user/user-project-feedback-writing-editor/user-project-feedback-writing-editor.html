@@ -22,7 +22,7 @@
   </ion-header>
   <div class="hashtags-chooser-wrapper inactive-button-wrapper">
     <ion-buttons>
-      <button *ngIf="projectHashtags.length == 0 && isActiveNewHashtag" ion-button clear class="inactive-button">모든 해시태그를 선택하셨습니다.</button>
+      <button *ngIf="projectHashtags.length == 0" ion-button clear class="inactive-button">모든 해시태그를 선택하셨습니다.</button>
       <button *ngFor="let projectHashtag of projectHashtags" ion-button clear class="inactive-button" (click)="activeHashtag(projectHashtag)">
         #{{projectHashtag}}
       </button>
