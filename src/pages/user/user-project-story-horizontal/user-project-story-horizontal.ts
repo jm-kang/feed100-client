@@ -23,26 +23,34 @@ export class UserProjectStoryHorizontalPage {
   project_id;
 
   isFirstSlide: boolean = true;
-  isFeedback: boolean = false;
+  isFeedback: boolean = true;
   isLink: boolean = true;
+  check: boolean = true;
 
-  projectMainImage: String = "";
-  avatarImage: String = "";
-  nickname: String = "";
-  projectName: String = "";
+  projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
+  nickname: string = "포텐브라더스";
+  projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
   projectViewNum: number = 0;
   participantNum: number = 0;
   maxParticipantNum: number = 0;
-  progressState: String = "";
-  projectSummary: String = ""
-  projectRegistrationDate: String = "";
+  maxReward: number = 5500;
+  progressState: string = "";
+  projectSummary: string = "";
+  projectRegistrationDate: string = "";
   project_link;
+  testInfo: string="asdasdas";
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
 
-  projectStorySlides = [];
+  projectStorySlides = [
+    {
+      storyImage: "",
+      storyVideo: "",
+      storyContent: ""
+    }
+  ];
 
   constructor(
     public navCtrl: NavController,
@@ -92,7 +100,7 @@ export class UserProjectStoryHorizontalPage {
     //       this.projectRegistrationDate = data.data.project_registration_date;
     //       this.projectStorySlides = JSON.parse(data.data.project_story);
 
-    //       this.totalPageNum = this.projectStorySlides.length + 1;
+          this.totalPageNum = this.projectStorySlides.length + 1;
     //     }
     //     else if(data.success == false) {
     //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)

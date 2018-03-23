@@ -263,6 +263,9 @@ ion-spinner {
 .text-red {
     color: #ff0000;
 }
+.text-white {
+    color: #fff !important;
+}
 
 ::-webkit-scrollbar{ display:none; }
 
@@ -1304,8 +1307,7 @@ p {
             min-height: calc(44px + 20px);
         }
         .story-main-image {
-            -webkit-filter: opacity(10%);
-            filter: opacity(10%);
+            transform: scale(1.05);
         }
 
         .story-main-image-wrapper {
@@ -1497,8 +1499,10 @@ p {
         background-size: auto 100%;
         background-position: center;
 
-        -webkit-filter: opacity(20%);
-        filter: opacity(20%);
+        -webkit-filter: opacity(30%);
+        filter: opacity(30%);
+        transform: scale(1.2);
+        transition: all 0.4s ease-out;;
     }
 
     .story-slide {
@@ -1580,7 +1584,8 @@ p {
     }
 
     .story-slide .story-first-slide .project-state-icon img {
-        width: 21px;
+        // width: 21px;
+        height: 21px;
     }
 
     .story-slide .story-first-slide .project-state-wrapper span {
@@ -1592,10 +1597,23 @@ p {
         top: -1px;
     }
 
-    .story-footer .bar-item-wrapper ion-avatar {
-        min-width: 26px;
-        min-height: 26px;
+    .story-footer .avatar-span {
+        height: 30px;
+        width: 30px;
+        min-height: 30px;
+        min-width: 30px;
+        margin: 4px 16px 4px 0;
     }
+    
+    .story-footer .avatar-span .avatar-span-image {
+        border: 1px solid #e7e7e7;
+        height: 30px !important;
+        width: 30px !important;
+        min-height: 30px;
+        min-width: 30px;
+        border-radius: 50px;
+    }
+    
 
     .story-footer .bar-item-wrapper ion-icon,
     .story-footer .bar-item-wrapper p {
@@ -1635,8 +1653,12 @@ p {
         border: 0;
     }
 
-    .story-footer .page-num p{
+    .story-footer .page-num p {
         font-size: 1.2rem;
+        color: #fff;
+    }
+    .story-footer h3 {
+        font-size: 1.3rem;
         color: #fff;
     }
 
@@ -1649,7 +1671,7 @@ p {
     }
 
     .item-flex {
-        display: -webkit-inline-box;
+        display: inline-flex;
         width: auto;
     }
 
@@ -1689,4 +1711,23 @@ p {
         width: 100%;
         height: 100%;
     } 
+    .slide-title-wrapper {
+        position: absolute;
+        right: 16px;
+        top: 55px;
+    }
+    .slide-title-wrapper.last-slide-title-wrapper {
+        position: relative;
+        right: 0 !important;
+        text-align: left !important;
+    }
+
+    // .slide-in{
+    //     -webkit-animation: slideInSmooth ease-in 1;
+    //    animation: slideInSmooth ease-in 1;
+    //    -webkit-animation-fill-mode: forwards;
+    //    animation-fill-mode: forwards;
+    //    -webkit-animation-duration: 750ms;
+    //    animation-duration: 750ms;
+    //  }
 // story-page-style //
