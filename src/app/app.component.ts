@@ -1,4 +1,9 @@
+import { UserProjectHomePage } from './../pages/user/user-project-home/user-project-home';
+import { UserProfileModificationFormPage } from './../pages/user/user-profile-modification-form/user-profile-modification-form';
+import { UserProjectInterviewAnswerPage } from './../pages/user/user-project-interview-answer/user-project-interview-answer';
+import { UserProjectPage } from './../pages/user/user-project/user-project';
 import { UserConfigurePage } from './../pages/user/user-configure/user-configure';
+
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,13 +19,15 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
+import { UserProjectParticipationConditionFormPage } from '../pages/user/user-project-participation-condition-form/user-project-participation-condition-form';
+import { UserProjectStoryHorizontalPage } from '../pages/user/user-project-story-horizontal/user-project-story-horizontal';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = LoginPage;
+  rootPage:any = UserProjectStoryHorizontalPage;
 
   constructor(
     platform: Platform,

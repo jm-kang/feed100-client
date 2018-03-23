@@ -4,15 +4,49 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-mypage</ion-title>
+<ion-header class="tabs-header">
+  <ion-navbar hideBackButton="true">
+    <ion-title>마이페이지</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openUserConfigurePage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>
+  <div text-center class="mypage-content">
+    <div class="mypage-inner-content">
+      <div class="mypage-profile-wrapper avatar-span-wrapper m-b-15">
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image round-avatar" [src]="avatarImage" />
+        </span>
+        <h5 class="m-t-15 m-b-5">Lv{{level}}  {{levelClass}}</h5>
+        <h4 class="m-b-5">{{nickname}}</h4>
+        <h6>{{username}}</h6>
+        <p class="m-t-20 m-b-15" *ngIf="gender && age && region && job && marriage">{{gender}} | {{age}} | {{region}} | {{job}} | {{marriage}}</p>
+        <div class="m-t-20 m-b-15" text-center *ngIf="!(gender && age && region && job && marriage)"><span class="profile-modification-btn" tappable (click)="openUserProfileModificationFormPage()">프로필 입력하기 ></span></div>
+        <progress-bar [progress]="expPercent"></progress-bar>
+        <div class="exp-wrapper m-t-5">
+          <span class="m-l-5" float-left>경험치</span>
+          <span class="m-r-5" float-right>{{exp}}/{{maxExp}} ({{expPercent}}%)</span>
+        </div>
+      </div>
+      <div class="mypage-point-wrapper m-t-30">
+        <div class="point-wrapper m-b-20" text-center>
+          <div text-left class="point-summary">적립 포인트</div>
+          <div class="point-content">{{point}} <span class="p-tag">p</span></div>
+        </div>
+        <div class="buttons-wrapper m-b-20">
+          <span tappable class="point-history-btn m-r-5" (click)="openUserPointUsageHistoryPage()">포인트내역 확인</span>
+          <span tappable class="point-exchange-btn m-l-5" (click)="openUserPointExchangePage()">포인트 환전하기</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

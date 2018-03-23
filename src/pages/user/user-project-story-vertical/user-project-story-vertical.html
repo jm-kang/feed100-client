@@ -4,15 +4,58 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project-story-vertical</ion-title>
+<ion-header class="modal-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" icon-only>
+        <ion-icon name="ios-close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        스토리 다시보기
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content padding class="project-story-vertical-page-content">
+  <div class="story-head-wrapper">
+    <div tappable class="main-image-warpper cropper">
+      <img [src]="projectMainImage" />
+    </div>
+    <div class="p-l-4 p-r-4 p-t-30 p-b-50">
+      <div class="box-detail m-r-5">
+        <span class="reward-wrapper"><img src="./../../assets/img/feed100-coin.png" alt="">max {{maxReward}}p</span>
+      </div>
+      <div class="projct-info-wrapper">
+        <h1>{{projectName}}</h1>
+        <h2>by {{nickname}}</h2>
+      </div>
+    </div>
+  </div>
+  <div class="content-section story-content-wrapper p-t-50 p-b-50 p-l-16 p-r-16">
+    <h4 text-center>프로젝트 스토리</h4>
+    <div class="divider-dot"><span class="dot"></span></div>
+    <div class="storys-wrapper" *ngFor="let projectStory of projectStorys">
+      <img [src]="projectStory.storyImage"/>
+      <div class="video-container" *ngIf="projectStory.storyVideo">
+        <iframe width="100%" [src]="projectStory.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60">{{projectStory.storyContent}}</p>
+    </div>
+  </div>
+  <div class="test-section story-content-wrapper p-t-50 p-b-50 p-l-16 p-r-16">
+    <h4 text-center>테스트 미션 안내</h4>
+    <div class="divider-dot"><span class="dot"></span></div>
+    <div class="storys-wrapper">
+      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60">{{testContent}}</p>
+    </div>
+    <div class="start-test-btn-wrapper p-l-16 p-r-16">
+      <span tappable class="start-test-btn" (click)="openUserProjectLinkPage()">테스트 시작하기</span>
+    </div>
+  </div>
 </ion-content>

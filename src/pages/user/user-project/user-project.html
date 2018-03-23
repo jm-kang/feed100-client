@@ -4,15 +4,132 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project</ion-title>
+<ion-header class="tabs-header">
+  <ion-navbar hideBackButton="true">
+    <ion-title>프로젝트</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openUserConfigurePage()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content class="project-page-content">
+  <!-- 당겨서 새로고침 -->
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-<ion-content padding>
+  <!-- 보상받을 프로젝트 -->
+  <section class="reward-section m-b-30 m-t-20" *ngIf = "rewardProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      보상받을 프로젝트
+      <p>보상받기를 눌러 보상을 받아보세요.</p>
+    </div>
+    <ion-slides pager=false loop="false" spaceBetween="-108" slidesPerView="1">
+      <ion-slide *ngFor="let rewardProject of rewardProjects">
+        <div tappable class="reward-project-card cropper m-t-5 m-b-5 m-l-28" (click)="accessProjectCard(rewardProject.project_id)">
+          <img [src]="rewardProject.project_main_image" />
+          <div class="card-content">
+              보상받기
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </section>
 
+  <!-- 참여중인 프로젝트 -->
+  <section class="participating-section m-b-30 m-t-20" *ngIf = "participatingProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      참여중인 프로젝트
+      <p>보상받기를 눌러 보상을 받아보세요.</p>
+    </div>
+    <ion-slides pager=false loop="false" spaceBetween="-44" centeredSlides="true">
+      <ion-slide *ngFor="let participatingProject of filterParticipatingProjects(true)">
+        <div tappable class="project-card card-div" (click)="accessProjectCard(participatingProject.project_id)">
+          <div class="project-card-main-image-wrapper cropper">
+            <img [src]="participatingProject.project_main_image" />
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item i-card-tag" *ngIf="participatingProject.is_new_interview">인터뷰에 응답해주세요</span>
+              </span>
+            </div>
+            <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
+          </div>
+          <div text-left class="card-content">
+            <span class="answer-card-summary-wrapper">
+              <p class="project-card-summary">{{participatingProject.project_name}}</p>
+            </span>
+            <span class="answer-btn-wrapper">
+              <span tappable class="answer-btn">입장하기</span>
+            </span>
+          </div>
+        </div>
+      </ion-slide>
+      <ion-slide *ngFor="let participatingProject of filterParticipatingProjects(false)">
+        <div tappable class="project-card card-div" (click)="accessProjectCard(participatingProject.project_id)">
+          <div class="project-card-main-image-wrapper cropper">
+            <img [src]="participatingProject.project_main_image" />
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item i-card-tag" *ngIf="participatingProject.is_new_interview">인터뷰에 응답해주세요</span>
+              </span>
+            </div>
+            <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
+          </div>
+          <div text-left class="card-content">
+            <span class="answer-card-summary-wrapper">
+              <p class="project-card-summary">{{participatingProject.project_name}}</p>
+            </span>
+            <span class="answer-btn-wrapper">
+              <span tappable class="answer-btn">입장하기</span>
+            </span>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </section>
+  
+  <!-- 추천 프로젝트 -->
+  <section class="recommended-section m-b-30 m-t-20" *ngIf = "recommendedProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      추천 프로젝트
+      <p>보상받기를 눌러 보상을 받아보세요.</p>
+    </div>
+    <div class="p-r-23 p-l-23">
+      <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
+        <div class="vertical-project-card" (click)="accessProjectCard(recommendedProject.project_id)">
+          <span class="left-span">
+            <div class="project-card-main-image-wrapper cropper">
+              <img [src]="recommendedProject.project_main_image" />  
+            </div>
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.max_reward}}p</span>
+              </span>
+            </div>
+          </span>
+          <span class="right-span">
+            <div text-left class="card-content">
+              <span class="project-card-summary-wrapper">
+                <p class="project-card-summary">{{recommendedProject.project_name}}</p>
+              </span>
+              <span class="summary-btn-wrapper">
+                <span tappable class="summary-btn">참여하기 ></span>
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 모든 프로젝트 -->
+  <section class="all-projects-section m-b-30 m-t-20 p-r-28 p-l-28">
+    <div text-center class="home-group-title" [ngStyle]="{'border-top': rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '24px' : '120px'}">
+      <div>더 많은 프로젝트를<br>보고싶으신가요?</div>
+      <span tappable (click)="openUserAllProjectList()">모든 프로젝트 보기 ></span>
+    </div>
+  </section>
 </ion-content>

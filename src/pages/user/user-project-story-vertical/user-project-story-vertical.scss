@@ -1,3 +1,104 @@
 page-user-project-story-vertical {
 
 }
+
+.project-story-vertical-page-content {
+    .story-head-wrapper {
+        .main-image-warpper {
+            height: calc(53vw);
+        }
+
+        .projct-info-wrapper {
+            margin-top: 20px;
+            padding-left: 16px;
+            border-left: 6px solid #888;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #383838;
+            padding: 0;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            color: #383838;
+            font-weight: normal;
+            line-height: 1.4;
+            margin-top: 15px;
+            padding: 0;   
+        }
+    }
+
+    .divider-dot {
+        margin-top: 30px;
+        margin-bottom:30px;
+        .dot {
+            background-color: #d9d9d9;
+            height: 6px;
+            min-width: 6px;
+            width: 6px;
+            min-height: 6px;
+            display: block;
+            border-radius: 100px;
+            margin: 0 auto;
+        }
+    }
+    .story-content-wrapper {
+        border-top: 1px solid #e5e5e5;
+        margin-left: -16px;
+        margin-right: -16px;
+    }
+
+    .storys-wrapper {
+        img, .video-container {
+            min-width: 100%;
+        }
+
+        .story {
+            color: #383838;
+            font-weight: 1.3rem;
+            line-height: 1.5;
+        }
+    }
+    .start-test-btn-wrapper {
+        .start-test-btn {
+            display: block;
+            width: 100%;
+            padding: 14px 28px;
+            border-radius: 100px;
+            border: 1px solid #ff6700;
+            color: #ff6700;
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .start-test-btn.activated {
+            background-color: #ff6700;
+            color: #fff;
+        }
+
+    }
+
+    .box-detail {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .reward-wrapper {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            img {
+                min-width: 2rem;
+                min-height: 2rem;
+                // width: 1.6rem;
+                height: 2rem;
+                margin-right:6px;
+            }
+        }
+    }
+}

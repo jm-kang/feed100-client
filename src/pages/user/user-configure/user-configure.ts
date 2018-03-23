@@ -104,11 +104,6 @@ export class UserConfigurePage {
     manualModal.present();
   }
 
-  openFaqPage() {
-    let faqModal = this.modalCtrl.create('ModalWrapperPage', {page: 'FaqPage'});
-    faqModal.present();
-  }
-
   openTermsPage() {
     let termsModal = this.modalCtrl.create('ModalWrapperPage', {page: 'TermsPage'});
     termsModal.present();
@@ -185,11 +180,6 @@ export class UserConfigurePage {
 
   accessProjectCard(project_id) {
     this.userService.accessProjectCard(this, project_id);    
-  }
-
-  openUserAccountModificationFormPage() {
-    let userAccountModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserAccountModificationFormPage'});
-    userAccountModificationFormModal.present();
   }
 
   openUserProfileModificationFormPage() {

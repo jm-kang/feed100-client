@@ -4,15 +4,32 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project-home</ion-title>
+<ion-content padding no-bounce class="project-home-page-content">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <!-- 디데이 -->
+    <div end class="progress-state-wrapper">
+      <span class="project-state-icon">
+        <img src="assets/img/calendar.png" />
+      </span>
+      <span class="project-state">{{progressState | amLocale:'ko' | amTimeAgo | progressState}}</span>
+    </div>
   </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+  <div class="project-home-wrapper">
+    <div text-center padding>
+      <!-- 프로젝트 제목 -->
+      <h1 class="p-l-28 p-r-28 m-b-30">{{projectName}}</h1>
+      <!-- 현재 보상금액 -->
+      <h5>보상받을 포인트&nbsp;<span>( max {{maxReward}}&nbsp;p</span> )</h5>
+      <h2 class="m-b-10">{{currentReward}}&nbsp;<span class="p-tag">p</span></h2>
+      <!-- 최대 보상금액 -->
+      <!-- 대기 안내 -->
+      <p class="m-t-30 m-b-5"><안내></p>
+      <p class="p-l-28 p-r-28 m-t-5">{{waitingNotice}}</p>
+    </div>
+  </div>
 </ion-content>
