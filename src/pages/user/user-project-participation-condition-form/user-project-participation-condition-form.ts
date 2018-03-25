@@ -22,6 +22,7 @@ export class UserProjectParticipationConditionFormPage {
   @ViewChild(Slides) slides: Slides;
   bgVert:   number = 0 ;
   lastBgV:  number = 0 ;
+  // 프로젝트 안내 동의 체크
   isCheck: boolean = false;
   
   scrollVert:   number = 0 ;
@@ -49,8 +50,9 @@ export class UserProjectParticipationConditionFormPage {
     // this.commonService.isLoadingActive = true;
     // this.project_id = this.ModalWrapperPage.modalParams.project_id;
     this.slides.lockSwipeToPrev(true);
+    this.slides.lockSwipeToNext(true);
   }
-
+  
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectParticipationConditionFormPage');
     // let loading = this.commonService.presentLoading();
@@ -168,38 +170,6 @@ export class UserProjectParticipationConditionFormPage {
     //   }
     // )
   }
-
-  // swipeEvent(e) {
-  //   if(e.direction == 16) {
-  //     document.querySelector(".slide-question-content .scroll-content")['style'].background = 'transparent';
-  //     if(this.contentHandle.scrollTop > -90) {
-  //       this.back();
-  //     }
-  //   }
-  // }
-
-  // panEnd() {
-  //   if(this.contentHandle.scrollTop <= -90) {
-  //     console.log('pan: ' + this.lastBgV);
-  //     document.querySelector(".slide-question-content .scroll-content")['style'].background = 'transparent';
-  //     this.back();
-  //   }
-  // }
-
-  // scrollingEvent($e) {
-  //   var stepV = $e.scrollTop /10 ;
-  //   this.scrollVert = this.lastScrollV - stepV ;
-  //   if (this.scrollVert < 0) {
-  //      this.scrollVert = 0 ;
-  //   } else {
-  //      if (this.scrollVert > 100)
-  //         this.scrollVert = 100 ;
-  //   }
-  //   if(this.scrollVert < 20) {
-  //     // this.transparentPercent = 1 - (this.scrollVert /20);
-  //     // document.querySelector(".slide-question-content .scroll-content")['style'].background = 'rgba(0,0,0,'+this.transparentPercent+')';
-  //   }
-  // }
 
   check() {
     if(this.isCheck) {

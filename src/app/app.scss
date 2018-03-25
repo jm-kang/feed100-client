@@ -34,6 +34,13 @@ ion-spinner {
     }
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -60px;
+}
+
 .cropper {
     overflow: hidden;
     img {
@@ -258,7 +265,9 @@ ion-spinner {
 .p-b-60 {
     padding-bottom: 60px !important;
 }
-
+.width100 {
+    width:100% !important;
+}
 
 .text-red {
     color: #ff0000;
@@ -1731,3 +1740,36 @@ p {
     //    animation-duration: 750ms;
     //  }
 // story-page-style //
+
+// rating-style //
+    .rating-grid {
+        margin-top: 32px;
+        padding: 0;
+        .col {
+            padding: 0 !important;
+        }
+
+        .unfill-stat,.fill-stat {
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+        
+        
+        .unfill-stat {
+            background-color: #e5dfda;
+            color: #93918f;
+        }
+
+        .fill-stat {
+            background-color: #ff6700;
+            color: #fff;
+        }
+    }
+    .rating-summary {
+        font-size: 1.2rem;
+        color: #787878;
+    }
+// rating-style //

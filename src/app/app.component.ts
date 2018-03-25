@@ -21,13 +21,15 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 import { UserProjectParticipationConditionFormPage } from '../pages/user/user-project-participation-condition-form/user-project-participation-condition-form';
 import { UserProjectStoryHorizontalPage } from '../pages/user/user-project-story-horizontal/user-project-story-horizontal';
+import { UserProjectStoryQuizFormPage } from '../pages/user/user-project-story-quiz-form/user-project-story-quiz-form';
+import { UserProjectInterviewFormPage } from '../pages/user/user-project-interview-form/user-project-interview-form';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = UserProjectStoryHorizontalPage;
+  rootPage:any = UserProjectInterviewFormPage;
 
   constructor(
     platform: Platform,

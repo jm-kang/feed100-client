@@ -23,8 +23,11 @@ export class UserProjectStoryHorizontalPage {
   project_id;
 
   isFirstSlide: boolean = true;
+  // 프로젝트를 참여하기위해 왔는지
   isFeedback: boolean = true;
+  // 프로젝트에 테스트할 링크가 있는지
   isLink: boolean = true;
+  // 피드백 시작하기를 한번이라도 눌렀는지
   check: boolean = true;
 
   projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";

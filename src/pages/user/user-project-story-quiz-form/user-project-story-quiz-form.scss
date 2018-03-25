@@ -1,3 +1,103 @@
 page-user-project-story-quiz-form {
+    .slide-question-content {
+        background-color: transparent !important;
+    }
+    ion-navbar {
+        z-index: 10;
+    }
+    .radio-icon,.checkbox-icon {
+        display: none !important;
+    }
 
+    ion-radio,ion-checkbox {
+        margin: 0 !important;
+    }
+
+    .item.item-radio ion-label,.item.item-checkbox ion-label {
+        color: #ddd;
+        font-size: 1.4rem !important;
+        white-space: unset;
+    }
+
+    .item-radio-checked.item ion-label,.item-radio-checkbox.item ion-label {
+        color: #ff6400 !important;
+        white-space: unset;
+        overflow: unset;
+    }
+
+    .item, .item-inner {
+        border: 0 !important;
+        padding: 0 !important;
+    }
+
+    .participation-condition-options-wrapper {
+        // width: 50vw;
+        // margin: 0 auto;
+        margin-top: 16px;
+    }
+
+    ion-navbar { 
+        z-index: 10 
+    }
+
+    // .participation-condition-options-wrapper.over-options ion-item {
+    //     width: 50vw;
+    // }
+
+    .modal-header {
+        border-bottom: 0;
+    }
+
+    .agree-checkbox {
+        display: inline-block;
+        float: left;
+        margin-left: 24px;
+
+        .not-check-btn, .check-btn {
+            height: auto;;
+        }
+        .not-check-btn .check-circle, .check-btn .check-circle {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50px;
+        }
+        // .not-check-btn, .check-btn {
+        //     font-size: 1.5rem;
+        // }
+        .not-check-btn .button-inner, .check-btn .button-inner {
+            font-size: 1.5rem;
+        }
+        .not-check-btn {
+            // font-size: 3rem;
+            height: auto;
+            color: #dfdfdf;
+        }
+        .check-btn {
+            // font-size: 3rem;
+            height: auto;
+            color: #dfdfdf;
+            .icon {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2.2rem;
+                font-weight: bold;
+                color: #fff;
+            }
+        }
+
+        .not-check-btn .check-circle {
+            border: 1.5px solid #686868;
+        }
+
+        .check-btn .check-circle {
+            border: 1.5px solid #ff6700;
+            background-color: #ff6700;
+        }
+    }
+    .survey-next-btn-wrapper {
+
+    }
 }

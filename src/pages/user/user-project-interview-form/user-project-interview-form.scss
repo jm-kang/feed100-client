@@ -1,3 +1,56 @@
 page-user-project-interview-form {
+    .slide-zoom {
+        height: 100%;
+    }
 
+    .header-md {
+        .toolbar-content {
+            left: 0;
+            top: 0;
+            padding: 0 90px 1px;
+            position: absolute;
+            width: 100%;
+            height: 56px;
+            min-height: 56px;
+            -webkit-box-pack: center;
+            justify-content: center;
+            display: flex;
+        }
+    }
+
+    .radio-icon,.checkbox-icon {
+        display: none !important;
+    }
+
+    ion-radio,ion-checkbox {
+        margin: 0 !important;
+    }
+
+    .list .item-block .item-inner {
+        border-bottom: 0;
+    }
+
+    .item.item-radio {
+        padding: 0;
+        margin: 0 auto;
+    }
+
+    .item.item-radio ion-label,.item.item-checkbox ion-label {
+        color: #aaa;
+        font-size: 1.4rem !important;
+        white-space: unset;
+    }
+
+    .item-radio-checked.item ion-label,.item-radio-checkbox.item ion-label {
+        color: #ff6400 !important;
+        white-space: unset;
+        overflow: unset;
+    }
+
+    .list-ios > .item-block:first-child {
+        border-top: 0;
+    }
+    .list-ios > .item-block:last-child {
+        border-bottom: 0;
+    }
 }
