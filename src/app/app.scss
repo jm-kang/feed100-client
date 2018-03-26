@@ -1773,3 +1773,183 @@ p {
         color: #787878;
     }
 // rating-style //
+
+// reward-page-style //
+    .project-reward-page-header {
+        background-color: #fff;
+    }
+
+    .project-reward-page-content {
+        background-color: rgba(38,38,38,0.2) !important;
+        .scroll-content {
+            padding-top: 0 !important;
+        }
+        .reward-slides {
+            display: flex;
+            align-items:center;
+            justify-content:center;
+            -webkit-align-item:center;
+            -webkit-justify-content:center;
+            height: 100%; 
+            background-color: #fff;
+
+            ul {
+                padding: 0px;
+                margin: 30px 0;
+                
+                &.rating li {
+                    padding: 5px 2px !important;
+                    background: none;
+                    color: #ff6400;
+                    ion-icon {
+                        font-size: 45px;
+                    }
+
+                    .ion-ios-star-outline {
+                        color: #e0e0e0;
+                    }
+                }
+            }
+
+            .reward-question {
+                color: #8a8a8a;
+                font-weight: 500;
+                font-size: 2rem;
+                padding-left: 16px;
+                padding-right: 16px;
+                line-height: 1.7;
+            }
+
+            .color-primary {
+                color: #ff6400;
+            }
+            
+            .slide-next-button-wrapper {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+            }
+
+            .slide-next-button-wrapper .button {
+                font-size: 35px;
+                height: 2em;
+            }
+        }
+
+        .swiper-slide:nth-last-child(1) {
+            .reward-list {
+                margin-top: 20px;
+                .absolute-item-title {
+                    position: absolute;
+                    display: grid !important;
+                    .warn-clear-badge {
+                        margin-left: 0;
+                        margin-top: 8px;
+                    }
+                    .max-point {
+                        color: #a8a8a8;
+                        margin-top: 8px;
+                    }
+                }
+                
+                
+                .reward-item {
+                    border: 0;
+                    padding: 12px 16px;
+
+                    h5 {
+                        font-size: 1.2rem;
+                        color: #787878;
+                        margin-top: 0;
+                    }
+
+                    .div-flex {
+                        // display: inline-block;
+                        display:inline-block;
+                        width: 100%;
+                        margin-bottom: 0;
+                        .item-title {
+                            display: block;
+                            float: left;
+                            margin-right: 0px;    
+                            font-weight: bold;
+                            font-size: 1.4rem;
+                            margin-top: 1.7rem;
+                            color: #8a8a8a;
+                            
+                        }
+
+                        .item-point-box {
+                            display: block;
+                            float: right;
+                            color: #8a8a8a;
+                            .project-point {
+                                font-size: 3.5rem;
+                                font-weight: 200;
+                                text-decoration-color: #e91133 !important;
+                            }
+                            .point-tag {
+                                font-size: 2.5rem;
+                                font-weight: 300;
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+
+                .reward-item.item-underline {
+                    border-bottom: 1px solid #d9d9d9;
+                }
+
+                .reward-item.item-result {
+                    .item-title {
+                        color: #383838 !important;
+                        margin-top: 3rem !important;
+                    }
+                    .item-point-box {
+                        color: #383838 !important;    
+                        .project-point {
+                            font-size: 5rem !important;
+                        }
+                    }
+                }
+
+                .reward-item:nth-last-child(1) {
+                    padding-top: 0;
+                    font-size: 1.4rem;
+                    .item-title {
+                        font-weight: normal;
+                        margin-top: 0;
+                        font-size: inherit;
+                    }
+                    .item-point-box {
+                        .project-point {
+                            font-weight: normal;
+                            font-size: inherit !important;
+                            text-decoration-color: #e91133 !important;
+                        }
+                        .point-tag {
+                            font-size: inherit;
+                            font-weight: 300;
+                            margin-left: 5px;
+                        }
+                    }
+                }
+
+                .best-badge {
+                    top: -1.5px;
+                    margin-left: 8px;
+                    padding: 2px 8px;
+                }
+            }
+            .slide-next-button-wrapper .button {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+        }
+
+        .recommendation-grid {
+            margin-top: 32px;
+        }
+    }
+// reward-page-style //

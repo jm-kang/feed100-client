@@ -28,6 +28,8 @@ export class UserProjectInterviewAnswerPage {
   reward: number;
   textcount: number;
 
+  is_max: boolean = true;
+
   answerContent: string = "";
   contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
   minTextLength: number = 20;

@@ -1,3 +1,4 @@
+import { UserProjectRewardFormPage } from './../pages/user/user-project-reward-form/user-project-reward-form';
 import { UserProjectHomePage } from './../pages/user/user-project-home/user-project-home';
 import { UserProfileModificationFormPage } from './../pages/user/user-profile-modification-form/user-profile-modification-form';
 import { UserProjectInterviewAnswerPage } from './../pages/user/user-project-interview-answer/user-project-interview-answer';
@@ -29,7 +30,7 @@ import { UserProjectInterviewFormPage } from '../pages/user/user-project-intervi
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = UserProjectInterviewFormPage;
+  rootPage:any = UserTabsPage;
 
   constructor(
     platform: Platform,
