@@ -1,5 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ModalController, Platform } from 'ionic-angular';
+import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+
+declare var cordova:any;
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -61,7 +64,8 @@ export class UserProjectStoryHorizontalPage {
     public modalCtrl: ModalController,
     public platform: Platform,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    private themeableBrowser: ThemeableBrowser) {
   }
 
   ionViewDidLoad() {
@@ -157,8 +161,7 @@ export class UserProjectStoryHorizontalPage {
   }
 
   openUserProjectLinkPage() {
-    let projectLinkModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectLinkPage', params: { "project_link" : this.project_link }});
-    projectLinkModal.present();
+    cordova.ThemeableBrowser.open(this.project_link, '_system');
   }
 
   openUserProjectStoryQuizPage() {
@@ -171,5 +174,4 @@ export class UserProjectStoryHorizontalPage {
       }
     );
   }
-
 }

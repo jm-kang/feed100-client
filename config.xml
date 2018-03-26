@@ -26,7 +26,7 @@
     <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <feature name="Keyboard">
-    <param name="ios-package" value="IonicKeyboard" onload="true" />
+        <param name="ios-package" onload="true" value="IonicKeyboard" />
     </feature>
     <platform name="android">
         <allow-intent href="market:*" />

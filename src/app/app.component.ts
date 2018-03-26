@@ -30,7 +30,7 @@ import { UserProjectInterviewFormPage } from '../pages/user/user-project-intervi
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = UserTabsPage;
+  rootPage:any = UserProjectStoryHorizontalPage;
 
   constructor(
     platform: Platform,
