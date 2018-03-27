@@ -24,11 +24,11 @@ export class UserProjectInterviewAnswerPage {
 
   project_id;
 
-  interviewQestion: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
+  interviewQestion: string = "프로젝트 테스트를 진행하면서 가장 불편했던 사항이 무엇이였나요?";
   reward: number;
   textcount: number;
 
-  is_max: boolean = true;
+  is_max: boolean = false;
 
   answerContent: string = "";
   contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
@@ -36,7 +36,7 @@ export class UserProjectInterviewAnswerPage {
   maxTextLength: number = 50;
   isHelpHide: boolean;
 
-  projectKeywords = ["키워드1","키워드2","키워드3"];
+  projectKeywords = ["버튼위치","어려움","파일업로드"];
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   constructor(

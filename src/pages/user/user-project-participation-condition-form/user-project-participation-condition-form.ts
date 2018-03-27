@@ -24,6 +24,8 @@ export class UserProjectParticipationConditionFormPage {
   lastBgV:  number = 0 ;
   // 프로젝트 안내 동의 체크
   isCheck: boolean = false;
+  // 프로젝트 안내 문구
+  project_notice: string = "asd";
   
   scrollVert:   number = 0 ;
   lastScrollV:  number = 0 ;

@@ -1,3 +1,5 @@
+import { CompanyProjectReportPage } from './../pages/company/company-project-report/company-project-report';
+import { CompanyConfigurePage } from './../pages/company/company-configure/company-configure';
 import { UserProjectRewardFormPage } from './../pages/user/user-project-reward-form/user-project-reward-form';
 import { UserProjectHomePage } from './../pages/user/user-project-home/user-project-home';
 import { UserProfileModificationFormPage } from './../pages/user/user-profile-modification-form/user-profile-modification-form';
@@ -24,13 +26,14 @@ import { UserProjectParticipationConditionFormPage } from '../pages/user/user-pr
 import { UserProjectStoryHorizontalPage } from '../pages/user/user-project-story-horizontal/user-project-story-horizontal';
 import { UserProjectStoryQuizFormPage } from '../pages/user/user-project-story-quiz-form/user-project-story-quiz-form';
 import { UserProjectInterviewFormPage } from '../pages/user/user-project-interview-form/user-project-interview-form';
+import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-history/user-point-usage-history';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = UserProjectStoryHorizontalPage;
+  rootPage:any = CompanyProjectReportPage;
 
   constructor(
     platform: Platform,

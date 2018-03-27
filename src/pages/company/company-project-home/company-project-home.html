@@ -4,15 +4,18 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-home</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+<ion-content>
+    <div class="company-project-image-wrapper cropper">
+      <img src="assets/img/rocket-illust.png" />
+    </div>
+    <div class="company-project-home-content">
+      <div class="summary-wrapper" padding>
+        <h1 text-center class="m-b-20">FEED100에 오신 것을 환영합니다!</h1>
+        <p text-center>아직 프로젝트 등록을 안하셨군요?<br><br>아래 샘플 프로젝트가 준비되어있으니<br>어떤 방식으로 프로젝트가 진행되는지 확인해보세요!<br>등록 신청은 아래 버튼을 통해 쉽게 신청하실 수 있습니다.<br><br>더 궁금하신 사항은 도움말을 확인해 주세요!</p>
+      </div>
+      <div class="company-project-home-btn-wrapper p-l-28 p-b-16 p-r-28">
+        <button ion-button class="sample-project-btn" (click)="openCompanyTutorial()">샘플 프로젝트</button>
+        <button ion-button class="project-registration-btn" (click)="openComapnyProjectRegistration()">프로젝트 등록하기</button>
+      </div>
+    </div>
 </ion-content>

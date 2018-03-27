@@ -31,8 +31,8 @@
       <p [innerHTML]="notification.notification_content"></p>
       <div item-end class="interview-item-end">
         <div class="badge-wrapper">
-          <div class="badge-new-dot" *ngIf="!notification.is_read">N</div>
-          <div class="blank-badge-new-dot" *ngIf="notification.is_read">0</div>
+          <div class="badge-new-dot" *ngIf="!notification.notification_is_read">N</div>
+          <div class="blank-badge-new-dot" *ngIf="notification.notification_is_read">0</div>
         </div>
         <ion-note class="notification-date" [innerHTML]="notification.notification_registration_date | amLocale:'ko' | amTimeAgo"></ion-note>
       </div>

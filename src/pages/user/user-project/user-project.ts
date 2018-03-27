@@ -23,11 +23,11 @@ export class UserProjectPage {
   rewardProjects = [
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png"
+      project_main_image:"./../../assets/img/project-main-image1.png"
     },
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png"
+      project_main_image:"./../../assets/img/project-main-image2.png"
     }
   ];
   
@@ -35,60 +35,26 @@ export class UserProjectPage {
   participatingProjects = [
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
+      project_main_image:"./../../assets/img/project-main-image3.png",
       //새 인터뷰 도착시 true
       is_new_interview: true, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육"
+      project_name: "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구"
     },
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
+      project_main_image:"./../../assets/img/project-main-image4.png",
       //새 인터뷰 도착시 true
       is_new_interview: false, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십"
-    },
-    {
-      project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      //새 인터뷰 도착시 true
-      is_new_interview: true, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일"
-    },
-    {
-      project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      //새 인터뷰 도착시 true
-      is_new_interview: true, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십"
-    },
-    {
-      project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      //새 인터뷰 도착시 true
-      is_new_interview: false, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십"
-    },
-    {
-      project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      //새 인터뷰 도착시 true
-      is_new_interview: true, 
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십"
-    },
+      project_name: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON"
+    }
   ];
   
   // 추천 프로젝트
   recommendedProjects = [
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
-      max_reward: 5500,
-    },
-    {
-      project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide4.png",
-      project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
+      project_main_image:"./../../assets/img/feed100-intro-slide5.png",
+      project_name: "하플리 : 예쁜 한복들만 모았다! 허리치마, 저고리, 한복원피스 등.",
       max_reward: 5500,
     },
   ];

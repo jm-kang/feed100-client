@@ -21,13 +21,13 @@ export class UserMypagePage {
   avatarImage: string = "./../../assets/img/user-avatar-image-woman2.png";
   level = 1;
   levelClass: string = "인턴연구원";
-  nickname: string = "나만가지고그래";
-  username: string = "sungjin.park0129@gmail.com";
+  nickname: string = "피드배커";
+  username: string = "feed100.help@gmail.com";
   point = 11000;
   exp = 110;
   maxExp = 440;
   expPercent = 25;
-  gender: string = "남성";
+  gender: string = "여성";
   age: string = "20대";
   job: string = "장치, 기계조작 및 조립 종사자";
   region: string = "세종특별자치시";

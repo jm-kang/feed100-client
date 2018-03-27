@@ -33,9 +33,9 @@ export class UserProjectStoryHorizontalPage {
   // 피드백 시작하기를 한번이라도 눌렀는지
   check: boolean = true;
 
-  projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
+  projectMainImage: string = "./../../assets/img/project-main-image3.png";
   nickname: string = "포텐브라더스";
-  projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
+  projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
   projectViewNum: number = 0;
   participantNum: number = 0;
   maxParticipantNum: number = 0;
@@ -44,6 +44,7 @@ export class UserProjectStoryHorizontalPage {
   projectSummary: string = "";
   projectRegistrationDate: string = "";
   project_link;
+  // 프로젝트 테스트
   testInfo: string="asdasdas";
 
   currentPageNum: number = 0;
@@ -73,7 +74,7 @@ export class UserProjectStoryHorizontalPage {
     // this.commonService.isLoadingActive = true;
     // this.project_id = this.navParams.get('project_id');
     // this.isFeedback = this.navParams.get('isFeedback');
-    // this.slides.lockSwipeToPrev(true);  
+    this.slides.lockSwipeToPrev(true);  
   }
 
   ionViewWillEnter() {

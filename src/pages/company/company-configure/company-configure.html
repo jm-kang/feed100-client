@@ -5,14 +5,47 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>company-configure</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>설정</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content>
+  <ion-list class="config-list">
+    <ion-list-header>
+      고객지원
+    </ion-list-header>
+    <span tappable class="push-alarm-button" (click)="updateItem()"></span>
+    <ion-item>
+      <ion-label>푸쉬 알림 설정</ion-label>
+      <ion-toggle color="primary" [(ngModel)]="isPushAlarm"></ion-toggle>
+    </ion-item>
+  </ion-list>
+  <ion-list class="config-list">
+    <ion-list-header>
+      FEED100
+    </ion-list-header>
+    <ion-item tappable (click)="openAppIntroPage()">FEED100 소개</ion-item>
+    <ion-item tappable (click)="openCompanyTutorialPage()">튜토리얼</ion-item>
+    <ion-item tappable (click)="openCompanyHelpPage()">도움말</ion-item>
+    <!-- <ion-item tappable (click)="openFaqPage()">FAQ</ion-item> -->
+    <ion-item tappable (click)="openTermsPage()">이용약관</ion-item>
+    <ion-item tappable (click)="openPrivateInfoPolicy()">개인정보처리방침</ion-item>
+    <ion-item tappable (click)="openNoticePage()">공지사항</ion-item>
+    <ion-item tappable (click)="openCompanyProjectRegistrationPage()">프로젝트 등록하기</ion-item>
+    <ion-item tappable (click)="openContactPage()">문의하기</ion-item>
+  </ion-list>
+  <ion-list class="config-list">
+    <ion-list-header>
+      계정
+    </ion-list-header>
+    <ion-item tappable (click)="openCompanyAccountModificationFormPage()">계정 설정</ion-item>
+    <ion-item tappable (click)="logout()">로그아웃</ion-item>
+  </ion-list>
 </ion-content>
+  

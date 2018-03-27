@@ -28,7 +28,7 @@ export class UserNotificationPage {
       notification_tag: "인터뷰 요청",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
       notification_content: "새로운 인터뷰가 도착했습니다. 응답해주세요!",
-      is_read: false,
+      notification_is_read: false,
       notification_registration_date: "2018-01-29 10:00:00",
     },
     {
@@ -39,7 +39,7 @@ export class UserNotificationPage {
       notification_tag: "프로젝트 완료",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
       notification_content: "프로젝트가 종료되었습니다. 보상을 받아보세요!",
-      is_read: false,
+      notification_is_read: false,
       notification_registration_date: "2018-01-29 10:00:00",
     },
   ];

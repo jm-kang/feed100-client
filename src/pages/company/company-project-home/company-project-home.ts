@@ -21,5 +21,12 @@ export class CompanyProjectHomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
   }
+  
+  openCompanyTutorial() {
+    this.navCtrl.push("CompanyTutorialPage");
+  }
 
+  openComapnyProjectRegistration() {
+    this.navCtrl.push("CompanyProjectRegistrationPage");
+  }
 }

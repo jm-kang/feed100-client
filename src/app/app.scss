@@ -214,8 +214,11 @@ ion-spinner {
 .p-r-4 {
     padding-right: 4px !important;
 }
-.p-b-16 {
-    padding-bottom: 16px !important;
+.p-t-8 {
+    padding-top: 8px !important;
+}
+.p-b-8 {
+    padding-bottom: 8px !important;
 }
 .p-l-16 {
     padding-left: 16px !important;
@@ -277,6 +280,26 @@ ion-spinner {
 }
 
 ::-webkit-scrollbar{ display:none; }
+
+// spinner //
+.spinner-wrapper {
+    height: 100%;
+    width: 100%;
+    position:absolute;
+    top:0;right:0;bottom:0;left:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-color: rgba(0,0,0,0.4);
+
+    display:-webkit-flex;
+    -webkit-align-item:center;
+    -webkit-justify-content:center;;
+    ion-spinner * {
+        stroke: #ff924f;
+        fill: #ff6400;
+    }
+}
 
 
 // gradient wrapper
@@ -1953,3 +1976,561 @@ p {
         }
     }
 // reward-page-style //
+
+// company-report-page-style //
+    .project-report-content {
+        .scroll-content {
+            background-color: #efeff4 !important;
+        }
+        
+        .story-first-slide {
+            h2 {
+                color: #383838 !important;
+                margin-bottom: 16px !important;
+                font-size: 3rem !important;
+            }
+            .project-state-wrapper span {
+                color: #787878;
+            }
+            .summary {
+                color: #585858 !important;
+                font-size: 1.5rem !important;
+                line-height: 1.6;
+            }
+        }
+
+        .progress-inner {
+            background-color: #FE6B01;
+        }
+
+        .project-last-slide-wrapper {
+            margin-bottom: 32px;
+        }
+
+        .project-last-slide-wrapper .summary {
+            width: 80%;
+            font-size: 1.2rem;
+            color: #c8c8c8;
+            margin: 0 auto;
+        }
+
+        .slide-title-wrapper.last-slide-title-wrapper {
+            position: absolute;
+            left: 0;
+        }
+
+        .project-last-slide-buttons {
+            margin-top:10px;
+        }
+
+        .project-last-slide-buttons button {
+            font-size: 1.3rem;
+            height: 3em;
+            font-weight: 500;
+        }
+
+        .story-name {
+            font-size: 2.7rem;
+        }
+
+        .story-first-slide h2 {
+            width: 90%;
+            word-break: keep-all;
+        }
+        
+        .project-story-summary-content {
+            background-color: transparent !important;
+            .slide-zoom {
+                height: 100%;
+            }
+            .project-story-summary-title {
+                .item {
+                    span {
+                        color: #fff !important;
+                    }
+                    h3 {
+                        padding-top:16px;
+                        color: #fff !important;
+                    }
+                    p {
+                        color: #c8c8c8 !important;
+                    }
+                }
+            }
+            .project-story-summary-list {
+                .user-report-card {
+                    border: 1px solid #d9d9d9;
+                }
+                .total-length {
+                    font-size: 1.2rem !important;
+                    color: #989898 !important;
+                }
+                .card {
+                    padding: 10px 0;
+                    .item {
+                        span {
+                            font-size: 2.3rem;
+                        }
+                        p {
+                            color: #787878;
+                            font-size: 1.2rem;
+                            line-height: 1.5;
+                            .card-nickname {
+                                color: #383838;
+                                font-size: 1.2rem;
+                                font-weight: bold;
+                                margin-left: 8px;
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .report-section-slide {
+            .slide-zoom {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .report-section-wrapper {
+                text-align: left;
+                .number-under-devide {
+                    padding-bottom: 7px;
+                    border-bottom: 0.55px solid #383838;
+                    font-weight: 200;
+                    font-size: 2rem;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                h2 {
+                    padding-left: 2px;
+                    padding-right: 2px;
+                    margin-top: 5px;
+                    font-size: 4rem;
+                    color: #181818;
+                    font-weight: 200;
+                }
+            }
+        }
+
+        .story-content-slide {
+            padding-top: 25px;
+            overflow-y: scroll;
+            display: block;
+            .report-content-header {
+                h2 {
+                    color: #181818;
+                    padding: 5px 4px;
+                    font-size: 3rem;
+                    margin: 0 auto;
+                    margin-top: 24px;
+                    margin-bottom: 0px;
+                }
+
+                h3 {
+                    color: #181818;
+                    max-width: 70%;
+                    padding: 5px 4px;
+                    font-size: 2.2rem;
+                    margin: 0 auto;
+                    margin-top: 24px;
+                    margin-bottom: 0px;
+                }
+
+                h4 {
+                    margin-top: 0;
+                    padding-top: 5px;
+                    font-size: 1.6rem;
+                    color: #585858;
+                    display: inline-block;
+                    margin-bottom: 30px;
+                    border-top: 0.55px solid #383838;
+                }
+            }
+            .story-content-slide-content {
+                padding: 30px 16px !important;
+                position: relative !important;
+                color: #383838 !important;
+                background: transparent !important;
+            }
+            .slide-title {
+                color: #fff;
+                padding-top: 16px;
+                .item-inner {
+                    border-bottom: 0px !important;
+                    h3 {
+                        font-size: 1.8rem !important;
+                        font-weight: bold !important;
+                    }
+                }
+            }
+            .sub-slide-title {
+                font-size: 1.7rem;
+                color: #383838;
+                font-weight: normal;
+            }
+            .square-dot {
+                width: 1rem;
+                height: 1rem;
+                margin-right: 5px;
+                display: inline-block;
+            }
+
+            .stat-summary-block {
+                margin-right:8px !important;
+                display: inline-block;
+                font-weight: normal;
+                color: #585858;
+                strong {
+                    color: #383838;
+                }
+            }
+        
+            .chart-wrapper {
+                canvas {
+                    height: 35vh !important;
+                    width: 35vh !important;
+                    margin: 0 auto;
+                }
+            }
+            .stat-title {
+                margin-top: 12px;
+                margin-bottom: 30px;
+                .rating {
+                    display: inline-block;
+                }
+                span {
+                    margin-left: 10px;
+                    color: #ff6400;
+                    font-size: 2rem;
+                }
+            }
+
+            .stat-title.item-md {
+                span:nth-last-child(1) {
+                    margin-left: 8px;
+                }
+            }
+
+            ul {
+                padding: 0px;
+                margin: 8px 0;
+                
+                &.rating li {
+                    padding: 3px 0 !important;
+                    background: none;
+                    color: rgba(255,100,0,0.8);
+                    ion-icon {
+                        font-size: 1.6rem;
+                    }
+                }
+            }
+        }
+
+        .project-last-slide {
+            .project-last-slide-wrapper {
+                margin-bottom: 0px !important;
+                text-align: center;
+                h3 {
+                    font-size: 1.4rem;
+                    color: #989898;
+                }
+
+                h2 {
+                    font-size: 1.8rem;
+                    font-weight: bold;
+                    color: #383838;
+                    margin-bottom: 0px !important;
+                }
+            }
+        }
+    }
+
+    .project-report-footer {
+        ion-buttons[start] {
+            order: 1;
+        }
+
+        .page-num {
+            ion-icon{
+                color: #383838 !important;
+            }
+            p {
+                color: #383838 !important;
+            }
+        }
+
+        .item-block .item-inner {
+            border-bottom : 0 !important;
+        }
+    }
+
+    div.feedback-header {
+        padding: 16px 24px 8px 24px;
+        border-bottom: 1px #e8e8e8 solid;
+        .item-inner {
+            border-bottom: 0 !important;
+        }
+    }
+
+    div.feedback-content {
+        padding: 16px 24px 24px 24px !important;
+    }
+
+    .hashtag-wrapper {
+        line-height: 2.5;
+    }
+
+
+    .yellow-rating {
+        ul.rating li {
+            color: rgba(249,187,45,0.8) !important;
+        }
+
+        span {
+            color: rgb(249,187,45) !important;
+        }
+    }
+
+    .report-section1 {color:#ff6400!important}
+    .report-section1-devide {border-top-color:#ff6700!important;border-bottom-color:#ff6700!important;}
+    .report-section2 {color:#5f6400!important}
+    .report-section2-devide {border-top-color:#5f6400!important;border-bottom-color:#5f6400!important;}
+    .report-section3 {color:#cf6400!important}
+    .report-section3-devide {border-top-color:#cf6400!important;border-bottom-color:#cf6400!important;}
+    .report-section4 {color:#0f6400!important}
+    .report-section4-devide {border-top-color:#0f6400!important;border-bottom-color:#0f6400!important;}
+    .report-section5 {color:#9f6700!important}
+    .report-section5-devide {border-top-color:#9f6700!important;border-bottom-color:#9f6700!important}
+// company-report-page-style //
+
+// company-interview-detail //
+    .interview-ion-header {
+        background-color: #fff;
+        
+        ion-buttons[start] {
+            order: 1;
+        }
+
+        .toolbar-title {
+            -webkit-box-pack: inherit !important;
+            padding: 0;
+            font-size: 1.4rem !important;
+        }
+
+        .title-ios {
+            padding-right: 34px;
+            padding-left: 34px;
+        }
+    }
+
+    .interview-ion-content {
+        
+        .outer-content {
+            height: 100%;
+        }
+        .avatar-span-wrapper {
+            // background-color: #fff !important;
+            // margin-left: 10px;
+            padding-left: 0;
+            // contain: content;
+            contain: inherit;
+            overflow: unset;
+        }
+
+        .avatar-span-wrapper .item-inner {
+            padding-right: 0;
+        }
+
+        .right-interview-card .avatar-span-wrapper {
+            padding-left: 20px;
+        }
+
+        .left-interview-card .avatar-span-wrapper {
+            border-left: 10px solid #ff6400;
+        }
+
+        .right-interview-card .avatar-span-wrapper {
+            border-right: 10px solid #ff6400;
+        }
+
+        .left-interview-card .avatar-span-wrapper::before {
+            content: "\A";
+            border-style: solid;
+            position: relative;
+            border-width: 7px 10px 7px 0;
+            border-color: transparent #fff transparent transparent;
+            left: -10px;
+        }
+
+        .right-interview-card .avatar-span-wrapper::after {
+            content: "\A";
+            border-style: solid;
+            position: relative;
+            border-width: 7px 0px 7px 10px;
+            border-color: transparent transparent transparent #fff;
+            right: -10px;
+        }
+
+        .avatar-span-wrapper h3 {
+            font-size: 1.4rem;
+            color: #383838;
+            font-weight: bold;
+        }
+
+        .right-interview-card h3 {
+            padding-left: 16px;
+        }
+
+        .left-interview-card h3 {
+            padding-right: 16px;
+        }
+
+
+        .avatar-span-wrapper p {
+            font-size: 1.2rem;
+            color: #787878;
+        }
+
+        .avatar-span {
+            height: 2.5em;
+            width: 2.5em;
+            margin-right: 8px !important;
+            overflow: hidden;
+        }
+
+        .right-interview-card .avatar-span {
+            margin-right: 0 !important;
+            margin-left: 8px;
+        }
+
+        .avatar-span .avatar-span-image {
+            height: 2.5em;
+            width: 2.5em;
+        }
+        .card-content {
+            padding: 0 !important;
+            border-top: 1px solid #e9e9e9;
+        }
+
+        .card-content p {
+            margin: 0;
+            padding: 24px 16px;
+            color: #686868;
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+
+        .feedback-images {
+            justify-content: baseline !important;
+            width: -webkit-fill-available;
+            display: inline-flex;
+            overflow-x: scroll;
+            margin-top: 0px;
+            margin-bottom: 24px;
+        }
+
+        .small-feedback-images .feedback-image-wrapper {
+            width: 9rem;
+            height: 9rem;
+            min-width: 9rem;
+            min-height: 9rem;
+            overflow: hidden;
+            margin: 0;
+            border: 0.55px solid #eee;
+        }
+
+        .small-feedback-images .image-box {
+            margin-left: 6px;
+        }
+
+        .small-feedback-images .image-box:nth-child(1) {
+            margin-left: 16px;
+        }
+
+        .small-feedback-images .image-box:nth-last-child(1) {
+            padding-right: 16px;
+        }
+
+        .small-feedback-images .feedback-image {
+            max-width: 9rem;
+        }
+
+        .reply-company-interview {
+            margin: 0;
+            border: 0;
+            border-top: 1px solid #e9e9e9;
+            color: #787878;
+            font-weight: bold;
+            background-color: #fff;
+        }
+
+        .reply-company-interview .icon {
+            margin-left: 8px;
+        }
+
+        .reply-check-wrapper {
+            align-items:center;
+            justify-content:center;
+
+            display:-webkit-flex;
+            -webkit-align-item:center;
+            -webkit-justify-content:center;
+            font-size: 1.4rem;
+            height: 3.3em;
+            font-weight: bold;
+            color: #ff6400;
+            border-top: 1px solid #e9e9e9;
+
+            .icon {
+                margin-left: 8px;
+            }
+        }
+
+        .devide-line {
+            align-items:center;
+            justify-content:center;
+
+            display:-webkit-flex;
+            -webkit-align-item:center;
+            -webkit-justify-content:center;
+            .line-content {
+                background-color: #f9f9f9;
+                color: #787878;
+                font-weight: bold;
+                width: auto;
+                margin-left: 0;
+                padding: 0 8px;
+                bottom: -0.85rem;
+                position: relative;
+            }
+        }
+    }
+
+    .space-30 {
+        margin-top: 30px;
+    }
+
+    .interview-card {
+        margin: 24px 16px;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #d9d9d9;
+
+        .item-block .item-inner {
+            border-bottom: 0;
+        }
+    }
+
+    .interview-card.right-interview-card {
+        border-top-right-radius: 0 !important;
+    }
+
+    .interview-card.left-interview-card {
+        border-top-left-radius: 0 !important;
+    }
+// company-interview-detail //

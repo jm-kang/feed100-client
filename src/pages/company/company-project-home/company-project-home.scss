@@ -1,3 +1,36 @@
 page-company-project-home {
+    .company-project-image-wrapper {
+        img {
+            min-height: 40vh;
+        }
+    }
+    .company-project-home-content {
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #383838;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #787878;
+        }
+    }
+    .company-project-home-btn-wrapper {
 
+        .sample-project-btn {
+            background-color: #FDBA02;
+            width: 100%;
+        }
+        .project-registration-btn {
+            background-color: #ff6700;
+            width: 100%;
+        }
+
+        .button {
+            height: 3em;
+            font-size: 1.4rem;
+            font-weight: bold;
+            box-shadow: 0 4px 4px rgba(0,0,0,0), 0 1px 8px rgba(0,0,0,0.15);
+        }
+    }
 }
