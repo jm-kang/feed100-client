@@ -140,52 +140,46 @@ export class UserProjectInterviewFormPage {
 
   countColor(count) {
     if(this.firstImpressionType() == "negative" || this.firstImpressionType() == "positive") {
-      if(count < 20) { return "#787878" }
-      else if(count < 30) { return "#4688F1" }
-      else if(count < 40) { return "#F9BB2D" }
-      else if(count < 50) { return "#3AA757" }
-      else if(count < 60) { return "#4688F1" }
-      else if(count < 70) { return "#F9BB2D" }
-      else if(count < 80) { return "#3AA757" }
-      else if(count < 90) { return "#4688F1" }
-      else if(count < 100) { return "#F9BB2D" }
-      else { return "#ff6700" }
+      if(count < 20) { return "#4e4e4c" }
+      else if(count < 40) { return "#7a3c8e" }
+      else if(count < 60) { return "#23799d" }
+      else if(count < 80) { return "#62941b" }
+      else if(count < 100) { return "#f59926" }
+      else { return "#ce522f" }
     }
     if(this.firstImpressionType() == "neutral") {
-      if(count < 20) { return "#787878" }
-      else if(count < 30) { return "#4688F1" }
-      else if(count < 40) { return "#F9BB2D" }
-      else if(count < 50) { return "#3AA757" }
-      else { return "#ff6700" }
+      if(count < 20) { return "#4e4e4c" }
+      else if(count < 30) { return "#7a3c8e" }
+      else if(count < 40) { return "#23799d" }
+      else if(count < 50) { return "#62941b" }
+      else if(count < 100) { return "#f59926" }
+      else { return "#ce522f" }
     }
   }
 
   pointNotice(count) {
     if(this.firstImpressionType() == "negative" || this.firstImpressionType() == "positive") {
-      if(count < 20) {return "20자 이상을 입력해주세요" }
-      else if(count < 30) { return "좀만 더 힘내주세요!" }
-      else if(count < 40) { return "거의 다왔어요!" }
-      else if(count < 50) { return "힘내라 힘!"}
-      else if(count < 60) { return "좀만 더 힘내주세요!" }
-      else if(count < 70) { return "거의 다왔어요!" }
-      else if(count < 80) { return "힘내라 힘!"}
-      else if(count < 90) { return "좀만 더 힘내주세요!" }
-      else if(count < 100) { return "거의 다왔어요!" }
-      else { return "완벽해요!" }
+      if(count < 20) {return "20자 이상을 입력해주세요!" }
+      else if(count < 40) { return "더 많은 포인트를 향하여!" }
+      else if(count < 60) { return "좋아요! 자하고 있어요!" }
+      else if(count < 80) { return "필력이 대단하네요!"}
+      else if(count < 100) { return "당신의 정성에 감동했어요!" }
+      else { return "훌륭해요! 더 이상 바랄게 없어요." }
     }
     if(this.firstImpressionType() == "neutral") {
-      if(count < 20) {return "20자 이상을 입력해주세요" }
-      else if(count < 30) { return "좀만 더 힘내주세요!" }
-      else if(count < 40) { return "거의 다왔어요!" }
-      else if(count < 50) { return "힘내라 힘!"}
-      else { return "완벽해요!" } 
+      if(count < 20) {return "20자 이상을 입력해주세요!" }
+      else if(count < 30) { return "더 많은 포인트를 향하여!" }
+      else if(count < 40) { return "좋아요! 자하고 있어요!" }
+      else if(count < 50) { return "필력이 대단하네요!"}
+      else if(count < 100) { return "당신의 정성에 감동했어요!" }
+      else { return "훌륭해요! 더 이상 바랄게 없어요." } 
     }
   }
 
   rewardPoint(count) {
     if(this.firstImpressionType() == "negative" || this.firstImpressionType() == "positive") {
       if(count < 20) { this.reward = 0; }
-      else if(count < 100) { this.reward = (Math.floor(count/10))*100; }
+      else if(count < 100) { this.reward = (Math.floor(count/20))*200; }
       else { this.reward = 1000; }
     }
     if(this.firstImpressionType() == "neutral") {

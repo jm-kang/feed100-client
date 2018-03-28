@@ -1,5 +1,7 @@
 page-company-project-group-interview {
-    
+    .fixed-content {
+        content: '';
+    }
     ion-navbar ion-buttons[start] {
         order: 1;
     }
@@ -53,84 +55,97 @@ page-company-project-group-interview {
         font-size: 1.5rem;
         font-weight: bold;
         span {
+            margin-top: 0.3rem !important;
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: #787878;
+        }
+        .check-all, .uncheck-all {
             margin-top: 0.1rem !important;
             font-size: 1.3rem;
             font-weight: 500;
-            color: #787878;
+        }
+        .check-all {
+            color: #585858;
+        }
+        .uncheck-all {
+            color: #ff6700;
         }
     }
 
-    .group-section {
-        background-color: #e9eAeB;
-        height: 80px;
-        display: flex;
-        overflow-x: scroll;
-        .default-group {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 15px;
-            color: #a8a8a8;
-        }
-        .group-user-box {
-            display: inline-block;
-            margin-left: 16px;
-            margin-top: 8px;
-            margin-bottom: 8px;
-            .active-button {
-                padding: 0;
-                height: 44px;
-                width: 44px;
-                min-width: 44px;
-                max-width: 44px;
-                margin: 0;
-                // border: 1px solid #D4D6D8;
-                border-radius: 500px;
-                .icon {
-                    color: #383838;
-                    font-size:1.4rem;
-                }
-                img, .cropper {
-                    min-width: 44px;
-                    max-width: 44px;
-                    height: 44px;
-                    width: 44px;
-                    border-radius: 500px;
-                }
-                .close-wrapper {
-                    background-color: #e9eAeB;
-                    position: absolute;
-                    width: 1.2em;
-                    height: 1.2em;
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    margin-left: -1.25em;
-                    margin-top: 0.05em;
-                    border-radius: 100px;
-                }
-            }
-
-            .user-nickname {
-                white-space: nowrap !important;
-                width: 44px;
-                margin: 0 auto;
-                margin-top: 8px;
-                text-overflow: ellipsis;
-                text-rendering: optimizeLegibility;
-                word-wrap: break-word;
-                overflow: hidden;
-                font-size: 1rem;
-            }
-        }
-
-        .group-user-box:nth-last-child(1) {
-            border-right: 16px solid transparent;
-        }
-    }
     .empty-content {
         height: 100% !important;
+    }
+}
+
+.group-section {
+    background-color: #e9eAeB;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    .default-group {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        color: #a8a8a8;
+    }
+    .group-user-box {
+        display: inline-block;
+        margin-left: 16px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        .active-button {
+            padding: 0;
+            height: 44px;
+            width: 44px;
+            min-width: 44px;
+            max-width: 44px;
+            margin: 0;
+            // border: 1px solid #D4D6D8;
+            border-radius: 500px;
+            .icon {
+                color: #383838;
+                font-size:1.4rem;
+            }
+            img, .cropper {
+                min-width: 44px;
+                max-width: 44px;
+                height: 44px;
+                width: 44px;
+                border-radius: 500px;
+            }
+            .close-wrapper {
+                background-color: #e9eAeB;
+                position: absolute;
+                width: 1.2em;
+                height: 1.2em;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: -1.25em;
+                margin-top: 0.05em;
+                border-radius: 100px;
+            }
+        }
+
+        .user-nickname {
+            white-space: nowrap !important;
+            width: 44px;
+            margin: 0 auto;
+            margin-top: 8px;
+            text-overflow: ellipsis;
+            text-rendering: optimizeLegibility;
+            word-wrap: break-word;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+    }
+
+    .group-user-box:nth-last-child(1) {
+        border-right: 16px solid transparent;
     }
 }
