@@ -5,6 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-content [ngStyle]="{'background-color': isProjectProceeding ? '#e9eAeB' : '#fff'}">
+  <!-- 당겨서 새로고침 -->
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
   <ion-header *ngIf="isProjectProceeding">
     <ion-navbar hideBackButton="true">
       <ion-buttons start>
@@ -123,7 +128,7 @@
         </div>
       </div>
       <div class="interview-section m-t-5 m-b-5">
-        <h1 class="p-t-20 p-l-20 p-r-20">매칭된 유저 목록<span float-right *ngIf="interviews.length != 0">총 {{interviews.length}}명</span></h1>
+        <h1 class="p-t-20 p-l-20 p-r-20">유저 목록<span float-right *ngIf="interviews.length != 0">총 {{interviews.length}}명</span></h1>
         <div>
           <div class="empty-content" *ngIf="interviews.length == 0">
             <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
@@ -146,4 +151,7 @@
       </div>
     </div>
   </div>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="openCompanyProjectGroupInterviewPage()"><ion-icon name="ios-chatbubbles"></ion-icon></button>
+  </ion-fab>
 </ion-content>

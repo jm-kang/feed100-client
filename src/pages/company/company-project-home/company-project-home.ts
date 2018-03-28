@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from './../../../providers/company-service/company-service';
+
 
 /**
  * Generated class for the CompanyProjectHomePage page.
@@ -76,13 +79,24 @@ export class CompanyProjectHomePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController) {
+    public modalCtrl: ModalController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider,) {
+  }
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
     this.maxValue();
     console.log(this.max_value);
+  }
+
+  ionViewWillEnter(){
+    console.log('ionWillDidLoad CompanyProjectHomePage');
   }
   
   openCompanyTutorialPage() {
@@ -119,6 +133,10 @@ export class CompanyProjectHomePage {
 
   openCompanyProjectReportPage() {
     this.navCtrl.push('CompanyProjectReportPage');
+  }
+
+  openCompanyProjectGroupInterviewPage() {
+    this.navCtrl.push('CompanyProjectGroupInterviewPage');
   }
 
 }

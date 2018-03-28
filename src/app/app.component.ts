@@ -1,3 +1,4 @@
+import { CompanyProjectGroupInterviewPage } from './../pages/company/company-project-group-interview/company-project-group-interview';
 import { CompanyProjectReportPage } from './../pages/company/company-project-report/company-project-report';
 import { CompanyConfigurePage } from './../pages/company/company-configure/company-configure';
 import { UserProjectRewardFormPage } from './../pages/user/user-project-reward-form/user-project-reward-form';
@@ -33,7 +34,7 @@ import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-histor
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = CompanyProjectHomePage;
+  rootPage:any = CompanyProjectGroupInterviewPage;
 
   constructor(
     platform: Platform,

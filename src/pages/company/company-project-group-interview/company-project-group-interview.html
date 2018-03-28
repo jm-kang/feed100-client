@@ -4,15 +4,56 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-group-interview</ion-title>
+<ion-header class="tabs-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>그룹 인터뷰</ion-title>
+    <ion-buttons end>
+      <button [disabled]="isGroupEmpty" class="complete-button" ion-button (click)="openCompanyProjectGroupInterviewQuestionEditorPage()" icon-only>
+        보내기 <span *ngIf="group.length > 0">&nbsp;{{group.length}}</span>
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
+  <div class="group-section" *ngIf="interviews.length > 0">
+    <div class="default-group" *ngIf="isGroupEmpty">그룹 인터뷰할 유저들을 선택해주세요!</div>
+    <span class="group-user-box" *ngFor="let user of group">
+      <button color="light" ion-button class="active-button" (click)="inactive(user)">
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="user.avatar_image" />
+          <span class="close-wrapper">
+            <ion-icon name="ios-close"></ion-icon>
+          </span>
+        </span>
+      </button>
+      <p text-center class="user-nickname">{{user.nickname}}</p>
+    </span>
+  </div>
+  <h1 class="p-t-20 p-l-20 p-r-20">유저 목록<span float-right *ngIf="interviews.length != 0">총 {{interviews.length}}명</span></h1>
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content>
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="interview-section">
+    <div class="empty-content" *ngIf="interviews.length == 0">
+      <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
+    </div>
+    <ion-list class="m-t-10" *ngIf="interviews.length != 0">
+      <ion-item float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews; let index = index" tappable (click)="check(index)">
+        <span item-start *ngIf="interview.isCheck" class="check-box check"><ion-icon name="ios-checkmark"></ion-icon></span>
+        <span item-start *ngIf="!interview.isCheck" class="check-box not-check"></span>
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" [src]="interview.avatar_image" />
+        </span>
+        <h2 [innerHTML]="interview.nickname"></h2>
+        <p *ngIf="interview.content">첫인상 점수 {{interview.score}}점 | 나이 {{interview.age}} | 성별 {{interview.gender}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
