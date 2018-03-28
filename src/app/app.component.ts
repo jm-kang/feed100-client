@@ -33,7 +33,7 @@ import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-histor
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = CompanyProjectReportPage;
+  rootPage:any = CompanyProjectHomePage;
 
   constructor(
     platform: Platform,
