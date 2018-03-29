@@ -24,7 +24,6 @@ export class CompanyProjectInterviewDetailPage {
   project_participant_id;
   isHelpHide: boolean;
   nickname: String = "에반스";
-  interviewTime: String = "9시 ~ 12시";
   totalInterviewNum: number = 1;
   minTextLength: number = 20;
   maxTextLength: number = 100;
