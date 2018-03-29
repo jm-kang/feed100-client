@@ -17,7 +17,7 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-point-exchange.html',
 })
 export class UserPointExchangePage {
-  totalPoint: number = 0;
+  totalPoint: number = 20000;
   minExchangePoint: number = 10000;
   minExchangeDay: number = 15;
   banks = ['경남은행','광주은행','국민은행','기업은행','농협중앙회','대구은행','부산은행','산업은행','서울은행','수협','시티은행','신한은행','신협','우리은행','우체국','시티은행','전북은행','SC','제주은행','하나은행','새마을금고'];

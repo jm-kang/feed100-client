@@ -53,7 +53,7 @@ export class UserProjectPage {
   recommendedProjects = [
     {
       project_id: 1,
-      project_main_image:"./../../assets/img/feed100-intro-slide5.png",
+      project_main_image:"./../../assets/img/project-main-image5.png",
       project_name: "하플리 : 예쁜 한복들만 모았다! 허리치마, 저고리, 한복원피스 등.",
       max_reward: 5500,
     },

@@ -137,5 +137,6 @@ export class UserProjectInterviewAnswerPage {
     if(count < 20) { this.reward = 0; }
     else if(count < 50) { this.reward = (Math.floor(count/10))*100; }
     else { this.reward = 500; }
+    return this.reward;
   }
 }

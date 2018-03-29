@@ -17,7 +17,7 @@ import { CompanyServiceProvider } from './../../../providers/company-service/com
   templateUrl: 'company-project-home.html',
 })
 export class CompanyProjectHomePage {
-  isProjectProceeding:boolean = true;
+  isProjectProceeding:boolean = false;
   project_name: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
   project_main_image: string = "./../../assets/img/project-main-image2.png"
   first_impression_score: number = 7.5;
