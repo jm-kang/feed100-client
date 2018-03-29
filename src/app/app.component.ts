@@ -28,13 +28,14 @@ import { UserProjectStoryHorizontalPage } from '../pages/user/user-project-story
 import { UserProjectStoryQuizFormPage } from '../pages/user/user-project-story-quiz-form/user-project-story-quiz-form';
 import { UserProjectInterviewFormPage } from '../pages/user/user-project-interview-form/user-project-interview-form';
 import { UserPointUsageHistoryPage } from '../pages/user/user-point-usage-history/user-point-usage-history';
+import { CompanyProjectInterviewDetailPage } from '../pages/company/company-project-interview-detail/company-project-interview-detail';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   // rootPage:any = LoginPage;
-  rootPage:any = CompanyProjectGroupInterviewPage;
+  rootPage:any = CompanyProjectInterviewDetailPage;
 
   constructor(
     platform: Platform,

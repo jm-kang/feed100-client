@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController } from 'ionic-angular';
-import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+
+declare var cordova:any;
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from '../../../providers/company-service/company-service';
@@ -20,18 +22,87 @@ import { CompanyServiceProvider } from '../../../providers/company-service/compa
 export class CompanyProjectInterviewDetailPage {
   @ViewChild(Content) content: Content;
   project_participant_id;
-  
-  nickname: String = "";
-  totalInterviewNum: number = 0;
-  maxInterviewNum: number = 0;
-  isAvailable;
+  isHelpHide: boolean;
+  nickname: String = "에반스";
+  totalInterviewNum: number = 1;
+  minTextLength: number = 20;
+  maxTextLength: number = 100;
 
-  interviews = [];
+  questionInterview: string = "";
+  projectKeywords = ["버튼위치","어려움","파일업로드","버튼위치","어려움","파일업로드"];
+  helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
+
+  interviews = [
+    {
+      project_name: "프로젝트 제목",
+      interview_request_registration_date: "2018-03-25 00:00:00",
+      interview_request: "뭐가 제일 만족스러웠나요요?????????",
+      project_id: 1,
+      project_participant_id: 1,
+      interview_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "고거시",
+      interview_response_registration_date: "2018-03-27 00:00:00",
+      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+      isLike: false,
+    },
+    {
+      project_name: "프로젝트 제목",
+      interview_request_registration_date: "2018-03-25 00:00:00",
+      interview_request: "뭐가 제일 만족스러웠나요요?????????",
+      project_id: 1,
+      project_participant_id: 1,
+      interview_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "고거시",
+      interview_response_registration_date: "2018-03-27 00:00:00",
+      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+      isLike: false,
+    },
+    {
+      project_name: "프로젝트 제목",
+      interview_request_registration_date: "2018-03-25 00:00:00",
+      interview_request: "뭐가 제일 만족스러웠나요요?????????",
+      project_id: 1,
+      project_participant_id: 1,
+      interview_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "고거시",
+      interview_response_registration_date: "2018-03-27 00:00:00",
+      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+      isLike: false,
+    },
+    {
+      project_name: "프로젝트 제목",
+      interview_request_registration_date: "2018-03-25 00:00:00",
+      interview_request: "뭐가 제일 만족스러웠나요요?????????",
+      project_id: 1,
+      project_participant_id: 1,
+      interview_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "고거시",
+      interview_response_registration_date: "2018-03-27 00:00:00",
+      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+      isLike: false,
+    },
+    {
+      project_name: "프로젝트 제목",
+      interview_request_registration_date: "2018-03-25 00:00:00",
+      interview_request: "뭐가 제일 만족스러웠나요요?????????",
+      project_id: 1,
+      project_participant_id: 1,
+      interview_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "고거시",
+      interview_response_registration_date: "2018-03-27 00:00:00",
+      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+      isLike: false,
+    }
+  ];
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    private photoViewer: PhotoViewer, 
     public modalCtrl: ModalController,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
@@ -47,52 +118,53 @@ export class CompanyProjectInterviewDetailPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectInterviewDetailPage');
-    let loading = this.commonService.presentLoading();
+    this.isHelpHide = true;
+    // let loading = this.commonService.presentLoading();
     
-    this.companyService.getInterview(this.project_participant_id)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.nickname = data.data.nickname;
-          this.totalInterviewNum = data.data.total_interview_num;
-          this.maxInterviewNum = data.data.max_interview_num;
-          this.isAvailable = data.data.is_available;
-          let tempInterviews = data.data.interviews;
+    // this.companyService.getInterview(this.project_participant_id)
+    // .finally(() => {
+    //   loading.dismiss();
+    // })
+    // .subscribe(
+    //   (data) => {
+    //     if(data.success == true) {
+    //       this.nickname = data.data.nickname;
+    //       this.totalInterviewNum = data.data.total_interview_num;
+    //       this.maxInterviewNum = data.data.max_interview_num;
+    //       this.isAvailable = data.data.is_available;
+    //       let tempInterviews = data.data.interviews;
           
-          for(let i=0; i<tempInterviews.length; i++) {
-            if(tempInterviews[i].interview_request_images) {
-              tempInterviews[i].interview_request_images = JSON.parse(tempInterviews[i].interview_request_images);
-              for(let j=0; j<tempInterviews[i].interview_request_images.length; j++) {
-                tempInterviews[i].interview_request_images[j] = { img : tempInterviews[i].interview_request_images[j]}; 
-              }
-            }
-            if(tempInterviews[i].interview_response_images) {
-              tempInterviews[i].interview_response_images = JSON.parse(tempInterviews[i].interview_response_images);
-              for(let j=0; j<tempInterviews[i].interview_response_images.length; j++) {
-                tempInterviews[i].interview_response_images[j] = { img : tempInterviews[i].interview_response_images[j]}; 
-              }
-            }
-          }
-          this.interviews = tempInterviews;
+    //       for(let i=0; i<tempInterviews.length; i++) {
+    //         if(tempInterviews[i].interview_request_images) {
+    //           tempInterviews[i].interview_request_images = JSON.parse(tempInterviews[i].interview_request_images);
+    //           for(let j=0; j<tempInterviews[i].interview_request_images.length; j++) {
+    //             tempInterviews[i].interview_request_images[j] = { img : tempInterviews[i].interview_request_images[j]}; 
+    //           }
+    //         }
+    //         if(tempInterviews[i].interview_response_images) {
+    //           tempInterviews[i].interview_response_images = JSON.parse(tempInterviews[i].interview_response_images);
+    //           for(let j=0; j<tempInterviews[i].interview_response_images.length; j++) {
+    //             tempInterviews[i].interview_response_images[j] = { img : tempInterviews[i].interview_response_images[j]}; 
+    //           }
+    //         }
+    //       }
+    //       this.interviews = tempInterviews;
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 500);
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewWillEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+    //     }
+    //     else if(data.success == false) {
+    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+    //       .then(() => {
+    //         this.ionViewWillEnter();
+    //       })
+    //     }
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
+    //   }
+    // );
   }
 
   doRefresh(refresher) {
@@ -157,8 +229,51 @@ export class CompanyProjectInterviewDetailPage {
     this.navCtrl.pop();
   }
 
-  photoView(url) {
-    this.photoViewer.show(url);
+  clickLike(interview) {
+    if(interview.isLike) {
+      interview.isLike = false;
+    } else {
+      interview.isLike = true;
+    }
+  }
+
+  sendInterview() {
+
+  }
+
+  help() {
+    if(this.isHelpHide) {
+      this.isHelpHide = false;
+      document.querySelector(".scroll-content")['style'].overflow = 'hidden';
+    } else {
+      this.isHelpHide = true;
+      document.querySelector(".scroll-content")['style'].overflow = 'scroll';
+    }
+  }
+
+  textCount(text: string) {
+    if(text == null) return 0;
+    
+    let temp: any;
+    temp = text.replace(/<br *\/?>/gi, '');
+    temp = temp.replace(/(?:\r\n|\r|\n|\s)/g, '');
+    return temp.length;
+  }
+
+  countColor(count) {
+    if(count < 20) { return "#4e4e4c" }
+    else if(count <= 100) { return "#23799d" }
+    else { return "#ce522f" }
+  }
+
+  pointNotice(count) {
+    if(count < 20) {return "20자 이상을 입력해주세요!" }
+    else if(count <= 100) { return "완료버튼을 눌러 인터뷰를 보내보세요!" }
+    else { return "100자 이하로 입력해주세요!" } 
+  }
+
+  insertKeyword(keyword) {
+    this.questionInterview = this.questionInterview + keyword;
   }
   
   openCompanyProjectInterviewWritingEditorPage() {
@@ -182,5 +297,9 @@ export class CompanyProjectInterviewDetailPage {
 
   openCompanyProjectUserProfilePage(project_participant_id) {
     this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
+  }
+
+  openInterviewInfo() {
+    cordova.ThemeableBrowser.open('https://m.blog.naver.com/feed100_help/221233375208', '_system');
   }
 }

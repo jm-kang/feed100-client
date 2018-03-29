@@ -2423,7 +2423,7 @@ p {
         }
 
         .right-interview-card .avatar-span-wrapper {
-            border-right: 10px solid #ff6400;
+            border-right: 10px solid rgba(248, 186, 0, 1);
         }
 
         .left-interview-card .avatar-span-wrapper::before {
@@ -2440,7 +2440,7 @@ p {
             border-style: solid;
             position: relative;
             border-width: 7px 0px 7px 10px;
-            border-color: transparent transparent transparent #fff;
+            border-color: transparent transparent transparent #f2f2f2;
             right: -10px;
         }
 
@@ -2469,6 +2469,8 @@ p {
             width: 2.5em;
             margin-right: 8px !important;
             overflow: hidden;
+            border-radius: 100px;
+            border: 1px solid #e4e4e4;
         }
 
         .right-interview-card .avatar-span {
@@ -2487,7 +2489,7 @@ p {
 
         .card-content p {
             margin: 0;
-            padding: 24px 16px;
+            padding: 24px 20px;
             color: #686868;
             font-size: 1.3rem;
             line-height: 1.6;
@@ -2567,7 +2569,7 @@ p {
             -webkit-align-item:center;
             -webkit-justify-content:center;
             .line-content {
-                background-color: #f9f9f9;
+                background-color: #fff;
                 color: #787878;
                 font-weight: bold;
                 width: auto;
@@ -2585,9 +2587,9 @@ p {
 
     .interview-card {
         margin: 24px 16px;
-        background: #fff;
         border-radius: 8px;
-        border: 1px solid #d9d9d9;
+        
+        box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 24px rgba(0,0,0,0.11);
 
         .item-block .item-inner {
             border-bottom: 0;
@@ -2596,10 +2598,17 @@ p {
 
     .interview-card.right-interview-card {
         border-top-right-radius: 0 !important;
+        background: #F2F2F2;
+        border: 1px solid #d9d9d9;
+        .card-content {
+            border-top: 1px solid #d9d9d9;
+        }
     }
 
     .interview-card.left-interview-card {
+        border: 1px solid #e9e9e9;
         border-top-left-radius: 0 !important;
+        background: #fff;
     }
 // company-interview-detail //
 

@@ -22,7 +22,7 @@ page-company-project-interview-detail {
 
     .scroll-content {
         margin-bottom: 0 !important;
-        padding-bottom: 78px;
+        padding-bottom: 160px;
     }
 
     .reply-company-interview {
@@ -38,5 +38,78 @@ page-company-project-interview-detail {
 
     .disable-interview-btn {
         color: #787878 !important;
+    }
+
+    .item-tag-wrapper {
+        position: absolute;
+        right: 6px;
+        .btn-item-more {
+            top:4px;
+        }
+        
+        .btn-item-more .button {
+            font-size: 2rem;
+            color: #c8c8c8;
+            background-color: transparent;
+        }
+    }
+
+    .tabs-header {
+        border-bottom: 0.25px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .like-true-icon { color: #da565a; }
+}
+
+.editor-textarea-footer {
+    .toolbar-background {
+        background-color: #fff !important;
+        border-top: 0;
+    }
+    .toolbar {
+        padding: 0;
+        padding-bottom: 3px;
+    }
+    .textcount-toolbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .textarea-wrapper {
+        display: inline-flex;
+        width: calc(100% - 32px);
+        margin: 2px 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+
+        .textarea {
+            background-color: #fff;
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-bottom-right-radius: 0px;
+            border-top-right-radius: 0px;
+            padding: 8px;
+            margin: 0 !important;
+            font-size: 1.5rem;
+            max-height: 80px;
+            overflow-y: scroll !important;
+            border: 0px;
+            width: 100%;
+            min-height: 36px;
+        }
+        button {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background-color: #FDBA02;
+            margin:0;
+            width: 50px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+    }
+
+    .help-wrapper h2 {
+        font-size: 1.4rem !important;
     }
 }
