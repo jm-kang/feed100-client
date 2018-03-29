@@ -25,7 +25,7 @@ export class CompanyNotificationPage {
       notification_id: 1,
       // 해당 유저 interview detail로 이동
       notification_link: "newUser",
-      notification_image: "./../../assets/img/user-avatar.png",
+      notification_image: "./../../assets/img/user-avatar-image-man1.png",
       notification_tag: "유저 참여",
       notification_name: "유저 이름",
       notification_content: "새로운 유저와 매칭이 성사되었습니다! 인터뷰를 진행해주세요!",
@@ -37,7 +37,7 @@ export class CompanyNotificationPage {
       notification_id: 1,
       // 해당 유저 interview detail로 이동
       notification_link: "newInterview",
-      notification_image: "./../../assets/img/user-avatar.png",
+      notification_image: "./../../assets/img/user-avatar-image-man2.png",
       notification_tag: "인터뷰",
       notification_name: "유저 이름",
       notification_content: "인터뷰 답변이 도착했습니다. 확인해주세요!",
@@ -49,7 +49,7 @@ export class CompanyNotificationPage {
       notification_id: 2,
       // 종합보고서로 이동
       notification_link: "endProject",
-      notification_image: "./../../assets/img/project_main_image.png",
+      notification_image: "./../../assets/img/project-main-image2.png",
       notification_tag: "프로젝트 종료",
       notification_name: "프로젝트 제목",
       notification_content: "프로젝트가 종료되었습니다. 종합보고서를 확인해주세요!",

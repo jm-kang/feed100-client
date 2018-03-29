@@ -151,7 +151,7 @@
       </div>
     </div>
   </div>
-  <ion-fab right bottom>
+  <ion-fab right bottom *ngIf="isProjectProceeding">
     <button ion-fab color="primary" (click)="openCompanyProjectGroupInterviewPage()"><ion-icon name="ios-chatbubbles"></ion-icon></button>
   </ion-fab>
 </ion-content>

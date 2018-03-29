@@ -19,7 +19,7 @@
     <div class="hide-help-btn" (click)="help()">닫기</div>
   </div>
 </div>
-<ion-header class="tabs-header">
+<ion-header class="editor-header">
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button ion-button (click)="back()" icon-only>
@@ -31,7 +31,11 @@
         {{nickname}}
       </span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
+  <p text-center>인터뷰 가능 시간 : {{interviewTime}}</p>
   <div class="shadow-top"></div>
 </ion-header>
 
@@ -67,11 +71,11 @@
       <!-- ==========================USER=============================== -->
       <div class="left-interview-card interview-card" *ngIf="interview.interview_response">
         <ion-item class="avatar-span-wrapper">
-          <span item-start class="avatar-image avatar-span cropper" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)">
+          <span item-start class="avatar-image avatar-span cropper">
             <img class="avatar-span-image" [src]="interview.avatar_image" />
           </span>
           <h3>
-            <span class="user-nickname-button" tappable (click)="openCompanyProjectUserProfilePage(interview.project_participant_id)">{{interview.nickname}}</span>
+            <span class="user-nickname-button">{{interview.nickname}}</span>
             <span class="item-tag-wrapper">
               <span class="btn-item-more">
                 <!-- 신고하기 수정 -->

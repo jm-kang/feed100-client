@@ -372,15 +372,15 @@ export class CompanyProjectReportPage {
     //         // projectStatSlides
 
     //       }
-    //       this.projectUserProfileSlides = this.tempProjectUserProfileSlides;
+          this.projectUserProfileSlides = this.tempProjectUserProfileSlides;
 
-    //       this.projectUserParticipationConditionSlides = this.tempProjectUserParticipationConditionSlides;
+          this.projectUserParticipationConditionSlides = this.tempProjectUserParticipationConditionSlides;
 
-    //       this.tempAverage(0);
-    //       this.tempAverage(1);
-    //       this.projectStatSlides = this.tempProjectStatSlides;
+          this.tempAverage(0);
+          this.tempAverage(1);
+          this.projectStatSlides = this.tempProjectStatSlides;
 
-    //       this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 4;
+          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 4;
     //     }
     //     else if(data.success == false) {
     //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)

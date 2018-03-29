@@ -16,6 +16,9 @@
         포인트 적립/환전 내역
       </span>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
   <ion-segment [(ngModel)]="segmentHistoryCondition" (ionChange)="changeSegment()" color="primary" >
     <ion-segment-button value="all">

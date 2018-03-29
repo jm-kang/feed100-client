@@ -128,10 +128,7 @@ export class UserProjectPage {
   
   // 모든 프로젝트 리스트 페이지로 이동
   openUserAllProjectList() {
-    // this.navCtrl.push("UserAllProjectListPage");
-    // this.navCtrl.push("UserProjectParticipationConditionFormPage");
-    let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewAnswerPage'});
-    userProfileModificationFormModal.present();
+    this.navCtrl.push("UserAllProjectListPage");
   }
 
   filterParticipatingProjects(bool) {

@@ -33,7 +33,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
 
   is_max: boolean = false;
 
-  answerContent: string = "";
+  questionContent: string = "";
   contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
   minTextLength: number = 20;
   maxTextLength: number = 100;
@@ -66,10 +66,10 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   }
 
   completeEditor() {
-    if(this.commonService.hasEmoji(this.answerContent)) {
+    if(this.commonService.hasEmoji(this.questionContent)) {
       return false;
     }
-    this.answerContent = this.commonService.textAreaFilter(this.answerContent);
+    this.questionContent = this.commonService.textAreaFilter(this.questionContent);
     let data = { group: this.group };
     this.ModalWrapperPage.dismissModal(data);
   }
@@ -90,7 +90,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   }
 
   insertKeyword(keyword) {
-    this.answerContent = this.answerContent + keyword;
+    this.questionContent = this.questionContent + keyword;
   }
 
   textCount(text: string) {

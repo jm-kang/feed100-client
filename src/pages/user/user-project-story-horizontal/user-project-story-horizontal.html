@@ -94,8 +94,8 @@
       
       <ion-buttons class="project-last-slide-buttons multi-button-wrapper">
         <button ion-button block outline *ngIf="isLink" (click)="openUserProjectLinkPage()">테스트 시작하기</button>
-        <button class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizPage()">피드백 작성하기 ></button>
-        <button class="m-l-15 disable-btn" ion-button block outline *ngIf="!check" disabled>피드백 작성하기 ></button>
+        <button [ngStyle]="{'width': isLink ? '50%' : '100%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizPage()">피드백 작성하기 ></button>
+        <button [ngStyle]="{'width': isLink ? '50%' : '100%'}" class="m-l-15 disable-btn" ion-button block outline *ngIf="!check" disabled>피드백 작성하기 ></button>
       </ion-buttons>
     </ion-slide>
   </ion-slides>

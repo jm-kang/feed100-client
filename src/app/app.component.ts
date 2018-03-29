@@ -1,3 +1,4 @@
+import { CompanyNotificationPage } from './../pages/company/company-notification/company-notification';
 import { CompanyProjectGroupInterviewPage } from './../pages/company/company-project-group-interview/company-project-group-interview';
 import { CompanyProjectReportPage } from './../pages/company/company-project-report/company-project-report';
 import { CompanyConfigurePage } from './../pages/company/company-configure/company-configure';

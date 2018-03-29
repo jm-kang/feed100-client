@@ -2,4 +2,8 @@ page-user-all-project-list {
     .header {
         border-bottom : 1px solid #e7e7e7;
     }
+    ion-navbar ion-buttons[start] {
+        order: 1;
+    }
+
 }

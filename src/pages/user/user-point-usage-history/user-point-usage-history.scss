@@ -1,4 +1,8 @@
 page-user-point-usage-history {
+    ion-navbar ion-buttons[start] {
+        order: 1;
+    }
+
     .price-statement-header {
         background-color: #fff;
         

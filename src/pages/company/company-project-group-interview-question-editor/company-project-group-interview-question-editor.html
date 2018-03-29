@@ -28,7 +28,7 @@
     </ion-buttons>
     <ion-title></ion-title>
     <ion-buttons end>
-      <button [disabled]="minTextLength > (answerContent | textcount) || maxTextLength < (answerContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+      <button [disabled]="minTextLength > (questionContent | textcount) || maxTextLength < (questionContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
         완료
       </button>
     </ion-buttons>
@@ -49,19 +49,19 @@
 <ion-content class="editor-modal" #contentRef >
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
-      <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
-        <div text-center class="point-notice">{{pointNotice(textCount(answerContent))}}</div>
+      <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(questionContent))}">
+        <div text-center class="point-notice">{{pointNotice(textCount(questionContent))}}</div>
       </div>
       <div class="interview-text-count-wrapper">
-        <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(answerContent) + '%', 'margin-left': textCount(answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(answerContent))}">{{textCount(answerContent)}}</div>
+        <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(questionContent) + '%', 'margin-left': textCount(questionContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(questionContent))}">{{textCount(questionContent)}}</div>
         <div class="progress-outer">
-          <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(answerContent))}" [style.width]="textCountPercent(answerContent) + '%'">
+          <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(questionContent))}" [style.width]="textCountPercent(questionContent) + '%'">
               <!-- {{progress}}% -->
           </div>
         </div>
       </div>
     </div> 
-    <textarea #input class="m-t-0 h-30" [(ngModel)]="answerContent" [placeholder]="contentPlaceholder"></textarea>
+    <textarea #input class="m-t-0 h-30" [(ngModel)]="questionContent" [placeholder]="contentPlaceholder"></textarea>
   </div>
 </ion-content>
 

@@ -24,6 +24,7 @@ export class CompanyProjectInterviewDetailPage {
   project_participant_id;
   isHelpHide: boolean;
   nickname: String = "에반스";
+  interviewTime: String = "9시 ~ 12시";
   totalInterviewNum: number = 1;
   minTextLength: number = 20;
   maxTextLength: number = 100;
@@ -293,10 +294,6 @@ export class CompanyProjectInterviewDetailPage {
         }
       }
     );
-  }
-
-  openCompanyProjectUserProfilePage(project_participant_id) {
-    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
   }
 
   openInterviewInfo() {
