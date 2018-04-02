@@ -4,15 +4,154 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-content [ngStyle]="{'background-color': isProjectProceeding ? '#e9eAeB' : '#fff'}">
+  <!-- 당겨서 새로고침 -->
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+  <ion-header *ngIf="isProjectProceeding">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button ion-button (click)="openCompanyNotificationPage()">
+          <ion-icon name="ios-notifications"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>{{project_name | slicetext:14}}</ion-title>
+      <ion-buttons end>
+        <button ion-button (click)="openCompanyConfigurePage()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  <!-- 프로젝트 대기중 -->
+  <div *ngIf="!isProjectProceeding" class="waiting-project">
+    <div class="company-project-image-wrapper cropper">
+      <img src="assets/img/rocket-illust.png" />
+    </div>
+    <div class="company-project-home-content">
+      <div class="summary-wrapper" padding>
+        <h1 text-center class="m-b-20">FEED100에 오신 것을 환영합니다!</h1>
+        <p text-center>아직 프로젝트 등록을 안하셨군요?<br><br>아래 샘플 프로젝트가 준비되어있으니<br>어떤 방식으로 프로젝트가 진행되는지 확인해보세요!<br>등록 신청은 아래 버튼을 통해 신청하실 수 있습니다.<br><br>더 궁금하신 사항은 도움말을 확인해 주세요!</p>
+      </div>
+      <div class="company-project-home-btn-wrapper p-l-28 p-b-16 p-r-28">
+        <button ion-button class="sample-project-btn" (click)="openCompanyTutorialPage()">샘플 프로젝트</button>
+        <button ion-button class="project-registration-btn" (click)="openCompanyProjectRegistrationPage()">프로젝트 등록하기</button>
+      </div>
+    </div>
+  </div>
 
-  <ion-navbar>
-    <ion-title>company-project-home</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+  <!-- 프로젝트 진행중 -->
+  <div *ngIf="isProjectProceeding" class="processing-project">
+    <div class="project-header-image cropper">
+      <img [src]="project_main_image" />
+      <span class="overlap-image"></span>
+      <div class="project-stats-background-wrapper">
+        <div class="project-stats-background"></div>
+      </div>
+    </div>
+    <div class="project-stats">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score">{{first_impression_score}}</div>
+              <div text-center class="stat-summary">첫인상 점수</div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score">{{participants_num}}</div>
+              <div text-center class="stat-summary">참여 인원</div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score" [ngStyle]="{'color': (project_end_date | amLocale:'ko' | amTimeAgo | dDay) == '종료' ? '#cfcfcf' : '#fff'}">
+                <span class="d-tag" *ngIf="(project_end_date | amLocale:'ko' | amTimeAgo | dDay) != '종료'">D-</span>{{project_end_date | amLocale:'ko' | amTimeAgo | dDay}}
+              </div>
+              <div text-center class="stat-summary">프로젝트 기간</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="processing-project-content">
+      <div class="btn-section m-t-5">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="m-r-5">
+              <button ion-button (click)="openCompanyProjectStoryHorizontalPage()">스토리 보기</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button (click)="openCompanyProjectReportPage()">종합 보고서</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="graph-section m-t-5">
+        <h1>매칭된 유저 정보</h1>
+        <div class="graph-wrapper">
+          <div class="table"><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div></div>
+          <div class="graph-box">
+            <div class="gender-wrapper m-r-20">
+              <div class="man-wrapper m-r-10">
+                <div text-center class="graph-percent"><b>{{man_percent}}</b>%</div>
+                <div text-center class="gender-graph">
+                  <img class="gender-default" src="assets/img/man-default.png" alt="">
+                  <div class="gender-color-wrapper">
+                    <div class="gender-color cropper" [ngStyle]="{'height': man_percent + 'px'}"><img src="assets/img/man-color.png" /></div>
+                  </div>
+                </div>
+                <div class="graph-title" text-center>남자</div>
+              </div>
+              <div text-center class="woman-wrapper">
+                <div text-center class="graph-percent"><b>{{woman_percent}}</b>%</div>
+                <div text-center class="gender-graph">
+                  <img class="gender-default" src="assets/img/woman-default.png" alt="">
+                  <div class="gender-color-wrapper">
+                    <div class="gender-color cropper" [ngStyle]="{'height': woman_percent + 'px'}"><img src="assets/img/woman-color.png" /></div>
+                  </div>
+                </div>
+                <div class="graph-title" text-center>여자</div>
+              </div>
+            </div>
+            <div class="ages-wrapper">
+              <div text-center class="age-wrapper" *ngFor="let age of ages">
+                <div text-center class="graph-percent"><b>{{age.percent}}</b>%</div>
+                <div text-center class="gender-graph" [ngStyle]="{'height': age.percent + 'px', 'background-color' : max_value == age.percent ? '#ff6700' : '#D9DDE2'}"></div>
+                <div class="graph-title" text-center>{{age.title}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="interview-section m-t-5 m-b-5">
+        <h1 class="p-t-20 p-l-20 p-r-20">유저 목록<span float-right *ngIf="interviews.length != 0">총 {{interviews.length}}명</span></h1>
+        <div>
+          <div class="empty-content" *ngIf="interviews.length == 0">
+            <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
+          </div>
+          <ion-list *ngIf="interviews.length != 0">
+            <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews" (click)="openCompanyProjectInterviewDetailPage(interview.project_participant_id)">
+              <span item-start class="avatar-image avatar-span cropper">
+                <img class="avatar-span-image" [src]="interview.avatar_image" />
+              </span>
+              <h2 [innerHTML]="interview.nickname"></h2>
+              <p *ngIf="interview.content">{{interview.content}}</p>
+              <div item-end class="interview-item-end">
+                <ion-note *ngIf="interview.interview_answer_registration_date" #progressState [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></ion-note>
+                <div class="badge-new" *ngIf="interview.interview_num != 0">{{interview.interview_num}}</div>
+                <div class="blank-badge-new" *ngIf="interview.interview_num == 0">0</div>
+              </div>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-fab right bottom *ngIf="isProjectProceeding">
+    <button ion-fab color="primary" (click)="openCompanyProjectGroupInterviewPage()"><ion-icon name="ios-chatbubbles"></ion-icon></button>
+  </ion-fab>
 </ion-content>

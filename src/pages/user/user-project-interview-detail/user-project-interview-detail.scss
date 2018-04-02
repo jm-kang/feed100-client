@@ -1,3 +1,113 @@
 page-user-project-interview-detail {
 
 }
+
+.interview-detail-page-content {
+    .interview-detail-page-wrapper {
+        display: flex;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .timeline-line {
+        border-right: 2px solid #eee;
+        width: 40px;
+    }
+
+    .timeline-content {
+        width: 100%;
+        .interview-timeline-wrapper {
+            display: inline-flex;
+            position: relative;
+            left: -13px;
+            width: 100%;
+            .interview-timeline-count {
+                display: inline-flex;
+                min-width: 24px;
+                min-height: 24px;
+                max-width: 24px;
+                max-height: 24px;
+                align-items: center;
+                justify-content: center;
+                border-radius: 100px;
+                background-color: #ff6700;
+                font-size: 12px;
+                color: #fff;
+                border: 3px solid #fff;
+                font-weight: bold;
+                box-shadow: 0px 3px 8px 1px rgba(0,0,0,0.1);
+                margin-top: 20px;
+            }
+
+            .interview-timeline-wrapper {
+                display: inline-block;
+                width: 100%;
+                padding-left: 30px;
+                .interview-timeline-box {
+                    border-radius: 10px;
+                    box-shadow: 0px 3px 8px 1px rgba(0,0,0,0.1);
+                    padding: 16px 20px;
+                    background: #fff;
+                    .box-detail {
+                        font-size: 1.1rem;
+                        display: flex;
+                        align-items: baseline;
+                        padding-bottom: 8px;
+                        .registration-date-wrapper, 
+                        .reward-wrapper,
+                        .like-wrapper {
+                            display: inherit;
+                        }
+                        .registration-date-wrapper {
+                            width: 50%;
+                            color: #787878
+                        }
+                        .reward-wrapper {
+                            display: flex;
+                            align-items: center;
+                            font-size: 1.5rem;
+                            font-weight: bold;
+                            margin-top: 20px;
+                            img {
+                                min-width: 2.2rem;
+                                min-height: 2.2rem;
+                                // width: 1.6rem;
+                                height: 2.2rem;
+                                margin-right:6px;
+                            }
+                        }
+                        .like-wrapper {
+                            font-size: 2rem;
+                            width: 50%;
+                            display: flex;
+                            justify-content: flex-end;
+                            .like-true-icon {
+                                color: #da565a;
+                            }
+                            .like-false-icon {
+                                color: #a8a8a8;
+                            }
+                        }
+                    }
+                    .question-wrapper {
+                        padding-left: 2px; padding-right: 2px;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #eee;
+                        color: #383838;
+                        font-weight: bold;
+                        line-height: 1.4;
+                    }
+                    .answer-wrapper {
+                        // padding-top: 8px;
+                        padding-top: 20px;
+                        padding-left: 2px; padding-right: 2px;
+                        font-weight: normal;
+                        color: #585858;
+                        line-height: 1.4;
+                    }
+                }
+            }
+
+        }
+    }
+}

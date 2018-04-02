@@ -1,3 +1,125 @@
 page-company-project-interview-detail {
+    .waiting-reply {
+        color: #787878 !important;
+        background-color: #f3f3f3;
+    }
 
+    .editor-header {
+        p {
+            color: #989898;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+
+    }
+
+
+    ion-footer {
+        background: rgba(239,239,244,1); /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(rgba(239,239,244,0.2), rgba(239,239,244,1)); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(rgba(239,239,244,0.2), rgba(239,239,244,1)); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(rgba(239,239,244,0.2), rgba(239,239,244,1)); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(rgba(239,239,244,0.2), rgba(239,239,244,1)); /* Standard syntax */
+
+        ion-icon {
+            margin-left : 8px;
+        }
+    }
+
+    .footer-md::before {
+        display: none;
+    }
+
+    .scroll-content {
+        margin-bottom: 0 !important;
+        padding-bottom: 160px;
+    }
+
+    .reply-company-interview {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 14px;
+        margin-right: 14px;
+        width: calc(100% - 28px);
+        border-radius: 8px !important;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 10px rgba(0,0,0,0.1);
+    }
+
+    .disable-interview-btn {
+        color: #787878 !important;
+    }
+
+    .item-tag-wrapper {
+        position: absolute;
+        right: 6px;
+        .btn-item-more {
+            top:4px;
+        }
+        
+        .btn-item-more .button {
+            font-size: 2rem;
+            color: #c8c8c8;
+            background-color: transparent;
+        }
+    }
+
+    .tabs-header {
+        border-bottom: 0.25px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .like-true-icon { color: #da565a; }
+}
+
+.editor-textarea-footer {
+    .toolbar-background {
+        background-color: #fff !important;
+        border-top: 0;
+    }
+    .toolbar {
+        padding: 0;
+        padding-bottom: 3px;
+    }
+    .textcount-toolbar {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .textarea-wrapper {
+        display: inline-flex;
+        width: calc(100% - 32px);
+        margin: 2px 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+
+        .textarea {
+            background-color: #fff;
+            border-bottom-left-radius: 8px;
+            border-top-left-radius: 8px;
+            border-bottom-right-radius: 0px;
+            border-top-right-radius: 0px;
+            padding: 8px;
+            margin: 0 !important;
+            font-size: 1.5rem;
+            max-height: 80px;
+            overflow-y: scroll !important;
+            border: 0px;
+            width: 100%;
+            min-height: 36px;
+        }
+        button {
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            background-color: #FDBA02;
+            margin:0;
+            width: 50px;
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+    }
+
+    .help-wrapper h2 {
+        font-size: 1.4rem !important;
+    }
 }

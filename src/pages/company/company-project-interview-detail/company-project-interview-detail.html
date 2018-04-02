@@ -4,15 +4,133 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>company-project-interview-detail</ion-title>
+<div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h1 class="m-b-30">어떻게 써야할지 막막하시나요?</h1>
+    <h2 class="m-b-30">아래 링크를 통해 인터뷰 방법에 대해 알아보세요!</h2>
+    <div class="buttons-wrapper m-b-30">
+      <span tappable class="interview-link-btn" (click)="openInterviewInfo()">인터뷰 방법 알아보기</span>
+    </div>
+    <div class="divider m-b-30"></div>
+    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
+    </div>
+    <div class="hide-help-btn" (click)="help()">닫기</div>
+  </div>
+</div>
+<ion-header class="editor-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        {{nickname}}
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content class="interview-ion-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content>
+      </ion-refresher-content>
+  </ion-refresher>
+  <div class="empty-content" *ngIf="totalInterviewNum == 0">
+    <span class="dark-text">아직 인터뷰를 진행하지 않았습니다.</span>
+    <span tappable (click)="openCompanyProjectInterviewWritingEditorPage()" class="feed100-text empty-button">{{nickname}}와 인터뷰 하기 ></span>
+  </div>
+  <div *ngIf="totalInterviewNum != 0">
+    <div class="interview-wrapper" *ngFor="let interview of interviews; let count = index">
+      <div class="space-20"></div>
+      <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>
+      <div class="space-30"></div>
+      <!-- ========================Company============================= -->
+      <div class="right-interview-card interview-card">
+        <ion-item class="avatar-span-wrapper">
+          <h3 text-right>{{interview.project_name}}</h3>
+          <p text-right>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+        </ion-item>
+        <div class="card-content">
+          <p text-right class="interview-comment pre-line">{{interview.interview_request}}</p>
+        </div>
+        
+        <div class="reply-check-wrapper waiting-reply" *ngIf="!interview.interview_response">
+          답변 대기중 ...
+        </div>
+      </div>
+      <!-- ==========================USER=============================== -->
+      <div class="left-interview-card interview-card" *ngIf="interview.interview_response">
+        <ion-item class="avatar-span-wrapper">
+          <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="interview.avatar_image" />
+          </span>
+          <h3>
+            <span class="user-nickname-button">{{interview.nickname}}</span>
+            <span class="item-tag-wrapper">
+              <span class="btn-item-more">
+                <!-- 신고하기 수정 -->
+                <button ion-button (click)="clickLike(interview)">
+                  <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon>
+                  <ion-icon class="like-false-icon" name="ios-heart-outline" *ngIf="!interview.isLike"></ion-icon>
+                </button>
+                <button ion-button (click)="reportInterview(interview.project_id, interview.project_participant_id, null, null, interview.interview_id, null)">
+                  <ion-icon name="md-more"></ion-icon>
+                </button>
+              </span>
+            </span>
+          </h3>
+          <p>{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+        </ion-item>
+        <div class="card-content">
+          <p class="interview-comment pre-line">{{interview.interview_response}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
+<ion-footer class="editor-textarea-footer" *ngIf="totalInterviewNum != 0">
+  <ion-navbar class="textcount-toolbar">
+    <ion-buttons start>
+      <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
+        {{pointNotice(textCount(questionInterview))}}
+      </span>
+    </ion-buttons>
+    <ion-buttons end>
+      <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
+        <b>{{textCount(questionInterview)}}</b>
+      </span>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar class="keywords-toolbar">
+    <div class="keywords-chooser-wrapper" start>
+      <ion-buttons>
+        <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
+          {{keyword}}
+        </button>
+      </ion-buttons>
+    </div>
+    <ion-buttons end>
+      <span class="white-right-to-left-gradient-wrapper overlay-tags-wrapper"></span>
+      <button class="help-btn" ion-button (click)="help()" icon-only>
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-navbar hideBackButton="true">
+    <div class="textarea-wrapper">
+      <!-- <ion-item>  -->
+        <textarea class="textarea" rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="questionInterview"></textarea>
+        <button [disabled]="minTextLength > (questionInterview | textcount) || maxTextLength < (questionInterview | textcount)" (click)="sendInterview()">
+          <ion-icon name="md-send"></ion-icon>
+        </button>    
+    </div>
+  </ion-navbar>
+</ion-footer>

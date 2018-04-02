@@ -4,15 +4,100 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project-reward-form</ion-title>
+<ion-header class="editor-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>              
+      </button>
+    </ion-buttons>
+    <ion-title>
+      보상받기
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="project-reward-page-content" no-bounce>
+  <ion-slides class="reward-slides" pager="false">
+    <ion-slide>
+      <div class="reward-question">
+        이 제품이나 서비스를 동료나 친구들에게<br /><span class="color-primary">추천</span>할 의향이 얼마나 되시나요?
+      </div>
+      <!-- <rating [(ngModel)]="recommendation" max="10" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 1)"></rating> -->
+      <ion-grid class="rating-grid">
+        <ion-row>
+          <ion-col col *ngFor="let stat of recommendationStats; let i = index" (click)="clickRecommendation(stat, i)">
+            <!-- 비활성화 -->
+            <span class="unfill-stat" *ngIf="!stat">{{i+1}}</span>
+            <!-- 활성화 -->
+            <span class="fill-stat" *ngIf="stat">{{i+1}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear *ngIf="recommendationScore < 1" disabled>
+            <ion-icon color="semiDark" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="recommendationScore > 0" (click)="goNextSlide(0)">
+            <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      
+      <ion-list class="reward-list">
+        <div class="reward-item">
+          <div class="div-flex">
+            <span class="item-title">우수 참여자
+              <span class="best-badge" *ngIf="isSelect">
+                <span>선정</span>
+              </span>
+            </span>
+            <span class="item-point-box">
+              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{reportPoint}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+        </div>
+        <div class="reward-item item-underline">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">인터뷰 보상금액</span>
+            <span class="item-point-box">
+              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{interviewPoint}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+        </div>
+        <div class="reward-item item-result">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">전체 보상 금액</span>
+            <span class="item-point-box">
+              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{projectPoint}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+          <div text-right>
+            <h5 *ngIf="interviewNum > 0">{{interviewNum}}개의 인터뷰에 응답하지 않아 포인트를 받을 수 없습니다.</h5>
+          </div>
+        </div>
+        <div class="reward-item">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">획득한 경험치</span>
+            <span class="item-point-box">
+              +<span class="project-point">{{exp}}</span><span class="point-tag">exp</span>
+            </span>
+          </div>
+        </div>
+      </ion-list>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear (click)="goNextSlide(1)">
+            완료
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

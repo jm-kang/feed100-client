@@ -4,15 +4,126 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-content class="story-slide" no-bounce>
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [ngStyle]="{'-webkit-filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)','filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)'}" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+  </div>
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextSlide()">
+          <h1 class="title">프로젝트 스토리 ></h1>
+        </button>
+      </ion-buttons>
+      <h2 class="m-b-20">{{projectName}}</h2>
+      <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) != '종료'" class="project-state-wrapper">
+        <span class="project-state-icon">
+          <!-- <ion-icon name="md-calendar" item-start></ion-icon> -->
+          <img src="assets/img/calendar.png" />
+        </span>
+        <span class="project-state-content">
+          {{progressState | amLocale:'ko' | amTimeAgo | progressState}}
+        </span>
+        <span margin-left class="project-state-icon">
+          <!-- <ion-icon name="md-people" item-start></ion-icon> -->
+          <img src="assets/img/feed100-coin-single.png" />
+        </span>
+        <span class="project-state-content">
+          <b>max {{maxReward}}p</b>
+        </span>
+      </div>
+      <div *ngIf="(progressState | amLocale:'ko' | amTimeAgo | progressState) == '종료'" class="project-state-wrapper">
+        <span class="project-state-content">
+          <b class="end-text" style="color:#c8c8c8!important;">프로젝트가 종료되었습니다.</b>
+        </span>
+      </div>
+      <!-- <p class="summary" [innerHTML]="projectSummary"></p> -->
+      <!-- <h5>{{projectRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5> -->
+      <h6 class="m-t-40">* 이 콘텐츠의 저작권은 모두 FEED100이 소유하고 있습니다.</h6>
 
-  <ion-navbar>
-    <ion-title>user-project-story-horizontal</ion-title>
-  </ion-navbar>
+    </ion-slide>
 
-</ion-header>
+    <ion-slide class="story-content-slide" *ngFor="let projectStorySlide of projectStorySlides">
+      <img [src]="projectStorySlide.storyImage"/>
+      <div class="video-container" *ngIf="projectStorySlide.storyVideo">
+        <iframe width="100%" [src]="projectStorySlide.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p text-left class="story-content-slide-content">{{projectStorySlide.storyContent}}</p>
+    </ion-slide>
 
+    <ion-slide *ngIf="!isFeedback" padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 스토리 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <h2 class="story-name">{{projectName}}</h2>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <!-- <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="projectMainImage" />
+          </span> -->
+          <h3>by. {{nickname}}</h3>
+        </ion-item>
+      </div>
+      
+      <!-- <ion-buttons class="project-last-slide-buttons">
+        <button ion-button block outline *ngIf="isLink" (click)="openUserProjectLinkPage()">링크</button>
+      </ion-buttons>
+      <ion-buttons class="project-last-slide-buttons">
+        <button ion-button block outline *ngIf="isFeedback" (click)="openUserProjectStoryQuizFormPage()">피드백 작성 페이지로 이동</button>
+      </ion-buttons> -->
+    </ion-slide>
 
-<ion-content padding>
-
+    <ion-slide *ngIf="isFeedback" padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 스토리 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <h2 class="story-name"><테스트 안내></h2>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <!-- <span item-start class="avatar-image avatar-span cropper">
+            <img class="avatar-span-image" [src]="projectMainImage" />
+          </span> -->
+          <p text-center>안내에 따라 테스트를 진행해주세요.<br>테스트를 시작하지 않으면 다음으로 넘어갈 수 없습니다.</p>
+          <h3 text-center class="m-t-20 text-white">{{testInfo}}</h3> 
+        </ion-item>
+      </div>
+      
+      <ion-buttons class="project-last-slide-buttons multi-button-wrapper">
+        <button ion-button block outline *ngIf="isLink" (click)="openUserProjectLinkPage()">테스트 시작하기</button>
+        <button [ngStyle]="{'width': isLink ? '50%' : '100%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizFormPage()">피드백 작성하기 ></button>
+        <button [ngStyle]="{'width': isLink ? '50%' : '100%'}" class="m-l-15 disable-btn" ion-button block outline *ngIf="!check" disabled>피드백 작성하기 ></button>
+      </ion-buttons>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ion-footer class="story-footer">
+  <progress-bar [progress]="progressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons class="story-back-button" start>
+      <button ion-button (click)="back()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectMainImage" />
+      </span>
+      <h3>{{nickname}}</h3>
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentPageNum}} / {{totalPageNum}}</p>
+    </ion-item>
+    <ion-buttons class="bar-end-buttons" end>
+      <button ion-button>
+        <ion-icon name="ios-eye-outline" item-start></ion-icon>
+        <p>{{projectViewNum}}</p>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>

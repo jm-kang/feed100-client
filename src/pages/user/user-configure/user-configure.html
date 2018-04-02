@@ -8,10 +8,13 @@
   <ion-navbar hideBackButton="true">
     <ion-buttons start>
       <button ion-button (click)="back()" icon-only>
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>설정</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -51,7 +54,6 @@
     <ion-list-header>
       계정
     </ion-list-header>
-    <ion-item tappable (click)="openUserAccountModificationFormPage()">계정 설정</ion-item>
     <ion-item tappable (click)="openUserProfileModificationFormPage()">프로필 수정</ion-item>
     <ion-item tappable (click)="logout()">로그아웃</ion-item>
   </ion-list>

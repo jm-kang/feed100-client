@@ -4,15 +4,170 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
+<div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h1 class="m-b-10">어떻게 써야할지 막막하시나요?</h1>
+    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
+    </div>
+    <div class="hide-help-btn" (click)="help()">닫기</div>
+  </div>
+</div>
+<ion-header class="editor-header">
   <ion-navbar>
-    <ion-title>user-project-interview-form</ion-title>
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button (click)="back()" icon-only>
+        취소
+      </button>
+    </ion-buttons>
+    <ion-title *ngIf="currentSlideType() == 'satisfiedEditor' || currentSlideType() == 'unsatisfiedEditor'">질문</ion-title>
+    <ion-buttons end>
+      <button *ngIf="getSlideIndex() > 1" class="complete-button" ion-button (click)="goPrevSlide()" icon-only>
+        이전
+      </button>
+      <button *ngIf="currentSlideType() == 'firstImpressionSelect'" [disabled]="firstImpressionScore < 1" class="complete-button" ion-button (click)="goNextSlide(' ')" icon-only>
+        다음
+      </button>
+      <button *ngIf="currentSlideType() == 'satisfiedEditor'" [disabled]="minTextLength > (satisfiedContent.answerContent | textcount)" class="complete-button" ion-button (click)="goNextSlide(satisfiedContent.answerContent)" icon-only>
+        다음
+      </button>
+      <button *ngIf="currentSlideType() == 'unsatisfiedEditor'" [disabled]="minTextLength > (unsatisfiedContent.answerContent | textcount)" class="complete-button" ion-button (click)="goNextSlide(unsatisfiedContent.answerContent)" icon-only>
+        다음
+      </button>
+      <button *ngIf="currentSlideType() == 'interviewTime'" [disabled]="!interviewTimeSlide.value" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        완료
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
+<ion-content class="editor-modal" #contentRef >
+  <ion-slides pager="false">
+    <!-- 첫인상 평가 slide -->
+    <ion-slide>
+      <div class="editor-content flex-center" style="height: 100%;">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30 width100">
+          <div class="question-wrapper m-b-30">
+            <h3>첫인상 평가</h3>
+            <p>첫인상 평가는 그러하다</p>
+          </div>
+          <ion-grid class="rating-grid">
+            <ion-row>
+              <ion-col tappable col *ngFor="let stat of firstImpressionScoreNums; let i = index" (click)="clickImpression(stat, i)">
+                <!-- 비활성화 -->
+                <span class="unfill-stat" *ngIf="!stat">{{i+1}}</span>
+                <!-- 활성화 -->
+                <span class="fill-stat" *ngIf="stat">{{i+1}}</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="rating-summary m-t-5">
+            <span float-left>부정</span>
+            <span float-right>긍정</span>
+          </div>
+        </div> 
+      </div>
+    </ion-slide>
 
-<ion-content padding>
+    <!-- 만족스러운 점 slide -->
+    <ion-slide *ngIf="firstImpressionType() != 'negative'">
+      <div class="editor-content" style="height: 100%">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+          <div class="question-wrapper m-b-30">{{satisfiedContent.interviewQestion}}</div>
+          <div class="buttons-wrapper m-b-20">
+            <span tappable class="editor-open-btn" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+            <!-- <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span> -->
+          </div>
+          <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(satisfiedContent.answerContent))}">
+            <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(satisfiedContent.answerContent)) > 0">+</span> {{rewardPoint(textCount(satisfiedContent.answerContent))}}p</div>
+            <div text-center class="point-notice">{{pointNotice(textCount(satisfiedContent.answerContent))}}</div>
+          </div>
+          <div class="interview-text-count-wrapper" *ngIf="firstImpressionType() == 'neutral'">
+            <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(satisfiedContent.answerContent, 50) + '%', 'margin-left': textCount(satisfiedContent.answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(satisfiedContent.answerContent))}">{{textCount(satisfiedContent.answerContent)}}</div>
+            <div class="progress-outer">
+              <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(satisfiedContent.answerContent))}" [style.width]="textCountPercent(satisfiedContent.answerContent, 50) + '%'"></div>
+            </div>
+          </div>
+          <div class="interview-text-count-wrapper" *ngIf="firstImpressionType() == 'positive'">
+            <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(satisfiedContent.answerContent, 100) + '%', 'margin-left': textCount(satisfiedContent.answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(satisfiedContent.answerContent))}">{{textCount(satisfiedContent.answerContent)}}</div>
+            <div class="progress-outer">
+              <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(satisfiedContent.answerContent))}" [style.width]="textCountPercent(satisfiedContent.answerContent,100) + '%'"></div>
+            </div>
+          </div>
+        </div> 
+        <textarea #input class="m-t-0 h-30" [(ngModel)]="satisfiedContent.answerContent" [placeholder]="contentPlaceholder"></textarea>
+      </div>
+    </ion-slide>
 
+    <!-- 아쉬운 점 slide -->
+    <ion-slide *ngIf="firstImpressionType() != 'positive'">
+      <div class="editor-content" style="height: 100%">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+          <div class="question-wrapper m-b-30">{{unsatisfiedContent.interviewQestion}}</div>
+          <div class="buttons-wrapper m-b-20">
+            <span tappable class="editor-open-btn" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+            <!-- <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span> -->
+          </div>
+          <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(unsatisfiedContent.answerContent))}">
+            <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(unsatisfiedContent.answerContent)) > 0">+</span> {{rewardPoint(textCount(unsatisfiedContent.answerContent))}}p</div>
+            <div text-center class="point-notice">{{pointNotice(textCount(unsatisfiedContent.answerContent))}}</div>
+          </div>
+          <div class="interview-text-count-wrapper" *ngIf="firstImpressionType() == 'neutral'">
+            <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(unsatisfiedContent.answerContent, 50) + '%', 'margin-left': textCount(unsatisfiedContent.answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(unsatisfiedContent.answerContent))}">{{textCount(unsatisfiedContent.answerContent)}}</div>
+            <div class="progress-outer">
+              <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(unsatisfiedContent.answerContent))}" [style.width]="textCountPercent(unsatisfiedContent.answerContent, 50) + '%'"></div>
+            </div>
+          </div>
+          <div class="interview-text-count-wrapper" *ngIf="firstImpressionType() == 'negative'">
+            <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(unsatisfiedContent.answerContent, 100) + '%', 'margin-left': textCount(unsatisfiedContent.answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(unsatisfiedContent.answerContent))}">{{textCount(unsatisfiedContent.answerContent)}}</div>
+            <div class="progress-outer">
+              <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(unsatisfiedContent.answerContent))}" [style.width]="textCountPercent(unsatisfiedContent.answerContent,100) + '%'"></div>
+            </div>
+          </div>
+        </div> 
+        <textarea #input class="m-t-0 h-30" [(ngModel)]="unsatisfiedContent.answerContent" [placeholder]="contentPlaceholder"></textarea>
+      </div>
+    </ion-slide>
+
+    <!-- 인터뷰 시간 -->
+    <ion-slide>
+      <div class="editor-content" style="height: 100%">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+          <div class="question-wrapper m-b-30">
+            <h3>인터뷰 시간 선택</h3>
+            <p>인터뷰 시간을 선택하는 이유는 그러하다</p>
+          </div>
+          <div class="participation-condition-options-wrapper over-options">
+            <ion-list radio-group [(ngModel)]="interviewTimeSlide.value">
+              
+              <ion-item col-6 text-center *ngFor="let option of interviewTimeSlide.options">
+                <ion-label color="primary">{{option.option}}</ion-label>
+                <ion-radio [value]="option.option"></ion-radio>
+              </ion-item>
+              
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<ion-footer *ngIf="currentSlideType() == 'satisfiedEditor' || currentSlideType() == 'unsatisfiedEditor'">
+  <ion-toolbar class="keywords-toolbar">
+    <div class="keywords-chooser-wrapper" start>
+      <ion-buttons>
+        <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
+          {{keyword}}
+        </button>
+      </ion-buttons>
+    </div>
+    <ion-buttons end>
+      <span class="white-right-to-left-gradient-wrapper overlay-tags-wrapper"></span>
+      <button class="help-btn" ion-button (click)="help()" icon-only>
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

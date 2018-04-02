@@ -4,15 +4,49 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-project-interview-detail</ion-title>
+<ion-header class="modal-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()" icon-only>
+        <ion-icon name="ios-close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        {{projectName | slicetext:15}}
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="interview-detail-page-content outer-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="interview-detail-page-wrapper">
+    <div class="timeline-line"></div>
+    <div class="timeline-content">
+      <div class="interview-timeline-wrapper m-b-30" *ngFor="let interview of interviews; let count = index">
+        <span class="interview-timeline-count">{{count + 1}}</span>
+        <span class="interview-timeline-wrapper">
+          <div class="interview-timeline-box">
+            <div class="box-detail">
+              <span class="registration-date-wrapper">{{interview.interviewRegistrationDate | amDateFormat: 'YYYY-MM-DD'}}</span>
+              <span class="like-wrapper"><ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon><ion-icon name="ios-heart-outline" class="like-false-icon" *ngIf="!interview.isLike"></ion-icon></span>
+            </div>
+            <div class="question-wrapper"><span>Q : </span>{{interview.question}}</div>
+            <div class="answer-wrapper">
+                <span>A : </span>{{interview.answer}}
+            </div>
+            <div class="box-detail">
+              <span class="reward-wrapper"><img src="./../../assets/img/feed100-coin.png" alt="">+ {{interview.interviewReward}}p</span>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -5,14 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>company-notification</ion-title>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="back()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>알림</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="notification-page-content">
+  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
+      <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>          
+  <div class="empty-content" *ngIf="notifications.length == 0">
+    <span class="grey-text">아직 진행 중인 프로젝트 인터뷰가 없습니다.</span>
+  </div>
+  <ion-list class="m-t-5" *ngIf="notifications.length != 0">
+    <ion-item tappable class="interview-item avatar-span-wrapper item-flex" *ngFor="let notification of notifications" (click)="accessAlarmItem(notification.notification_link, notification.project_id, notification.notification_id)">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="notification.notification_image" />
+      </span>
+      <h2><span class="notification-tag">[{{notification.notification_tag}}]</span> {{notification.notification_name}}</h2>
+      <p [innerHTML]="notification.notification_content"></p>
+      <div item-end class="interview-item-end">
+        <div class="badge-wrapper">
+          <div class="badge-new-dot" *ngIf="!notification.is_read">N</div>
+          <div class="blank-badge-new-dot" *ngIf="notification.is_read">0</div>
+        </div>
+        <ion-note class="notification-date" [innerHTML]="notification.notification_registration_date | amLocale:'ko' | amTimeAgo"></ion-note>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -4,15 +4,254 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-profile-modification-form</ion-title>
+<ion-header class="profile-modification-form-header">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="back-and-close-button" *ngIf="!isFirstSlide" ion-button (click)="goPrevButton()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>              
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button class="back-and-close-button" ion-button (click)="skip()" icon-only>
+        Skip
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
+<ion-content class="profile-modification-form-content" no-bounce>
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+    <!-- ========================성별============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              1
+            </span>
+          </ion-col>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        당신의 성별은 무엇입니까?
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      <ion-list class="radio-group" radio-group [(ngModel)]="values[0]" (ionChange)="changeRadio(values[0])">
+        <ion-item>
+          <ion-label text-center>
+            <span class="radio-box">
+              <div>
+                <div><ion-icon name="ios-male-outline"></ion-icon></div>
+                <div>남자</div>
+              </div>
+            </span>
+          </ion-label>
+          <ion-radio value="남자"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-center>
+            <span class="radio-box">
+              <div>
+                <div><ion-icon name="ios-female-outline"></ion-icon></div>
+                <div>여자</div>
+              </div>
+            </span>
+          </ion-label>
+          <ion-radio value="여자"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
 
+    <!-- ========================나이============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              2
+            </span>
+          </ion-col>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        당신의 나이는 몇 살인가요?
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      
+      <ion-select class="age-select-group" (ionChange)="changeRadio(values[1])" [(ngModel)]="values[1]" placeholder="선택" [selectOptions]="selectOptions[0]" okText="완료" cancelText="취소">
+        <ion-option *ngFor="let age of ages" [value]="age">{{age}}</ion-option>
+      </ion-select>
+    </ion-slide>
 
-<ion-content padding>
+    <!-- ========================직업============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              3
+            </span>
+          </ion-col>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        무슨 일을 하시나요?
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      
+      <ion-select (ionChange)="changeRadio(values[2])" [(ngModel)]="values[2]" placeholder="선택" [selectOptions]="selectOptions[1]" okText="완료" cancelText="취소">
+        <ion-option *ngFor="let job of jobs" [value]="job">{{job}}</ion-option>
+      </ion-select>
+    </ion-slide>
 
+    <!-- ========================지역============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              4
+            </span>
+          </ion-col>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        어디에 사시나요?
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      
+      <ion-select (ionChange)="changeRadio(values[3])" [(ngModel)]="values[3]" placeholder="시 / 도" [selectOptions]="selectOptions[2]" okText="완료" cancelText="취소">
+        <ion-option *ngFor="let region of regions" [value]="region">{{region}}</ion-option>
+      </ion-select>
+    </ion-slide>
+
+    <!-- ========================결혼여부============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              5
+            </span>
+          </ion-col>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        결혼은 하셨나요?
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      <ion-list class="radio-group" radio-group [(ngModel)]="values[4]" (ionChange)="changeRadio(values[4])">
+        <ion-item>
+          <ion-label text-center>
+            <span class="radio-box">
+              <div>
+                <div><ion-icon name="ios-radio-button-off-outline"></ion-icon></div>
+                <div>미혼</div>
+              </div>
+            </span>
+          </ion-label>
+          <ion-radio value="미혼"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label text-center>
+            <span class="radio-box">
+              <div>
+                <div class="marriage-icon"><ion-icon name="ios-radio-button-off-outline"></ion-icon><ion-icon name="ios-radio-button-off-outline"></ion-icon></div>
+                <div>기혼</div>
+              </div>
+            </span>
+          </ion-label>
+          <ion-radio value="기혼"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+
+    <!-- ========================관심분야============================== -->
+    <ion-slide>
+      <ion-grid class="profile-slide-num-grid">
+        <ion-row>
+          <ion-col>
+            <div class="slide-num-border"></div>
+          </ion-col>
+          <ion-col>
+            <span class="slide-num">
+              6
+            </span>
+          </ion-col>
+          <ion-col>
+            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="profile-question">
+        관심분야를 알려주세요!
+      </div>
+      <div class="profile-question-summary">
+        회원님에게 보다 가치 있는 정보를 제공하도록 노력하겠습니다.
+      </div>
+      <div class="space-40"></div>
+      <ion-list class="interests-list">
+        <ion-grid>
+          <ion-row>
+            <ion-item col-6 *ngFor="let interest of interests">
+              <ion-label>{{interest}}</ion-label>
+              <ion-checkbox (ionChange)="changeCheckbox(interest)"></ion-checkbox>
+            </ion-item>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+<ion-footer class="profile-modification-form-footer">
+  
+  <button *ngIf="totalSlideNum > currentSlideNum" [ngStyle]="{'background-color': isWrited ? '#ff6400' : '#b9b9b9'}" [disabled]="!isWrited" class="go-next-slide-button" ion-button (click)="goNextButton()">다음</button>
+  <button *ngIf="totalSlideNum == currentSlideNum" [ngStyle]="{'background-color': isWrited ? '#ff6400' : '#b9b9b9'}" [disabled]="!isWrited" class="go-next-slide-button" ion-button (click)="modifyProfile()">완료</button>
+  <div class="pager-fraction">
+    {{currentSlideNum}} / {{totalSlideNum}}
+  </div>
+</ion-footer>

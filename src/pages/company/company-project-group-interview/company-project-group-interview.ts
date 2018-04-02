@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { CompanyServiceProvider } from './../../../providers/company-service/company-service';
 
 /**
  * Generated class for the CompanyProjectGroupInterviewPage page.
@@ -14,12 +16,206 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'company-project-group-interview.html',
 })
 export class CompanyProjectGroupInterviewPage {
+  interviews = [
+    {
+      project_participant_id: 1,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "우리형",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 2,
+      avatar_image: "./../../assets/img/user-avatar-image-man2.png",
+      nickname: "asda",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 3,
+      avatar_image: "./../../assets/img/user-avatar-image-man3.png",
+      nickname: "sdfsdf",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 4,
+      avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
+      nickname: "xcvxzcv",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 5,
+      avatar_image: "./../../assets/img/user-avatar-image-woman2.png",
+      nickname: "asdasd",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 6,
+      avatar_image: "./../../assets/img/user-avatar-image-woman3.png",
+      nickname: "sdafasdf",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 7,
+      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+      nickname: "zxcsdv",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 8,
+      avatar_image: "./../../assets/img/user-avatar-image-man2.png",
+      nickname: "klaasdas",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 9,
+      avatar_image: "./../../assets/img/user-avatar-image-man3.png",
+      nickname: "zxc",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+    {
+      project_participant_id: 10,
+      avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
+      nickname: "asd",
+      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+      score: 7.5,
+      age: '20대',
+      gender: '남자',
+      interview_answer_registration_date: "2018-03-20 00:00:00",
+      interview_num: 2,
+      isCheck: false,
+    },
+  ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  group = [];
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public commonService: CommonServiceProvider,
+    public companyService: CompanyServiceProvider,) {
+  }
+  doRefresh(refresher) {
+    this.commonService.isLoadingActive = true;
+    this.ionViewWillEnter();
+    refresher.complete();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectGroupInterviewPage');
   }
 
+  ionViewWillEnter(){
+    console.log('ionViewWillEnter CompanyProjectGroupInterviewPage');
+    this.uncheckAll();
+  }
+
+  back() {
+    this.navCtrl.pop();
+  }
+
+  check(i) {
+    if (this.interviews[i].isCheck) {
+      this.interviews[i].isCheck = false;
+      let index = this.group.indexOf(this.interviews[i]);
+      this.group.splice(index, 1);
+    } else {
+      this.interviews[i].isCheck = true;
+      this.group.unshift(this.interviews[i]);
+    }
+  }
+
+  inactive(user) {
+    let group_index = this.group.indexOf(user);
+    let interview_index = this.interviews.indexOf(user);
+    this.interviews[interview_index].isCheck = false;
+    this.group.splice(group_index, 1);
+  }
+
+  openCompanyProjectGroupInterviewQuestionEditorPage() {
+    let companyProjectGroupInterviewQuestionEditorModal = this.modalCtrl.create('ModalWrapperPage', {
+      page: 'CompanyProjectGroupInterviewQuestionEditorPage',
+      params: {
+        group: this.group
+      }
+    });
+    companyProjectGroupInterviewQuestionEditorModal.present();
+    companyProjectGroupInterviewQuestionEditorModal.onWillDismiss(
+      (data) => {
+        if(data) {
+          this.group = data.group;
+          for(let user of this.group) {
+            let index = this.interviews.indexOf(user);
+            this.interviews[index].isCheck = true;
+          }
+        }
+    });
+  }
+
+  checkAll() {
+    this.group = this.interviews;
+    for(let interview of this.interviews) {
+      interview.isCheck = true;
+    }
+  }
+
+  uncheckAll() {
+    this.group = [];
+    for(let interview of this.interviews) {
+      interview.isCheck = false;
+    }
+  }
 }

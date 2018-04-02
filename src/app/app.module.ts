@@ -71,6 +71,7 @@ import { UserConfigurePageModule } from '../pages/user/user-configure/user-confi
 import { UserTutorialPageModule } from '../pages/user/user-tutorial/user-tutorial.module';
 import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
   import { UserProjectPageModule } from '../pages/user/user-project/user-project.module';
+    import { UserAllProjectListPageModule } from '../pages/user/user-all-project-list/user-all-project-list.module'
   import { UserProjectInterviewFormPageModule } from '../pages/user/user-project-interview-form/user-project-interview-form.module';
     import { UserProjectStoryHorizontalPageModule } from '../pages/user/user-project-story-horizontal/user-project-story-horizontal.module';
     import { UserProjectParticipationConditionFormPageModule } from '../pages/user/user-project-participation-condition-form/user-project-participation-condition-form.module';
@@ -256,6 +257,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     UserTutorialPageModule,
     UserTabsPageModule,
       UserProjectPageModule,
+        UserAllProjectListPageModule,
       UserProjectInterviewFormPageModule,
         UserProjectStoryHorizontalPageModule,
         UserProjectParticipationConditionFormPageModule,

@@ -7,4 +7,8 @@ page-user-configure {
     .content-ios {
         background-color: #f9f9f9 !important;
     }
+    ion-navbar ion-buttons[start] {
+        order: 1;
+    }
+
 }

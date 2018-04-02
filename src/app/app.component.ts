@@ -1,4 +1,3 @@
-import { UserConfigurePage } from './../pages/user/user-configure/user-configure';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,7 +18,6 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  // rootPage:any = LoginPage;
   rootPage:any = LoginPage;
 
   constructor(

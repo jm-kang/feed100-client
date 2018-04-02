@@ -4,15 +4,72 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
+<div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h1 class="m-b-10">어떻게 써야할지 막막하시나요?</h1>
+    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
+    </div>
+    <div class="hide-help-btn" (click)="help()">닫기</div>
+  </div>
+</div>
+<ion-header class="editor-header">
   <ion-navbar>
-    <ion-title>user-project-interview-answer</ion-title>
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button (click)="dismiss()" icon-only>
+        취소
+      </button>
+    </ion-buttons>
+    <ion-title>질문</ion-title>
+    <ion-buttons end>
+      <button [disabled]="minTextLength > (answerContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        완료
+      </button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="editor-modal" #contentRef >
+  <div class="editor-content" style="height: 100%">
+    <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+      <div class="question-wrapper m-b-30">{{interviewQestion}}</div>
+      <div class="buttons-wrapper m-b-20">
+        <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+        <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span>
+      </div>
+      <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
+        <div *ngIf="!is_max" text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(answerContent)) > 0">+</span> {{rewardPoint(textCount(answerContent))}}p</div>
+        <div *ngIf="is_max" text-center class="reward-point max m-b-10">더 많은 활동을 통해 선정되어보세요!</div>
+        <div text-center class="point-notice">{{pointNotice(textCount(answerContent))}}</div>
+      </div>
+      <div class="interview-text-count-wrapper">
+        <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(answerContent) + '%', 'margin-left': textCount(answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(answerContent))}">{{textCount(answerContent)}}</div>
+        <div class="progress-outer">
+          <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(answerContent))}" [style.width]="textCountPercent(answerContent) + '%'">
+              <!-- {{progress}}% -->
+          </div>
+        </div>
+      </div>
+    </div> 
+    <textarea #input class="m-t-0 h-30" [(ngModel)]="answerContent" [placeholder]="contentPlaceholder"></textarea>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar class="keywords-toolbar">
+    <div class="keywords-chooser-wrapper" start>
+      <ion-buttons>
+        <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
+          {{keyword}}
+        </button>
+      </ion-buttons>
+    </div>
+    <ion-buttons end>
+      <span class="white-right-to-left-gradient-wrapper overlay-tags-wrapper"></span>
+      <button class="help-btn" ion-button (click)="help()" icon-only>
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

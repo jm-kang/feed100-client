@@ -1,3 +1,70 @@
 page-company-project-story-horizontal {
+    ion-buttons[start] {
+        order: 1;
+    }
 
+    .progress-inner {
+        background-color: #FE6B01;
+    }
+
+    .project-last-slide-wrapper {
+        margin-bottom: 32px;
+        h3 {
+            font-size: 1.5rem;
+            color: #c8c8c8;
+            line-height: 1.6;
+        }
+        p {
+            font-size: 1.3rem;
+            color: #aaa;
+        }
+    }
+
+    .project-last-slide-wrapper .story-name {
+        width: 90%;
+        font-size: 2rem;
+        color: #fff;
+        margin: 0 auto;
+        font-weight: bold;
+        line-height: 1.6
+    }
+
+    .slide-title-wrapper.last-slide-title-wrapper {
+        position: absolute;
+        left: 0;
+    }
+
+    .project-last-slide-buttons {
+        margin-top:10px;
+    }
+
+    .project-last-slide-buttons.multi-button-wrapper {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        width: 100%;
+        margin: 0;
+        margin-left: -16px;
+        padding: 16px;
+        .disable-btn {
+            border-color: #aaa;
+            color: #aaa;
+        }
+    }
+
+    .project-last-slide-buttons button {
+        font-size: 1.2rem;
+        height: 3em;
+        font-weight: bold;
+        width: 50%;
+        margin: 0;
+    }
+
+    .story-name {
+        font-size: 2.7rem;
+    }
+
+    .item-block .item-inner {
+        border-bottom : 0 !important;
+    }
 }

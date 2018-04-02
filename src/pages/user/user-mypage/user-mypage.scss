@@ -1,3 +1,159 @@
 page-user-mypage {
+    .header {
+        border-bottom : 1px solid #e7e7e7;
+    }
 
+    .mypage-content {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mypage-inner-content {
+        width: calc(100% - 56px);
+    }
+
+    .mypage-profile-wrapper .avatar-span{
+        min-width: 80px;
+        min-height: 80px;
+    }
+
+    .mypage-profile-wrapper .avatar-span .avatar-span-image {
+        width: 80px;
+        height: 80px;
+        border: 1px solid #e7e7e7;
+    }
+
+    .mypage-profile-wrapper {
+        -webkit-box-align: inherit;
+        -webkit-align-items: inherit;
+        -ms-flex-align: inherit;
+        align-items: inherit;
+        width: 100%;
+    }
+
+    .mypage-profile-wrapper .label {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .mypage-profile-wrapper .item-inner {
+        border-bottom: 0 !important;
+    }
+
+    .exp-wrapper {
+        display: inline-block;
+        width: 100%;
+    }
+
+    .exp-wrapper span{
+        font-size: 1rem;
+        color: #aaa;
+    }
+
+    .profile-modification-button {
+        color: #FE6B01;
+        border-color: #FE6B01;
+        border-radius: 5px;
+        font-size: 1.1rem !important;
+        height: 30px !important;
+    }
+
+    .profile-modification-button.activated {
+        color: #fff;
+        border-color: #FE6B01;
+        background-color: #FE6B01;
+    }
+
+    .account-modification-button {
+        color: #FE6B01;
+        position: absolute;
+        padding: 0 1em !important;
+        margin: 0;
+        height: auto !important;
+    }
+
+    .account-modification-button.activated {
+        color: #FE6B01;
+    }
+
+    .mypage-profile-wrapper p{
+        font-size: 0.9rem;
+        color: #727272;
+    }
+
+    .mypage-profile-wrapper h4{
+        font-size: 1.6rem;
+        color: #383838;
+        margin-top: 0;
+        font-weight: bold;
+    }
+
+    .mypage-profile-wrapper h5{
+        font-size: 1.2rem;
+        color: #ff6700;
+        margin-top: 0;
+        font-weight: 500;
+    }
+
+    .mypage-profile-wrapper h6{
+        font-size: 1rem;
+        color: #787878;
+        margin-top: 0;
+        font-weight: normal;
+    }
+
+    .profile-modification-btn {
+        font-size: 1.1rem;
+        display: inline-block;
+        color: #787878;
+        background-color: #e7e7e7;
+        border-radius: 100px;
+        padding: 4px 16px;
+        font-weight: bold;
+    }
+
+    .mypage-point-wrapper {
+        .buttons-wrapper {
+            .point-history-btn {
+                font-size: 1.2rem;
+                display: inline-block;
+                color: #fff;
+                background-color: #F8BA00;
+                border-radius: 100px;
+                padding: 4px 16px;
+                font-weight: bold;
+                box-shadow: 0px 3px 8px 1px rgba(0,0,0,0.1);
+            }
+            .point-exchange-btn {
+                font-size: 1.2rem;
+                display: inline-block;
+                color: #fff;
+                background-color: #ff6700;
+                border-radius: 100px;
+                padding: 4px 16px;
+                font-weight: bold;
+                box-shadow: 0px 3px 8px 1px rgba(0,0,0,0.1);
+            }
+        }
+
+        .point-wrapper {
+            display: inline-block;
+            .point-summary {
+                font-size: 1rem;
+                color: #ff6700;
+                font-weight: blod;
+            }
+            .point-content {
+                font-size: 6rem;
+                font-weight: 100;
+                color: #ff6700;
+                .p-tag {
+                    font-size: 3rem;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
 }
