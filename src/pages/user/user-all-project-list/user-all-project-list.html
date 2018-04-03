@@ -11,7 +11,7 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>All</ion-title>
+    <ion-title>모든 프로젝트</ion-title>
     <ion-buttons end>
       <button ion-button icon-only></button>
     </ion-buttons>
@@ -29,24 +29,24 @@
     <span class="grey-text">등록된 프로젝트가 없습니다.</span>
   </div>
   <section class="recommended-section m-b-30 m-t-20" *ngIf = "allProjects.length">
-    <div class="home-group-title p-r-28 p-l-28">
+    <!-- <div class="home-group-title p-r-28 p-l-28">
       모든 프로젝트
       <p>보상받기를 눌러 보상을 받아보세요.</p>
-    </div>
-    <div class="p-r-23 p-l-23">
+    </div> -->
+    <div class="p-r-16 p-l-16">
       <div tappable class="vertical-project-card-wrapper" *ngFor="let allProject of allProjects">
         <div class="vertical-project-card" (click)="accessProjectCard(allProject.project_id)">
           <span class="left-span">
             <div class="project-card-main-image-wrapper cropper">
               <img [src]="allProject.project_main_image" />  
             </div>
-            <div class="project-card-overlay-wrapper">
+            <!-- <div class="project-card-overlay-wrapper">
               <span class="project-card-overlay">
                 <span class="project-card-overlay-item p-card-tag">max {{allProject.max_reward}}p</span>
               </span>
-            </div>
+            </div> -->
           </span>
-          <span class="right-span">
+          <span class="right-span height100">
             <div text-left class="card-content">
               <span class="project-card-summary-wrapper">
                 <p class="project-card-summary">{{allProject.project_name}}</p>

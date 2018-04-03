@@ -7,7 +7,7 @@
 <div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
   <div class="help-wrapper p-l-28 p-r-28" text-center>
     <h1 class="m-b-10">어떻게 써야할지 막막하시나요?</h1>
-    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <h2 class="m-b-30">여러분의 이야기를 들려주세요!</h2>
     <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
       <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
     </div>
@@ -21,7 +21,7 @@
         취소
       </button>
     </ion-buttons>
-    <ion-title>질문</ion-title>
+    <ion-title>인터뷰 질문</ion-title>
     <ion-buttons end>
       <button [disabled]="minTextLength > (answerContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
         완료
@@ -36,7 +36,7 @@
       <div class="question-wrapper m-b-30">{{interviewQestion}}</div>
       <div class="buttons-wrapper m-b-20">
         <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
-        <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span>
+        <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 인터뷰 보기</span>
       </div>
       <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
         <div *ngIf="!is_max" text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(answerContent)) > 0">+</span> {{rewardPoint(textCount(answerContent))}}p</div>

@@ -24,25 +24,21 @@ export class UserAllProjectListPage {
       project_id: 1,
       project_main_image:"./../../assets/img/feed100-intro-slide4.png",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
-      max_reward: 5500,
     },
     {
       project_id: 1,
       project_main_image:"./../../assets/img/feed100-intro-slide4.png",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
-      max_reward: 5500,
     },
     {
       project_id: 1,
       project_main_image:"./../../assets/img/feed100-intro-slide4.png",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
-      max_reward: 5500,
     },
     {
       project_id: 1,
       project_main_image:"./../../assets/img/feed100-intro-slide4.png",
       project_name: "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십",
-      max_reward: 5500,
     },
   ];
 
@@ -104,20 +100,7 @@ export class UserAllProjectListPage {
     this.userService.accessProjectCard(this, project_id);
   }
 
-  openUserProjectPage() {
-    this.navCtrl.parent.select(1);
-  }
-
-  openProjectPage() {
-    this.navCtrl.parent.select(1);
-  }
-
   openUserConfigurePage() {
     this.navCtrl.push('UserConfigurePage');
   }
-
-  openUserAllProjectList() {
-    this.navCtrl.push("UserAllProjectListPage");
-  }
-
 }

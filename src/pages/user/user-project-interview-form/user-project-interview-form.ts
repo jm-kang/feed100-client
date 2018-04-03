@@ -28,7 +28,7 @@ export class UserProjectInterviewFormPage {
   totalReward: number;
   textcount: number;
 
-  contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
+  contentPlaceholder: string = '이 부분을 눌러 인터뷰 질문에 답변해 주세요.';
   minTextLength: number = 20;
   isHelpHide: boolean;
 
@@ -39,12 +39,12 @@ export class UserProjectInterviewFormPage {
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   satisfiedContent = {
-    interviewQestion: "뭐가 만족스러웠나요?",
+    interviewQestion: "서비스를 경험했을 때 어떤 부분이 가장 매력적이셨나요? 가장 만족스러웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
   unsatisfiedContent = {
-    interviewQestion: "뭐가 아쉬웠나요?",
+    interviewQestion: "서비스를 경험했을 때 불편사항이나 개선사항이 있던가요? 아쉬웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
@@ -161,7 +161,7 @@ export class UserProjectInterviewFormPage {
     if(this.firstImpressionType() == "negative" || this.firstImpressionType() == "positive") {
       if(count < 20) {return "20자 이상을 입력해주세요!" }
       else if(count < 40) { return "더 많은 포인트를 향하여!" }
-      else if(count < 60) { return "좋아요! 자하고 있어요!" }
+      else if(count < 60) { return "좋아요! 잘하고 있어요!" }
       else if(count < 80) { return "필력이 대단하네요!"}
       else if(count < 100) { return "당신의 정성에 감동했어요!" }
       else { return "훌륭해요! 더 이상 바랄게 없어요." }
@@ -169,7 +169,7 @@ export class UserProjectInterviewFormPage {
     if(this.firstImpressionType() == "neutral") {
       if(count < 20) {return "20자 이상을 입력해주세요!" }
       else if(count < 30) { return "더 많은 포인트를 향하여!" }
-      else if(count < 40) { return "좋아요! 자하고 있어요!" }
+      else if(count < 40) { return "좋아요! 잘하고 있어요!" }
       else if(count < 50) { return "필력이 대단하네요!"}
       else if(count < 100) { return "당신의 정성에 감동했어요!" }
       else { return "훌륭해요! 더 이상 바랄게 없어요." } 

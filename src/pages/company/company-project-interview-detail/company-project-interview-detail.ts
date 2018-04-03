@@ -30,7 +30,7 @@ export class CompanyProjectInterviewDetailPage {
 
   questionInterview: string = "";
   projectKeywords = ["버튼위치","어려움","파일업로드","버튼위치","어려움","파일업로드"];
-  helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
+  helpReferances = ["~에 대하여 어떻게 생각하시나요?", "~에 대하여 자세히 말씀해주세요.", "~했던 경험에 대하여 말씀해주세요.", "왜 그렇게 생각하셨나요?"]
 
   interviews = [
     {
@@ -268,8 +268,8 @@ export class CompanyProjectInterviewDetailPage {
 
   pointNotice(count) {
     if(count < 20) {return "20자 이상을 입력해주세요!" }
-    else if(count <= 100) { return "완료버튼을 눌러 인터뷰를 보내보세요!" }
-    else { return "100자 이하로 입력해주세요!" } 
+    else if(count <= 100) { return "질문이 어렵다면 ?를 눌러보세요!" }
+    else { return "과유불급! 너무 길면 부답을 느껴요!" } 
   }
 
   insertKeyword(keyword) {
@@ -296,6 +296,6 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   openInterviewInfo() {
-    cordova.ThemeableBrowser.open('https://m.blog.naver.com/feed100_help/221233375208', '_system');
+    cordova.ThemeableBrowser.open('https://m.blog.naver.com/feed100_help/221235914864', '_system');
   }
 }

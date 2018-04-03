@@ -7,7 +7,7 @@
 <div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
   <div class="help-wrapper p-l-28 p-r-28" text-center>
     <h1 class="m-b-10">어떻게 써야할지 막막하시나요?</h1>
-    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <h2 class="m-b-30">여러분의 이야기를 들려주세요!</h2>
     <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
       <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
     </div>
@@ -21,7 +21,7 @@
         취소
       </button>
     </ion-buttons>
-    <ion-title *ngIf="currentSlideType() == 'satisfiedEditor' || currentSlideType() == 'unsatisfiedEditor'">질문</ion-title>
+    <ion-title *ngIf="currentSlideType() == 'satisfiedEditor' || currentSlideType() == 'unsatisfiedEditor'">인터뷰 질문</ion-title>
     <ion-buttons end>
       <button *ngIf="getSlideIndex() > 1" class="complete-button" ion-button (click)="goPrevSlide()" icon-only>
         이전
@@ -50,7 +50,7 @@
         <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30 width100">
           <div class="question-wrapper m-b-30">
             <h3>첫인상 평가</h3>
-            <p>첫인상 평가는 그러하다</p>
+            <p>이 프로젝트를 경험해 본 첫 인상은 어떠셨나요?<br>점수로 나타낸다면 몇 점을 주고 싶으세요?</p>
           </div>
           <ion-grid class="rating-grid">
             <ion-row>
@@ -135,8 +135,8 @@
       <div class="editor-content" style="height: 100%">
         <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
           <div class="question-wrapper m-b-30">
-            <h3>인터뷰 시간 선택</h3>
-            <p>인터뷰 시간을 선택하는 이유는 그러하다</p>
+            <h3>인터뷰 선호 시간 선택</h3>
+            <p>인터뷰 선호 시간이란?<br>하루 중 인터뷰 요청에 따른 응답에 대하여<br>선호하는 시간을 말합니다.</p>
           </div>
           <div class="participation-condition-options-wrapper over-options">
             <ion-list radio-group [(ngModel)]="interviewTimeSlide.value">

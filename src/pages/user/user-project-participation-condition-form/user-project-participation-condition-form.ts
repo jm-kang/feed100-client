@@ -25,7 +25,7 @@ export class UserProjectParticipationConditionFormPage {
   // 프로젝트 안내 동의 체크
   isCheck: boolean = false;
   // 프로젝트 안내 문구
-  project_notice: string = "asd";
+  project_notice: string = "";
   
   scrollVert:   number = 0 ;
   lastScrollV:  number = 0 ;

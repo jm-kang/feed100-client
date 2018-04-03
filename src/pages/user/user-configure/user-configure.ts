@@ -82,14 +82,6 @@ export class UserConfigurePage {
     this.navCtrl.pop();
   }
 
-  openUserPointExchangePage() {
-    this.navCtrl.push('UserPointExchangePage');
-  }
-
-  openUserPointUsageHistoryPage() {
-    this.navCtrl.push('UserPointUsageHistoryPage');
-  }
-
   openAppIntroPage() {
     let appIntroModal = this.modalCtrl.create('ModalWrapperPage', {page: 'AppIntroPage'});
     appIntroModal.present();

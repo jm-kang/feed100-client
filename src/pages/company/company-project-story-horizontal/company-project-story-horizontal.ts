@@ -26,8 +26,6 @@ export class CompanyProjectStoryHorizontalPage {
 
   isFirstSlide: boolean = true;
   // 프로젝트에 테스트할 링크가 있는지
-  isLink: boolean = true;
-
   projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
   nickname: string = "포텐브라더스";
   projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
@@ -39,8 +37,6 @@ export class CompanyProjectStoryHorizontalPage {
   projectSummary: string = "";
   projectRegistrationDate: string = "";
   project_link;
-  // 프로젝트 테스트
-  testInfo: string="asdasdas";
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
@@ -151,10 +147,6 @@ export class CompanyProjectStoryHorizontalPage {
     for(let i = 0; i < differencePageNum; i++) {
       this.slides.slidePrev(200);
     }
-  }
-
-  openCompanyProjectLinkPage() {
-    cordova.ThemeableBrowser.open(this.project_link, '_system');
   }
 
 }
