@@ -20,14 +20,14 @@ export class AppIntroPage {
   slideIndex = 0;
   slides = [
     {
-      title: '잘 쓴 피드백 하나<br>열 설문조사 안 부럽다!',
+      title: '잘 쓴 FEED100 하나<br>열 설문조사 안 부럽다!',
       imageUrl: 'assets/img/appintro1.png',
       description: '소중한 의견이 모여 더 나은 서비스를 만듭니다.',
     },
     {
-      title: '원하는 고객에게<br>리얼 피드백을!',
+      title: '원하는 고객과<br>직접 인터뷰를!',
       imageUrl: 'assets/img/appintro2.png',
-      description: '고객과 직접 소통하며 성공으로 이끌어 보세요!',
+      description: '고객과 직접 소통하며 고객이 진짜 원하는 것을 찾으세요!',
     },
     {
       title: '포인트가 쭉쭉~<br>현금으로 환전까지!',
@@ -35,7 +35,7 @@ export class AppIntroPage {
       description: '다양한 서비스를 경험하고<br>소중한 피드백을 들려주세요!',
     },
     {
-      title: 'FEED100<br>지금 사용해 보세요!',
+      title: '스타트업에 적합한<br>고객반응조사 플랫폼',
       imageUrl: 'assets/img/appintro4.png',
       description: '가치를 같이 만들어가는<br>맞춤형 피드백 플랫폼!',
     }

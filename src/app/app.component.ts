@@ -1,6 +1,4 @@
-import { CompanyProjectGroupInterviewQuestionEditorPage } from './../pages/company/company-project-group-interview-question-editor/company-project-group-interview-question-editor';
-import { UserProjectInterviewDetailPage } from './../pages/user/user-project-interview-detail/user-project-interview-detail';
-import { UserProjectInterviewFormPage } from './../pages/user/user-project-interview-form/user-project-interview-form';
+import { CompanyProjectInterviewDetailPage } from './../pages/company/company-project-interview-detail/company-project-interview-detail';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -17,13 +15,11 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
 
-import { UserProjectHomePage } from '../pages/user/user-project-home/user-project-home';
-
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = UserTabsPage;
+  rootPage:any = CompanyProjectInterviewDetailPage;
 
   constructor(
     platform: Platform,

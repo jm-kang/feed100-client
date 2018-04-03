@@ -70,7 +70,8 @@ export class UserPointExchangePage {
   }
   
   exchange() {
-    this.commonService.showConfirmAlert('정확하게 입력하셨나요? 잘못 기입된 정보에 대한 책임은 본인에게 있습니다.', 
+    let alertString = '입금 은행 : ' + this.bankName + '<br>계좌번호 : ' + this.accountNumber + '<br>예금주 : ' + this.accountHolderName + '<br>요청 금액 : ' + this.exchangePoint + '원<br><br><small>정확하게 입력하셨나요?<br>잘못 기입된 정보에 대한 책임은 본인에게 있습니다.</small>';
+    this.commonService.showConfirmAlert(alertString, 
     () => {
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
