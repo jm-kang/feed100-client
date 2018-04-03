@@ -2795,19 +2795,24 @@ p {
         height: 100%;
         .question-wrapper {
             color: #383838;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+        }
+
+        .interview-question {
+            font-weight: bold;
         }
 
         .interview-point-wrapper {
             .reward-point {
-                font-size: 2.5rem;
-                font-weight: 300;
+                font-size: 2.3rem;
+                font-weight: 100;
             }
             .reward-point.max {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
             .point-notice {
                 font-size: 1.3rem;
+                font-weight: 300;
             }
         }
 
@@ -2986,9 +2991,7 @@ p {
         .bar-buttons {
             background-color: #fff;
         }
-        .help-btn {
-            color: #ff6700;
-        }
+        
         .overlay-tags-wrapper {
             display: block;
             width: 20px;
@@ -3036,5 +3039,12 @@ p {
                 margin-right: 20px;
             }
         }
+    }
+    .help-btn {
+        color: #ff6700;
+        position: absolute;
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 1px;
     }
 // editor-modal-style //

@@ -1,3 +1,5 @@
+import { CompanyProjectGroupInterviewQuestionEditorPage } from './../pages/company/company-project-group-interview-question-editor/company-project-group-interview-question-editor';
+import { UserProjectInterviewDetailPage } from './../pages/user/user-project-interview-detail/user-project-interview-detail';
 import { UserProjectInterviewFormPage } from './../pages/user/user-project-interview-form/user-project-interview-form';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
@@ -21,7 +23,7 @@ import { UserProjectHomePage } from '../pages/user/user-project-home/user-projec
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = UserProjectHomePage;
+  rootPage:any = UserTabsPage;
 
   constructor(
     platform: Platform,
@@ -40,7 +42,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.verifyLoginState();
-      // keyboard.disableScroll(true);
+      keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
 

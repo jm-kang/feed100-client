@@ -28,7 +28,7 @@ export class UserProjectInterviewFormPage {
   totalReward: number;
   textcount: number;
 
-  contentPlaceholder: string = '이 부분을 눌러 인터뷰 질문에 답변해 주세요.';
+  contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문에 답변해 주세요.';
   minTextLength: number = 20;
   isHelpHide: boolean;
 
@@ -159,7 +159,7 @@ export class UserProjectInterviewFormPage {
 
   pointNotice(count) {
     if(this.firstImpressionType() == "negative" || this.firstImpressionType() == "positive") {
-      if(count < 20) {return "20자 이상을 입력해주세요!" }
+      if(count < 20) {return "20자 이상 입력해주세요!" }
       else if(count < 40) { return "더 많은 포인트를 향하여!" }
       else if(count < 60) { return "좋아요! 잘하고 있어요!" }
       else if(count < 80) { return "필력이 대단하네요!"}
@@ -167,7 +167,7 @@ export class UserProjectInterviewFormPage {
       else { return "훌륭해요! 더 이상 바랄게 없어요." }
     }
     if(this.firstImpressionType() == "neutral") {
-      if(count < 20) {return "20자 이상을 입력해주세요!" }
+      if(count < 20) {return "20자 이상 입력해주세요!" }
       else if(count < 30) { return "더 많은 포인트를 향하여!" }
       else if(count < 40) { return "좋아요! 잘하고 있어요!" }
       else if(count < 50) { return "필력이 대단하네요!"}

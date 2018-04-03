@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+import { Keyboard } from '@ionic-native/keyboard';
 
 declare var cordova:any;
 
@@ -104,6 +105,7 @@ export class CompanyProjectInterviewDetailPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
+    public keyboard: Keyboard,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
     public actionSheetCtrl: ActionSheetController
@@ -114,6 +116,7 @@ export class CompanyProjectInterviewDetailPage {
     console.log('ionViewDidLoad CompanyProjectInterviewDetailPage');
     this.commonService.isLoadingActive = true;
     this.project_participant_id = this.navParams.get('project_participant_id');
+    this.keyboard.disableScroll(false); // 추가
   }
 
   ionViewWillEnter() {
@@ -227,6 +230,7 @@ export class CompanyProjectInterviewDetailPage {
 
   back() {
     this.navCtrl.pop();
+    this.keyboard.disableScroll(true); // 추가
   }
 
   clickLike(interview) {
@@ -267,8 +271,8 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   pointNotice(count) {
-    if(count < 20) {return "20자 이상을 입력해주세요!" }
-    else if(count <= 100) { return "질문이 어렵다면 ?를 눌러보세요!" }
+    if(count < 20) {return "20자 이상 입력해주세요!" }
+    else if(count <= 100) { return "질문이 어렵다면 ?를 터치하여 보세요!" }
     else { return "과유불급! 너무 길면 부답을 느껴요!" } 
   }
 

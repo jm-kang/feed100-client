@@ -34,7 +34,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   is_max: boolean = false;
 
   questionContent: string = "";
-  contentPlaceholder: string = '이 부분을 눌러 인터뷰 질문을 작성해 주세요.';
+  contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문을 작성해 주세요.';
   minTextLength: number = 20;
   maxTextLength: number = 100;
   isHelpHide: boolean;
@@ -118,8 +118,8 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   }
 
   pointNotice(count) {
-    if(count < 20) {return "20자 이상을 입력해주세요!" }
-    else if(count <= 100) { return "질문이 어렵다면 ?를 눌러보세요!" }
+    if(count < 20) {return "20자 이상 입력해주세요!" }
+    else if(count <= 100) { return "질문이 어렵다면 ?를 터치하여 보세요!" }
     else { return "과유불급! 너무 길면 부답을 느껴요!" } 
   }
 

@@ -26,7 +26,11 @@
         취소
       </button>
     </ion-buttons>
-    <ion-title></ion-title>
+    <ion-title>
+      <span tappable class="help-btn" (click)="help()">
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </span>
+    </ion-title>
     <ion-buttons end>
       <button [disabled]="minTextLength > (questionContent | textcount) || maxTextLength < (questionContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
         완료
@@ -64,21 +68,3 @@
     <textarea #input class="m-t-0 h-30" [(ngModel)]="questionContent" [placeholder]="contentPlaceholder"></textarea>
   </div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar class="keywords-toolbar">
-    <div class="keywords-chooser-wrapper" start>
-      <ion-buttons>
-        <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
-          {{keyword}}
-        </button>
-      </ion-buttons>
-    </div>
-    <ion-buttons end>
-      <span class="white-right-to-left-gradient-wrapper overlay-tags-wrapper"></span>
-      <button class="help-btn" ion-button (click)="help()" icon-only>
-        <ion-icon name="ios-help-circle-outline"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>

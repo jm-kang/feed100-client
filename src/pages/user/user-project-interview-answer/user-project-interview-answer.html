@@ -21,7 +21,12 @@
         취소
       </button>
     </ion-buttons>
-    <ion-title>인터뷰 질문</ion-title>
+    <ion-title>
+      인터뷰 질문
+      <span tappable class="help-btn" (click)="help()">
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </span>
+    </ion-title>
     <ion-buttons end>
       <button [disabled]="minTextLength > (answerContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
         완료
@@ -33,8 +38,8 @@
 <ion-content class="editor-modal" #contentRef >
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
-      <div class="question-wrapper m-b-30">{{interviewQestion}}</div>
-      <div class="buttons-wrapper m-b-20">
+      <div class="question-wrapper interview-question m-b-30">Q. {{interviewQestion}}</div>
+      <div class="buttons-wrapper m-b-30">
         <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
         <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 인터뷰 보기</span>
       </div>
@@ -55,21 +60,3 @@
     <textarea #input class="m-t-0 h-30" [(ngModel)]="answerContent" [placeholder]="contentPlaceholder"></textarea>
   </div>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar class="keywords-toolbar">
-    <div class="keywords-chooser-wrapper" start>
-      <ion-buttons>
-        <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
-          {{keyword}}
-        </button>
-      </ion-buttons>
-    </div>
-    <ion-buttons end>
-      <span class="white-right-to-left-gradient-wrapper overlay-tags-wrapper"></span>
-      <button class="help-btn" ion-button (click)="help()" icon-only>
-        <ion-icon name="ios-help-circle-outline"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
