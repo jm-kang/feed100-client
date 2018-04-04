@@ -120,7 +120,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   pointNotice(count) {
     if(count < 20) {return "20자 이상 입력해주세요!" }
     else if(count <= 100) { return "질문이 어렵다면 ?를 터치하여 보세요!" }
-    else { return "과유불급! 너무 길면 부답을 느껴요!" } 
+    else { return "과유불급! 너무 길면 부담을 느껴요!" } 
   }
 
   openInterviewInfo() {

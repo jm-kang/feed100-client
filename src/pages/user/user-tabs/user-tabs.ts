@@ -122,7 +122,8 @@ export class UserTabsPage {
   }
 
   getAlarmNum() {
-    return this.userService.alarmNum;
+    // return this.userService.alarmNum;
+    return 1;
   }
 
   refreshCurrentPage() {

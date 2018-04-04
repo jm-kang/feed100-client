@@ -24,81 +24,66 @@ export class CompanyProjectInterviewDetailPage {
   @ViewChild(Content) content: Content;
   project_participant_id;
   isHelpHide: boolean;
-  nickname: String = "에반스";
+  nickname: String = "포텐브라더스";
+  avatar_image = "./../../assets/img/user-avatar-image-man1.png";
   totalInterviewNum: number = 1;
   minTextLength: number = 20;
   maxTextLength: number = 100;
-
+  project_id = 1;
+  
   questionInterview: string = "";
-  projectKeywords = ["버튼위치","어려움","파일업로드","버튼위치","어려움","파일업로드"];
+  // projectKeywords = ["버튼위치","어려움","파일업로드","버튼위치","어려움","파일업로드"];
   helpReferances = ["~에 대하여 어떻게 생각하시나요?", "~에 대하여 자세히 말씀해주세요.", "~했던 경험에 대하여 말씀해주세요.", "왜 그렇게 생각하셨나요?"]
 
+  // 기본 인터뷰 정보
+  project_participation_date = "2018-01-29 00:00:00";
+  region = "대전광역시"; age = "50대+"; gender = "남자"; job = "관리자"; marriage = "기혼"
+  phone_os = "iOS"; phone_model = "iPhone9,3";
+  project_participation_objective_conditions = [{"value": "예. 있습니다.", "question": "장례식장에 참여해본 경험이 있으십니까?"}, {"value": "예. 있습니다.", "question": "지인의 장례식장에 참석하지 못한 경험이 있으십니까?"}]
+  preferred_interview_time = "22시 ~ 24시";
+  project_first_impression_rate = 10;
+
   interviews = [
-    {
-      project_name: "프로젝트 제목",
-      interview_request_registration_date: "2018-03-25 00:00:00",
-      interview_request: "뭐가 제일 만족스러웠나요요?????????",
-      project_id: 1,
-      project_participant_id: 1,
-      interview_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "고거시",
-      interview_response_registration_date: "2018-03-27 00:00:00",
-      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
-      isLike: false,
-    },
-    {
-      project_name: "프로젝트 제목",
-      interview_request_registration_date: "2018-03-25 00:00:00",
-      interview_request: "뭐가 제일 만족스러웠나요요?????????",
-      project_id: 1,
-      project_participant_id: 1,
-      interview_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "고거시",
-      interview_response_registration_date: "2018-03-27 00:00:00",
-      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
-      isLike: false,
-    },
-    {
-      project_name: "프로젝트 제목",
-      interview_request_registration_date: "2018-03-25 00:00:00",
-      interview_request: "뭐가 제일 만족스러웠나요요?????????",
-      project_id: 1,
-      project_participant_id: 1,
-      interview_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "고거시",
-      interview_response_registration_date: "2018-03-27 00:00:00",
-      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
-      isLike: false,
-    },
-    {
-      project_name: "프로젝트 제목",
-      interview_request_registration_date: "2018-03-25 00:00:00",
-      interview_request: "뭐가 제일 만족스러웠나요요?????????",
-      project_id: 1,
-      project_participant_id: 1,
-      interview_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "고거시",
-      interview_response_registration_date: "2018-03-27 00:00:00",
-      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
-      isLike: false,
-    },
-    {
-      project_name: "프로젝트 제목",
-      interview_request_registration_date: "2018-03-25 00:00:00",
-      interview_request: "뭐가 제일 만족스러웠나요요?????????",
-      project_id: 1,
-      project_participant_id: 1,
-      interview_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "고거시",
-      interview_response_registration_date: "2018-03-27 00:00:00",
-      interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
-      isLike: false,
-    }
+    // {
+    //   interview_request_registration_date: "2018-03-25 00:00:00",
+    //   interview_request: "뭐가 제일 만족스러웠나요요?????????",
+    //   interview_id: 1,
+    //   interview_response_registration_date: "2018-03-27 00:00:00",
+    //   interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+    //   isLike: false,
+    // },
+    // {
+    //   interview_request_registration_date: "2018-03-25 00:00:00",
+    //   interview_request: "뭐가 제일 만족스러웠나요요?????????",
+    //   interview_id: 1,
+    //   interview_response_registration_date: "2018-03-27 00:00:00",
+    //   interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+    //   isLike: false,
+    // },
+    // {
+    //   interview_request_registration_date: "2018-03-25 00:00:00",
+    //   interview_request: "뭐가 제일 만족스러웠나요요?????????",
+    //   interview_id: 1,
+    //   interview_response_registration_date: "2018-03-27 00:00:00",
+    //   interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+    //   isLike: false,
+    // },
+    // {
+    //   interview_request_registration_date: "2018-03-25 00:00:00",
+    //   interview_request: "뭐가 제일 만족스러웠나요요?????????",
+    //   interview_id: 1,
+    //   interview_response_registration_date: "2018-03-27 00:00:00",
+    //   interview_response: "나의 대답을 받아라! 만족한걸 만족했다! 만족했나?",
+    //   isLike: false,
+    // },
+    // {
+    //   interview_request_registration_date: "2018-03-25 00:00:00",
+    //   interview_request: "뭐가 제일 만족스러웠나요요?????????",
+    //   interview_id: 1,
+    //   interview_response_registration_date: "",
+    //   interview_response: "",
+    //   isLike: false,
+    // }
   ];
 
   constructor(
@@ -176,7 +161,7 @@ export class CompanyProjectInterviewDetailPage {
     refresher.complete();
   }
 
-  reportInterview(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
+  reportInterview() {
     let actionSheet = this.actionSheetCtrl.create({
       buttons: [
         {
@@ -185,35 +170,7 @@ export class CompanyProjectInterviewDetailPage {
           handler: () => {
             this.commonService.showConfirmAlert('해당 내용을 부적절한<br>게시글로 신고하시겠습니까?', 
             () => {
-              this.commonService.isLoadingActive = true;
-              let loading = this.commonService.presentLoading();
-              
-              this.companyService.reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id)
-              .finally(() => {
-                loading.dismiss();
-              })
-              .subscribe(
-                (data) => {
-                  if(data.success == true) {
-                    this.commonService.showBasicAlert('신고가 접수되었습니다.');
-                  }
-                  else if(data.success == false) {
-                    if(data.message == 'already reported') {
-                      this.commonService.showBasicAlert('이미 신고가 접수되었습니다.');
-                    }
-                    else {
-                      this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-                      .then(() => {
-                        this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-                      });
-                    }
-                  }
-                },
-                (err) => {
-                  console.log(err);
-                  this.commonService.showBasicAlert('오류가 발생했습니다.');
-                }
-              );    
+              this.commonService.showBasicAlert('신고가 접수되었습니다.');
             });        
           }
         },{
@@ -265,7 +222,7 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   countColor(count) {
-    if(count < 20) { return "#4e4e4c" }
+    if(count < 20) { return "#8f8f8f" }
     else if(count <= 100) { return "#23799d" }
     else { return "#ce522f" }
   }
@@ -273,7 +230,7 @@ export class CompanyProjectInterviewDetailPage {
   pointNotice(count) {
     if(count < 20) {return "20자 이상 입력해주세요!" }
     else if(count <= 100) { return "질문이 어렵다면 ?를 터치하여 보세요!" }
-    else { return "과유불급! 너무 길면 부답을 느껴요!" } 
+    else { return "과유불급! 너무 길면 부담을 느껴요!" } 
   }
 
   insertKeyword(keyword) {

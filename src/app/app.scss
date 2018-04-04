@@ -672,6 +672,10 @@ p {
         overflow: visible!important;
     }
 
+    .tabs-md .tab-button-text {
+        font-size: 1rem;
+    }
+
     .tabs-header {
         background-color: transparent;
     }
@@ -716,7 +720,7 @@ p {
         // min-width: 8px;
         // right: calc(50% - 25px) !important;
         background-color: #FE6B01;
-        left: 42px;
+        left: calc(50% + 10px);
         right: auto !important;
     }
 

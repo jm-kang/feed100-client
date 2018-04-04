@@ -1,3 +1,4 @@
+import { UserProjectInterviewFormPage } from './../pages/user/user-project-interview-form/user-project-interview-form';
 import { CompanyProjectInterviewDetailPage } from './../pages/company/company-project-interview-detail/company-project-interview-detail';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
@@ -19,7 +20,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = CompanyProjectInterviewDetailPage;
+  rootPage:any = UserProjectInterviewFormPage;
 
   constructor(
     platform: Platform,
