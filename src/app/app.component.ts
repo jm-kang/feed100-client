@@ -1,5 +1,3 @@
-import { UserProjectInterviewFormPage } from './../pages/user/user-project-interview-form/user-project-interview-form';
-import { CompanyProjectInterviewDetailPage } from './../pages/company/company-project-interview-detail/company-project-interview-detail';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -20,7 +18,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = UserProjectInterviewFormPage;
+  rootPage:any = LoginPage;
 
   constructor(
     platform: Platform,
