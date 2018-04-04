@@ -57,7 +57,6 @@ import { CompanyProjectHomePageModule } from '../pages/company/company-project-h
     import { CompanyHelpPageModule } from '../pages/company/company-help/company-help.module';
   import { CompanyNotificationPageModule } from '../pages/company/company-notification/company-notification.module';
   import { CompanyProjectStoryHorizontalPageModule } from '../pages/company/company-project-story-horizontal/company-project-story-horizontal.module';
-    import { CompanyProjectLinkPageModule } from '../pages/company/company-project-link/company-project-link.module';
   import { CompanyProjectReportPageModule } from '../pages/company/company-project-report/company-project-report.module';
   import { CompanyProjectInterviewDetailPageModule } from '../pages/company/company-project-interview-detail/company-project-interview-detail.module';
   import { CompanyProjectGroupInterviewPageModule } from '../pages/company/company-project-group-interview/company-project-group-interview.module';
@@ -76,7 +75,6 @@ import { UserTabsPageModule } from '../pages/user/user-tabs/user-tabs.module'
     import { UserProjectStoryHorizontalPageModule } from '../pages/user/user-project-story-horizontal/user-project-story-horizontal.module';
     import { UserProjectParticipationConditionFormPageModule } from '../pages/user/user-project-participation-condition-form/user-project-participation-condition-form.module';
     import { UserProjectRewardFormPageModule } from '../pages/user/user-project-reward-form/user-project-reward-form.module';
-    import { UserProjectLinkPageModule } from '../pages/user/user-project-link/user-project-link.module';
     import { UserProjectStoryQuizFormPageModule } from '../pages/user/user-project-story-quiz-form/user-project-story-quiz-form.module';    
     import { UserProjectHomePageModule } from '../pages/user/user-project-home/user-project-home.module';
       import { UserProjectInterviewAnswerPageModule } from '../pages/user/user-project-interview-answer/user-project-interview-answer.module';
@@ -96,6 +94,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { Device } from '@ionic-native/device';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
@@ -245,7 +244,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
         CompanyHelpPageModule,
       CompanyNotificationPageModule,
       CompanyProjectStoryHorizontalPageModule,
-        CompanyProjectLinkPageModule,
       CompanyProjectReportPageModule,
       CompanyProjectInterviewDetailPageModule,
       CompanyProjectGroupInterviewPageModule,
@@ -262,7 +260,6 @@ export class MyHammerConfig extends HammerGestureConfig  {
         UserProjectStoryHorizontalPageModule,
         UserProjectParticipationConditionFormPageModule,
         UserProjectRewardFormPageModule,
-        UserProjectLinkPageModule,
         UserProjectStoryQuizFormPageModule,
         UserProjectHomePageModule,
           UserProjectInterviewAnswerPageModule,
@@ -296,6 +293,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
     Facebook,
     GooglePlus,
     Push,
+    Device,
     UniqueDeviceID,
     PhotoViewer,
     Camera,

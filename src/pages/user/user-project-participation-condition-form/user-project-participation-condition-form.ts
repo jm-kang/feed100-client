@@ -49,62 +49,47 @@ export class UserProjectParticipationConditionFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectParticipationConditionFormPage');
-    // this.commonService.isLoadingActive = true;
-    // this.project_id = this.ModalWrapperPage.modalParams.project_id;
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);
     this.slides.lockSwipeToNext(true);
+    console.log(this.commonService.getDevice().isVirtual);
+    console.log(this.commonService.getDevice().manufacturer);
+    console.log(this.commonService.getDevice().model);
+    console.log(this.commonService.getDevice().platform);
+    console.log(this.commonService.getDevice().serial);
+    console.log(this.commonService.getDevice().uuid);
+    console.log(this.commonService.getDevice().version);
   }
   
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectParticipationConditionFormPage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
-    // this.userService.getProjectParticipation(this.project_id)
-    // .finally(() => {
-    //   loading.back();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       if(data.data) {
-    //         this.projectName = data.data.project_name;
-    //         this.projectMainImage = data.data.project_main_image;
-    //         this.participationConditionSlides = JSON.parse(data.data.project_participation_objective_conditions);
-            
-    //         let index = this.slides.getActiveIndex();
-    //         if(!this.participationConditionSlides[index].value) {
-    //           this.slides.lockSwipeToNext(true);
-    //         } else {
-    //           this.slides.lockSwipeToNext(false);
-    //         }        
-    //       }
-    //       else {
-    //         if(data.message == "project is not proceeding") {
-    //           this.back();
-    //           this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
-    //         }
-    //         else if(data.message == "project is max") {
-    //           this.back();
-    //           this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
-    //         }
-    //         else if(data.message == "is not approved") {
-    //           this.back();
-    //           this.commonService.showBasicAlert('이런! 조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다.');
-    //         }
-    //       }
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // )
+    this.userService.getProject(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.project_notice = data.data.project_notice;
+          this.projectName = data.data.project_name;
+          this.projectMainImage = data.data.project_main_image;
+          this.participationConditionSlides = JSON.parse(data.data.project_participation_objective_conditions);          
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
 
   }
 
@@ -136,41 +121,38 @@ export class UserProjectParticipationConditionFormPage {
   }
 
   openUserProjectStoryPage() {
-    // this.commonService.isLoadingActive = true;
-    // let loading = this.commonService.presentLoading();
-
-    // this.userService.projectParticipation(this.project_id, this.participationConditionSlides)
-    // .finally(() => {
-    //   loading.back();
-    // })
-    // .subscribe(
-    //     (data) => {
-    //     if(data.success == true) {
-    //       if(data.data) {
-    //         this.commonService.showConfirmAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.',
-    //           () => {
-    //             this.appCtrl.getRootNav().push('UserProjectStoryPage', { "project_id" : this.project_id, "isFeedback" : true });
-    //             this.back();
-    //           }
-    //         );
-    //       }
-    //       else {
-    //         this.back();
-    //         this.commonService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
-    //       }
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // )
+    this.commonService.isLoadingActive = true;
+    let loading = this.commonService.presentLoading();
+  
+    this.userService.checkParticipationCondition(this.project_id, this.participationConditionSlides)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+        (data) => {
+        if(data.success == true) {
+          if(data.data) {
+            this.navCtrl.pop({animate: false});
+            this.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : this.project_id, "isFeedback" : true });
+            this.commonService.showBasicAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.');
+          }
+          else {
+            this.back();
+            this.commonService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
   }
 
   check() {
@@ -179,19 +161,6 @@ export class UserProjectParticipationConditionFormPage {
     } else {
       this.isCheck = true;
     }
-  }
-
-  // checkbox 검사해주는 함수
-  changeCondition(slide) {
-    for(let option of slide.options) {
-      if(option.checked) {
-        slide.value = true;
-        return;
-      } else {
-        slide.value = false; 
-      }
-    }
-
   }
 
 }

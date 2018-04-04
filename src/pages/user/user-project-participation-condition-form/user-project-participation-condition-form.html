@@ -52,7 +52,7 @@
       </div>
       <div class="question" [innerHTML]="participationConditionSlide.question"></div>
       <div class="question-summary"><span class="text-red">주의!</span> 신중하게 대답해주세요.</div>
-      <div *ngIf="!participationConditionSlide.isMultiCheck">
+      <div>
         <div class="participation-condition-options-wrapper" *ngIf="6 > participationConditionSlide.options.length">
           <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
             <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
@@ -73,7 +73,7 @@
         </div>
       </div>
 
-      <div *ngIf="participationConditionSlide.isMultiCheck">
+      <!-- <div *ngIf="participationConditionSlide.isMultiCheck">
         <div class="participation-condition-options-wrapper" *ngIf="6 > participationConditionSlide.options.length">
           <ion-list>
             <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
@@ -92,7 +92,7 @@
             </ion-row>
           </ion-list>
         </div>
-      </div>
+      </div> -->
 
       <div class="slide-next-button-wrapper">
         <span *ngIf="participationConditionSlides.length-1 > i">

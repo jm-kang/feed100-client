@@ -23,7 +23,7 @@
     <span class="grey-text">도착한 알림이 없습니다.</span>
   </div>
   <ion-list class="m-t-5" *ngIf="notifications.length != 0">
-    <ion-item tappable class="interview-item avatar-span-wrapper item-flex" *ngFor="let notification of notifications" (click)="accessNotificationItem(notification.notification_link, notification.project_id, notification.notification_id)">
+    <ion-item tappable class="interview-item avatar-span-wrapper item-flex" *ngFor="let notification of notifications" (click)="accessNotificationItem(notification.notification_link, notification)">
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image round-avatar" [src]="notification.notification_image" />
       </span>

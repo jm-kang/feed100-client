@@ -165,15 +165,4 @@ export class UserProjectStoryQuizFormPage {
     }
   }
 
-  // checkbox 검사해주는 함수
-  changeCondition(slide) {
-    for(let option of slide.options) {
-      if(option.checked) {
-        slide.value = true;
-        return;
-      } else {
-        slide.value = false; 
-      }
-    }
-  }
 }

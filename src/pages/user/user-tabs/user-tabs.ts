@@ -121,8 +121,8 @@ export class UserTabsPage {
     console.log('ionViewWillEnter UserTabsPage');
   }
 
-  getAlarmNum() {
-    return this.userService.alarmNum;
+  getNotificationNum() {
+    return this.userService.notificationNum;
   }
 
   refreshCurrentPage() {
