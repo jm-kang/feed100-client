@@ -29,7 +29,7 @@ export class UserProjectRewardFormPage {
   project_id;
 
   recommendationScore: number = 0;
-  isSelect: boolean = false;
+  is_selected: boolean = false;
   feedbackPoint: number = 0;
   opinionPoint: number = 0;
   interviewPoint: number = 0;

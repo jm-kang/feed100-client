@@ -25,7 +25,7 @@
   <section class="reward-section m-b-30 m-t-20" *ngIf = "rewardProjects.length">
     <div class="home-group-title p-r-28 p-l-28">
       보상받을 프로젝트
-      <p>보상받기를 눌러 보상을 받아보세요.</p>
+      <p>프로젝트가 종료되었으니 보상을 획득하세요!</p>
     </div>
     <ion-slides pager=false loop="false" spaceBetween="-108" slidesPerView="1">
       <ion-slide *ngFor="let rewardProject of rewardProjects">
@@ -43,7 +43,7 @@
   <section class="participating-section m-b-30 m-t-20" *ngIf = "participatingProjects.length">
     <div class="home-group-title p-r-28 p-l-28">
       참여중인 프로젝트
-      <p>보상받기를 눌러 보상을 받아보세요.</p>
+      <p>현재 인터뷰가 진행 중인 프로젝트입니다.</p>
     </div>
     <ion-slides pager=false loop="false" spaceBetween="-44" centeredSlides="true">
       <ion-slide *ngFor="let participatingProject of filterParticipatingProjects(true)">
@@ -52,7 +52,7 @@
             <img [src]="participatingProject.project_main_image" />
             <div class="project-card-overlay-wrapper">
               <span class="project-card-overlay">
-                <span class="project-card-overlay-item i-card-tag" *ngIf="participatingProject.is_new_interview">인터뷰에 응답해주세요</span>
+                <span class="project-card-overlay-item i-card-tag" *ngIf="participatingProject.is_new_interview">인터뷰에 응답해주세요!</span>
               </span>
             </div>
             <div class="project-card-overlay-wrapper card-overlay-bottom"></div>
@@ -95,9 +95,9 @@
   <section class="recommended-section m-b-30 m-t-20" *ngIf = "recommendedProjects.length">
     <div class="home-group-title p-r-28 p-l-28">
       추천 프로젝트
-      <p>보상받기를 눌러 보상을 받아보세요.</p>
+      <p>마음에 드는 프로젝트에 참여해보세요!</p>
     </div>
-    <div class="p-r-23 p-l-23">
+    <div class="p-r-16 p-l-16">
       <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
         <div class="vertical-project-card" (click)="accessProjectCard(recommendedProject.project_id)">
           <span class="left-span">
@@ -110,7 +110,7 @@
               </span>
             </div>
           </span>
-          <span class="right-span">
+          <span class="right-span height100">
             <div text-left class="card-content">
               <span class="project-card-summary-wrapper">
                 <p class="project-card-summary">{{recommendedProject.project_name}}</p>
@@ -126,9 +126,9 @@
   </section>
 
   <!-- 모든 프로젝트 -->
-  <section class="all-projects-section m-b-30 m-t-20 p-r-28 p-l-28">
+  <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
     <div text-center class="home-group-title" [ngStyle]="{'border-top': rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '24px' : '120px'}">
-      <div>더 많은 프로젝트를<br>보고싶으신가요?</div>
+      <div>더 많은 프로젝트를<br>보고싶다면?</div>
       <span tappable (click)="openUserAllProjectList()">모든 프로젝트 보기 ></span>
     </div>
   </section>

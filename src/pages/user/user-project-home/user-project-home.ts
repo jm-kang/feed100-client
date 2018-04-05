@@ -39,7 +39,6 @@ export class UserProjectHomePage {
     public userService: UserServiceProvider) {
   }
 
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectHomePage');
     this.project_id = this.navParams.get('project_id');

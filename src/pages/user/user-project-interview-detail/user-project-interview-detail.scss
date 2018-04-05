@@ -67,7 +67,6 @@ page-user-project-interview-detail {
                             align-items: center;
                             font-size: 1.5rem;
                             font-weight: bold;
-                            margin-top: 20px;
                             img {
                                 min-width: 2.2rem;
                                 min-height: 2.2rem;
@@ -78,9 +77,10 @@ page-user-project-interview-detail {
                         }
                         .like-wrapper {
                             font-size: 2rem;
-                            width: 50%;
                             display: flex;
                             justify-content: flex-end;
+                            position: absolute;
+                            right: 20px;
                             .like-true-icon {
                                 color: #da565a;
                             }

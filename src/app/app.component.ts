@@ -37,7 +37,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       this.verifyLoginState();
-      // keyboard.disableScroll(true);
+      keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
 

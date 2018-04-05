@@ -58,7 +58,7 @@ export class UserHelpPage {
   userHelpPart2 = [
     {
       title: "프로젝트는 어떻게 확인하나요?",
-      subTitle: "홈 또는 하단에 있는 프로젝트 탭을 눌러 확인하세요!",
+      subTitle: "홈 또는 하단에 있는 프로젝트 탭을 터치하여 확인하세요!",
       topImg: "",
       content: "<strong>홈</strong>에서는 참여하고 있는 진행중인 프로젝트와 새로운 프로젝트를 쉽게 확인할 수 있으며 전체 프로젝트는 <strong>프로젝트 탭</strong>에서 모아 보실 수 있습니다!",
       bottomImg: "assets/img/user-help-img2.png",

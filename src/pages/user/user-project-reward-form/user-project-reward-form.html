@@ -37,6 +37,10 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div class="rating-summary m-t-5">
+        <span float-left>부정</span>
+        <span float-right>긍정</span>
+      </div>
       <div class="slide-next-button-wrapper">
         <span>
           <button ion-button clear *ngIf="recommendationScore < 1" disabled>
@@ -51,10 +55,10 @@
     <ion-slide>
       
       <ion-list class="reward-list">
-        <div class="reward-item">
+        <div *ngIf="is_selected" class="reward-item">
           <div class="div-flex">
             <span class="item-title">우수 참여자
-              <span class="best-badge" *ngIf="isSelect">
+              <span class="best-badge">
                 <span>선정</span>
               </span>
             </span>
@@ -63,7 +67,7 @@
             </span>
           </div>
         </div>
-        <div class="reward-item item-underline">
+        <div *ngIf="is_selected" class="reward-item item-underline">
           <div class="div-flex">
             <span class="item-title absolute-item-title">인터뷰 보상금액</span>
             <span class="item-point-box">

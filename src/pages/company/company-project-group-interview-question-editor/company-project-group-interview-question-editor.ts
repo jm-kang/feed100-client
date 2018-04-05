@@ -27,19 +27,14 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
 
   project_id;
 
-  interviewQestion: string = "프로젝트 테스트를 진행하면서 가장 불편했던 사항이 무엇이였나요?";
-  reward: number;
   textcount: number;
 
-  is_max: boolean = false;
-
   questionContent: string = "";
-  contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
+  contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문을 작성해 주세요.';
   minTextLength: number = 20;
   maxTextLength: number = 100;
   isHelpHide: boolean;
 
-  projectKeywords = ["버튼위치","어려움","파일업로드"];
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   group = [];
@@ -118,9 +113,9 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   }
 
   pointNotice(count) {
-    if(count < 20) {return "20자 이상을 입력해주세요!" }
-    else if(count <= 100) { return "완료버튼을 눌러 인터뷰를 보내보세요!" }
-    else { return "100자 이하로 입력해주세요!" } 
+    if(count < 20) {return "20자 이상 입력해주세요!" }
+    else if(count <= 100) { return "질문이 어렵다면 ?를 터치하여 보세요!" }
+    else { return "과유불급! 너무 길면 부담을 느껴요!" } 
   }
 
   openInterviewInfo() {

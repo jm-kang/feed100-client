@@ -22,8 +22,6 @@ export class UserProjectInterviewDetailPage {
 
   project_participant_id;
   
-  projectName: string = "마ㅣ누이ㅜㅁasdfsdfsdfs니ㅏ위마누임니ㅏ우";
-  
   // 지난 인터뷰 타임라인은 답변달린것만 보임
   // interviews = [
   //   {

@@ -105,5 +105,4 @@ export class UserAllProjectListPage {
   openUserConfigurePage() {
     this.navCtrl.push('UserConfigurePage');
   }
-
 }

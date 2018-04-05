@@ -42,7 +42,7 @@
           </ion-item>
         
           <ion-item>
-            <ion-label fixed>은행명</ion-label>
+            <ion-label fixed>입금 은행</ion-label>
             <ion-select [(ngModel)]="bankName" placeholder="은행 선택" okText="완료" cancelText="취소">
               <ion-option *ngFor="let bank of banks" [value]="bank">{{bank}}</ion-option>
             </ion-select>
@@ -63,7 +63,7 @@
         </ion-list>
       </div>
       <div class="exchange-summary" text-center>
-        <p>포인트 환전 신청 시 바로 포인트가 차감되며 취소가 불가합니다.<br>입력하신 계좌로 매월 {{minExchangeDay}}일에 신청 금액을 지급합니다.<br>계좌로 지급일까지 입금이 되지 않을 경우 아래 메일로 문의하시기 바랍니다.<br><br><ins tappable>feed100.help@gmail.com</ins></p>
+        <p>포인트 환전 신청 시 바로 포인트가 차감되며 취소가 불가능합니다.<br>신청 마감일은 매월 13일이며 이후 신청 건은 익월 15일에 지급합니다.<br>환전 금액은 매월 15일에 지급합니다.<br>(휴일일 경우 다음 영업일에 입금됩니다.)<br>신청 후 입금이 확인 되지 않을 경우 아래 메일로 문의하시기 바랍니다.<br><br><ins tappable>feed100.help@gmail.com</ins></p>
       </div>
     </div>
   </div>

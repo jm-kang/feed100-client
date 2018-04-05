@@ -19,7 +19,6 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 export class UserPointExchangePage {
   totalPoint: number = 20000;
   minExchangePoint: number = 10000;
-  minExchangeDay: number = 15;
   banks = ['경남은행','광주은행','국민은행','기업은행','농협중앙회','대구은행','부산은행','산업은행','서울은행','수협','시티은행','신한은행','신협','우리은행','우체국','시티은행','전북은행','SC','제주은행','하나은행','새마을금고'];
   exchangePoints = [10000, 20000, 30000, 40000, 50000];
   exchangePoint: number;
@@ -71,7 +70,8 @@ export class UserPointExchangePage {
   }
   
   exchange() {
-    this.commonService.showConfirmAlert('정확하게 입력하셨나요? 잘못 기입된 정보에 대한 책임은 본인에게 있습니다.', 
+    let alertString = '입금 은행 : ' + this.bankName + '<br>계좌번호 : ' + this.accountNumber + '<br>예금주 : ' + this.accountHolderName + '<br>요청 금액 : ' + this.exchangePoint + '원<br><br><small>정확하게 입력하셨나요?<br>잘못 기입된 정보에 대한 책임은 본인에게 있습니다.</small>';
+    this.commonService.showConfirmAlert(alertString, 
     () => {
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();

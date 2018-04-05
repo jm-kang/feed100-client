@@ -8,7 +8,7 @@
   <ion-navbar class="modal-header" hideBackButton="true">
     <ion-buttons start>
       <button class="dismiss-button" ion-button (click)="back()" icon-only>
-        <ion-icon name="close"></ion-icon>
+        <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
@@ -27,12 +27,13 @@
   </div>
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide>
+      <h2 class="notice-title">프로젝트를 참여하기 전에 꼭 확인해주세요!</h2>
       <div>{{project_notice}}</div>
       <div class="slide-next-button-wrapper survey-next-btn-wrapper">
         <span>
           <div class="agree-checkbox">
-            <button class="not-check-btn" ion-button clear (click)="check()" *ngIf="!isCheck"><span class="check-circle"></span>&emsp;위 내용을 인지하셨나요?</button>
-            <button class="check-btn" ion-button clear (click)="check()" *ngIf="isCheck"><span class="check-circle"><ion-icon name="ios-checkmark"></ion-icon></span>&emsp;위 내용을 인지하셨나요?</button>
+            <button class="not-check-btn" ion-button clear (click)="check()" *ngIf="!isCheck"><span class="check-circle"></span>&emsp;위 내용에 동의하십니까?</button>
+            <button class="check-btn" ion-button clear (click)="check()" *ngIf="isCheck"><span class="check-circle"><ion-icon name="ios-checkmark"></ion-icon></span>&emsp;위 내용에 동의하십니까?</button>
           </div>
           <button ion-button clear *ngIf="!isCheck" disabled>
             <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>

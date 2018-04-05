@@ -6,7 +6,7 @@
 -->
 <div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
   <div class="help-wrapper p-l-28 p-r-28" text-center>
-    <h1 class="m-b-30">어떻게 써야할지 막막하시나요?</h1>
+    <h1 class="m-b-30">인터뷰 질문은 어떻게 해야할까요?</h1>
     <h2 class="m-b-30">아래 링크를 통해 인터뷰 방법에 대해 알아보세요!</h2>
     <div class="buttons-wrapper m-b-30">
       <span tappable class="interview-link-btn" (click)="openInterviewInfo()">인터뷰 방법 알아보기</span>
@@ -31,8 +31,13 @@
         {{nickname}}
       </span>
     </ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only></button>
+    <ion-buttons class="avatar-span-wrapper" end>
+      <span class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="avatar_image" />
+      </span>
+      <button class="more-btn" ion-button (click)="reportInterview()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -43,73 +48,120 @@
       <ion-refresher-content>
       </ion-refresher-content>
   </ion-refresher>
-  <div class="empty-content" *ngIf="totalInterviewNum == 0">
-    <span class="dark-text">아직 인터뷰를 진행하지 않았습니다.</span>
-    <span tappable (click)="openCompanyProjectInterviewWritingEditorPage()" class="feed100-text empty-button">{{nickname}}와 인터뷰 하기 ></span>
-  </div>
-  <div *ngIf="totalInterviewNum != 0">
-    <div class="interview-wrapper" *ngFor="let interview of interviews; let count = index">
-      <div class="space-20"></div>
-      <div class="devide-line"><span class="line-content">{{count+1}}차 인터뷰</span></div>
-      <div class="space-30"></div>
+  <div>
+    <!-- 기본 정보 파트 -->
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-20"><span class="line-content">1차 인터뷰</span></div>
       <!-- ========================Company============================= -->
-      <div class="right-interview-card interview-card">
-        <ion-item class="avatar-span-wrapper">
-          <h3 text-right>{{interview.project_name}}</h3>
-          <p text-right>{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
-        </ion-item>
-        <div class="card-content">
-          <p text-right class="interview-comment pre-line">{{interview.interview_request}}</p>
-        </div>
-        
-        <div class="reply-check-wrapper waiting-reply" *ngIf="!interview.interview_response">
-          답변 대기중 ...
-        </div>
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 안녕하십니까? {{nickname}}님. 간단한 자기소개 부탁드릴게요!</p>
+          <p text-left class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 안녕하세요! 저는 {{region}}에 거주하고 있는 {{age}} {{gender}} {{nickname}}이라고 합니다. 직업은 {{job}}이며, 현재 {{marriage}}인 상태입니다.</p>
+          <p class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
       </div>
-      <!-- ==========================USER=============================== -->
-      <div class="left-interview-card interview-card" *ngIf="interview.interview_response">
-        <ion-item class="avatar-span-wrapper">
-          <span item-start class="avatar-image avatar-span cropper">
-            <img class="avatar-span-image" [src]="interview.avatar_image" />
-          </span>
-          <h3>
-            <span class="user-nickname-button">{{interview.nickname}}</span>
-            <span class="item-tag-wrapper">
-              <span class="btn-item-more">
-                <!-- 신고하기 수정 -->
-                <button ion-button (click)="clickLike(interview)">
-                  <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon>
-                  <ion-icon class="like-false-icon" name="ios-heart-outline" *ngIf="!interview.isLike"></ion-icon>
-                </button>
-                <button ion-button (click)="reportInterview(interview.project_id, interview.project_participant_id, null, null, interview.interview_id, null)">
-                  <ion-icon name="md-more"></ion-icon>
-                </button>
-              </span>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">2차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 반갑습니다. 지금부터 기본적인 질문 몇가지를 드릴텐데요. 우선 현재 사용하고 계신 스마트폰 정보가 어떻게 되시나요?</p>
+          <p text-left class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> OS는 {{phone_os}}이고, 사용중인 기기는 {{phone_model}}입니다.</p>
+          <p class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper" *ngFor="let condition of project_participation_objective_conditions; let i = index">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{3 + i}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> {{condition.question}}</p>
+          <p text-left class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> {{condition.value}}</p>
+          <p class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{3+project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 응답 감사합니다. 앞으로 인터뷰를 진행하게 될텐데 선호하는 인터뷰 시간을 말씀해주세요!</p>
+          <p text-left class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 저는 {{preferred_interview_time}} 정도가 좋을 것 같습니다.</p>
+          <p class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{4+project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 저희 서비스의 첫 인상은 어떠셨나요? 점수로 표현하자면 1점에서 10점 중 몇점을 주시겠습니까?</p>
+          <p text-left class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 저의 솔직한 첫인상 점수는 {{project_first_impression_rate}}점 입니다.</p>
+          <p class="date-text">{{project_participation_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- 인터뷰 파트 -->
+    <div class="interview-wrapper" *ngFor="let interview of interviews; let count = index">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{count+1+4+project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> {{interview.interview_request}}</p>
+          <p text-left class="date-text">{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left *ngIf="interview.interview_response"><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> {{interview.interview_response}}</p>
+          <p class="date-text">{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+          <span class="item-tag-wrapper">
+            <span class="btn-item-more">
+              <!-- 신고하기 수정 -->
+              <button [ngStyle]="{'background-color': interview.isLike ? '#FF533D' : '#fff', 'box-shadow': interview.isLike ? '0 8px 16px 0 rgba(144,0,0,0.2)' : '0 4px 16px 0 rgba(0,0,0,0.1)'}" class="like-btn" ion-button (click)="clickLike(interview)">
+                <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon>
+                <ion-icon class="like-false-icon" name="ios-heart" *ngIf="!interview.isLike"></ion-icon>
+              </button>
             </span>
-          </h3>
-          <p>{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
-        </ion-item>
-        <div class="card-content">
-          <p class="interview-comment pre-line">{{interview.interview_response}}</p>
-        </div>
+          </span>
+        </div></div>
+        <div text-left *ngIf="!interview.interview_response"><div class="left-interview-bubble interview-bubble interview-waiting-response">
+          <p class="interview-comment pre-line">답변 대기중 ...</p>
+        </div></div>
       </div>
     </div>
   </div>
 </ion-content>
 <ion-footer class="editor-textarea-footer" *ngIf="totalInterviewNum != 0">
-  <ion-navbar class="textcount-toolbar">
-    <ion-buttons start>
-      <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
-        {{pointNotice(textCount(questionInterview))}}
-      </span>
-    </ion-buttons>
-    <ion-buttons end>
-      <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
-        <b>{{textCount(questionInterview)}}</b>
-      </span>
-    </ion-buttons>
-  </ion-navbar>
-  <ion-toolbar class="keywords-toolbar">
+  <!-- <ion-toolbar class="keywords-toolbar">
     <div class="keywords-chooser-wrapper" start>
       <ion-buttons>
         <button for="inputID" *ngFor="let keyword of projectKeywords" ion-button class="keywords-btn" (click)="insertKeyword(keyword);">
@@ -123,14 +175,33 @@
         <ion-icon name="ios-help-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
-  </ion-toolbar>
-  <ion-navbar hideBackButton="true">
+  </ion-toolbar> -->
+  <!-- <ion-navbar hideBackButton="true"> -->
+    <div class="footer-textarea-summary">
+      <div class="footer-textarea-summary-wrapper">
+        <span class="textcount-summary-wrapper">
+          <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
+            <strong>{{pointNotice(textCount(questionInterview))}}</strong>
+          </span>
+        </span>
+        <span class=" help-btn-wrapper" float-right>
+          <span tappable class="help-btn" (click)="help()">
+            ?
+          </span>
+        </span>
+        <span class="textcount-wrapper m-r-5" float-right>
+          <span [ngStyle]="{'color': countColor(textCount(questionInterview))}">
+            {{textCount(questionInterview)}}
+          </span>
+        </span>
+      </div>
+    </div>
     <div class="textarea-wrapper">
       <!-- <ion-item>  -->
-        <textarea class="textarea" rows="1" fz-elastic placeholder="댓글을 작성해주세요." [(ngModel)]="questionInterview"></textarea>
+        <textarea class="textarea" rows="1" fz-elastic placeholder="인터뷰 질문을 작성해주세요." [(ngModel)]="questionInterview"></textarea>
         <button [disabled]="minTextLength > (questionInterview | textcount) || maxTextLength < (questionInterview | textcount)" (click)="sendInterview()">
           <ion-icon name="md-send"></ion-icon>
         </button>    
     </div>
-  </ion-navbar>
+  <!-- </ion-navbar> -->
 </ion-footer>

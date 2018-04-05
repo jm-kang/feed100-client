@@ -36,7 +36,7 @@ export class UserProjectInterviewAnswerPage {
   // is_max: boolean = false;
 
   answerContent: string = "";
-  contentPlaceholder: string = '프로젝트에 대해 느낀점을 자세히 이야기해주세요. 성실히 작성된 이야기일수록 높은 공감수와 기업에게 큰 도움을 줍니다.';
+  contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문에 답변해 주세요.';
   minTextLength: number = 20;
   maxTextLength: number = 50;
   isHelpHide: boolean;
@@ -190,9 +190,9 @@ export class UserProjectInterviewAnswerPage {
   }
 
   pointNotice(count) {
-    if(count < 20) {return "20자 이상을 입력해주세요!" }
+    if(count < 20) {return "20자 이상 입력해주세요!" }
     else if(count < 30) { return "더 많은 포인트를 향하여!" }
-    else if(count < 40) { return "좋아요! 자하고 있어요!" }
+    else if(count < 40) { return "좋아요! 잘하고 있어요!" }
     else if(count < 50) { return "필력이 대단하네요!"}
     else if(count < 100) { return "당신의 정성에 감동했어요!" }
     else { return "훌륭해요! 더 이상 바랄게 없어요." } 

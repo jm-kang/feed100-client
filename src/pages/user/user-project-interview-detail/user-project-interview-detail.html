@@ -13,7 +13,7 @@
     </ion-buttons>
     <ion-title>
       <span class="project-header-title">
-        {{projectName | slicetext:15}}
+        지난 인터뷰 보기
       </span>
     </ion-title>
     <ion-buttons end>
@@ -35,14 +35,14 @@
           <div class="interview-timeline-box">
             <div class="box-detail">
               <span class="registration-date-wrapper">{{interview.interview_answer_registration_date | amDateFormat: 'YYYY-MM-DD'}}</span>
-              <span class="like-wrapper"><ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.is_like"></ion-icon><ion-icon name="ios-heart-outline" class="like-false-icon" *ngIf="!interview.is_like"></ion-icon></span>
             </div>
             <div class="question-wrapper"><span>Q : </span>{{interview.interview_question}}</div>
             <div class="answer-wrapper">
                 <span>A : </span>{{interview.interview_answer}}
             </div>
-            <div class="box-detail">
-              <span class="reward-wrapper"><img src="./../../assets/img/feed100-coin.png" alt="">+ {{interview.interview_reward}}p</span>
+            <div class="box-detail p-t-20">
+              <span class="reward-wrapper"><img src="assets/img/feed100-coin.png" alt="">+ {{interview.interview_reward}}p</span>
+              <span class="like-wrapper"><ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.is_like"></ion-icon></span>
             </div>
           </div>
         </span>
