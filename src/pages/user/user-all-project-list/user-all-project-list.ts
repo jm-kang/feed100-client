@@ -101,8 +101,4 @@ export class UserAllProjectListPage {
   accessProjectCard(project_id) {
     this.userService.accessProjectCard(this, project_id);
   }
-
-  openUserConfigurePage() {
-    this.navCtrl.push('UserConfigurePage');
-  }
 }
