@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, Nav } from 'ionic-angular';
 
-import { AdminHomePage } from '../admin-home/admin-home';
 import { AdminProjectPage } from '../admin-project/admin-project';
-import { AdminNewsfeedPage } from '../admin-newsfeed/admin-newsfeed';
+import { AdminNotificationPage } from '../admin-notification/admin-notification';
 import { AdminMypagePage } from '../admin-mypage/admin-mypage';
-import { AdminInterviewPage } from '../admin-interview/admin-interview';
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
@@ -26,11 +24,9 @@ import { AdminServiceProvider } from '../../../providers/admin-service/admin-ser
 })
 export class AdminTabsPage {
 
-  tab1Root = AdminHomePage;
-  tab2Root = AdminProjectPage;
-  tab3Root = AdminNewsfeedPage;
-  tab4Root = AdminInterviewPage;
-  tab5Root = AdminMypagePage;
+  tab1Root = AdminProjectPage;
+  tab2Root = AdminNotificationPage;
+  tab3Root = AdminMypagePage;
 
   constructor(
     public navCtrl: NavController,
@@ -127,4 +123,8 @@ export class AdminTabsPage {
     }
   }
 
+  getNotificationNum() {
+    // alarmNum -> notificationNum으로
+    return this.adminService.alarmNum;
+  }
 }

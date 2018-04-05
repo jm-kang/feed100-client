@@ -14,7 +14,9 @@
     <ion-navbar hideBackButton="true">
       <ion-buttons start>
         <button ion-button (click)="openCompanyNotificationPage()">
-          <ion-icon name="ios-notifications"></ion-icon>
+          <ion-icon name="ios-notifications">
+              <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getNotificationNum()>0">{{getNotificationNum()}}</ion-badge>
+          </ion-icon>
         </button>
       </ion-buttons>
       <ion-title>{{project_name | slicetext:14}}</ion-title>
@@ -25,6 +27,7 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
+
   <!-- 프로젝트 대기중 -->
   <div *ngIf="!isProjectProceeding" class="waiting-project">
     <div class="company-project-image-wrapper cropper">
