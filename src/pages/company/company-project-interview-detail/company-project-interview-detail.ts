@@ -233,28 +233,9 @@ export class CompanyProjectInterviewDetailPage {
     else { return "과유불급! 너무 길면 부담을 느껴요!" } 
   }
 
-  insertKeyword(keyword) {
-    this.questionInterview = this.questionInterview + keyword;
-  }
-  
-  openCompanyProjectInterviewWritingEditorPage() {
-    let companyProjectInterviewWritingEditorModal = this.modalCtrl.create('ModalWrapperPage',
-      { page: 'CompanyProjectInterviewWritingEditorPage', 
-        params: {
-          "nickname" : this.nickname,
-          "project_participant_id" : this.project_participant_id,
-          "ordinal" : this.interviews.length + 1
-        }
-    });
-    companyProjectInterviewWritingEditorModal.present();
-    companyProjectInterviewWritingEditorModal.onWillDismiss(
-      (data) => {
-        if(data == "refresh") {
-          this.ionViewWillEnter();  
-        }
-      }
-    );
-  }
+  // insertKeyword(keyword) {
+  //   this.questionInterview = this.questionInterview + keyword;
+  // }
 
   openInterviewInfo() {
     cordova.ThemeableBrowser.open('https://m.blog.naver.com/feed100_help/221235914864', '_system');

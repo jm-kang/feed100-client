@@ -36,7 +36,6 @@ export class UserProjectRewardFormPage {
   reportPoint: number = 0; // 심층 피드백 보상 금액
   projectPoint: number = 0;
   exp: number = 0;
-  interviewNum: number = 0;
 
   recommendationStats = [false,false,false,false,false,false,false,false,false,false];
 

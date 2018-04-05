@@ -1,3 +1,21 @@
 page-admin-project-group-interview-question-editor {
-
+    .question-wrapper {
+        color: #787878 !important;
+        font-size: 1.2rem !important;
+    }
+    .point-notice {
+        font-size: 1.5rem !important;
+    }
+    .complete-button {
+        color: #ff6700 !important;
+    }
+    .divider {
+        background-color: rgba(55,55,55,0.8);
+        width: 80%;
+        margin: 0 auto;
+        height: 0.55px;;
+    }
+    .help-wrapper h2 {
+        font-size: 1.4rem !important;
+    }
 }

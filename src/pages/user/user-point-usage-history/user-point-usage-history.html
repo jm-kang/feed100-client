@@ -120,12 +120,12 @@
             <p class="m-b-8" [innerHTML]="pointHistory.point_history_registration_date | amDateFormat: 'YYYY-MM-DD'"></p>
             <!-- 입금 전 -->
             <div class="is-paid-badge-wrapper m-b-40" *ngIf="!pointHistory.is_completed">
-              <div class="is-paid-wrapper">입력하신 계좌로 입금&nbsp;<strong>대기중</strong>입니다.<ion-icon class="bold" *ngIf="isFold" (click)="fold(0)" name="ios-information-circle-outline"></ion-icon><ion-icon *ngIf="!isFold" (click)="fold(1)" name="ios-information-circle"></ion-icon></div>
-              <div class="not-paid-summary" *ngIf="!isFold">입력하신 계좌로 신청 마감일(매월 15일, 월 1회) 기준 5영업일 내에 신청금액을 지급합니다. 자세한 내용은 이용약관을 참고해 주세요.</div>
+              <div class="is-paid-wrapper">입금&nbsp;<strong>대기중</strong>입니다.<ion-icon class="bold" *ngIf="isFold" (click)="fold(0)" name="ios-information-circle-outline"></ion-icon><ion-icon *ngIf="!isFold" (click)="fold(1)" name="ios-information-circle"></ion-icon></div>
+              <div class="not-paid-summary" *ngIf="!isFold">환전 금액은 매월 15일에 지급됩니다. (휴일일 경우 다음 영업일에 입금됩니다.)</div>
             </div>
             <!-- 입금 -->
             <div class="is-paid-badge-wrapper m-b-40" *ngIf="pointHistory.is_completed">
-              <div class="is-paid-wrapper paid">입력하신 계좌에 입금이&nbsp;<strong>완료</strong>되었습니다.</div>
+              <div class="is-paid-wrapper paid">입금이&nbsp;<strong>완료</strong>되었습니다. 확인해주세요!</div>
             </div>
           </div>
           <div class="usage-content" text-right>

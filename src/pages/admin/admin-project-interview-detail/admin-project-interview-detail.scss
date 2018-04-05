@@ -1,3 +1,121 @@
 page-admin-project-interview-detail {
+    .help-btn-wrapper {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 100px;
+        box-shadow: 0 6px 16px 0 rgba(144,0,0,0.1);
+        background-color: #fff;
+        .help-btn {
+            position: relative;
+            font-size: 2rem;
+            margin: 0 !important;
+            font-weight: bold;
+        }
+    }
+    .avatar-span-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .more-btn {
+            font-size: 2rem;
+            width: 2.2rem;
+            color: #787878;
+        }
+    }
+    .avatar-span {
+        height: 2.5em;
+        width: 2.5em;
+        margin-right: 8px !important;
+        overflow: hidden;
+        border-radius: 100px;
+        border: 1px solid #e4e4e4;
+        display: inline-block;
+    }
 
+    .avatar-span {
+        margin-right: 0 !important;
+        margin-left: 8px;
+    }
+
+    .avatar-span .avatar-span-image {
+        height: 2.5em;
+        width: 2.5em;
+    }
+    .waiting-reply {
+        color: #787878 !important;
+        background-color: #f3f3f3;
+    }
+
+    .editor-header {
+        p {
+            color: #989898;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+
+    }
+
+
+    ion-footer {
+         background-color: transparent;
+    }
+
+    .footer-md::before {
+        display: none;
+    }
+
+    .scroll-content {
+        margin-bottom: 0 !important;
+        padding-bottom: 150px;
+    }
+
+    .reply-company-interview {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 14px;
+        margin-right: 14px;
+        width: calc(100% - 28px);
+        border-radius: 8px !important;
+        border: 1px solid #e8e8e8;
+        box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 10px rgba(0,0,0,0.1);
+    }
+
+    .disable-interview-btn {
+        color: #787878 !important;
+    }
+
+    .item-tag-wrapper {
+        position: absolute;
+        right: -20px;
+        bottom: 0px;
+        .btn-item-more {
+            top:4px;
+            display: inline-block;
+            .button {
+                font-size: 2rem;
+                color: #c8c8c8;
+                background-color: transparent;
+                padding: 0;
+                margin: 0;
+            }
+            .like-btn {
+                height: 4rem;
+                width: 4rem;
+            }
+            .more-btn {
+                height: 4rem;
+                width: 2rem;
+            }
+        }
+    }
+
+    .tabs-header {
+        border-bottom: 0.25px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .like-true-icon { color: #fff; }
+    .like-false-icon {color: #ddd; }
 }
