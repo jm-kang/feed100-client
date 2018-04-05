@@ -174,10 +174,11 @@ export class UserConfigurePage {
     this.userService.accessProjectCard(this, project_id);    
   }
 
-  openUserProfileModificationFormPage() {
-    let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
-    userProfileModificationFormModal.present();
-  }
+  // 추후 도입
+  // openUserProfileModificationFormPage() {
+  //   let userProfileModificationFormModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
+  //   userProfileModificationFormModal.present();
+  // }
 
   logout() {
     this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?',

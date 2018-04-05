@@ -27,11 +27,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
 
   project_id;
 
-  interviewQestion: string = "프로젝트 테스트를 진행하면서 가장 불편했던 사항이 무엇이였나요?";
-  reward: number;
   textcount: number;
-
-  is_max: boolean = false;
 
   questionContent: string = "";
   contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문을 작성해 주세요.';
@@ -39,7 +35,6 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   maxTextLength: number = 100;
   isHelpHide: boolean;
 
-  projectKeywords = ["버튼위치","어려움","파일업로드"];
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   group = [];
