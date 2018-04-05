@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ViewController } from 'ionic-angular';
 
-import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
+// import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -42,7 +42,8 @@ export class UserProfileModificationFormPage {
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    public ModalWrapperPage: ModalWrapperPage) {
+    // public ModalWrapperPage: ModalWrapperPage
+) {
   }
 
   ionViewDidLoad() {
@@ -56,7 +57,7 @@ export class UserProfileModificationFormPage {
 
 
   skip() {
-    this.ModalWrapperPage.dismissModal();
+    // this.ModalWrapperPage.dismissModal();
   }
 
   slideChanged() {
@@ -139,8 +140,9 @@ export class UserProfileModificationFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.commonService.showBasicAlert('수정이 완료되었습니다.');
-          this.ModalWrapperPage.dismissModal("refresh");   
+          // this.commonService.showBasicAlert('수정이 완료되었습니다.');
+          // this.ModalWrapperPage.dismissModal("refresh");   
+          this.navCtrl.setRoot('UserTabsPage');
         }
         else if(data.success == false) {
           this.commonService.apiRequestErrorHandler(data, this.navCtrl)

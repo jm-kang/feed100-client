@@ -45,6 +45,8 @@ export class UserTabsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserTabsPage');
+    this.verifyUserProfileAndTutorial();
+
     // to check if we have permission
     this.push.hasPermission()
       .then((res: any) => {
@@ -128,6 +130,33 @@ export class UserTabsPage {
     console.log(this.commonService.getDevice().version);
   }
 
+  verifyUserProfileAndTutorial() {
+    this.userService.getUserInfo()
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          // 프로필 등록 안한 경우
+          if(!data.data.gender || !data.data.age || !data.data.job || !data.data.region || !data.data.marriage || !data.data.interests) {
+            this.openUserProfileModificationFormPage();
+          }
+          // 튜토리얼 안한 경우
+          // else if(!data.data.is_tutorial_completed) {
+          //   this.openUserTutorialPage();
+          // }
+        }
+        else if(data.success == false) {
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+          this.commonService.logout(this.navCtrl);
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+        this.commonService.logout(this.navCtrl);
+      }
+    )
+  }
+
   getNotificationNum() {
     return this.userService.notificationNum;
   }
@@ -145,5 +174,12 @@ export class UserTabsPage {
     noticeModal.present();
   }
 
+  openUserProfileModificationFormPage() {
+    this.navCtrl.setRoot('UserProfileModificationFormPage');
+  }
+
+  openUserTutorialPage() {
+    this.navCtrl.setRoot('UserTutorialPage');
+  }
 
 }

@@ -17,7 +17,7 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-point-exchange.html',
 })
 export class UserPointExchangePage {
-  totalPoint: number = 20000;
+  totalPoint: number = 0;
   minExchangePoint: number = 10000;
   banks = ['경남은행','광주은행','국민은행','기업은행','농협중앙회','대구은행','부산은행','산업은행','서울은행','수협','시티은행','신한은행','신협','우리은행','우체국','시티은행','전북은행','SC','제주은행','하나은행','새마을금고'];
   exchangePoints = [10000, 20000, 30000, 40000, 50000];
@@ -40,29 +40,29 @@ export class UserPointExchangePage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserPointExchangePage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    // this.userService.getUserInfo()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.totalPoint = data.data.point;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    this.userService.getUserInfo()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.totalPoint = data.data.point;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   back() {
@@ -83,8 +83,15 @@ export class UserPointExchangePage {
       .subscribe(
         (data) => {
           if(data.success == true) {
-            this.ionViewWillEnter();
-            this.commonService.showBasicAlert('신청되었습니다.');
+            if(data.data) {
+              this.commonService.showBasicAlert('신청되었습니다.');
+            }
+            else {
+              if(data.message = 'more point is needed') {
+                this.commonService.showBasicAlert('오류가 발생했습니다.');
+              }
+            }
+            this.back();
           }
           else if(data.success == false) {
             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
