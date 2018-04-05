@@ -19,8 +19,7 @@ import 'rxjs/add/operator/finally';
 */
 @Injectable()
 export class UserServiceProvider {
-  alarmNum = 0;
-  interviewNum = 0;
+  notificationNum = 0;
   
   constructor(
     public http: Http,
@@ -30,6 +29,7 @@ export class UserServiceProvider {
     console.log('Hello UserServiceProvider Provider');
   }
   
+  // 리뉴얼 후
   registerDeviceToken(uuid, device_token) {
     let url = this.commonService.getServerUrl() + '/user/api/device-token';
     let data = {
@@ -42,6 +42,7 @@ export class UserServiceProvider {
     });
   }
 
+  // 리뉴얼 후
   getUserInfo() {
     let url = this.commonService.getServerUrl() + '/user/api/user';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
@@ -87,35 +88,36 @@ export class UserServiceProvider {
     });
   }
 
-  getUserAndProjectAndParticipation(project_id) {
-    let url = this.commonService.getServerUrl() + '/user/api/user/project/' + project_id;
+  // 리뉴얼 후
+  getUserAndProjectInfo(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/user&project/' + project_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
-  getAlarms() {
-    let url = this.commonService.getServerUrl() + '/user/api/user/alarms';
+  // 리뉴얼 후
+  getNotifications() {
+    let url = this.commonService.getServerUrl() + '/user/api/notifications';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
-  alarmRead(alarm_id) {
-    let url = this.commonService.getServerUrl() + '/user/api/user/alarm/read';
-    let data = {
-      "alarm_id" : alarm_id
-    }
+  // 리뉴얼 후
+  readNotification(notification_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/notification/' + notification_id + '/read';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
     });
   }
 
-  getAlarmAndInterviewNum() {
-    let url = this.commonService.getServerUrl() + '/user/api/user/alarm&interview/num';
+  // 리뉴얼 후
+  getNotificationNum() {
+    let url = this.commonService.getServerUrl() + '/user/api/notification/num';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
@@ -150,31 +152,34 @@ export class UserServiceProvider {
     });
   } 
 
-  getInterviews() {
-    let url = this.commonService.getServerUrl() + '/user/api/user/interviews';
+  // 리뉴얼 후
+  getInterviews(project_participant_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/interviews/' + project_participant_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
-  getInterview(project_id) {
-    let url = this.commonService.getServerUrl() + '/user/api/user/interview/' + project_id;
+  // 리뉴얼 후
+  getInterview(project_participant_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/interview/' + project_participant_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
-  responseInterview(interview_id, interview_response, interview_response_images) {
-    let url = this.commonService.getServerUrl() + '/user/api/user/interview/' + interview_id;
+  // 리뉴얼 후
+  answerInterview(project_id, project_participant_id, interview_id, interview_answer, interview_reward) {
+    let url = this.commonService.getServerUrl() + '/user/api/interview/' + project_id + '/' + project_participant_id + '/' + interview_id;
     let data = {
-      "interview_response" : interview_response,
-      "interview_response_images" : interview_response_images
+      "interview_answer" : interview_answer,
+      "interview_reward" : interview_reward
     };
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -247,6 +252,7 @@ export class UserServiceProvider {
     });
   }
 
+  // 리뉴얼 후
   getProjects() {
     let url = this.commonService.getServerUrl() + '/user/api/projects';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
@@ -255,19 +261,85 @@ export class UserServiceProvider {
     });
   }
 
-  getProject(project_id) {
-    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id;
+  // 리뉴얼 후
+  getAllProjects() {
+    let url = this.commonService.getServerUrl() + '/user/api/all-projects';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
-  getProjectHome(project_id) {
-    let url = this.commonService.getServerUrl() + '/user/api/project/home/' + project_id;
+  // 리뉴얼 후
+  getProject(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }  
+
+  // 리뉴얼 후
+  viewProjectStory(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project-story/' + project_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  getProjectHome(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/home';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  checkProcessCondition(project_id, project_participation_objective_conditions) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/condition';
+    let data = {
+      "project_participation_objective_conditions" : project_participation_objective_conditions,
+      "phone_os" : this.commonService.getDevice().platform,
+      "phone_model" : this.commonService.getDevice().model
+    }
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  checkProcessTest(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/test';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
+  }  
+
+  // 리뉴얼 후
+  checkProcessQuiz(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/quiz';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  completeParticipationProcess(project_id, project_first_impression_rate, interviews, preferred_interview_time) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/completion';
+    let data = {
+      "project_first_impression_rate" : project_first_impression_rate,
+      "interviews" : interviews,
+      "preferred_interview_time" : preferred_interview_time
+    }
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -370,14 +442,14 @@ export class UserServiceProvider {
     });
   }
 
-  setAlarmAndInterviewNum() {
-    this.getAlarmAndInterviewNum()
+  // 리뉴얼 후
+  setNotificationNum() {
+    this.getNotificationNum()
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.alarmNum = data.data.alarm_num;
-          this.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
+          this.notificationNum = data.data.notification_num;
+          this.badge.set(data.data.notification_num);
         }
       },
       (err) => {
@@ -388,11 +460,13 @@ export class UserServiceProvider {
 
   // 진행중
   // 	참여o - 프로젝트 홈
+  //    completion - 프로젝트 홈
+  //    quiz - 인터뷰 폼
+  //    condition - 스토리
+  //    else - 참여 불가
   // 	참여x
   // 		인원 꽉참 - 스토리
   // 		인원 안참
-  // 			프로필 노등록 - 프로필 수정 후 참여조건 검사 후 스토리
-  // 			프로필 등록 - 참여조건 검사 후 스토리
   // 종료
   // 	참여o
   // 		보상 전
@@ -400,67 +474,80 @@ export class UserServiceProvider {
   //      심사끝 - 보상 페이지
   // 		보상 후 - 스토리
   // 	참여x - 스토리
+  // 리뉴얼 후
   accessProjectCard(componentRef, project_id) {
     this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
     let messages = [
       '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
-      '아쉽게도 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
-      '프로젝트에 참가하려면 먼저 프로필을 등록해야 합니다!<br/>프로필 등록 페이지로 이동하시겠습니까?',
-      '프로젝트에 참가하려면 먼저 간단한 질문에 응답해야 합니다!<br/>참가하시겠습니까?',
+      '이미 퀴즈를 푸셨네요!<br/>다음 단계로 진행합니다.',
+      '이미 참여조건을 통과하셨네요!<br/>스토리를 자세히 보시고 인터뷰에 응답해주세요!',
+      '조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다. 다른 프로젝트에 참여해주세요.',
+      '이미 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
+      '프로젝트에 참여하려면 우선 몇 가지 질문에 응답해야 합니다!<br/>진행하시겠습니까?',
       '프로젝트를 성공적으로 수행하여 보상을 받을 수 있습니다!<br/>보상 페이지로 이동하시겠습니까?',
       '아직 심사가 진행중입니다!<br/>심사는 프로젝트 종료 후 최대 2일까지 걸릴 수 있습니다.<br/>다음에 다시 시도해주세요.',      
       '종료된 프로젝트입니다!<br/>스토리 페이지로 이동하시겠습니까?'
     ]
-
-    this.getUserAndProjectAndParticipation(project_id)
+    // is_end(심사) / is_exceeded / is_proceeding
+    this.getUserAndProjectInfo(project_id)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
       (data) => {
         if(data.success == true) {
-          if(data.data.project_info.isProceeding) {
+          if(data.data.project_info.is_proceeding) {
             if(data.data.project_participation_info) {
-              this.commonService.showConfirmAlert(messages[0], 
+              if(data.data.project_participation_info.process_completion) {
+                this.commonService.showConfirmAlert(messages[0], 
+                  () => {
+                    this.openUserProjectHomePage(componentRef, project_id);
+                  }
+                );
+              }
+              else if(data.data.project_participation_info.process_quiz) {
+                this.commonService.showConfirmAlert(messages[1], 
                 () => {
-                  this.openUserProjectHomePage(componentRef, project_id);
+                  this.openUserProjectInterviewFormPage(componentRef, project_id);
                 }
               );
-            }
-            else {
-              if(data.data.project_info.participant_num >= data.data.project_info.max_participant_num) {
-                this.commonService.showConfirmAlert(messages[1], 
+              }
+              else if(data.data.project_participation_info.process_condition) {
+                this.commonService.showConfirmAlert(messages[2], 
                   () => {
-                    this.openUserProjectStoryPage(componentRef, project_id);
+                    this.openUserProjectStoryPage(componentRef, project_id, true, data.data.project_participation_info.process_test);
                   }
                 );
               }
               else {
-                if(!data.data.age) {
-                  this.commonService.showConfirmAlert(messages[2], 
-                    () => {
-                      this.openUserProfileModificationFormPage(componentRef);
-                    }
-                  );
-                }
-                else {
-                  this.commonService.showConfirmAlert(messages[3], 
-                    () => {
-                      this.openUserProjectParticipationConditionFormPage(componentRef, project_id);
-                    }
-                  );
-                }
+                this.commonService.showBasicAlert(messages[3]);
+              }
+            }
+            else {
+              if(data.data.project_info.is_exceeded) {
+                this.commonService.showConfirmAlert(messages[4], 
+                  () => {
+                    this.openUserProjectStoryPage(componentRef, project_id, false, false);
+                  }
+                );
+              }
+              else {
+                this.commonService.showConfirmAlert(messages[5], 
+                  () => {
+                    this.openUserProjectParticipationConditionFormPage(componentRef, project_id);
+                  }
+                );
               }
             }
           }
           else {
             if(data.data.project_participation_info) {
               if(!data.data.project_participation_info.project_reward_date) {
-                this.commonService.showConfirmAlert(messages[4], 
+                this.commonService.showConfirmAlert(messages[6], 
                   () => {
-                    if(data.data.project_info.is_judge_proceeding) {
-                      this.commonService.showBasicAlert(messages[5])
+                    if(!data.data.project_info.is_judge_end) {
+                      this.commonService.showBasicAlert(messages[7])
                     }
                     else { 
                       this.openUserProjectRewardFormPage(componentRef, project_id);
@@ -469,17 +556,17 @@ export class UserServiceProvider {
                 );
               }
               else {
-                this.commonService.showConfirmAlert(messages[6], 
+                this.commonService.showConfirmAlert(messages[8], 
                   () => {
-                    this.openUserProjectStoryPage(componentRef, project_id);
+                    this.openUserProjectStoryPage(componentRef, project_id, false, false);
                   }
                 );
               }
             }
             else {
-              this.commonService.showConfirmAlert(messages[6], 
+              this.commonService.showConfirmAlert(messages[8], 
                 () => {
-                  this.openUserProjectStoryPage(componentRef, project_id);
+                  this.openUserProjectStoryPage(componentRef, project_id, false, false);
                 }
               );
             }
@@ -499,9 +586,13 @@ export class UserServiceProvider {
     );
 
   }
-
+  
   openUserProjectHomePage(componentRef, project_id) {
     componentRef.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
+  }
+
+  openUserProjectInterviewFormPage(componentRef, project_id) {
+    componentRef.navCtrl.push('UserProjectInterviewFormPage', { "project_id" : project_id });
   }
 
   openUserProfileModificationFormPage(componentRef) {
@@ -516,25 +607,16 @@ export class UserServiceProvider {
     );
   }
 
-  openUserProjectStoryPage(componentRef, project_id) {
-    componentRef.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
+  openUserProjectStoryPage(componentRef, project_id, isFeedback, process_test) {
+    componentRef.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : project_id, "isFeedback" : isFeedback, "process_test" : process_test });
   }
 
   openUserProjectParticipationConditionFormPage(componentRef, project_id) {
-    let userProjectParticipationConditionFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectParticipationConditionFormPage', params: { "project_id" : project_id }});
-    userProjectParticipationConditionFormModal.present();
+    componentRef.navCtrl.push('UserProjectParticipationConditionFormPage', { 'project_id' : project_id });
   }
 
   openUserProjectRewardFormPage(componentRef, project_id) {
-    let userProjectRewardFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectRewardFormPage', params: { "project_id" : project_id }});
-    userProjectRewardFormModal.present();
-    userProjectRewardFormModal.onWillDismiss(
-      (data) => {
-        if(data == "refresh") {
-          componentRef.ionViewWillEnter();
-        }
-      }
-    );
+    componentRef.navCtrl.push('UserProjectRewardFormPage', { 'project_id' : project_id });
   }
 
 

@@ -40,7 +40,7 @@
   <div class="content-section story-content-wrapper p-t-50 p-b-50 p-l-16 p-r-16">
     <h4 text-center>프로젝트 스토리</h4>
     <div class="divider-dot"><span class="dot"></span></div>
-    <div class="storys-wrapper" *ngFor="let projectStory of projectStorys">
+    <div class="storys-wrapper" *ngFor="let projectStory of projectStories">
       <img [src]="projectStory.storyImage"/>
       <div class="video-container" *ngIf="projectStory.storyVideo">
         <iframe width="100%" [src]="projectStory.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>

@@ -23,12 +23,17 @@ export class UserProjectInterviewAnswerPage {
   // @ViewChild('input') myInput ;
 
   project_id;
+  project_participant_id;
+  interview_id;
 
-  interviewQestion: string = "프로젝트 테스트를 진행하면서 가장 불편했던 사항이 무엇이였나요?";
+  interviewQuestion;
+  is_max;
+
+  // interviewQuestion: string = "프로젝트 테스트를 진행하면서 가장 불편했던 사항이 무엇이였나요?";
   reward: number;
   textcount: number;
 
-  is_max: boolean = false;
+  // is_max: boolean = false;
 
   answerContent: string = "";
   contentPlaceholder: string = '이 부분을 터치하여 인터뷰 질문에 답변해 주세요.';
@@ -52,25 +57,85 @@ export class UserProjectInterviewAnswerPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectInterviewAnswerPage');
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;    
+    this.project_participant_id = this.ModalWrapperPage.modalParams.project_participant_id;
+    
+    this.isHelpHide = true;
   }
 
   ionViewWillEnter() {    
     console.log('ionViewWillEnter UserProjectInterviewAnswerPage');
-    this.isHelpHide = true;
+    let loading = this.commonService.presentLoading();
+    
+    this.userService.getInterview(this.project_participant_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.interview_id = data.data.interview_id;
+          this.interviewQuestion = data.data.interview_question;
+          this.is_max = data.data.is_max;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
   }
 
   completeEditor() {
     if(this.commonService.hasEmoji(this.answerContent)) {
       return false;
     }
-    this.answerContent = this.commonService.textAreaFilter(this.answerContent);
-    let data = { answerContent: this.answerContent };
-    this.ModalWrapperPage.dismissModal(data);
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
+      () => {
+        this.commonService.isLoadingActive = true;
+        let loading = this.commonService.presentLoading();
+        this.answerContent = this.commonService.textAreaFilter(this.answerContent);
+        this.userService.answerInterview(this.project_id, this.project_participant_id, this.interview_id, this.answerContent, this.reward)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+            (data) => {
+            if(data.success == true) {
+              if(this.is_max) {
+                this.commonService.showToast('우수 참여자로 선정될 가능성이 높아졌어요!');
+              }
+              else {
+                this.commonService.showToast('+ ' + this.reward + ' 포인트가 적립되었습니다.');
+              }
+              this.ModalWrapperPage.dismissModal("refresh");
+            }
+            else if(data.success == false) {
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+              .then(() => {
+                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              });
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
+
+      }
+    );
   }
 
   dismiss() {
-    let data = "";
-    this.ModalWrapperPage.dismissModal(data);
+    this.ModalWrapperPage.dismissModal("cancel");
   }
 
   help() {
@@ -88,12 +153,12 @@ export class UserProjectInterviewAnswerPage {
   }
 
   openUserProjectStoryVerticalPage() {
-    let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage'});
+    let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage', params: { "project_id" : this.project_id }});
     userProjectStoryVerticalModal.present();
   }
 
   openUserProjectInterviewDetailPage() {
-    let userProjectInterviewDetailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewDetailPage'});
+    let userProjectInterviewDetailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewDetailPage', params: { "project_participant_id" : this.project_participant_id }});
     userProjectInterviewDetailModal.present();
   }
 

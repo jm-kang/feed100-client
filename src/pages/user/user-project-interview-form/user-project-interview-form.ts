@@ -39,12 +39,12 @@ export class UserProjectInterviewFormPage {
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   satisfiedContent = {
-    interviewQestion: "서비스를 경험했을 때 어떤 부분이 가장 매력적이셨나요? 가장 만족스러웠던 부분과 그 이유에 대해 말씀해주세요.",
+    interviewQuestion: "서비스를 경험했을 때 어떤 부분이 가장 매력적이셨나요? 가장 만족스러웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
   unsatisfiedContent = {
-    interviewQestion: "서비스를 경험했을 때 불편사항이나 개선사항이 있던가요? 아쉬웠던 부분과 그 이유에 대해 말씀해주세요.",
+    interviewQuestion: "서비스를 경험했을 때 불편사항이나 개선사항이 있던가요? 아쉬웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
@@ -74,21 +74,122 @@ export class UserProjectInterviewFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectInterviewFormPage');
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);
     this.slides.lockSwipeToNext(true);
+
+    this.isHelpHide = true;    
   }
 
   ionViewWillEnter(){
-    this.isHelpHide = true;
+    console.log('ionViewWillEnter UserProjectInterviewFormPage');    
   }
 
   completeEditor() {
-    // if(this.commonService.hasEmoji(this.answerContent)) {
-    //   return false;
-    // }
-    // this.answerContent = this.commonService.textAreaFilter(this.answerContent);
-    // let data = { answerContent: this.answerContent };
-    // this.navCtrl.pop();
+    let interviews = [];
+    let totalReward = 0;
+    switch(this.firstImpressionType()) {
+      case 'positive':
+        interviews.push({
+          'interview_question' : this.satisfiedContent.interviewQuestion,
+          'interview_answer' : this.satisfiedContent.answerContent,
+          'interview_reward' : this.rewardPoint(this.textCount(this.satisfiedContent.answerContent))
+        });
+        totalReward += this.rewardPoint(this.textCount(this.satisfiedContent.answerContent));
+        break;
+      case 'neutral':
+        interviews.push({
+          'interview_question' : this.satisfiedContent.interviewQuestion,
+          'interview_answer' : this.satisfiedContent.answerContent,
+          'interview_reward' : this.rewardPoint(this.textCount(this.satisfiedContent.answerContent))
+        });
+        interviews.push({
+          'interview_question' : this.unsatisfiedContent.interviewQuestion,
+          'interview_answer' : this.unsatisfiedContent.answerContent,
+          'interview_reward' : this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent))
+        });
+        totalReward += this.rewardPoint(this.textCount(this.satisfiedContent.answerContent));
+        totalReward += this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent));
+        break;
+      case 'negative':
+        interviews.push({
+          'interview_question' : this.unsatisfiedContent.interviewQuestion,
+          'interview_answer' : this.unsatisfiedContent.answerContent,
+          'interview_reward' : this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent))
+        });
+        totalReward += this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent));
+        break;
+    }
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
+      () => {
+        this.commonService.isLoadingActive = true;
+        let loading = this.commonService.presentLoading();
+        let interviews = [];
+        switch(this.firstImpressionType()) {
+          case 'positive':
+            interviews.push({
+              'interview_question' : this.satisfiedContent.interviewQuestion,
+              'interview_answer' : this.satisfiedContent.answerContent,
+              'interview_reward' : this.rewardPoint(this.textCount(this.satisfiedContent.answerContent))
+            });
+            break;
+          case 'neutral':
+            interviews.push({
+              'interview_question' : this.satisfiedContent.interviewQuestion,
+              'interview_answer' : this.satisfiedContent.answerContent,
+              'interview_reward' : this.rewardPoint(this.textCount(this.satisfiedContent.answerContent))
+            });
+            interviews.push({
+              'interview_question' : this.unsatisfiedContent.interviewQuestion,
+              'interview_answer' : this.unsatisfiedContent.answerContent,
+              'interview_reward' : this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent))
+            });
+            break;
+          case 'negative':
+            interviews.push({
+              'interview_question' : this.unsatisfiedContent.interviewQuestion,
+              'interview_answer' : this.unsatisfiedContent.answerContent,
+              'interview_reward' : this.rewardPoint(this.textCount(this.unsatisfiedContent.answerContent))
+            });
+            break;
+        }
+
+        this.userService.completeParticipationProcess(this.project_id, this.firstImpressionScore, interviews, this.interviewTimeSlide.value)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+            (data) => {
+            if(data.success == true) {
+              if(data.data) {
+                this.commonService.showToast('+ ' + totalReward + ' 포인트가 적립되었습니다.');
+                this.commonService.showBasicAlert('축하합니다! 프로젝트에 성공적으로 참여했습니다. 안내 내용을 확인해주세요!');
+                this.navCtrl.pop({animate: false});                
+                this.navCtrl.push('UserProjectHomePage', { "project_id" : this.project_id});          
+              }
+              else {
+                if(data.message == 'project is not proceeding') {
+                  this.back();
+                  this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+                }
+                else if(data.message == 'project is exceeded') {
+                  this.back();
+                  this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
+                }
+              }
+            }
+            else if(data.success == false) {
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
+
+      }
+    );
   }
 
   help() {
@@ -111,13 +212,8 @@ export class UserProjectInterviewFormPage {
   }
 
   openUserProjectStoryVerticalPage() {
-    let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage'});
+    let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage', params: { "project_id" : this.project_id }});
     userProjectStoryVerticalModal.present();
-  }
-
-  openUserProjectInterviewDetailPage() {
-    let userProjectInterviewDetailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewDetailPage'});
-    userProjectInterviewDetailModal.present();
   }
 
   textCount(text: string) {
@@ -199,7 +295,8 @@ export class UserProjectInterviewFormPage {
     if(this.commonService.hasEmoji(content)) {
       return false;
     }
-    content = this.commonService.textAreaFilter(content);
+    this.satisfiedContent.answerContent = this.commonService.textAreaFilter(this.satisfiedContent.answerContent);
+    this.unsatisfiedContent.answerContent = this.commonService.textAreaFilter(this.unsatisfiedContent.answerContent);
     
     this.slides.lockSwipeToNext(false);
     this.slides.slideNext(300);

@@ -27,6 +27,7 @@ export class UserProjectRewardFormPage {
   transparentPercent: number = 0;
 
   project_id;
+
   recommendationScore: number = 0;
   is_selected: boolean = false;
   feedbackPoint: number = 0;
@@ -49,6 +50,7 @@ export class UserProjectRewardFormPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectRewardFormPage');
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);
     this.slides.lockSwipeToNext(true);
   }

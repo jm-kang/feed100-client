@@ -33,7 +33,7 @@
       </div>
       <div class="question" [innerHTML]="storyQuizSlide.question"></div>
       <div class="question-summary"><span class="text-red">주의!</span> 스토리 퀴즈는 틀릴 시 스토리 처음화면으로 이동합니다.</div>
-      <div *ngIf="!storyQuizSlide.isMultiCheck">
+      <div>
         <div class="participation-condition-options-wrapper" *ngIf="6 > storyQuizSlide.options.length">
           <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="storyQuizSlide.value">
             <ion-item text-center *ngFor="let option of storyQuizSlide.options;">
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div *ngIf="storyQuizSlide.isMultiCheck">
+      <!-- <div *ngIf="storyQuizSlide.isMultiCheck">
         <div class="participation-condition-options-wrapper" *ngIf="6 > storyQuizSlide.options.length">
           <ion-list>
             <ion-item text-center *ngFor="let option of storyQuizSlide.options;">
@@ -73,7 +73,7 @@
             </ion-row>
           </ion-list>
         </div>
-      </div>
+      </div> -->
 
       <div class="slide-next-button-wrapper">
         <span *ngIf="storyQuizSlides.length-1 > i">

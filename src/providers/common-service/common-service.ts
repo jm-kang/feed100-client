@@ -6,8 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { File, FileEntry } from '@ionic-native/file';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { Device } from '@ionic-native/device';
 import { StatusBar } from '@ionic-native/status-bar';
-import { App, AlertController, LoadingController, normalizeURL, Platform } from 'ionic-angular';
+import { App, AlertController, LoadingController, normalizeURL, Platform, ToastController } from 'ionic-angular';
 import { AppVersion } from '@ionic-native/app-version';
 import { Market } from '@ionic-native/market';
 import { LoginPage } from  '../../pages/common/login/login';
@@ -28,7 +29,7 @@ import { isDevMode } from '@angular/core/src/application_ref';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPage;
-  isDevMode = false;
+  isDevMode = true;
 
   constructor(
     public http: Http,
@@ -36,20 +37,21 @@ export class CommonServiceProvider {
     public camera: Camera,
     public file: File,
     public uniqueDeviceID: UniqueDeviceID,
+    private device: Device,
     public statusBar: StatusBar,
     public app: App,
     public alertCtrl: AlertController,
     public platform: Platform,
     private appVersion: AppVersion,
     private market: Market,
+    public toastCtrl: ToastController,    
     public loadingCtrl: LoadingController) {
     console.log('Hello CommonServiceProvider Provider');
   }
   
   getServerUrl() {
-    // return 'http://192.168.35.233:3000';
     if(this.isDevMode) {
-      return 'http://192.168.35.32:3000';
+      return 'http://192.168.0.10:3000';
     }
     return 'https://www.feed100.me';
   } 
@@ -313,6 +315,10 @@ export class CommonServiceProvider {
     );
   }
 
+  getDevice() {
+    return this.device;
+  }
+
   hasEmoji(content) {
     let regExp = /^[가-힣ㄱ-ㅎㅏ-ㅣA-Za-z0-9\_\`\~\!\@\#\$\%\^\&\*\(\)\-\=\+\\\{\}\[\]\'\"\;\:\<\,\>\.\?\/\|\₩\s]+$/;     
     if(!content.match(regExp)) {
@@ -374,6 +380,16 @@ export class CommonServiceProvider {
       enableBackdropDismiss: false
     });
     alert.present();
+  }
+
+  showToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 4000,
+      position: 'top'
+    });
+
+    toast.present(toast);
   }
 
   showConfirmAlert(message, handler) {

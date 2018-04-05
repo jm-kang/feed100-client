@@ -34,15 +34,15 @@
         <span class="interview-timeline-wrapper">
           <div class="interview-timeline-box">
             <div class="box-detail">
-              <span class="registration-date-wrapper">{{interview.interviewRegistrationDate | amDateFormat: 'YYYY-MM-DD'}}</span>
+              <span class="registration-date-wrapper">{{interview.interview_answer_registration_date | amDateFormat: 'YYYY-MM-DD'}}</span>
             </div>
-            <div class="question-wrapper"><span>Q : </span>{{interview.question}}</div>
+            <div class="question-wrapper"><span>Q : </span>{{interview.interview_question}}</div>
             <div class="answer-wrapper">
-                <span>A : </span>{{interview.answer}}
+                <span>A : </span>{{interview.interview_answer}}
             </div>
             <div class="box-detail p-t-20">
-              <span class="reward-wrapper"><img src="./../../assets/img/feed100-coin.png" alt="">+ {{interview.interviewReward}}p</span>
-              <span class="like-wrapper"><ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon></span>
+              <span class="reward-wrapper"><img src="assets/img/feed100-coin.png" alt="">+ {{interview.interview_reward}}p</span>
+              <span class="like-wrapper"><ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.is_like"></ion-icon></span>
             </div>
           </div>
         </span>

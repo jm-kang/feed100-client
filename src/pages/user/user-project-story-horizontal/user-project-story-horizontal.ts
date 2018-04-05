@@ -27,37 +27,46 @@ export class UserProjectStoryHorizontalPage {
 
   isFirstSlide: boolean = true;
   // 프로젝트를 참여하기위해 왔는지
-  isFeedback: boolean = true;
+  // isFeedback: boolean = true;
+  isFeedback;
   // 프로젝트에 테스트할 링크가 있는지
-  isLink: boolean = false;
-  // 피드백 시작하기를 한번이라도 눌렀는지
-  check: boolean = true;
+  // isLink: boolean = false;
+  isLink;
+  // 테스트 시작하기를 한번이라도 눌렀는지
+  check;
 
-  projectMainImage: string = "./../../assets/img/project-main-image3.png";
-  nickname: string = "포텐브라더스";
-  projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
-  projectViewNum: number = 0;
-  participantNum: number = 0;
-  maxParticipantNum: number = 0;
-  maxReward: number = 5500;
-  progressState: string = "";
-  projectSummary: string = "";
-  projectRegistrationDate: string = "";
+  // projectMainImage: string = "./../../assets/img/project-main-image3.png";
+  // nickname: string = "포텐브라더스";
+  // projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
+  // projectViewNum: number = 0;
+  // participantNum: number = 0;
+  // maxParticipantNum: number = 0;
+  // maxReward: number = 5500;
+  // progressState: string = "";
+  // projectRegistrationDate: string = "";
+  projectMainImage;
+  nickname;
+  projectName;
+  projectViewNum;
+  maxReward;
+  progressState;
   project_link;
   // 프로젝트 테스트
-  testInfo: string="asdasdas";
+  // testInfo: string="asdasdas";
+  testInfo;
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
 
-  projectStorySlides = [
-    {
-      storyImage: "",
-      storyVideo: "",
-      storyContent: ""
-    }
-  ];
+  // projectStorySlides = [
+  //   {
+  //     storyImage: "",
+  //     storyVideo: "",
+  //     storyContent: ""
+  //   }
+  // ];
+  projectStorySlides;
 
   constructor(
     public navCtrl: NavController,
@@ -71,57 +80,56 @@ export class UserProjectStoryHorizontalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserProjectStoryHorizontalPage');
-    // this.commonService.isLoadingActive = true;
-    // this.project_id = this.navParams.get('project_id');
-    // this.isFeedback = this.navParams.get('isFeedback');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
+    this.isFeedback = this.navParams.get('isFeedback');
+    this.check = this.navParams.get('process_test');
+
     this.slides.lockSwipeToPrev(true);  
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter UserProjectStoryPage');
-    // let loading = this.commonService.presentLoading();
+    console.log('ionViewWillEnter UserProjectStoryHorizontalPage');
+    let loading = this.commonService.presentLoading();
 
-    // this.userService.getProject(this.project_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       if(this.platform.is('android')) {
-    //         this.isLink = (data.data.project_android_link) ? true : false;
-    //         this.project_link = data.data.project_android_link;
-    //       }
-    //       else if(this.platform.is('ios')) {
-    //         this.isLink = (data.data.project_ios_link) ? true : false;
-    //         this.project_link = data.data.project_ios_link;
-    //       }
-    //       this.projectMainImage = data.data.project_main_image;
-    //       this.avatarImage = data.data.avatar_image;
-    //       this.nickname = data.data.nickname;
-    //       this.projectName = data.data.project_name;
-    //       this.projectViewNum = data.data.project_view_num;
-    //       this.participantNum = data.data.participant_num;
-    //       this.maxParticipantNum = data.data.max_participant_num;
-    //       this.progressState = data.data.project_end_date;
-    //       this.projectSummary = data.data.project_summary;
-    //       this.projectRegistrationDate = data.data.project_registration_date;
-    //       this.projectStorySlides = JSON.parse(data.data.project_story);
+    this.userService.viewProjectStory(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.android_link) ? true : false;
+            this.project_link = data.data.android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.ios_link) ? true : false;
+            this.project_link = data.data.ios_link;
+          }
+          this.projectMainImage = data.data.project_main_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.projectViewNum = data.data.project_view_num;
+          this.maxReward = data.data.project_max_reward;
+          this.progressState = data.data.project_end_date;
+          this.testInfo = data.data.test_notice;
+          this.projectStorySlides = JSON.parse(data.data.project_story);
 
           this.totalPageNum = this.projectStorySlides.length + 1;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // )
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
   }
 
   back() {
@@ -162,7 +170,47 @@ export class UserProjectStoryHorizontalPage {
   }
 
   openUserProjectLinkPage() {
-    cordova.ThemeableBrowser.open(this.project_link, '_system');
+    this.commonService.isLoadingActive = true;    
+    let loading = this.commonService.presentLoading();
+    
+    this.userService.checkProcessTest(this.project_id)
+    .finally(() => {
+      // loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          console.log(data.data);
+          if(data.data) {
+            this.commonService.showToast('곧 해당 서비스로 이동합니다. 테스트 후에는 반드시 FEED100 앱으로 돌아와주세요!');
+            setTimeout(() => {
+              cordova.ThemeableBrowser.open(this.project_link, '_system');
+              this.check = true;
+              loading.dismiss();
+            }, 4000);
+          }
+          else {
+            if(data.message == 'project is not proceeding') {
+              this.back();
+              this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+            }
+            else if(data.message == 'project is exceeded') {
+              this.back();
+              this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
+            }
+            loading.dismiss();
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+          loading.dismiss();
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
   }
 
   openUserProjectStoryQuizFormPage() {

@@ -24,6 +24,7 @@
         "@ionic-native/badge": "^4.3.1",
         "@ionic-native/camera": "^4.2.1",
         "@ionic-native/core": "3.12.1",
+        "@ionic-native/device": "^4.6.0",
         "@ionic-native/email-composer": "^4.5.2",
         "@ionic-native/facebook": "^4.1.0",
         "@ionic-native/file": "^4.2.1",

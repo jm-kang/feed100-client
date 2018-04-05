@@ -6,6 +6,6 @@
 -->
 <ion-tabs>
   <ion-tab [root]="tab1Root" tabTitle="프로젝트" tabIcon="ios-globe"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="알림" tabIcon="ios-notifications" [tabBadge]="getAlarmNum()>0?getAlarmNum():null"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="알림" tabIcon="ios-notifications" [tabBadge]="getNotificationNum()>0 ? getNotificationNum():null"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="마이페이지" tabIcon="ios-contact"></ion-tab>
 </ion-tabs>
