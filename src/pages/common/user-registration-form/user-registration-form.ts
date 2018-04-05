@@ -132,38 +132,42 @@ export class UserRegistrationFormPage {
       this.commonService.showBasicAlert('이용약관 및 개인정보처리방침에 동의해주세요.');
       return;
     }
-
-    this.commonService.isLoadingActive = true;
-    let loading = this.commonService.presentLoading();
     
-    this.commonService.localRegister(this.username, this.password, this.role, this.nickname)
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          this.navCtrl.setRoot('LoginPage', {}, {animate: true, direction: 'forward'});
-          this.commonService.showBasicAlert('해당 계정으로 이메일을 전송하였습니다.<br/>이메일 인증 완료 후 로그인해주세요.');
-        }
-        else if(data.success == false) {
-          if(data.message == 'username is already registered') {
-            this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
+    this.commonService.showConfirmAlert('입력된 정보는 수정할 수 없습니다.<br>올바르게 입력하셨나요?', 
+      () => {
+        this.commonService.isLoadingActive = true;
+        let loading = this.commonService.presentLoading();
+        
+        this.commonService.localRegister(this.username, this.password, this.role, this.nickname)
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              this.navCtrl.setRoot('LoginPage', {}, {animate: true, direction: 'forward'});
+              this.commonService.showBasicAlert('해당 계정으로 이메일을 전송하였습니다.<br/>이메일 인증 완료 후 로그인해주세요.');
+            }
+            else if(data.success == false) {
+              if(data.message == 'username is already registered') {
+                this.commonService.showBasicAlert('이미 등록되어있는 이메일입니다.');
+              }
+              else if(data.message == 'nickname is already registered') {
+                this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
+              }
+              else {
+                this.commonService.apiRequestErrorHandler(data, this.navCtrl);
+              }
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
           }
-          else if(data.message == 'nickname is already registered') {
-            this.commonService.showBasicAlert('이미 등록되어있는 닉네임입니다.');
-          }
-          else {
-            this.commonService.apiRequestErrorHandler(data, this.navCtrl);
-          }
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
+        );
+
       }
     );
-
   }
 
   googleLogin() {
