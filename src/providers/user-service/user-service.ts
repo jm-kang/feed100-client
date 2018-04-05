@@ -152,6 +152,7 @@ export class UserServiceProvider {
     });
   } 
 
+  // 리뉴얼 후
   getInterviews(project_participant_id) {
     let url = this.commonService.getServerUrl() + '/user/api/interviews/' + project_participant_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
@@ -276,6 +277,15 @@ export class UserServiceProvider {
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
+  }  
+
+  // 리뉴얼 후
+  viewProjectStory(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project-story/' + project_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
   }
 
   // 리뉴얼 후
@@ -288,7 +298,7 @@ export class UserServiceProvider {
   }
 
   // 리뉴얼 후
-  checkParticipationCondition(project_id, project_participation_objective_conditions) {
+  checkProcessCondition(project_id, project_participation_objective_conditions) {
     let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/condition';
     let data = {
       "project_participation_objective_conditions" : project_participation_objective_conditions,
@@ -298,6 +308,38 @@ export class UserServiceProvider {
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  checkProcessTest(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/test';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
+  }  
+
+  // 리뉴얼 후
+  checkProcessQuiz(project_id) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/quiz';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  completeParticipationProcess(project_id, project_first_impression_rate, interviews, preferred_interview_time) {
+    let url = this.commonService.getServerUrl() + '/user/api/project/' + project_id + '/process/completion';
+    let data = {
+      "project_first_impression_rate" : project_first_impression_rate,
+      "interviews" : interviews,
+      "preferred_interview_time" : preferred_interview_time
+    }
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, data, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -438,6 +480,9 @@ export class UserServiceProvider {
     let loading = this.commonService.presentLoading();
     let messages = [
       '현재 참여중인 프로젝트입니다!<br/>프로젝트 페이지로 이동하시겠습니까?',
+      '이미 퀴즈를 푸셨네요!<br/>다음 단계로 진행합니다.',
+      '이미 참여조건을 통과하셨네요!<br/>스토리를 자세히 보시고 인터뷰에 응답해주세요!',
+      '조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다. 다른 프로젝트에 참여해주세요.',
       '이미 프로젝트 정원이 초과되었습니다!<br/>스토리 페이지로 이동하시겠습니까?',
       '프로젝트에 참여하려면 우선 몇 가지 질문에 응답해야 합니다!<br/>진행하시겠습니까?',
       '프로젝트를 성공적으로 수행하여 보상을 받을 수 있습니다!<br/>보상 페이지로 이동하시겠습니까?',
@@ -462,25 +507,33 @@ export class UserServiceProvider {
                 );
               }
               else if(data.data.project_participation_info.process_quiz) {
-                this.commonService.showBasicAlert('퀴즈를 푸셨어요!');
+                this.commonService.showConfirmAlert(messages[1], 
+                () => {
+                  this.openUserProjectInterviewFormPage(componentRef, project_id);
+                }
+              );
               }
               else if(data.data.project_participation_info.process_condition) {
-                this.commonService.showBasicAlert('조건을 통과하셨어요!');
-              }
-              else {
-                this.commonService.showBasicAlert('조건을 충족하지 못해 이 프로젝트에 참여하실 수 없습니다. 다른 프로젝트에 참여해주세요.');
-              }
-            }
-            else {
-              if(data.data.project_info.is_exceeded) {
-                this.commonService.showConfirmAlert(messages[1], 
+                this.commonService.showConfirmAlert(messages[2], 
                   () => {
-                    this.openUserProjectStoryPage(componentRef, project_id);
+                    this.openUserProjectStoryPage(componentRef, project_id, true, data.data.project_participation_info.process_test);
                   }
                 );
               }
               else {
-                this.commonService.showConfirmAlert(messages[2], 
+                this.commonService.showBasicAlert(messages[3]);
+              }
+            }
+            else {
+              if(data.data.project_info.is_exceeded) {
+                this.commonService.showConfirmAlert(messages[4], 
+                  () => {
+                    this.openUserProjectStoryPage(componentRef, project_id, false, false);
+                  }
+                );
+              }
+              else {
+                this.commonService.showConfirmAlert(messages[5], 
                   () => {
                     this.openUserProjectParticipationConditionFormPage(componentRef, project_id);
                   }
@@ -491,10 +544,10 @@ export class UserServiceProvider {
           else {
             if(data.data.project_participation_info) {
               if(!data.data.project_participation_info.project_reward_date) {
-                this.commonService.showConfirmAlert(messages[3], 
+                this.commonService.showConfirmAlert(messages[6], 
                   () => {
                     if(!data.data.project_info.is_judge_end) {
-                      this.commonService.showBasicAlert(messages[4])
+                      this.commonService.showBasicAlert(messages[7])
                     }
                     else { 
                       this.openUserProjectRewardFormPage(componentRef, project_id);
@@ -503,17 +556,17 @@ export class UserServiceProvider {
                 );
               }
               else {
-                this.commonService.showConfirmAlert(messages[5], 
+                this.commonService.showConfirmAlert(messages[8], 
                   () => {
-                    this.openUserProjectStoryPage(componentRef, project_id);
+                    this.openUserProjectStoryPage(componentRef, project_id, false, false);
                   }
                 );
               }
             }
             else {
-              this.commonService.showConfirmAlert(messages[5], 
+              this.commonService.showConfirmAlert(messages[8], 
                 () => {
-                  this.openUserProjectStoryPage(componentRef, project_id);
+                  this.openUserProjectStoryPage(componentRef, project_id, false, false);
                 }
               );
             }
@@ -538,6 +591,10 @@ export class UserServiceProvider {
     componentRef.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });
   }
 
+  openUserProjectInterviewFormPage(componentRef, project_id) {
+    componentRef.navCtrl.push('UserProjectInterviewFormPage', { "project_id" : project_id });
+  }
+
   openUserProfileModificationFormPage(componentRef) {
     let userProfileModificationFormModal = componentRef.modalCtrl.create('ModalWrapperPage', {page: 'UserProfileModificationFormPage'});
     userProfileModificationFormModal.present();
@@ -550,8 +607,8 @@ export class UserServiceProvider {
     );
   }
 
-  openUserProjectStoryPage(componentRef, project_id) {
-    componentRef.navCtrl.push('UserProjectStoryPage', { "project_id" : project_id });
+  openUserProjectStoryPage(componentRef, project_id, isFeedback, process_test) {
+    componentRef.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : project_id, "isFeedback" : isFeedback, "process_test" : process_test });
   }
 
   openUserProjectParticipationConditionFormPage(componentRef, project_id) {

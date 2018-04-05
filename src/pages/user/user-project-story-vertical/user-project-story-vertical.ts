@@ -82,7 +82,7 @@ export class UserProjectStoryVerticalPage {
     console.log('ionViewWillEnter UserProjectStoryVerticalPage');
     let loading = this.commonService.presentLoading();
 
-    this.userService.getProject(this.project_id)
+    this.userService.viewProjectStory(this.project_id)
     .finally(() => {
       loading.dismiss();
     })

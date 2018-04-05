@@ -119,6 +119,13 @@ export class UserTabsPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserTabsPage');
+    console.log(this.commonService.getDevice().isVirtual);
+    console.log(this.commonService.getDevice().manufacturer);
+    console.log(this.commonService.getDevice().model);
+    console.log(this.commonService.getDevice().platform);
+    console.log(this.commonService.getDevice().serial);
+    console.log(this.commonService.getDevice().uuid);
+    console.log(this.commonService.getDevice().version);
   }
 
   getNotificationNum() {

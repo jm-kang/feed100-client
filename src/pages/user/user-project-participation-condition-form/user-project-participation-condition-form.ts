@@ -23,9 +23,11 @@ export class UserProjectParticipationConditionFormPage {
   bgVert:   number = 0 ;
   lastBgV:  number = 0 ;
   // 프로젝트 안내 동의 체크
-  isCheck: boolean = false;
+  // isCheck: boolean = false;
+  isCheck;
   // 프로젝트 안내 문구
-  project_notice: string = "asd";
+  // project_notice: string = "asd";
+  project_notice;
   
   scrollVert:   number = 0 ;
   lastScrollV:  number = 0 ;
@@ -33,10 +35,13 @@ export class UserProjectParticipationConditionFormPage {
 
   project_id;
 
-  projectName: String = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
-  projectMainImage: String = "./../../assets/img/feed100-intro-slide4.png";
+  // projectName: String = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
+  // projectMainImage: String = "./../../assets/img/feed100-intro-slide4.png";
 
-  participationConditionSlides = [{"isMultiCheck": true,"question" : "","options" : [{"option" : "a"},{"option" : "d"},{"option" : "c"},{"option" : "b"},{"option" : "e"}], "value" : ""}];
+  // participationConditionSlides = [{"isMultiCheck": true,"question" : "","options" : [{"option" : "a"},{"option" : "d"},{"option" : "c"},{"option" : "b"},{"option" : "e"}], "value" : ""}];
+  projectName;
+  projectMainImage;
+  participationConditionSlides = [];
 
   constructor(
     public navCtrl: NavController,
@@ -53,13 +58,6 @@ export class UserProjectParticipationConditionFormPage {
     this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);
     this.slides.lockSwipeToNext(true);
-    console.log(this.commonService.getDevice().isVirtual);
-    console.log(this.commonService.getDevice().manufacturer);
-    console.log(this.commonService.getDevice().model);
-    console.log(this.commonService.getDevice().platform);
-    console.log(this.commonService.getDevice().serial);
-    console.log(this.commonService.getDevice().uuid);
-    console.log(this.commonService.getDevice().version);
   }
   
   ionViewWillEnter() {
@@ -124,28 +122,35 @@ export class UserProjectParticipationConditionFormPage {
     this.commonService.isLoadingActive = true;
     let loading = this.commonService.presentLoading();
   
-    this.userService.checkParticipationCondition(this.project_id, this.participationConditionSlides)
+    this.userService.checkProcessCondition(this.project_id, this.participationConditionSlides)
     .finally(() => {
       loading.dismiss();
     })
     .subscribe(
-        (data) => {
+      (data) => {
         if(data.success == true) {
           if(data.data) {
             this.navCtrl.pop({animate: false});
             this.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : this.project_id, "isFeedback" : true });
-            this.commonService.showBasicAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 피드백을 작성해주세요.');
+            this.commonService.showBasicAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 인터뷰에 응답해주세요!');
           }
           else {
-            this.back();
-            this.commonService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
+            if(data.message == 'project is not proceeding') {
+              this.back();
+              this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
+            }
+            else if(data.message == 'project is exceeded') {
+              this.back();
+              this.commonService.showBasicAlert('이런! 인원이 초과되었습니다.');
+            }
+            else {
+              this.commonService.showBasicAlert('이런! 아쉽게도 프로젝트 조건을 충족하지 못했습니다. 다른 프로젝트에 참여해주세요.');
+              this.back();
+            }
           }
         }
         else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-          });
+          this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
         }
       },
       (err) => {
