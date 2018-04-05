@@ -18,7 +18,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = CompanyProjectHomePage;
+  rootPage:any = LoginPage;
 
   constructor(
     platform: Platform,
