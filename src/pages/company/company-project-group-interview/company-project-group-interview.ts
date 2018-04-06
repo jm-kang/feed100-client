@@ -138,11 +138,6 @@ export class CompanyProjectGroupInterviewPage {
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,) {
   }
-  doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
-  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectGroupInterviewPage');

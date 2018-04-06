@@ -23,48 +23,48 @@ export class CompanyProjectHomePage {
   first_impression_score: number = 7.5;
   participants_num: number = 30;
   project_end_date = "2018-04-04 00:00:00";
-  man_percent: number = 80;
-  woman_percent: number = 20;
+  man_percent: number = 0;
+  woman_percent: number = 0;
   max_value: number;
   ages = [
     {
       title: "10대",
-      percent: 10,
+      percent: 0,
     },
     {
       title: "20대",
-      percent: 30,
+      percent: 0,
     },
     {
       title: "30대",
-      percent: 20,
+      percent: 0,
     },
     {
       title: "40대",
-      percent: 15,
+      percent: 0,
     },
     {
       title: "50대+",
-      percent: 5,
+      percent: 0,
     }
   ];
 
   interviews = [
-    {
-      project_participant_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "우리형",
-      content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-    },
+    // {
+    //   project_participant_id: 1,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+    //   nickname: "우리형",
+    //   content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    // },
     {
       project_participant_id: 1,
       avatar_image: "./../../assets/img/user-avatar-image-man2.png",
       nickname: "우리형",
       content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
       interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
+      interview_num: 0,
     },
     {
       project_participant_id: 1,
@@ -72,7 +72,7 @@ export class CompanyProjectHomePage {
       nickname: "우리형",
       content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
       interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
+      interview_num: 0,
     },
   ];
 
@@ -83,12 +83,7 @@ export class CompanyProjectHomePage {
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,) {
   }
-  doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
-  }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
     this.maxValue();

@@ -14,12 +14,13 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
+import { CompanyProjectGroupInterviewQuestionEditorPage } from '../pages/company/company-project-group-interview-question-editor/company-project-group-interview-question-editor';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = AdminTabsPage;
+  rootPage:any = UserTabsPage;
 
   constructor(
     platform: Platform,

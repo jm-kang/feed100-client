@@ -139,13 +139,6 @@ export class AdminProjectGroupInterviewPage {
     public adminService: AdminServiceProvider,) {
   }
 
-  doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
-  }
-
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectGroupInterviewPage');
   }

@@ -148,4 +148,11 @@ page-company-project-group-interview {
     .group-user-box:nth-last-child(1) {
         border-right: 16px solid transparent;
     }
+
+    .empty-content {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

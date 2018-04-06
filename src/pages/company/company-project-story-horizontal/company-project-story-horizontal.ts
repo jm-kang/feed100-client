@@ -44,9 +44,9 @@ export class CompanyProjectStoryHorizontalPage {
 
   projectStorySlides = [
     {
-      storyImage: "",
+      storyImage: "./../../assets/img/feed100-intro-slide4.png",
       storyVideo: "",
-      storyContent: ""
+      storyContent: "ㅏㅓㅁ누ㅏ어ㅜㅁ너ㅏㅜ아ㅓㅁ누아ㅓㅜㅁ나ㅓ우마ㅓ누"
     }
   ];
 

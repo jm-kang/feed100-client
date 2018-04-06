@@ -81,12 +81,6 @@ export class AdminProjectHomePage {
     public adminService: AdminServiceProvider) {
   }
 
-  doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
-  }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectHomePage');
     this.maxValue();
