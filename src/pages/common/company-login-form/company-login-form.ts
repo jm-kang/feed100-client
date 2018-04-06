@@ -93,7 +93,7 @@ export class CompanyLoginFormPage {
           if(data.success == true) {
             this.storage.set('accessToken', data.data.accessToken);
             this.storage.set('refreshToken', data.data.refreshToken);
-            this.navCtrl.setRoot('CompanyTabsPage', {}, {animate: true, direction: 'forward'});
+            this.navCtrl.setRoot('CompanyProjectHomePage', {}, {animate: true, direction: 'forward'});
           }
           else if(data.success == false) {
             if(data.message == 'username is unregistered') {
