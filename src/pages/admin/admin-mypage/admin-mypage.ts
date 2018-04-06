@@ -17,15 +17,9 @@ import { AdminServiceProvider } from '../../../providers/admin-service/admin-ser
   templateUrl: 'admin-mypage.html',
 })
 export class AdminMypagePage {
-  // avatarImage: string = "./../../assets/img/user-avatar-image-woman2.png";
-  // levelClass: string = "인턴연구원";
-  // nickname: string = "피드배커";
-  // username: string = "feed100.help@gmail.com";
-  
-  avatarImage;
-  levelClass;
-  nickname;
-  username;
+  avatarImage = "./../../assets/img/company-avatar-image.png";
+  nickname = "관리자";;
+  username = "admin@feed100.me";
 
   constructor(
     public navCtrl: NavController, 

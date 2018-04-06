@@ -37,7 +37,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <div class="rating-summary m-t-5">
+      <div class="rating-summary p-l-23 p-r-23">
         <span float-left>부정</span>
         <span float-right>긍정</span>
       </div>
@@ -57,13 +57,9 @@
       <ion-list class="reward-list">
         <div *ngIf="is_selected" class="reward-item">
           <div class="div-flex">
-            <span class="item-title">우수 참여자
-              <span class="best-badge">
-                <span>선정</span>
-              </span>
-            </span>
+            <span class="item-title">우수 참여자</span>
             <span class="item-point-box">
-              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{reportPoint}}</span><span class="point-tag">p</span>
+              <span class="project-point">{{reportPoint}}</span><span class="point-tag">p</span>
             </span>
           </div>
         </div>
@@ -71,7 +67,7 @@
           <div class="div-flex">
             <span class="item-title absolute-item-title">인터뷰 보상금액</span>
             <span class="item-point-box">
-              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{interviewPoint}}</span><span class="point-tag">p</span>
+              <span class="project-point">{{interviewPoint}}</span><span class="point-tag">p</span>
             </span>
           </div>
         </div>
@@ -79,11 +75,8 @@
           <div class="div-flex">
             <span class="item-title absolute-item-title">전체 보상 금액</span>
             <span class="item-point-box">
-              <span class="project-point" [ngStyle]="{'text-decoration': interviewNum > 0? 'line-through' : 'none'}">{{projectPoint}}</span><span class="point-tag">p</span>
+              <span class="project-point">{{projectPoint}}</span><span class="point-tag">p</span>
             </span>
-          </div>
-          <div text-right>
-            <h5 *ngIf="interviewNum > 0">{{interviewNum}}개의 인터뷰에 응답하지 않아 포인트를 받을 수 없습니다.</h5>
           </div>
         </div>
         <div class="reward-item">

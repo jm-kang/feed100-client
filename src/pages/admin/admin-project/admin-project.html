@@ -63,7 +63,7 @@
 
   <!-- 모든 프로젝트 -->
   <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
-    <div text-center class="home-group-title" [ngStyle]="{'border-top': rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : rewardProjects.length || participatingProjects.length || recommendedProjects.length ? '24px' : '120px'}">
+    <div text-center class="home-group-title" [ngStyle]="{'border-top': proceedingProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : proceedingProjects.length ? '24px' : '120px'}">
       <div>더 많은 프로젝트를<br>보고싶다면?</div>
       <span tappable (click)="openAdminAllProjectList()">모든 프로젝트 보기 ></span>
     </div>

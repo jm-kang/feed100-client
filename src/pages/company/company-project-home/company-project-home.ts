@@ -121,12 +121,7 @@ export class CompanyProjectHomePage {
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,) {
   }
-  doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
-  }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
 
@@ -331,5 +326,4 @@ export class CompanyProjectHomePage {
       instance.ionViewWillEnter();
     }
   }
-
 }

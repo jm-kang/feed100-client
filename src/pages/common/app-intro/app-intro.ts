@@ -27,7 +27,7 @@ export class AppIntroPage {
     {
       title: '원하는 고객과<br>직접 인터뷰를!',
       imageUrl: 'assets/img/appintro2.png',
-      description: '고객과 직접 소통하며 고객이 진짜 원하는 것을 찾으세요!',
+      description: '고객과 직접 소통하며<br>고객이 진짜 원하는 것을 찾으세요!',
     },
     {
       title: '포인트가 쭉쭉~<br>현금으로 환전까지!',

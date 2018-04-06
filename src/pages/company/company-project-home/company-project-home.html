@@ -1,21 +1,16 @@
 <!--
   Generated template for the CompanyProjectHomePage page.
-
+  
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-content [ngStyle]="{'background-color': isProjectProceeding ? '#e9eAeB' : '#fff'}">
-  <!-- 당겨서 새로고침 -->
-  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  
   <ion-header *ngIf="isProjectProceeding">
     <ion-navbar hideBackButton="true">
       <ion-buttons start>
         <button ion-button (click)="openCompanyNotificationPage()">
           <ion-icon name="ios-notifications">
-              <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getNotificationNum()>0">{{getNotificationNum()}}</ion-badge>
+            <ion-badge class="badge-button-wrapper-badge" color="danger" *ngIf="getNotificationNum()>0">{{getNotificationNum()}}</ion-badge>
           </ion-icon>
         </button>
       </ion-buttons>
@@ -27,7 +22,7 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
-
+  
   <!-- 프로젝트 대기중 -->
   <div *ngIf="!isProjectProceeding" class="waiting-project">
     <div class="company-project-image-wrapper cropper">
@@ -45,8 +40,25 @@
     </div>
   </div>
 
+  <!-- 프로젝트 대기중 -->
+  <div *ngIf="isProjectProceeding && interviews.length == 0" class="waiting-project">
+    <div class="company-project-image-wrapper cropper">
+      <img src="assets/img/rocket-illust.png" />
+    </div>
+    <div class="company-project-home-content">
+      <div class="summary-wrapper" padding>
+        <h1 text-center class="m-b-20">타겟에 맞는 유저가 매칭중입니다.</h1>
+        <p text-center>등록된 스토리를 확인해보세요!<br><br>샘플 프로젝트를 보며<br>어떻게 진행되며<br>어떤 결과를 얻을 수 있는지 확인해보세요!<br><br>더 궁금하신 사항은 도움말을 확인해주세요!</p>
+      </div>
+      <div class="company-project-home-btn-wrapper p-l-28 p-b-16 p-r-28">
+        <button ion-button class="sample-project-btn" (click)="openCompanyTutorialPage()">샘플 프로젝트</button>
+        <button ion-button class="project-registration-btn" (click)="openCompanyProjectRegistrationPage()">프로젝트 등록하기</button>
+      </div>
+    </div>
+  </div>
+  
   <!-- 프로젝트 진행중 -->
-  <div *ngIf="isProjectProceeding" class="processing-project">
+  <div *ngIf="isProjectProceeding && interviews.length > 0" class="processing-project">
     <div class="project-header-image cropper">
       <img [src]="project_main_image" />
       <span class="overlap-image"></span>
@@ -103,7 +115,7 @@
                 <div text-center class="graph-percent"><b>{{man_percent}}</b>%</div>
                 <div text-center class="gender-graph">
                   <div class="gender-color-wrapper">
-                    <div class="gender-color cropper" [ngStyle]="{'height': man_percent + 'px'}"><img src="assets/img/man-color.png" /></div>
+                    <div class="gender-color cropper" [ngStyle]="{'height': man_percent + 'px', 'left' : '10.031px'}"><img src="assets/img/man-color.png" /></div>
                   </div>
                   <img class="gender-default" src="assets/img/man-default.png" alt="">
                 </div>

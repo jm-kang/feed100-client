@@ -21,29 +21,24 @@ export class CompanyProjectReportPage {
   @ViewChild(Slides) slides: Slides;
   project_id;
   
-  isFirstSlide: boolean = true;
-  isFeedback: boolean = true;
+  isFirstSlide = true;
+  isFeedback = true;
 
-  projectMainImage: String = "";
-  avatarImage: String = "";
-  nickname: String = "";
-  projectName: String = "";
-  participantNum: number = 0;
-  maxParticipantNum: number = 0;
-  progressState: String = "";
-  projectSummary: String = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 심층 피드백"
-  projectRegistrationDate: String = "";
+  projectMainImage = "";
+  nickname = "";
+  projectName = "";
+  progressState = "";
+  projectSummary = "1. 유저 정보<br>2. 참여 조건 통계<br>3. 베스트 피드백<br>4. 프로젝트 통계<br>5. 심층 피드백"
+  participantNum;
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
 
-  userReportLength: number = 0;
-
   colors= [
     {backgroundColor:['rgba(240,164,171,0.7)','rgba(217,224,176,0.7)','rgba(249,220,134,0.7)','rgba(255,165,23,0.7)','rgba(245,118,80,0.7)', 'rgba(94, 161, 175,0.7)', 'rgba(173, 209, 208,0.7)', 'rgba(215, 201, 175,0.7)', 'rgba(137, 105, 152,0.7)', 'rgba(203, 175, 197,0.7)', 'rgba(178, 112, 163,0.7)', 'rgba(39, 62, 17, 0.7)', 'rgba(117, 141, 69, 0.7)', 'rgba(180, 189, 75, 0.7)']},
   ];
-  type:String= 'pie';
+  type = 'pie';
   options= {
     legend: {
       display: false
@@ -235,7 +230,6 @@ export class CompanyProjectReportPage {
     } ,
   ];
 
-  interviewNum: number = 100;
   satisfiedInterviews = [
     {
       avatar_image : "",
@@ -435,10 +429,6 @@ export class CompanyProjectReportPage {
     }
   }
 
-  openCompanyProjectFeedbackPage(feedback_id) {
-    this.navCtrl.push('CompanyProjectFeedbackPage', { "project_id" : this.project_id, "feedback_id" : feedback_id });
-  }
-
   average(index) {
     if(this.projectStatSlides[index].totalNum == 0) {
       return 0;
@@ -471,11 +461,4 @@ export class CompanyProjectReportPage {
     }
   }
 
-  openCompanyProjectSearchResultPage(hashtags) {
-    this.navCtrl.push('CompanyProjectSearchResultPage', { "hashtags" : hashtags, "project_id" : this.project_id });
-  }
-
-  openCompanyProjectUserProfilePage(project_participant_id) {
-    this.navCtrl.push('CompanyProjectUserProfilePage', { "project_participant_id" : project_participant_id });    
-  }
 }

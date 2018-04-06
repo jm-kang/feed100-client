@@ -31,13 +31,6 @@
         <span class="project-state-content">
           {{participantNum}}명 참여
         </span>
-        <span margin-left class="project-state-icon">
-          <!-- <ion-icon name="md-people" item-start></ion-icon> -->
-          <img src="assets/img/report.png" />
-        </span>
-        <span class="project-state-content">
-          {{interviewNum}}개 작성
-        </span>
       </div>
       <p class="summary">
         1. 유저 정보<br>
@@ -46,7 +39,6 @@
         4. 추천 지수<br>
         5. Interview
       </p>
-      <h5>{{projectRegistrationDate | amDateFormat: 'YYYY-MM-DD'}} 에 작성됨</h5>
 
     </ion-slide>
 
@@ -322,7 +314,7 @@
     </ion-buttons>
     <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide">
       <span item-start class="avatar-image avatar-span cropper">
-        <img class="avatar-span-image" [src]="avatarImage" />
+        <img class="avatar-span-image" [src]="projectMainImage" />
       </span>
       <h3>{{nickname}}</h3>
     </ion-item>

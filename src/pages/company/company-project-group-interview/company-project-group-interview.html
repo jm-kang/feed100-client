@@ -32,7 +32,7 @@
       <p text-center class="user-nickname">{{user.nickname}}</p>
     </span>
   </div>
-  <h1 class="p-t-20 p-l-20 p-r-20">유저 목록&ensp;<span *ngIf="interviews.length != 0">총 {{interviews.length}}명</span>
+  <h1 class="p-t-20 p-l-20 p-r-20" *ngIf="interviews.length > 0">유저 목록&ensp;<span>총 {{interviews.length}}명</span>
     <span tappable class="check-all" float-right *ngIf="group.length == 0" (click)="checkAll()">전체 선택</span>
     <span tappable class="uncheck-all" float-right *ngIf="group.length != 0" (click)="uncheckAll()">전체 해제</span>
   </h1>
@@ -40,13 +40,10 @@
 
 
 <ion-content>
-  <ion-refresher padding-top (ionRefresh)="doRefresh($event)" pullMin="150" pullMax="500">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  <div class="empty-content" *ngIf="interviews.length == 0">
+    <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
+  </div>
   <div class="interview-section">
-    <div class="empty-content" *ngIf="interviews.length == 0">
-      <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
-    </div>
     <ion-list class="m-t-10" *ngIf="interviews.length != 0">
       <ion-item float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let interview of interviews; let index = index" tappable (click)="check(index)">
         <span item-start *ngIf="interview.isCheck" class="check-box check"><ion-icon name="ios-checkmark"></ion-icon></span>
