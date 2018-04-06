@@ -19,8 +19,7 @@ import 'rxjs/add/operator/finally';
 */
 @Injectable()
 export class CompanyServiceProvider {
-  alarmNum = 0;
-  interviewNum = 0;
+  notificationNum = 0;
 
   constructor(
     public http: Http,
@@ -30,6 +29,7 @@ export class CompanyServiceProvider {
     console.log('Hello CompanyServiceProvider Provider');
   }
 
+  // 리뉴얼 후
   registerDeviceToken(uuid, device_token) {
     let url = this.commonService.getServerUrl() + '/company/api/device-token';
     let data = {
@@ -97,14 +97,15 @@ export class CompanyServiceProvider {
     });
   }
 
-  getAlarmAndInterviewNum() {
-    let url = this.commonService.getServerUrl() + '/company/api/company/alarm&interview/num';
+  // 리뉴얼 후
+  getNotificationNum() {
+    let url = this.commonService.getServerUrl() + '/company/api/notification/num';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
     });
-  }
-
+  } 
+  
   reportNewsfeed(newsfeed_id, newsfeed_comment_id) {
     let url = this.commonService.getServerUrl() + '/company/api/company/report/newsfeed';
     let data = {
@@ -224,8 +225,9 @@ export class CompanyServiceProvider {
     });
   }
 
-  getProjectHome(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/home/' + project_id;
+  // 리뉴얼 후
+  getProjectHome() {
+    let url = this.commonService.getServerUrl() + '/company/api/project/home';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
@@ -289,14 +291,14 @@ export class CompanyServiceProvider {
     });
   }
 
-  setAlarmAndInterviewNum() {
-    this.getAlarmAndInterviewNum()
+  // 리뉴얼 후
+  setNotificationNum() {
+    this.getNotificationNum()
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.alarmNum = data.data.alarm_num;
-          this.interviewNum = data.data.interview_num;
-          this.badge.set(data.data.alarm_num);
+          this.notificationNum = data.data.notification_num;
+          this.badge.set(data.data.notification_num);
         }
       },
       (err) => {
@@ -304,6 +306,7 @@ export class CompanyServiceProvider {
       }
     );
   }
+  
 
   // 내 프로젝트 or not
   accessProjectCard(componentRef, project_id) {

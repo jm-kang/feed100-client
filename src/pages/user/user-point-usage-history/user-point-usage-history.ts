@@ -78,41 +78,41 @@ export class UserPointUsageHistoryPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserPointUsageHistoryPage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    // this.userService.getPointHistory()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.pointHistories = data.data;
-    //       this.savePointNum = this.exchangePointNum = this.totalSavePoint = this.totalExchangePoint = this.totalPoint = 0;
-    //       for(let pointHistory of this.pointHistories) {
-    //         if(pointHistory.is_accumulated) {
-    //           this.savePointNum++;
-    //           this.totalSavePoint += pointHistory.point;
-    //         }
-    //         else {
-    //           this.exchangePointNum++;
-    //           this.totalExchangePoint += pointHistory.point;
-    //         }
-    //       }
-    //       this.totalPoint = this.totalSavePoint - this.totalExchangePoint;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );    
+    this.userService.getPointHistory()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.pointHistories = data.data;
+          this.savePointNum = this.exchangePointNum = this.totalSavePoint = this.totalExchangePoint = this.totalPoint = 0;
+          for(let pointHistory of this.pointHistories) {
+            if(pointHistory.is_accumulated) {
+              this.savePointNum++;
+              this.totalSavePoint += pointHistory.point;
+            }
+            else {
+              this.exchangePointNum++;
+              this.totalExchangePoint += pointHistory.point;
+            }
+          }
+          this.totalPoint = this.totalSavePoint - this.totalExchangePoint;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );    
   }
 
   doRefresh(refresher) {
