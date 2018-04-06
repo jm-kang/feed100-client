@@ -214,7 +214,7 @@ export class CompanyProjectHomePage {
             this.project_end_date = data.data.project_end_date;
             this.interviews = data.data.participants;
             this.participants_num = this.interviews.length;
-            this.isProjectProceeding = false;
+            this.isProjectProceeding = true;
             if(this.participants_num) {
               this.setStats();
             }
