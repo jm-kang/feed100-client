@@ -29,14 +29,21 @@ page-company-project-home {
             }
         }
         .company-project-home-content {
+            text-align: center;
             h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
                 font-weight: bold;
                 color: #383838;
             }
             p {
                 font-size: 1.4rem;
                 color: #787878;
+            }
+
+            .matcing-svg-wrapper {
+                width: 100px;
+                margin: 0 auto;
+                margin-top: -30px;
             }
         }
         .company-project-home-btn-wrapper {
@@ -242,5 +249,10 @@ page-company-project-home {
         .project-stats,.project-stats-background-wrapper {
             top: calc(56px + 10px);
         }
+    }
+
+    .open-link-btn {
+        font-weight: bold;
+        color: #ff6700;
     }
 }

@@ -20,7 +20,7 @@ import { CompanyProjectGroupInterviewQuestionEditorPage } from '../pages/company
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = UserTabsPage;
+  rootPage:any = CompanyProjectHomePage;
 
   constructor(
     platform: Platform,
