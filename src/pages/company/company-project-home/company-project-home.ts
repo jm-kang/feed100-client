@@ -20,7 +20,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 })
 export class CompanyProjectHomePage {
   project_id;
-  isProjectProceeding;
+  isProjectProceeding = true;
   project_name;
   project_main_image;
   first_impression_score = 0;
@@ -325,5 +325,10 @@ export class CompanyProjectHomePage {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }
+  }
+
+  openCompanyHelpPage() {
+    let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyHelpPage'});
+    manualModal.present();
   }
 }

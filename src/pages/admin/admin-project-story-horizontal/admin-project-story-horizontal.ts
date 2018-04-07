@@ -52,6 +52,7 @@ export class AdminProjectStoryHorizontalPage {
   ];
 
   isPrivate;
+  isTermination;
 
   constructor(
     public navCtrl: NavController, 
@@ -208,5 +209,48 @@ export class AdminProjectStoryHorizontalPage {
       );  
     }
     );
+  }
+
+  terminateProject() {
+    let message = '';
+    // let value;
+    if(!this.isTermination) {
+      message = '현재 진행중 상태입니다.<br/>종료 상태로 변경하시겠습니까?';
+      // value = 1;
+    }
+    this.commonService.showConfirmAlert(message, 
+    () => {
+      // this.commonService.isLoadingActive = true;
+      // let loading = this.commonService.presentLoading();
+  
+      // this.adminService.updateProjectPrivateState(this.project_id, value)
+      // .finally(() => {
+      //   loading.dismiss();
+      // })
+      // .subscribe(
+      //   (data) => {
+      //     if(data.success == true) {
+      //       if(this.isTermination) {
+      //         this.isTermination = false;
+      //       }
+      //       else {
+      //         this.isTermination = true;
+      //       }
+      //       this.commonService.showBasicAlert('변경되었습니다.');
+      //     }
+      //     else if(data.success == false) {
+      //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+      //       .then(() => {
+      //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+      //       })
+      //     }
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //     this.commonService.showBasicAlert('오류가 발생했습니다.');
+      //   }
+      // );  
+    }
+    );    
   }
 }
