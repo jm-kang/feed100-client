@@ -30,7 +30,7 @@ export class UserProjectStoryHorizontalPage {
   // isFeedback: boolean = true;
   isFeedback;
   // 프로젝트에 테스트할 링크가 있는지
-  // isLink: boolean = false;
+  // isLink: boolean = true;
   isLink;
   // 테스트 시작하기를 한번이라도 눌렀는지
   check;
@@ -42,17 +42,17 @@ export class UserProjectStoryHorizontalPage {
   // participantNum: number = 0;
   // maxParticipantNum: number = 0;
   // maxReward: number = 5500;
-  // progressState: string = "";
-  // projectRegistrationDate: string = "";
+  // progressState: string = "2018-04-20 00:00:00";
+
   projectMainImage;
   nickname;
   projectName;
   projectViewNum;
   maxReward;
   progressState;
+
   project_link;
   // 프로젝트 테스트
-  // testInfo: string="asdasdas";
   testInfo;
 
   currentPageNum: number = 0;
@@ -61,11 +61,12 @@ export class UserProjectStoryHorizontalPage {
 
   // projectStorySlides = [
   //   {
-  //     storyImage: "",
+  //     storyImage: "./../../assets/img/project-story-sample-image.png",
   //     storyVideo: "",
-  //     storyContent: ""
+  //     storyContent: "CUBIT의 주요 고객은 커플 및 가족입니다. 왜냐하면 사진 촬영을 가장 많이 하고 촬영 보조 기기를 자주 사용하는 층이기 때문입니다."
   //   }
   // ];
+
   projectStorySlides;
 
   constructor(

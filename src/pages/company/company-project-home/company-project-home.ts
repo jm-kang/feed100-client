@@ -52,11 +52,11 @@ export class CompanyProjectHomePage {
     }
   ];
   // isProjectProceeding:boolean = true;
-  // project_name: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
-  // project_main_image: string = "./../../assets/img/project-main-image2.png"
+  // project_name: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
+  // project_main_image: string = "./../../assets/img/project-main-image3.png"
   // first_impression_score: number = 7.5;
   // participants_num: number = 30;
-  // project_end_date = "2018-04-04 00:00:00";
+  // project_end_date = "2018-04-11 00:00:00";
   // man_percent: number = 80;
   // woman_percent: number = 20;
   // max_value: number;
@@ -87,28 +87,77 @@ export class CompanyProjectHomePage {
   //   {
   //     project_participant_id: 1,
   //     avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-  //     nickname: "우리형",
-  //     content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
-  //     interview_answer_registration_date: "2018-03-20 00:00:00",
+  //     nickname: "Matt",
+  //     content: "저는 화면 공유와 두 기기에 같이 저장된다는 부분이 좋은 것 같습니다. 보통 같이 사진을 찍으면 공유하려고 별도로 따로 보내줘야 하는데 공유가 ....",
+  //     interview_answer_registration_date: "2018-04-08 01:00:00",
   //     interview_num: 2,
   //   },
   //   {
   //     project_participant_id: 1,
-  //     avatar_image: "./../../assets/img/user-avatar-image-man2.png",
-  //     nickname: "우리형",
-  //     content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
-  //     interview_answer_registration_date: "2018-03-20 00:00:00",
-  //     interview_num: 2,
+  //     avatar_image: "./../../assets/img/user-avatar-image-woman2.png",
+  //     nickname: "잠만보오",
+  //     content: "휴대폰이 반드시 2개가 있어야 사용할 수 있다는 점? 저는 혼자서도 여행을 자주 가는데 휴대폰은 하나뿐이걸랑요ㅠㅠ.",
+  //     interview_answer_registration_date: "2018-04-08 00:00:00",
+  //     interview_num: 1,
   //   },
   //   {
   //     project_participant_id: 1,
   //     avatar_image: "./../../assets/img/user-avatar-image-man3.png",
-  //     nickname: "우리형",
-  //     content: "내가 말이야 왕년에 좀 한 주먹 했거든? 그니까 내가 행동대장할께 너가 날 이끌어줘. 안그러면 내 주먹 맛좀 볼 수 있을 것이야.",
-  //     interview_answer_registration_date: "2018-03-20 00:00:00",
-  //     interview_num: 2,
+  //     nickname: "탈룰라",
+  //     content: "멀리서 각도가 조절되는 점이 가장 좋은 것 같습니다. 그리고 연결이 데이터 소모없이 연결되면서 사진도 공유되는게 신기하네요!.",
+  //     interview_answer_registration_date: "2018-04-07 18:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-man2.png",
+  //     nickname: "이꾸요잇",
+  //     content: "일단 촬영 보조기기가 있어야 결합을 할 수 있다는 점이 아쉽네요 ㅠㅠ 다른 것도 같이 들고 다니지 않고 자체로 가능하면 좋겠습니다.",
+  //     interview_answer_registration_date: "2018-04-07 10:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
+  //     nickname: "호순이",
+  //     content: "페이스 트래킹이라는 기능 정말 신기하네요!! 이건 꼭 사진이 아니더라도 영상채팅이나 방송용으로 써도 될 것 같은데요?",
+  //     interview_answer_registration_date: "2018-04-07 00:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+  //     nickname: "김탁구공",
+  //     content: "폰이 2개가 있어야 서로 연결되서 쓸 수 있는게 좀.. 뭔가 불편함을 해결하기 위함인데 들고다닐게 많네요 ㅠㅠ 폰도 2대여야 하고, 보조기기도 필요하고요.",
+  //     interview_answer_registration_date: "2018-04-06 00:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+  //     nickname: "파란이빨",
+  //     content: "3만원 정도면 적절할 것으로 생각됩니다. 왜냐하면 요즘 특별한 기능 없이 블루투스 정도의 셀카봉도 1~2만원 정도에 팔리고, 삼각대도 약 1~2만원 정도에 팔리는데",
+  //     interview_answer_registration_date: "2018-04-06 00:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-woman2.png",
+  //     nickname: "뒤자이너",
+  //     content: "큐빗! 정말 좋은 이름이네요. 디자인도 이쁘고, 휴대성도 좋아보여요. 꼭 출시되면 알려주세요~!",
+  //     interview_answer_registration_date: "2018-04-05 00:00:00",
+  //     interview_num: 0,
+  //   },
+  //   {
+  //     project_participant_id: 1,
+  //     avatar_image: "./../../assets/img/user-avatar-image-man3.png",
+  //     nickname: "여행준비생",
+  //     content: "여친이랑 여행다닐때 각도 못 맞춘다고 혼 많이 났었는데.. 이 제품을 이용하면 앞으로 그럴 일은 없을 것 같아요!",
+  //     interview_answer_registration_date: "2018-04-05 00:00:00",
+  //     interview_num: 0,
   //   },
   // ];
+
   interviews = [];
 
   constructor(

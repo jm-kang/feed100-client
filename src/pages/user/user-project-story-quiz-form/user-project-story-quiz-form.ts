@@ -30,11 +30,11 @@ export class UserProjectStoryQuizFormPage {
 
   project_id;
 
-  // projectName: String = "";
-  // projectMainImage: String = "";
-
   // isMultiCheck : 중복선택 질문인지
-  // storyQuizSlides =  [{"isMultiCheck": true,"question" : "","options" : [{"option" : "a"},{"option" : "d"},{"option" : "c"},{"option" : "b"},{"option" : "e"}], "value" : ""}];
+  // storyQuizSlides =  [{"question" : "다음 중 서비스 기능이 아닌 것은?","options" : [{"option" : "인터뷰 작성"},{"option" : "보고서 작성"},{"option" : "첫인상 평가"},{"option" : "추천지수 입력"}], "value" : ""}];
+  // projectName = "Project Name";
+  // projectMainImage = "./../../assets/img/project-main-image3.png";
+
   projectName;
   projectMainImage;
   storyQuizSlides = [];

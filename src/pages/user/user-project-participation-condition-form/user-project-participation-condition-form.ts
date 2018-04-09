@@ -35,10 +35,13 @@ export class UserProjectParticipationConditionFormPage {
 
   project_id;
 
-  // projectName: String = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
-  // projectMainImage: String = "./../../assets/img/feed100-intro-slide4.png";
+  // projectName: String = "Project Name";
+  // projectMainImage: String = "./../../assets/img/project-main-image3.png";
+  // participationConditionSlides = [
+  //   {"question" : "유튜브 광고가 나오면 보시나요?","options" : [{"option" : "절대로 안본다"},{"option" : "드물게 본다"},{"option" : "가끔 본다"},{"option" : "항상 본다"}], "value" : ""},
+  //   {"question" : "소개팅에서 가장 꼴분견 행동은 무엇인가요?","options" : [{"option" : "노골적으로 스펙을 물을 때"},{"option" : "허세충만, 이기적인 행동"},{"option" : "매너 없는 행동"},{"option" : "코드가 맞지 않을 때"},{"option" : "너무 꾸미지 않은 모습"}], "value" : ""}
+  // ];
 
-  // participationConditionSlides = [{"isMultiCheck": true,"question" : "","options" : [{"option" : "a"},{"option" : "d"},{"option" : "c"},{"option" : "b"},{"option" : "e"}], "value" : ""}];
   projectName;
   projectMainImage;
   participationConditionSlides = [];

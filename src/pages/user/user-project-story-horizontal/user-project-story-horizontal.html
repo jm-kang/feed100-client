@@ -89,6 +89,7 @@
           </span> -->
           <p text-center>안내에 따라 테스트를 진행해주세요.<br>테스트 시작하기를 누르면 해당 링크로 이동됩니다.</p>
           <h3 text-center class="m-t-20 text-white">{{testInfo}}</h3> 
+          <!-- <h3 text-center class="m-t-20 text-white">1. 어플리케이션 설치하기!<br>2. 회원가입하기!<br>3. 게시글 확인하기!<br>4. 좋아요 클릭하기!<br>5. 게시글 작성해보기!<br>6. 'FEED100'으로 돌아와 인터뷰 하러가기!</h3>  -->
         </ion-item>
       </div>
 
@@ -104,11 +105,11 @@
       
       <ion-buttons *ngIf="isLink" class="project-last-slide-buttons multi-button-wrapper">
         <button ion-button block outline *ngIf="isLink" (click)="openUserProjectLinkPage()">테스트 시작하기</button>
-        <button [ngStyle]="{'width': '50%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizFormPage()">피드백 작성하기 ></button>
-        <button [ngStyle]="{'width': '50%'}" class="m-l-15 disable-btn" ion-button block outline *ngIf="!check" disabled>피드백 작성하기 ></button>
+        <button [ngStyle]="{'width': '50%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizFormPage()">인터뷰 하러가기 ></button>
+        <button [ngStyle]="{'width': '50%'}" class="m-l-15 disable-btn" ion-button block outline *ngIf="!check" disabled>인터뷰 하러가기 ></button>
       </ion-buttons>
       <ion-buttons *ngIf="!isLink" class="project-last-slide-buttons multi-button-wrapper">
-        <button [ngStyle]="{'width': '100%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizFormPage()">피드백 작성하기 ></button>
+        <button [ngStyle]="{'width': '100%'}" class="m-l-15" ion-button block outline *ngIf="check" (click)="openUserProjectStoryQuizFormPage()">인터뷰 하러가기 ></button>
       </ion-buttons>
     </ion-slide>
   </ion-slides>

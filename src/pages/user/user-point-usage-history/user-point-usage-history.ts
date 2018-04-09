@@ -19,49 +19,59 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
 export class UserPointUsageHistoryPage {
   @ViewChild(Content) content: Content;
 
-  segmentHistoryCondition: string = "";
-  savePointNum: number = 2;
-  exchangePointNum: number = 2;
-  totalPoint = 60500;
+  // segmentHistoryCondition: string = "";
+  // savePointNum: number = 2;
+  // exchangePointNum: number = 2;
+  // totalPoint = 60500;
+  // totalSavePoint = 0;
+  // totalExchangePoint = 0;
+  // isFold: boolean = true;
+
+  segmentHistoryCondition;
+  savePointNum: 0;
+  exchangePointNum: 0;
+  totalPoint = 0;
   totalSavePoint = 0;
   totalExchangePoint = 0;
-  isFold: boolean = true;
+  isFold = true;
 
 
-  pointHistories = [
-    {
-      description: "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구",
-      is_accumulated: true,
-      is_completed: true,
-      point_history_registration_date: "2018-01-29 10:00:00",
-      point: 5000,
-      total_point: 60500
-    },
-    {
-      description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
-      is_accumulated: true,
-      is_completed: false,
-      point_history_registration_date: "2018-01-27 10:00:00",
-      point: 5500,
-      total_point: 55500
-    },
-    {
-      description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
-      is_accumulated: false,
-      is_completed: true,
-      point_history_registration_date: "2018-01-20 10:00:00",
-      point: 10000,
-      total_point: 50000
-    },
-    {
-      description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
-      is_accumulated: false,
-      is_completed: false,
-      point_history_registration_date: "2018-01-13 10:00:00",
-      point: 20000,
-      total_point: 60000
-    }
-  ];
+  // pointHistories = [
+  //   {
+  //     description: "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구",
+  //     is_accumulated: true,
+  //     is_completed: true,
+  //     point_history_registration_date: "2018-01-29 10:00:00",
+  //     point: 5000,
+  //     total_point: 60500
+  //   },
+  //   {
+  //     description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
+  //     is_accumulated: true,
+  //     is_completed: false,
+  //     point_history_registration_date: "2018-01-27 10:00:00",
+  //     point: 5500,
+  //     total_point: 55500
+  //   },
+  //   {
+  //     description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
+  //     is_accumulated: false,
+  //     is_completed: true,
+  //     point_history_registration_date: "2018-01-20 10:00:00",
+  //     point: 10000,
+  //     total_point: 50000
+  //   },
+  //   {
+  //     description: "CON : 강연 / 컨퍼런스 지원 실시간 소통 응답서비스 CON",
+  //     is_accumulated: false,
+  //     is_completed: false,
+  //     point_history_registration_date: "2018-01-13 10:00:00",
+  //     point: 20000,
+  //     total_point: 60000
+  //   }
+  // ];
+
+  pointHistories = [];
 
   constructor(
     public navCtrl: NavController, 

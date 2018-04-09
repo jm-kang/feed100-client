@@ -27,17 +27,18 @@ export class AdminProjectStoryHorizontalPage {
   isFirstSlide: boolean = true;
   isLink: boolean = true;
   // 프로젝트에 테스트할 링크가 있는지
-  projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
+  projectMainImage: string = "./../../assets/img/project-main-image3.png";
   nickname: string = "포텐브라더스";
-  projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
+  projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
   projectViewNum: number = 0;
   participantNum: number = 0;
   maxParticipantNum: number = 0;
   maxReward: number = 5500;
-  progressState: string = "";
+  progressState: string = "2018-04-20 00:00:00";
   projectSummary: string = "";
   projectRegistrationDate: string = "";
   project_link;
+
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
