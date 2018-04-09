@@ -52,6 +52,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectGroupInterviewQuestionEditorPage');
+    this.project_id = this.ModalWrapperPage.modalParams.project_id;
     this.group = this.ModalWrapperPage.modalParams.group;
   }
 
@@ -60,18 +61,47 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
     this.isHelpHide = true;
   }
 
-  completeEditor() {
+  completeEditor() {      
     if(this.commonService.hasEmoji(this.questionContent)) {
       return false;
     }
-    this.questionContent = this.commonService.textAreaFilter(this.questionContent);
-    let data = { group: this.group };
-    this.ModalWrapperPage.dismissModal(data);
+    this.commonService.showConfirmAlert('해당 내용으로 인터뷰를 요청하시겠습니까?<br/>작성 후에는 수정하거나 삭제할 수 없습니다.', 
+    () => {
+      this.commonService.isLoadingActive = true;
+      let loading = this.commonService.presentLoading();
+      this.questionContent = this.commonService.textAreaFilter(this.questionContent);
+
+      let project_participants_id = this.group.map((participant) => {
+        return participant.project_participant_id;
+      })
+      
+      this.companyService.requestGroupInterview(this.project_id, project_participants_id, this.questionContent)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            this.ModalWrapperPage.dismissModal('complete'); 
+            this.commonService.showBasicAlert('전송되었습니다!<br/>답변이 도착하면 알림과 푸시 알림을 통해<br/>알려드리겠습니다.');            
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            })
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+        }
+      );  
+    });        
   }
 
   dismiss() {
-    let data = { group: this.group };
-    this.ModalWrapperPage.dismissModal(data);
+    this.ModalWrapperPage.dismissModal();
   }
 
   help() {

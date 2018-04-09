@@ -197,11 +197,11 @@ export class UserServiceProvider {
   }  
 
   // 리뉴얼 후
-  viewProjectStory(project_id) {
+  getProjectStory(project_id) {
     let url = this.commonService.getServerUrl() + '/user/api/project-story/' + project_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
-      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
+      return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -462,7 +462,7 @@ export class UserServiceProvider {
 
 
   // 리뉴얼 전
-  
+
   updateAccount(avatar_image, nickname) {
     let url = this.commonService.getServerUrl() + '/user/api/user/account';
     let data = {

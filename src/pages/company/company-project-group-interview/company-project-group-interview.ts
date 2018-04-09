@@ -16,117 +16,119 @@ import { CompanyServiceProvider } from './../../../providers/company-service/com
   templateUrl: 'company-project-group-interview.html',
 })
 export class CompanyProjectGroupInterviewPage {
+  project_id;
+
   interviews = [
-    {
-      project_participant_id: 1,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "우리형",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 2,
-      avatar_image: "./../../assets/img/user-avatar-image-man2.png",
-      nickname: "asda",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 3,
-      avatar_image: "./../../assets/img/user-avatar-image-man3.png",
-      nickname: "sdfsdf",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 4,
-      avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
-      nickname: "xcvxzcv",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 5,
-      avatar_image: "./../../assets/img/user-avatar-image-woman2.png",
-      nickname: "asdasd",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 6,
-      avatar_image: "./../../assets/img/user-avatar-image-woman3.png",
-      nickname: "sdafasdf",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 7,
-      avatar_image: "./../../assets/img/user-avatar-image-man1.png",
-      nickname: "zxcsdv",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 8,
-      avatar_image: "./../../assets/img/user-avatar-image-man2.png",
-      nickname: "klaasdas",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 9,
-      avatar_image: "./../../assets/img/user-avatar-image-man3.png",
-      nickname: "zxc",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
-    {
-      project_participant_id: 10,
-      avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
-      nickname: "asd",
-      score: 7.5,
-      age: '20대',
-      gender: '남자',
-      interview_answer_registration_date: "2018-03-20 00:00:00",
-      interview_num: 2,
-      isCheck: false,
-    },
+    // {
+    //   project_participant_id: 1,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+    //   nickname: "우리형",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 2,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man2.png",
+    //   nickname: "asda",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 3,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man3.png",
+    //   nickname: "sdfsdf",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 4,
+    //   avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
+    //   nickname: "xcvxzcv",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 5,
+    //   avatar_image: "./../../assets/img/user-avatar-image-woman2.png",
+    //   nickname: "asdasd",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 6,
+    //   avatar_image: "./../../assets/img/user-avatar-image-woman3.png",
+    //   nickname: "sdafasdf",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 7,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man1.png",
+    //   nickname: "zxcsdv",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 8,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man2.png",
+    //   nickname: "klaasdas",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 9,
+    //   avatar_image: "./../../assets/img/user-avatar-image-man3.png",
+    //   nickname: "zxc",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
+    // {
+    //   project_participant_id: 10,
+    //   avatar_image: "./../../assets/img/user-avatar-image-woman1.png",
+    //   nickname: "asd",
+    //   score: 7.5,
+    //   age: '20대',
+    //   gender: '남자',
+    //   interview_answer_registration_date: "2018-03-20 00:00:00",
+    //   interview_num: 2,
+    //   isCheck: false,
+    // },
   ];
 
   group = [];
@@ -141,11 +143,36 @@ export class CompanyProjectGroupInterviewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectGroupInterviewPage');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
+    this.uncheckAll();    
   }
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter CompanyProjectGroupInterviewPage');
-    this.uncheckAll();
+    let loading = this.commonService.presentLoading();
+    
+    this.companyService.getProjectParticipants(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.interviews = data.data;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   back() {
@@ -174,18 +201,15 @@ export class CompanyProjectGroupInterviewPage {
     let companyProjectGroupInterviewQuestionEditorModal = this.modalCtrl.create('ModalWrapperPage', {
       page: 'CompanyProjectGroupInterviewQuestionEditorPage',
       params: {
+        project_id: this.project_id,
         group: this.group
       }
     });
     companyProjectGroupInterviewQuestionEditorModal.present();
     companyProjectGroupInterviewQuestionEditorModal.onWillDismiss(
       (data) => {
-        if(data) {
-          this.group = data.group;
-          for(let user of this.group) {
-            let index = this.interviews.indexOf(user);
-            this.interviews[index].isCheck = true;
-          }
+        if(data == 'complete') {
+          this.back();
         }
     });
   }

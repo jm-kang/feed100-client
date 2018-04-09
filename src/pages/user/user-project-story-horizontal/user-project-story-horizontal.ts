@@ -92,7 +92,7 @@ export class UserProjectStoryHorizontalPage {
     console.log('ionViewWillEnter UserProjectStoryHorizontalPage');
     let loading = this.commonService.presentLoading();
 
-    this.userService.viewProjectStory(this.project_id)
+    this.userService.getProjectStory(this.project_id)
     .finally(() => {
       loading.dismiss();
     })

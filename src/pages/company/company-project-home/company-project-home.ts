@@ -202,16 +202,16 @@ export class CompanyProjectHomePage {
       (data) => {
         if(data.success == true) {
           if(data.data) {
-            console.log(JSON.stringify(data.data));
+            this.isProjectProceeding = true;
             this.project_id = data.data.project_id;
             this.project_name = data.data.project_name;
             this.project_main_image = data.data.project_main_image;
             this.project_end_date = data.data.project_end_date;
             this.interviews = data.data.participants;
             this.participants_num = this.interviews.length;
-            this.isProjectProceeding = true;
             if(this.participants_num) {
               this.setStats();
+              this.companyService.setNotificationNum();
             }
           }
           else {
@@ -256,7 +256,7 @@ export class CompanyProjectHomePage {
     let sum_of_woman_num = 0;
     let sum_of_ages = [0, 0, 0, 0, 0];
     for(let i=0; i<this.participants_num; i++) {
-      sum_of_first_impression_score = this.interviews[i].project_first_impression_rate;
+      sum_of_first_impression_score += this.interviews[i].project_first_impression_rate;
       switch(this.interviews[i].gender) {
         case '남자':
           sum_of_man_num++;
@@ -283,11 +283,11 @@ export class CompanyProjectHomePage {
           break;
       }
     }
-    this.first_impression_score = sum_of_first_impression_score / this.participants_num;
-    this.man_percent = sum_of_man_num / this.participants_num * 100;
-    this.woman_percent = sum_of_woman_num / this.participants_num * 100;
+    this.first_impression_score = Number((sum_of_first_impression_score / this.participants_num).toFixed(1));
+    this.man_percent = Number((sum_of_man_num / this.participants_num * 100).toFixed(0));
+    this.woman_percent = Number((sum_of_woman_num / this.participants_num * 100).toFixed(0));
     for(let i=0; i<5; i++) {
-      this.ages[i].percent = sum_of_ages[i] / this.participants_num * 100;
+      this.ages[i].percent = Number((sum_of_ages[i] / this.participants_num * 100).toFixed(0));
     }
     this.maxValue();            
   }
@@ -300,19 +300,19 @@ export class CompanyProjectHomePage {
   }
 
   openCompanyProjectInterviewDetailPage(project_participant_id) {
-    this.navCtrl.push('CompanyProjectInterviewDetailPage', { "project_participant_id" : project_participant_id });
+    this.navCtrl.push('CompanyProjectInterviewDetailPage', { 'project_id' : this.project_id, 'project_participant_id' : project_participant_id });
   }
 
   openCompanyProjectStoryHorizontalPage() {
-    this.navCtrl.push('CompanyProjectStoryHorizontalPage');
+    this.navCtrl.push('CompanyProjectStoryHorizontalPage', { 'project_id' : this.project_id });
   }
 
   openCompanyProjectReportPage() {
-    this.navCtrl.push('CompanyProjectReportPage');
+    this.navCtrl.push('CompanyProjectReportPage', { 'project_id' : this.project_id });
   }
 
   openCompanyProjectGroupInterviewPage() {
-    this.navCtrl.push('CompanyProjectGroupInterviewPage');
+    this.navCtrl.push('CompanyProjectGroupInterviewPage', { 'project_id' : this.project_id });
   }
 
   getNotificationNum() {

@@ -26,29 +26,38 @@ export class CompanyProjectStoryHorizontalPage {
 
   isFirstSlide: boolean = true;
   // 프로젝트에 테스트할 링크가 있는지
-  projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
-  nickname: string = "포텐브라더스";
-  projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
-  projectViewNum: number = 0;
-  participantNum: number = 0;
-  maxParticipantNum: number = 0;
-  maxReward: number = 5500;
-  progressState: string = "";
-  projectSummary: string = "";
-  projectRegistrationDate: string = "";
+  isLink;
+
+  // projectMainImage: string = "./../../assets/img/feed100-intro-slide4.png";
+  // nickname: string = "포텐브라더스";
+  // projectName: string = "일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십";
+  // projectViewNum: number = 0;
+  // participantNum: number = 0;
+  // maxParticipantNum: number = 0;
+  // maxReward: number = 5500;
+  // progressState: string = "";
+  // projectSummary: string = "";
+  // projectRegistrationDate: string = "";
+  projectMainImage;
+  nickname;
+  projectName;
+  projectViewNum;
+  maxReward;
+  progressState;
   project_link;
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
 
-  projectStorySlides = [
-    {
-      storyImage: "./../../assets/img/feed100-intro-slide4.png",
-      storyVideo: "",
-      storyContent: "ㅏㅓㅁ누ㅏ어ㅜㅁ너ㅏㅜ아ㅓㅁ누아ㅓㅜㅁ나ㅓ우마ㅓ누"
-    }
-  ];
+  // projectStorySlides = [
+  //   {
+  //     storyImage: "./../../assets/img/feed100-intro-slide4.png",
+  //     storyVideo: "",
+  //     storyContent: "ㅏㅓㅁ누ㅏ어ㅜㅁ너ㅏㅜ아ㅓㅁ누아ㅓㅜㅁ나ㅓ우마ㅓ누"
+  //   }
+  // ];
+  projectStorySlides;
 
   constructor(
     public navCtrl: NavController, 
@@ -61,55 +70,52 @@ export class CompanyProjectStoryHorizontalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectStoryHorizontalPage');
-    // this.commonService.isLoadingActive = true;
-    // this.project_id = this.navParams.get('project_id');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);  
   }
 
   ionViewWillEnter() {
-    // console.log('ionViewWillEnter CompanyProjectStoryHorizontalPage');
-    // let loading = this.commonService.presentLoading();
+    console.log('ionViewWillEnter CompanyProjectStoryHorizontalPage');
+    let loading = this.commonService.presentLoading();
 
-    // this.companyService.getProject(this.project_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       if(this.platform.is('android')) {
-    //         this.isLink = (data.data.project_android_link) ? true : false;
-    //         this.project_link = data.data.project_android_link;
-    //       }
-    //       else if(this.platform.is('ios')) {
-    //         this.isLink = (data.data.project_ios_link) ? true : false;
-    //         this.project_link = data.data.project_ios_link;
-    //       }
-    //       this.projectMainImage = data.data.project_main_image;
-    //       this.nickname = data.data.nickname;
-    //       this.projectName = data.data.project_name;
-    //       this.projectViewNum = data.data.project_view_num;
-    //       this.participantNum = data.data.participant_num;
-    //       this.maxParticipantNum = data.data.max_participant_num;
-    //       this.progressState = data.data.project_end_date;
-    //       this.projectSummary = data.data.project_summary;
-    //       this.projectRegistrationDate = data.data.project_registration_date;
-    //       this.projectStorySlides = JSON.parse(data.data.project_story);
+    this.companyService.getProject(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.android_link) ? true : false;
+            this.project_link = data.data.android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.ios_link) ? true : false;
+            this.project_link = data.data.ios_link;
+          }
+          this.projectMainImage = data.data.project_main_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.projectViewNum = data.data.project_view_num;
+          this.maxReward = data.data.project_max_reward;          
+          this.progressState = data.data.project_end_date;
+          this.projectStorySlides = JSON.parse(data.data.project_story);
 
           this.totalPageNum = this.projectStorySlides.length + 1;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // )    
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )    
   }
 
   back() {

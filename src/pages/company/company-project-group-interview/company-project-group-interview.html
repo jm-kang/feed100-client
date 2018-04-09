@@ -18,6 +18,10 @@
       </button>
     </ion-buttons>
   </ion-navbar>
+</ion-header>
+
+
+<ion-content>
   <div class="group-section" *ngIf="interviews.length > 0">
     <div class="default-group" *ngIf="group.length == 0 || !group.length">그룹 인터뷰할 유저들을 선택해주세요!</div>
     <span class="group-user-box" *ngFor="let user of group">
@@ -36,10 +40,6 @@
     <span tappable class="check-all" float-right *ngIf="group.length == 0" (click)="checkAll()">전체 선택</span>
     <span tappable class="uncheck-all" float-right *ngIf="group.length != 0" (click)="uncheckAll()">전체 해제</span>
   </h1>
-</ion-header>
-
-
-<ion-content>
   <div class="empty-content" *ngIf="interviews.length == 0">
     <span class="grey-text">아직 프로젝트에 참여한 인원이 없습니다.</span>
   </div>
@@ -52,7 +52,7 @@
           <img class="avatar-span-image" [src]="interview.avatar_image" />
         </span>
         <h2 [innerHTML]="interview.nickname"></h2>
-        <p>첫인상 점수 {{interview.score}}점 | 나이 {{interview.age}} | 성별 {{interview.gender}}</p>
+        <p>첫인상 점수 {{interview.project_first_impression_rate}}점 | 나이 {{interview.age}} | 성별 {{interview.gender}}</p>
       </ion-item>
     </ion-list>
   </div>

@@ -230,21 +230,22 @@ export class CompanyProjectReportPage {
     } ,
   ];
 
+  // project_interview_registration_date -> interview_answer_registration_date
   satisfiedInterviews = [
-    {
-      avatar_image : "",
-      nickname: "",
-      project_interview_registration_date: "",
-      interview_content: "",
-    }
+    // {
+    //   avatar_image : "",
+    //   nickname: "",
+    //   interview_answer_registration_date: "",
+    //   interview_content: "",
+    // }
   ];
   unsatisfiedInterviews = [
-    {
-      avatar_image : "",
-      nickname: "",
-      project_interview_registration_date: "",
-      interview_content: "",
-    }
+    // {
+    //   avatar_image : "",
+    //   nickname: "",
+    //   interview_answer_registration_date: "",
+    //   interview_content: "",
+    // }
   ];
   likeInterviews = [];
 
@@ -259,113 +260,97 @@ export class CompanyProjectReportPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectReportPage');
-    // this.commonService.isLoadingActive = true;
-    // this.project_id = this.navParams.get('project_id');
-    this.slides.lockSwipeToPrev(true);  
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectReportPage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
 
-    // this.companyService.getProjectReport(this.project_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.projectMainImage = data.data.project_main_image;
-    //       this.avatarImage = data.data.avatar_image;
-    //       this.nickname = data.data.nickname;
-    //       this.projectName = data.data.project_name;
-    //       this.participantNum = data.data.participant_num;
-    //       this.maxParticipantNum = data.data.max_participant_num;
-    //       this.progressState = data.data.project_end_date;
-    //       this.projectRegistrationDate = data.data.project_registration_date;
+    this.companyService.getProjectReport(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.projectMainImage = data.data.project_main_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.participantNum = data.data.participant_num;
+          this.progressState = data.data.project_end_date;
 
-    //       let participants = data.data.participants;
-    //       this.projectBestFeedbacks = data.data.feedbacks;
+          let participants = data.data.participants;
+
+          let project_participation_objective_conditions = JSON.parse(data.data.project_participation_objective_conditions);
+          for(let j = 0; j < project_participation_objective_conditions.length; j++) {
+            if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
+              let data = [];
+              let labels = [];
+              for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
+                labels.push(project_participation_objective_conditions[j].options[k].option);
+                data.push(0);
+              }
+              this.tempProjectUserParticipationConditionSlides.push({
+                question: project_participation_objective_conditions[j].question,
+                datasets: [{
+                  data: data,
+                }],
+                totalNum: 0,
+                labels: labels,
+              });
+            }
+          }
           
-    //       this.userReports = data.data.reports;
+          for(let i = 0; i < participants.length; i++) {
+            // projectUserProfileSlides
+            let index;
+            index = this.tempProjectUserProfileSlides[0].labels.indexOf(participants[i].gender);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[0].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[0].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[1].labels.indexOf(participants[i].age);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[1].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[1].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[2].labels.indexOf(participants[i].job);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[2].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[2].totalNum++;
+            }
+            index = this.tempProjectUserProfileSlides[3].labels.indexOf(participants[i].region);
+            if(index > -1) {
+              this.tempProjectUserProfileSlides[3].datasets[0].data[index]++;
+              this.tempProjectUserProfileSlides[3].totalNum++;
+            }
+            // projectUserProfileSlides
 
-    //       for(let i=0; i<this.userReports.length; i++) {
-    //         this.userReports[i].project_report_images = JSON.parse(this.userReports[i].project_report_images);
-    //         if(this.userReports[i].project_report_images) { 
-    //           for(let j=0; j<this.userReports[i].project_report_images.length; j++) {
-    //             this.userReports[i].project_report_images[j] = {img : this.userReports[i].project_report_images[j]};
-    //           }
-    //         }              
-    //       }
+            // projectUserParticipationConditionSlides
+            let participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
+            for(let j = 0; j < participation_objective_conditions.length; j++) {
+              let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(participation_objective_conditions[j].value);
+              if(index > -1) {
+                this.tempProjectUserParticipationConditionSlides[j].datasets[0].data[index]++;
+                this.tempProjectUserParticipationConditionSlides[j].totalNum++;
+              }
+            }
+            // projectUserParticipationConditionSlides
 
-    //       let project_participation_objective_conditions = JSON.parse(data.data.project_participation_objective_conditions);
-    //       for(let j = 0; j < project_participation_objective_conditions.length; j++) {
-    //         if(this.tempProjectUserParticipationConditionSlides.length < (j + 1)) {
-    //           let data = [];
-    //           let labels = [];
-    //           for(let k = 0; k < project_participation_objective_conditions[j].options.length; k++) {
-    //             labels.push(project_participation_objective_conditions[j].options[k].option);
-    //             data.push(0);
-    //           }
-    //           this.tempProjectUserParticipationConditionSlides.push({
-    //             question: project_participation_objective_conditions[j].question,
-    //             datasets: [{
-    //               data: data,
-    //             }],
-    //             totalNum: 0,
-    //             labels: labels,
-    //           });
-    //         }
-    //       }
-          
-    //       for(let i = 0; i < participants.length; i++) {
-    //         // projectUserProfileSlides
-    //         let index;
-    //         index = this.tempProjectUserProfileSlides[0].labels.indexOf(participants[i].gender);
-    //         if(index > -1) {
-    //           this.tempProjectUserProfileSlides[0].datasets[0].data[index]++;
-    //           this.tempProjectUserProfileSlides[0].totalNum++;
-    //         }
-    //         index = this.tempProjectUserProfileSlides[1].labels.indexOf(participants[i].age);
-    //         if(index > -1) {
-    //           this.tempProjectUserProfileSlides[1].datasets[0].data[index]++;
-    //           this.tempProjectUserProfileSlides[1].totalNum++;
-    //         }
-    //         index = this.tempProjectUserProfileSlides[2].labels.indexOf(participants[i].job);
-    //         if(index > -1) {
-    //           this.tempProjectUserProfileSlides[2].datasets[0].data[index]++;
-    //           this.tempProjectUserProfileSlides[2].totalNum++;
-    //         }
-    //         index = this.tempProjectUserProfileSlides[3].labels.indexOf(participants[i].region);
-    //         if(index > -1) {
-    //           this.tempProjectUserProfileSlides[3].datasets[0].data[index]++;
-    //           this.tempProjectUserProfileSlides[3].totalNum++;
-    //         }
-    //         // projectUserProfileSlides
+            // projectStatSlides
+            if(participants[i].project_first_impression_rate) {
+              (this.tempProjectStatSlides[0].datasets[0].data[participants[i].project_first_impression_rate-1])++;
+              this.tempProjectStatSlides[0].totalNum++;
+            }
+            if(participants[i].project_recommendation_rate) {
+              (this.tempProjectStatSlides[1].datasets[0].data[participants[i].project_recommendation_rate-1])++;
+              this.tempProjectStatSlides[1].totalNum++;
+            }
+            // projectStatSlides
 
-    //         // projectUserParticipationConditionSlides
-    //         let participation_objective_conditions = JSON.parse(participants[i].project_participation_objective_conditions);
-    //         for(let j = 0; j < participation_objective_conditions.length; j++) {
-    //           let index = this.tempProjectUserParticipationConditionSlides[j].labels.indexOf(participation_objective_conditions[j].value);
-    //           if(index > -1) {
-    //             this.tempProjectUserParticipationConditionSlides[j].datasets[0].data[index]++;
-    //             this.tempProjectUserParticipationConditionSlides[j].totalNum++;
-    //           }
-    //         }
-    //         // projectUserParticipationConditionSlides
-
-    //         // projectStatSlides
-    //         if(participants[i].project_first_impression_rate) {
-    //           (this.tempProjectStatSlides[0].datasets[0].data[participants[i].project_first_impression_rate-1])++;
-    //           this.tempProjectStatSlides[0].totalNum++;
-    //         }
-    //         if(participants[i].project_recommendation_rate) {
-    //           (this.tempProjectStatSlides[1].datasets[0].data[participants[i].project_recommendation_rate-1])++;
-    //           this.tempProjectStatSlides[1].totalNum++;
-    //         }
-    //         // projectStatSlides
-
-    //       }
+          }
           this.projectUserProfileSlides = this.tempProjectUserProfileSlides;
 
           this.projectUserParticipationConditionSlides = this.tempProjectUserParticipationConditionSlides;
@@ -374,21 +359,26 @@ export class CompanyProjectReportPage {
           this.tempAverage(1);
           this.projectStatSlides = this.tempProjectStatSlides;
 
-          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 4;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
-    // this.userReportLength = this.userReports.length;
+          this.satisfiedInterviews = data.data.satisfied_interviews;
+          this.unsatisfiedInterviews = data.data.unsatisfied_interviews;
+          this.likeInterviews = data.data.like_interviews;
+
+          this.totalPageNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 5 + 1;
+          // if(this.slides)
+          //   this.slides.lockSwipeToPrev(true);
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   slideChanged() {
