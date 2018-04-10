@@ -46,9 +46,9 @@ export class AdminProjectStoryHorizontalPage {
 
   projectStorySlides = [
     {
-      storyImage: "",
+      storyImage: "./../../assets/img/project-story-sample-image.png",
       storyVideo: "",
-      storyContent: ""
+      storyContent: "CUBIT의 주요 고객은 커플 및 가족입니다. 왜냐하면 사진 촬영을 가장 많이 하고 촬영 보조 기기를 자주 사용하는 층이기 때문입니다."
     }
   ];
 
