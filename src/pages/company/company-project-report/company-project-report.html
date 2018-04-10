@@ -8,11 +8,11 @@
   <!-- <div class="story-main-image-wrapper">
     <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
   </div> -->
-  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()" *ngIf="totalPageNum">
     <ion-slide class="story-first-slide" padding>
       <ion-buttons class="slide-title-wrapper">
         <button ion-button clear (click)="goNextSlide()">
-          <h1 class="title">결과 보고서 ></h1>
+          <h1 class="title">종합 보고서 ></h1>
         </button>
       </ion-buttons>
       <h2 [innerHTML]="projectName"></h2>
@@ -196,7 +196,7 @@
         <h2>만족스러웠던 점</h2>
         <h4 class="report-section5 report-section5-devide">Interview</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="satisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="satisfiedInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
       <div *ngFor="let interview of satisfiedInterviews"> 
@@ -212,12 +212,12 @@
                 </span> -->
                 <span class="user-nickname-button">{{interview.nickname}}</span>
               </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
+              <p [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
           </div>
           <div class="feedback-content" text-left>
             <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+              {{interview.interview_content}}   
             </div>
           </div>
         </div>
@@ -229,7 +229,7 @@
         <h2>아쉬웠던 점</h2>
         <h4 class="report-section5 report-section5-devide">Interview</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
       <div *ngFor="let interview of unsatisfiedInterviews"> 
@@ -245,12 +245,12 @@
                 </span> -->
                 <span class="user-nickname-button">{{interview.nickname}}</span>
               </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
+              <p [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
           </div>
           <div class="feedback-content" text-left>
             <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+              {{interview.interview_content}}   
             </div>
           </div>
         </div>
@@ -262,10 +262,10 @@
         <h2>좋아요 리스트</h2>
         <h4 class="report-section5 report-section5-devide">Like list</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="likeInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
-      <div *ngFor="let interview of unsatisfiedInterviews"> 
+      <div *ngFor="let interview of likeInterviews"> 
         <div class="feedback-card"> 
           <div class="card-header">
             <ion-item class="avatar-span-wrapper item-flex">
@@ -278,12 +278,12 @@
                 </span>
                 <span class="user-nickname-button">{{interview.nickname}}</span>
               </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
+              <p [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></p>
             </ion-item>
           </div>
           <div class="feedback-content" text-left>
             <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+              {{interview.interview_content}}   
             </div>
           </div>
         </div>
@@ -293,7 +293,7 @@
     <ion-slide padding class="project-last-slide">
       <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
         <button ion-button clear (click)="goFirstSlide()">
-          <h1 class="title">&lt; 결과 보고서 다시보기</h1>
+          <h1 class="title">&lt; 종합 보고서 다시보기</h1>
         </button>
       </ion-buttons>
       <div class="project-last-slide-wrapper">

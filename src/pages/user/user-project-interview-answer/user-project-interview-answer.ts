@@ -102,6 +102,7 @@ export class UserProjectInterviewAnswerPage {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();
         this.answerContent = this.commonService.textAreaFilter(this.answerContent);
+        
         this.userService.answerInterview(this.project_id, this.project_participant_id, this.interview_id, this.answerContent, this.reward)
         .finally(() => {
           loading.dismiss();
