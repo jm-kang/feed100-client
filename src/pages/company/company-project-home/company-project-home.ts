@@ -20,7 +20,7 @@ import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 })
 export class CompanyProjectHomePage {
   project_id;
-  isProjectProceeding = true;
+  isProjectProceeding;
   project_name;
   project_main_image;
   first_impression_score = 0;

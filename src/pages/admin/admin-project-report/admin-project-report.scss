@@ -43,10 +43,40 @@ page-admin-project-report {
     }
 
     
-    .feedback-card {
+    .interview-card {
         background-color: #fff;
-        .avatar-span-image {
-            border-radius: 50px;
+        text-align: right;
+        .interview-card-avatar {
+            padding: 16px 24px 0 24px;
+            margin: 0;
+            font-size: 1.2rem;
+            color: #787878;
+        }
+        .interview-content {
+            padding: 0 24px 10px 24px;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            color: #383838;
+        }
+        .avatar-span-wrapper {
+            padding: 0 16px 10px 16px;
+            .avatar-span {
+                border-radius: 50px;
+                border: 1px solid #e8e8e8;
+                width: 20px;
+                height: 20px;
+                margin-right: 8px;
+                .avatar-span-image {
+                    width: 20px;
+                    height: 20px;
+                }
+    
+            }
+        }
+        .like-check {
+            font-size: 1.6rem;
+            margin-top: -4px;
+            color: #FF533D;
         }
     }
     .story-footer .bar-button {

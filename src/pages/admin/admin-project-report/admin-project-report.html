@@ -8,11 +8,11 @@
   <!-- <div class="story-main-image-wrapper">
     <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
   </div> -->
-  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
+  <ion-slides pager="false" (ionSlideDidChange)="slideChanged()" *ngIf="totalPageNum">
     <ion-slide class="story-first-slide" padding>
       <ion-buttons class="slide-title-wrapper">
         <button ion-button clear (click)="goNextSlide()">
-          <h1 class="title">결과 보고서 ></h1>
+          <h1 class="title">종합 보고서 ></h1>
         </button>
       </ion-buttons>
       <h2 [innerHTML]="projectName"></h2>
@@ -39,6 +39,7 @@
         4. 추천 지수<br>
         5. Interview
       </p>
+
     </ion-slide>
 
     <ion-slide class="story-content-slide report-section-slide">
@@ -66,7 +67,7 @@
       <div *ngIf="projectUserProfileSlide.totalNum == 0">
         <div class="report-content-header">
           <h2>{{projectUserProfileSlide.title}}</h2>
-          <h4>유저 정보</h4>
+          <h4 class="report-section1 report-section1-devide">유저 정보</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -99,7 +100,7 @@
       <div *ngIf="projectUserParticipationConditionSlide.totalNum == 0">
         <div class="report-content-header">
           <h3>{{projectUserParticipationConditionSlide.question}}</h3>
-          <h4>설문 결과</h4>
+          <h4 class="report-section2 report-section2-devide">설문 결과</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -137,7 +138,7 @@
       <div *ngIf="projectStatSlides[0].totalNum == 0">
         <div class="report-content-header">
           <h3>{{projectStatSlides[0].title}}</h3>
-          <h4>첫인상 점수</h4>
+          <h4 class="report-section3 report-section3-devide">첫인상 점수</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -156,7 +157,7 @@
       <div *ngIf="projectStatSlides[1].totalNum != 0">
         <div class="report-content-header">
           <h2>{{projectStatSlides[1].title}}</h2>
-          <h4 class="report-section4 report-section4-devide m-b-0">추천 지수</h4>
+          <h4 class="report-section5 report-section4-devide m-b-0">추천 지수</h4>
           <div class="stat-title yellow-rating" *ngIf="projectStatSlides[1].title == '추천 지수'">
             <rating [(ngModel)]="projectStatSlides[1].average" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
             <span item-end>{{average(1) | round:1}}</span>
@@ -175,7 +176,7 @@
       <div *ngIf="projectStatSlides[1].totalNum == 0">
         <div class="report-content-header">
           <h3>{{projectStatSlides[1].title}}</h3>
-          <h4>추천 지수</h4>
+          <h4 class="report-section4 report-section4-devide">추천 지수</h4>
         </div>
         <div class="empty-content content-absolute">
           <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
@@ -195,30 +196,30 @@
         <h2>만족스러웠던 점</h2>
         <h4 class="report-section5 report-section5-devide">Interview</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="satisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="satisfiedInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
       <div *ngFor="let interview of satisfiedInterviews"> 
-        <div class="feedback-card"> 
-          <div class="card-header">
-            <ion-item class="avatar-span-wrapper item-flex">
-              <span item-start class="avatar-image avatar-span cropper">
-                <img class="avatar-span-image" [src]="interview.avatar_image" />
-              </span>
-              <h3>
-                <!-- <span class="best-badge" *ngIf="interview.is_best">
-                  <span>BEST</span>
-                </span> -->
-                <span class="user-nickname-button">{{interview.nickname}}</span>
-              </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
-            </ion-item>
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></p>
           </div>
-          <div class="feedback-content" text-left>
-            <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+          <div class="interview-content" text-left>
+            <div class="interview-summary">
+              {{interview.interview_content}}   
             </div>
           </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
         </div>
       </div>
     </ion-slide>
@@ -228,63 +229,68 @@
         <h2>아쉬웠던 점</h2>
         <h4 class="report-section5 report-section5-devide">Interview</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
       <div *ngFor="let interview of unsatisfiedInterviews"> 
-        <div class="feedback-card"> 
-          <div class="card-header">
-            <ion-item class="avatar-span-wrapper item-flex">
-              <span item-start class="avatar-image avatar-span cropper">
-                <img class="avatar-span-image" [src]="interview.avatar_image" />
-              </span>
-              <h3>
-                <!-- <span class="best-badge" *ngIf="interview.is_best">
-                  <span>BEST</span>
-                </span> -->
-                <span class="user-nickname-button">{{interview.nickname}}</span>
-              </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
-            </ion-item>
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left [innerHTML]="interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo"></p>
           </div>
-          <div class="feedback-content" text-left>
-            <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+          <div class="interview-content" text-left>
+            <div class="interview-summary">
+              {{interview.interview_content}}   
             </div>
           </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
         </div>
       </div>
     </ion-slide>
 
     <ion-slide class="story-content-slide project-story-summary-content">
       <div class="report-content-header">
-        <h2>좋아요 리스트</h2>
-        <h4 class="report-section5 report-section5-devide">Like list</h4>
+        <h2>찜한 리스트</h2>
+        <h4 class="report-section5 report-section5-devide">Interview</h4>
       </div>
-      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0 || !hasBestFeedback()">
+      <div class="empty-content content-absolute" *ngIf="likeInterviews.length == 0">
         <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
       </div>
-      <div *ngFor="let interview of unsatisfiedInterviews"> 
-        <div class="feedback-card"> 
-          <div class="card-header">
-            <ion-item class="avatar-span-wrapper item-flex">
-              <span item-start class="avatar-image avatar-span cropper">
-                <img class="avatar-span-image" [src]="interview.avatar_image" />
+      <div *ngFor="let interview of likeInterviews"> 
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left>
+              {{interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo}}
+              <span class="like-check" float-right>
+                <ion-icon name="ios-heart"></ion-icon>
               </span>
-              <h3>
-                <span class="best-badge">
-                  <ion-icon class="like-true-icon" name="ios-heart"></ion-icon>
-                </span>
-                <span class="user-nickname-button">{{interview.nickname}}</span>
-              </h3>
-              <p [innerHTML]="interview.project_interview_registration_date | amLocale:'ko' | amTimeAgo"></p>
-            </ion-item>
+            </p>
           </div>
-          <div class="feedback-content" text-left>
-            <div class="feedback-summary">
-              {{(interview.interview_content | jsonParse)[0]}}   
+          <div class="interview-content" text-left>
+            <div class="interview-summary">
+              {{interview.interview_content}}   
             </div>
           </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
         </div>
       </div>
     </ion-slide>
@@ -292,7 +298,7 @@
     <ion-slide padding class="project-last-slide">
       <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
         <button ion-button clear (click)="goFirstSlide()">
-          <h1 class="title">&lt; 결과 보고서 다시보기</h1>
+          <h1 class="title">&lt; 종합 보고서 다시보기</h1>
         </button>
       </ion-buttons>
       <div class="project-last-slide-wrapper">
