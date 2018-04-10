@@ -99,6 +99,7 @@ import { OpenNativeSettings } from '@ionic-native/open-native-settings';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 // import { UserProjectStoryQuizPage } from '../pages/user/user-project-story-quiz/user-project-story-quiz';
 import { AdminServiceProvider } from '../providers/admin-service/admin-service';
+import { IonicImageViewerModule } from 'ionic-img-viewer'
 
 export class MyHammerConfig extends HammerGestureConfig  {
   // swipedown 값을 알아내는 함수
@@ -117,6 +118,7 @@ export class MyHammerConfig extends HammerGestureConfig  {
   declarations: [MyApp],
   imports: [
     ModalWrapperPageModule,
+    IonicImageViewerModule,
 
     LoginPageModule,
       RegistrationPageModule,

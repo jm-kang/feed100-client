@@ -1606,8 +1606,8 @@ p {
         background-size: auto 100%;
         background-position: center;
 
-        -webkit-filter: opacity(30%);
-        filter: opacity(30%);
+        -webkit-filter: opacity(20%);
+        filter: opacity(20%);
         transform: scale(1.2);
         transition: all 0.4s ease-out;;
     }
@@ -2803,7 +2803,7 @@ p {
         }
 
         .interview-question {
-            font-weight: bold;
+            font-weight: 500;
         }
 
         .interview-point-wrapper {

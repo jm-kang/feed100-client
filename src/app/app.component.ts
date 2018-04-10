@@ -1,4 +1,3 @@
-import { UserProjectRewardFormPage } from './../pages/user/user-project-reward-form/user-project-reward-form';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -14,13 +13,12 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
-import { CompanyProjectGroupInterviewQuestionEditorPage } from '../pages/company/company-project-group-interview-question-editor/company-project-group-interview-question-editor';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  rootPage:any = LoginPage; 
 
   constructor(
     platform: Platform,

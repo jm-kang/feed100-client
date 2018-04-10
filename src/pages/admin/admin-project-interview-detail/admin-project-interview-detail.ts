@@ -201,40 +201,40 @@ export class AdminProjectInterviewDetailPage {
             });        
           }
         },
-        {
-          text: '마감하기',
+        // {
+        //   text: '마감하기',
           
-          handler: () => {
-            this.commonService.showConfirmAlert('해당 사용자를 프로젝트에서<br>마감하시겠습니까?', 
-            () => {
-              this.commonService.isLoadingActive = true;
-              let loading = this.commonService.presentLoading();
+        //   handler: () => {
+        //     this.commonService.showConfirmAlert('해당 사용자를 프로젝트에서<br>마감하시겠습니까?', 
+        //     () => {
+        //       this.commonService.isLoadingActive = true;
+        //       let loading = this.commonService.presentLoading();
               
-              this.adminService.sanctionProject(project_id, user_id, project_participant_id)
-              .finally(() => {
-                loading.dismiss();
-              })
-              .subscribe(
-                (data) => {
-                  if(data.success == true) {
-                    this.back();
-                    this.commonService.showBasicAlert('해당 사용자가 프로젝트에서 마감되었습니다.');
-                  }
-                  else if(data.success == false) {
-                    this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-                    .then(() => {
-                      this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-                    });
-                  }
-                },
-                (err) => {
-                  console.log(err);
-                  this.commonService.showBasicAlert('오류가 발생했습니다.');
-                }
-              );    
-            });        
-          }
-        },
+        //       this.adminService.sanctionProject(project_id, user_id, project_participant_id)
+        //       .finally(() => {
+        //         loading.dismiss();
+        //       })
+        //       .subscribe(
+        //         (data) => {
+        //           if(data.success == true) {
+        //             this.back();
+        //             this.commonService.showBasicAlert('해당 사용자가 프로젝트에서 마감되었습니다.');
+        //           }
+        //           else if(data.success == false) {
+        //             this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+        //             .then(() => {
+        //               this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+        //             });
+        //           }
+        //         },
+        //         (err) => {
+        //           console.log(err);
+        //           this.commonService.showBasicAlert('오류가 발생했습니다.');
+        //         }
+        //       );    
+        //     });        
+        //   }
+        // },
         {
           text: '푸쉬보내기',
           
