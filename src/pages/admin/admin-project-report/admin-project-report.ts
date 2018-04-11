@@ -280,10 +280,10 @@ export class AdminProjectReportPage {
           this.projectMainImage = data.data.project_main_image;
           this.nickname = data.data.nickname;
           this.projectName = data.data.project_name;
-          this.participantNum = data.data.participant_num;
           this.progressState = data.data.project_end_date;
-
+          
           let participants = data.data.participants;
+          this.participantNum = participants.length;
 
           let project_participation_objective_conditions = JSON.parse(data.data.project_participation_objective_conditions);
           for(let j = 0; j < project_participation_objective_conditions.length; j++) {
