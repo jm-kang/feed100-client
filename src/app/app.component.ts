@@ -1,3 +1,4 @@
+import { CompanyProjectReportPage } from './../pages/company/company-project-report/company-project-report';
 import { Component } from '@angular/core';
 import { Platform, App, ModalCmp, ModalController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,7 +19,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage; 
+  rootPage:any = CompanyProjectReportPage; 
 
   constructor(
     platform: Platform,
@@ -36,7 +37,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.verifyLoginState();
+      // this.verifyLoginState();
       keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};

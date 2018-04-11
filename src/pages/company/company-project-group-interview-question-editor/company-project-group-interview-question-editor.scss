@@ -5,6 +5,9 @@ page-company-project-group-interview-question-editor {
     }
     .point-notice {
         font-size: 1.5rem !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .complete-button {
         color: #ff6700 !important;
@@ -21,6 +24,11 @@ page-company-project-group-interview-question-editor {
 
     .toolbar-title-ios {
         align-items: center;
+    }
+    .help-btn {
+        position: relative;
+        margin-top: 0 !important;
+        margin-left: 10px;
     }
 }
 

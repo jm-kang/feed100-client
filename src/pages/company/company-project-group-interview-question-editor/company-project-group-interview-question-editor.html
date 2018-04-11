@@ -16,7 +16,7 @@
     <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
       <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
     </div>
-    <div class="hide-help-btn" (click)="help()">닫기</div>
+    <div class="hide-help-btn" (click)="help()" tappable>닫기</div>
   </div>
 </div>
 <ion-header class="editor-header">
@@ -26,11 +26,6 @@
         취소
       </button>
     </ion-buttons>
-    <ion-title>
-      <span tappable class="help-btn" (click)="help()">
-        <ion-icon name="ios-help-circle-outline"></ion-icon>
-      </span>
-    </ion-title>
     <ion-buttons end>
       <button [disabled]="minTextLength > (questionContent | textcount) || maxTextLength < (questionContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
         완료
@@ -54,7 +49,12 @@
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
       <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(questionContent))}">
-        <div text-center class="point-notice">{{pointNotice(textCount(questionContent))}}</div>
+        <div text-center class="point-notice">
+          {{pointNotice(textCount(questionContent))}}
+          <span tappable class="help-btn" (click)="help()">
+            <ion-icon name="ios-help-circle-outline"></ion-icon>
+          </span>
+        </div>
       </div>
       <div class="interview-text-count-wrapper">
         <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(questionContent) + '%', 'margin-left': textCount(questionContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(questionContent))}">{{textCount(questionContent)}}</div>
