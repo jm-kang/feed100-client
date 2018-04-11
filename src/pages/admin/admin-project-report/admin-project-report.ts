@@ -23,6 +23,7 @@ export class AdminProjectReportPage {
   
   isFirstSlide = true;
   isFeedback = true;
+  isHelpHide;
 
   projectMainImage = "";
   nickname = "";
@@ -266,6 +267,7 @@ export class AdminProjectReportPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AdminProjectReportPage');
+    this.isHelpHide = true;
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectReport(this.project_id)
@@ -448,6 +450,21 @@ export class AdminProjectReportPage {
       }
       average = average / this.tempProjectStatSlides[index].totalNum;
       this.tempProjectStatSlides[index].average = average / 2;
+    }
+  }
+
+  goToSlide(index) {
+    this.slides.slideTo(index, 300);
+    this.isHelpHide = true;
+  }
+
+  help() {
+    if(this.isHelpHide) {
+      this.isHelpHide = false;
+      document.querySelector(".scroll-content")['style'].overflow = 'hidden';
+    } else {
+      this.isHelpHide = true;
+      document.querySelector(".scroll-content")['style'].overflow = 'scroll';
     }
   }
 
