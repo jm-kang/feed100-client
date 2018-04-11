@@ -5,6 +5,9 @@ page-admin-project-group-interview-question-editor {
     }
     .point-notice {
         font-size: 1.5rem !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .complete-button {
         color: #ff6700 !important;
@@ -18,7 +21,13 @@ page-admin-project-group-interview-question-editor {
     .help-wrapper h2 {
         font-size: 1.4rem !important;
     }
+
     .toolbar-title-ios {
         align-items: center;
+    }
+    .help-btn {
+        position: relative;
+        margin-top: 1px !important;
+        margin-left: 10px;
     }
 }
