@@ -4,6 +4,20 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+<div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h2 class="m-b-30">원하는 페이지로 이동하기</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <div class="help-references" tappable (click)="goToSlide(1)">1. 유저 정보 ></div>
+      <div class="help-references" tappable (click)="goToSlide(projectUserProfileSlides.length + 2)">2. 설문 결과 ></div>
+      <div class="help-references" tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 3)">3. 첫인상 점수 ></div>
+      <div class="help-references" tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 5)">4. 추천 지수 ></div>
+      <div class="help-references" tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 7)"> 5. Interview ></div>
+    </div>
+    <div class="hide-help-btn" (click)="help()" tappable>닫기</div>
+  </div>
+</div>
+  
 <ion-content class="story-slide project-report-content" no-bounce>
   <!-- <div class="story-main-image-wrapper">
     <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
@@ -33,11 +47,11 @@
         </span>
       </div>
       <p class="summary">
-        1. 유저 정보<br>
-        2. 설문 결과<br>
-        3. 첫인상 점수<br>
-        4. 추천 지수<br>
-        5. Interview
+        <span tappable (click)="goNextSlide()">1. 유저 정보 ></span><br>
+        <span tappable (click)="goToSlide(projectUserProfileSlides.length + 2)">2. 설문 결과 ></span><br>
+        <span tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 3)">3. 첫인상 점수 ></span><br>
+        <span tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 5)">4. 추천 지수 ></span><br>
+        <span tappable (click)="goToSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 7)"> 5. Interview ></span>
       </p>
 
     </ion-slide>
@@ -317,13 +331,13 @@
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide">
+    <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide" (click)="help()" tappable>
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="projectMainImage" />
       </span>
       <h3>{{nickname}}</h3>
     </ion-item>
-    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num p-l-30">
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num p-l-30" (click)="help()" tappable>
       <ion-icon name="ios-browsers-outline" item-start></ion-icon>
       <p>{{currentPageNum}} / {{totalPageNum}}</p>
     </ion-item>

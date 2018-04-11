@@ -23,6 +23,7 @@ export class CompanyProjectReportPage {
   
   isFirstSlide = true;
   isFeedback = true;
+  isHelpHide;
 
   projectMainImage = "";
   nickname = "";
@@ -266,6 +267,7 @@ export class CompanyProjectReportPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectReportPage');
+    this.isHelpHide = true;
     let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectReport(this.project_id)
@@ -451,4 +453,18 @@ export class CompanyProjectReportPage {
     }
   }
 
+  goToSlide(index) {
+    this.slides.slideTo(index, 300);
+    this.isHelpHide = true;
+  }
+
+  help() {
+    if(this.isHelpHide) {
+      this.isHelpHide = false;
+      document.querySelector(".scroll-content")['style'].overflow = 'hidden';
+    } else {
+      this.isHelpHide = true;
+      document.querySelector(".scroll-content")['style'].overflow = 'scroll';
+    }
+  }
 }
