@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides, ModalController, Platform } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 declare var cordova:any;
 
@@ -76,7 +77,8 @@ export class UserProjectStoryHorizontalPage {
     public platform: Platform,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
-    private themeableBrowser: ThemeableBrowser) {
+    private themeableBrowser: ThemeableBrowser,
+    private photoViewer: PhotoViewer,) {
   }
 
   ionViewDidLoad() {
@@ -223,5 +225,9 @@ export class UserProjectStoryHorizontalPage {
         }, 500);
       }
     );
+  }
+
+  photoView(url) {
+    this.photoViewer.show(url);
   }
 }

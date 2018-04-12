@@ -41,18 +41,18 @@
     <h4 text-center>프로젝트 스토리</h4>
     <div class="divider-dot"><span class="dot"></span></div>
     <div class="storys-wrapper" *ngFor="let projectStory of projectStories">
-      <img [src]="projectStory.storyImage"/>
+      <img [src]="projectStory.storyImage" (click)="photoView(projectStory.storyImage)" tappable/>
       <div class="video-container" *ngIf="projectStory.storyVideo">
         <iframe width="100%" [src]="projectStory.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
       </div>
-      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60">{{projectStory.storyContent}}</p>
+      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60 pre-line">{{projectStory.storyContent}}</p>
     </div>
   </div>
   <div class="test-section story-content-wrapper p-t-50 p-b-50 p-l-16 p-r-16">
     <h4 text-center>테스트 미션 안내</h4>
     <div class="divider-dot"><span class="dot"></span></div>
     <div class="storys-wrapper">
-      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60">{{testContent}}</p>
+      <p text-center class="story p-l-16 p-r-16 m-t-30 m-b-60 pre-line">{{testContent}}</p>
     </div>
     <div class="start-test-btn-wrapper p-l-16 p-r-16">
       <span tappable class="start-test-btn" (click)="openUserProjectLinkPage()">테스트 시작하기</span>

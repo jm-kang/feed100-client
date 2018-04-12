@@ -114,7 +114,7 @@ export class UserProjectInterviewAnswerPage {
     if(this.commonService.hasEmoji(this.answerContent)) {
       return false;
     }
-    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br/>작성 후에는 수정할 수 없으며, 부적절한 글 작성시 제재를 받을 수 있습니다.', 
+    this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br>작성 후에는 수정할 수 없으며,<br>부적절한 글을 작성할 경우 삭제 및 프로젝트에서 제외될 수 있습니다.', 
       () => {
         this.commonService.isLoadingActive = true;
         let loading = this.commonService.presentLoading();

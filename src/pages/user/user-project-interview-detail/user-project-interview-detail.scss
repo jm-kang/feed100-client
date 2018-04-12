@@ -17,6 +17,7 @@ page-user-project-interview-detail {
 
     .timeline-content {
         width: calc(100vw - 40px);
+        max-width: calc(100vw - 40px);
         .interview-timeline-wrapper {
             display: inline-flex;
             position: relative;

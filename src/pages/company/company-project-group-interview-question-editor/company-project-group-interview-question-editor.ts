@@ -35,7 +35,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   maxTextLength: number = 100;
   isHelpHide: boolean;
 
-  helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
+  helpReferances = ["~에 대하여 어떻게 생각하시나요?", "~에 대하여 자세히 말씀해주세요.", "~했던 경험에 대하여 말씀해주세요.", "왜 그렇게 생각하셨나요?"]
 
   group = [];
 
