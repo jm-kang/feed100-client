@@ -131,7 +131,7 @@ export class UserProjectStoryQuizFormPage {
     console.log(JSON.stringify(this.storyQuizSlides));
     console.log(this.isRightAnswer());
     if(this.isRightAnswer()) {
-      this.commonService.showConfirmAlert('정답입니다!<br/>이제 피드백을 작성하러 가볼까요?',
+      this.commonService.showConfirmAlert('정답입니다!<br/>이제부터 인터뷰가 진행됩니다! 가볼까요?',
         () => {
           this.commonService.isLoadingActive = true;    
           let loading = this.commonService.presentLoading();
