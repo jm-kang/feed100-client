@@ -51,14 +51,14 @@
 <ion-content class="editor-modal" #contentRef >
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
-      <div class="question-wrapper interview-question m-b-30">Q. {{interviewQuestion}}</div>
+      <div class="question-wrapper interview-question m-b-30 pre-line">Q. {{interviewQuestion}}</div>
       <div class="buttons-wrapper m-b-30">
         <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
         <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 인터뷰 보기</span>
       </div>
       <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
         <div *ngIf="!is_max" text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(answerContent)) > 0">+</span> {{rewardPoint(textCount(answerContent))}}p</div>
-        <div *ngIf="is_max" text-center class="reward-point max m-b-10">더 많은 활동을 통해 선정되어보세요!</div>
+        <div *ngIf="is_max" text-center class="reward-point max m-b-10">우수 참여자로 선정되면 2000P 추가!</div>
         <div text-center class="point-notice">{{pointNotice(textCount(answerContent))}}</div>
       </div>
       <div class="interview-text-count-wrapper">
