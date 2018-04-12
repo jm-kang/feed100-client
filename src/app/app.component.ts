@@ -1,3 +1,5 @@
+import { UserProjectStoryQuizFormPage } from './../pages/user/user-project-story-quiz-form/user-project-story-quiz-form';
+import { UserProjectStoryHorizontalPage } from './../pages/user/user-project-story-horizontal/user-project-story-horizontal';
 import { CompanyConfigurePage } from './../pages/company/company-configure/company-configure';
 import { UserConfigurePage } from './../pages/user/user-configure/user-configure';
 import { Component } from '@angular/core';
@@ -15,12 +17,13 @@ import { AdminTabsPage } from '../pages/admin/admin-tabs/admin-tabs';
 
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { CommonServiceProvider } from '../providers/common-service/common-service';
+import { UserProjectParticipationConditionFormPage } from '../pages/user/user-project-participation-condition-form/user-project-participation-condition-form';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage; 
+  rootPage:any = CompanyProjectHomePage; 
 
   constructor(
     platform: Platform,
@@ -38,7 +41,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      this.verifyLoginState();
+      // this.verifyLoginState();
       keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};

@@ -19,13 +19,13 @@ import { isRightSide } from 'ionic-angular/util/util';
   templateUrl: 'user-project-story-quiz-form.html',
 })
 export class UserProjectStoryQuizFormPage {
-  @ViewChild("contentRef") contentHandle: Content;
+  // @ViewChild("contentRef") contentHandle: Content;
   @ViewChild(Slides) slides: Slides;
-  bgVert:   number = 0 ;
-  lastBgV:  number = 0 ;
+  // bgVert:   number = 0 ;
+  // lastBgV:  number = 0 ;
   
-  scrollVert:   number = 0 ;
-  lastScrollV:  number = 0 ;
+  // scrollVert:   number = 0 ;
+  // lastScrollV:  number = 0 ;
   transparentPercent: number = 0;
 
   project_id;
@@ -38,6 +38,9 @@ export class UserProjectStoryQuizFormPage {
   projectName;
   projectMainImage;
   storyQuizSlides = [];
+
+  // 현재 슬라이드 인덱스
+  currentSlideIndex;
   
   constructor(
     public navCtrl: NavController,
@@ -58,6 +61,7 @@ export class UserProjectStoryQuizFormPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectStoryQuizFormPage');
+    this.currentSlideIndex = this.slides.getActiveIndex();
     let loading = this.commonService.presentLoading();
     
     this.userService.getProject(this.project_id)
@@ -83,7 +87,6 @@ export class UserProjectStoryQuizFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
-
   }
 
   back() {
@@ -94,6 +97,7 @@ export class UserProjectStoryQuizFormPage {
     this.slides.lockSwipeToNext(false);
     this.slides.slideNext(300);
     this.slides.lockSwipeToNext(true);
+    this.currentSlideIndex = this.slides.getActiveIndex();
   }
 
   ionRadioChange(i) {
@@ -175,6 +179,10 @@ export class UserProjectStoryQuizFormPage {
       this.commonService.showBasicAlert('이런! 정답이 아닙니다. 스토리를 꼼꼼히 확인하고 다시 시도해주세요.');
       this.back();
     }
+  }
+
+  valueCheck(index) {
+    return this.storyQuizSlides[index].value;
   }
 
 }

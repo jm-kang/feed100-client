@@ -4,7 +4,10 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-content class="slide-question-content" no-bounce>
+<div class="story-main-image-wrapper">
+  <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+</div>
+<ion-header class="editor-header">
   <ion-navbar class="modal-header" hideBackButton="true">
     <ion-buttons start>
       <button class="dismiss-button" ion-button (click)="back()" icon-only>
@@ -22,26 +25,27 @@
       <button ion-button></button>
     </ion-buttons>
   </ion-navbar>
-  <div class="story-main-image-wrapper">
-    <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
-  </div>
+</ion-header>
+<ion-content class="slide-question-content" no-bounce>
   <ion-slides pager="false" (ionSlideDidChange)="slideChanged()">
     <ion-slide>
       <h2 class="notice-title">프로젝트를 참여하기 전에 꼭 확인해주세요!</h2>
-      <div>{{project_notice}}</div>
-      <div class="slide-next-button-wrapper survey-next-btn-wrapper">
-        <span>
+      <div class="notice-content">{{project_notice}}</div>
+      <div class="p-b-30">
+        <span class="survey-next-btn-wrapper" *ngIf="currentSlideIndex == 0">
           <div class="agree-checkbox">
             <button class="not-check-btn" ion-button clear (click)="check()" *ngIf="!isCheck"><span class="check-circle"></span>&emsp;위 내용에 동의하십니까?</button>
             <button class="check-btn" ion-button clear (click)="check()" *ngIf="isCheck"><span class="check-circle"><ion-icon name="ios-checkmark"></ion-icon></span>&emsp;위 내용에 동의하십니까?</button>
           </div>
-          <button ion-button clear *ngIf="!isCheck" disabled>
-            <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
-            <!-- 설문하러 가기 > -->
+          <button ion-button clear *ngIf="!valueCheck(currentSlideIndex)" disabled>
+            <span class="quiz-next-button-circle">
+              다음
+            </span>
           </button>
-          <button ion-button clear *ngIf="isCheck" (click)="goNextSlide()">
-            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
-            <!-- 설문하러 가기 > -->
+          <button ion-button clear *ngIf="valueCheck(currentSlideIndex)" (click)="goNextSlide()">
+            <span class="quiz-next-button-circle check-next-btn">
+              다음
+            </span>
           </button>
         </span>
       </div>
@@ -54,22 +58,12 @@
       <div class="question" [innerHTML]="participationConditionSlide.question"></div>
       <div class="question-summary"><span class="text-red">주의!</span> 신중하게 대답해주세요.</div>
       <div>
-        <div class="participation-condition-options-wrapper" *ngIf="6 > participationConditionSlide.options.length">
+        <div class="participation-condition-options-wrapper">
           <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
             <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
               <ion-label color="primary">{{option.option}}</ion-label>
               <ion-radio [value]="option.option"></ion-radio>
             </ion-item>
-          </ion-list>
-        </div>
-        <div class="participation-condition-options-wrapper over-options" *ngIf="participationConditionSlide.options.length > 5">
-          <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
-            <ion-row>
-              <ion-item col-6 text-center *ngFor="let option of participationConditionSlide.options">
-                <ion-label color="primary">{{option.option}}</ion-label>
-                <ion-radio [value]="option.option"></ion-radio>
-              </ion-item>
-            </ion-row>
           </ion-list>
         </div>
       </div>
@@ -94,25 +88,34 @@
           </ion-list>
         </div>
       </div> -->
-
-      <div class="slide-next-button-wrapper">
-        <span *ngIf="participationConditionSlides.length-1 > i">
-          <button ion-button clear *ngIf="!participationConditionSlide.value" disabled>
-            <ion-icon color="light" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-          <button ion-button clear *ngIf="participationConditionSlide.value" (click)="goNextSlide()">
-            <ion-icon color="default" name="ios-arrow-dropright-outline"></ion-icon>
-          </button>
-        </span>
-        <span *ngIf="participationConditionSlides.length-1 == i">
-          <button ion-button clear *ngIf="!participationConditionSlide.value" disabled>
-            <ion-icon color="light" name="ios-checkmark-circle-outline"></ion-icon>
-          </button>
-          <button ion-button clear *ngIf="participationConditionSlide.value" (click)="openUserProjectStoryPage()">
-            <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
-          </button>
-        </span>
-      </div>
     </ion-slide>
   </ion-slides>
 </ion-content>
+
+
+<div class="slide-next-button-wrapper">
+  <span class="btn-wrapper" *ngIf="participationConditionSlides.length > currentSlideIndex && currentSlideIndex > 0">
+    <button ion-button clear *ngIf="!valueCheck(currentSlideIndex)" disabled>
+      <span class="quiz-next-button-circle">
+        <ion-icon color="light" name="ios-arrow-forward"></ion-icon>
+      </span>
+    </button>
+    <button ion-button clear *ngIf="valueCheck(currentSlideIndex)" (click)="goNextSlide()">
+      <span class="quiz-next-button-circle check-next-btn">
+        <ion-icon color="default" name="ios-arrow-forward"></ion-icon>
+      </span>
+    </button>
+  </span>
+  <span class="btn-wrapper" *ngIf="participationConditionSlides.length == currentSlideIndex">
+    <button ion-button clear *ngIf="!valueCheck(currentSlideIndex)" disabled>
+      <span class="quiz-next-button-circle">
+        <ion-icon color="light" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+    <button ion-button clear *ngIf="valueCheck(currentSlideIndex)" (click)="openUserProjectStoryPage()">
+      <span class="quiz-next-button-circle check-next-btn">
+        <ion-icon color="default" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+  </span>
+</div>

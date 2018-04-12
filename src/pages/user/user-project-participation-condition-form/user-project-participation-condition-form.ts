@@ -18,10 +18,10 @@ import { UserServiceProvider } from '../../../providers/user-service/user-servic
   templateUrl: 'user-project-participation-condition-form.html',
 })
 export class UserProjectParticipationConditionFormPage {
-  @ViewChild("contentRef") contentHandle: Content;
+  // @ViewChild("contentRef") contentHandle: Content;
   @ViewChild(Slides) slides: Slides;
-  bgVert:   number = 0 ;
-  lastBgV:  number = 0 ;
+  // bgVert:   number = 0 ;
+  // lastBgV:  number = 0 ;
   // 프로젝트 안내 동의 체크
   // isCheck: boolean = false;
   isCheck;
@@ -29,9 +29,9 @@ export class UserProjectParticipationConditionFormPage {
   // project_notice: string = "asd";
   project_notice;
   
-  scrollVert:   number = 0 ;
-  lastScrollV:  number = 0 ;
-  transparentPercent: number = 0;
+  // scrollVert:   number = 0 ;
+  // lastScrollV:  number = 0 ;
+  // transparentPercent: number = 0;
 
   project_id;
 
@@ -41,6 +41,9 @@ export class UserProjectParticipationConditionFormPage {
   //   {"question" : "유튜브 광고가 나오면 보시나요?","options" : [{"option" : "절대로 안본다"},{"option" : "드물게 본다"},{"option" : "가끔 본다"},{"option" : "항상 본다"}], "value" : ""},
   //   {"question" : "소개팅에서 가장 꼴분견 행동은 무엇인가요?","options" : [{"option" : "노골적으로 스펙을 물을 때"},{"option" : "허세충만, 이기적인 행동"},{"option" : "매너 없는 행동"},{"option" : "코드가 맞지 않을 때"},{"option" : "너무 꾸미지 않은 모습"}], "value" : ""}
   // ];
+
+  // 현재 슬라이드 인덱스
+  currentSlideIndex;
 
   projectName;
   projectMainImage;
@@ -65,6 +68,7 @@ export class UserProjectParticipationConditionFormPage {
   
   ionViewWillEnter() {
     console.log('ionViewWillEnter UserProjectParticipationConditionFormPage');
+    this.currentSlideIndex = this.slides.getActiveIndex();
     let loading = this.commonService.presentLoading();
 
     this.userService.getProject(this.project_id)
@@ -91,7 +95,6 @@ export class UserProjectParticipationConditionFormPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
-
   }
 
   back() {
@@ -102,6 +105,7 @@ export class UserProjectParticipationConditionFormPage {
     this.slides.lockSwipeToNext(false);
     this.slides.slideNext(300);
     this.slides.lockSwipeToNext(true);
+    this.currentSlideIndex = this.slides.getActiveIndex();
   }
 
   ionRadioChange(i) {
@@ -171,4 +175,11 @@ export class UserProjectParticipationConditionFormPage {
     }
   }
 
+  valueCheck(index) {
+    if(index == 0) {
+      return this.isCheck
+    } else {
+      return this.participationConditionSlides[index-1].value;
+    }
+  }
 }
