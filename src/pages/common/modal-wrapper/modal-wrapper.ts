@@ -20,6 +20,7 @@ export class ModalWrapperPage {
   modalPage:any;
   modalParams: any = { };
   params;
+  unregisterBackButtonAction;
 
   constructor(
     public navCtrl: NavController,
@@ -31,6 +32,7 @@ export class ModalWrapperPage {
   ionViewWillUnload() {
     console.log('ionViewWillUnload ModalWrapperPage');
     this.commonService.modalWrapperPage = '';
+    this.unRegisterBackButtonCustomHandler();    
   }
 
   ionViewDidLoad() {
@@ -44,6 +46,12 @@ export class ModalWrapperPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter ModalWrapperPage');
+  }
+
+  unRegisterBackButtonCustomHandler() {
+    console.log('unRegister');
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+    this.unregisterBackButtonAction = '';
   }
 
   dismissModal(data?) {

@@ -169,7 +169,7 @@
       </div>
     </div>
   </div>
-  <ion-fab right bottom *ngIf="isProjectProceeding && interviews.length > 0">
+  <ion-fab right bottom *ngIf="isProjectProceeding && interviews.length > 0 && is_proceeding">
     <button ion-fab color="primary" (click)="openCompanyProjectGroupInterviewPage()"><ion-icon name="ios-chatbubbles"></ion-icon></button>
   </ion-fab>
 </ion-content>

@@ -159,6 +159,7 @@ export class CompanyProjectHomePage {
   // ];
 
   interviews = [];
+  is_proceeding;
 
   constructor(
     public navCtrl: NavController,
@@ -261,6 +262,7 @@ export class CompanyProjectHomePage {
             if(this.participants_num) {
               this.setStats();
               this.companyService.setNotificationNum();
+              this.is_proceeding = data.data.is_proceeding;
             }
           }
           else {

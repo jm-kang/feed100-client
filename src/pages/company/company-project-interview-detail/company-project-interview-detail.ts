@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Content, ActionSheetController, Platform } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
 import { Keyboard } from '@ionic-native/keyboard';
 
@@ -93,6 +93,9 @@ export class CompanyProjectInterviewDetailPage {
     //   isLike: false,
     // }
   ];
+  is_proceeding;
+
+  unregisterBackButtonAction;
 
   constructor(
     public navCtrl: NavController, 
@@ -101,8 +104,9 @@ export class CompanyProjectInterviewDetailPage {
     public keyboard: Keyboard,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
-    public actionSheetCtrl: ActionSheetController
-  ) {
+    private platform: Platform,
+    public actionSheetCtrl: ActionSheetController) {
+      this.initializeBackButtonCustomHandler();
   }
 
   ionViewDidLoad() {
@@ -139,6 +143,7 @@ export class CompanyProjectInterviewDetailPage {
           this.preferred_interview_time = data.data.preferred_interview_time;
           this.project_first_impression_rate = data.data.project_first_impression_rate;
           this.interviews = data.data.interviews;
+          this.is_proceeding = data.data.is_proceeding;
           setTimeout(() => {
             this.content.scrollToBottom();
           }, 500);
@@ -155,6 +160,30 @@ export class CompanyProjectInterviewDetailPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     );
+  }
+
+  ionViewWillLeave() {
+    this.unRegisterBackButtonCustomHandler();
+  }
+
+  unRegisterBackButtonCustomHandler() {
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+    this.unregisterBackButtonAction = '';
+  }
+
+  initializeBackButtonCustomHandler() {
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        this.customHandleBackButton();
+    }, 10);
+  }
+
+  customHandleBackButton() {
+    if(this.isHelpHide) {
+      this.back();
+    } 
+    else {
+      this.isHelpHide = true;
+    }
   }
 
   doRefresh(refresher) {
@@ -188,8 +217,17 @@ export class CompanyProjectInterviewDetailPage {
   }
 
   back() {
-    this.navCtrl.pop();
-    this.keyboard.disableScroll(true); // 추가
+    if(this.questionInterview) {
+      this.commonService.showConfirmAlert('취소하실 경우 현재까지 작성한 내용이 저장되지 않습니다. 그래도 취소하시겠습니까?', 
+      () => {        
+        this.navCtrl.pop();
+        this.keyboard.disableScroll(true); // 추가
+      });
+    }
+    else {      
+      this.navCtrl.pop();
+      this.keyboard.disableScroll(true); // 추가
+    }
   }
 
   clickLike(interview) {

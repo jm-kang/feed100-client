@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content, Platform } from 'ionic-angular';
 
 import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 
@@ -52,7 +52,9 @@ export class UserProjectInterviewAnswerPage {
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
     public ModalWrapperPage: ModalWrapperPage,
+    private platform: Platform,    
     private domSanitizer: DomSanitizer) {
+      this.initializeBackButtonCustomHandler();
   }
 
   ionViewDidLoad() {
@@ -91,6 +93,21 @@ export class UserProjectInterviewAnswerPage {
       }
     );
 
+  }
+
+  initializeBackButtonCustomHandler() {
+    this.ModalWrapperPage.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        this.customHandleBackButton();
+    }, 10);
+  }
+
+  customHandleBackButton() {
+    if(this.isHelpHide) {
+      this.dismiss();
+    } 
+    else {
+      this.isHelpHide = true;
+    }
   }
 
   completeEditor() {
@@ -136,7 +153,10 @@ export class UserProjectInterviewAnswerPage {
   }
 
   dismiss() {
-    this.ModalWrapperPage.dismissModal("cancel");
+    this.commonService.showConfirmAlert('취소하실 경우 현재까지 작성한 내용이 저장되지 않습니다. 그래도 취소하시겠습니까?', 
+    () => {
+      this.ModalWrapperPage.dismissModal("cancel");
+    });
   }
 
   help() {
@@ -154,13 +174,26 @@ export class UserProjectInterviewAnswerPage {
   }
 
   openUserProjectStoryVerticalPage() {
+    console.log('story open');
+    this.ModalWrapperPage.unRegisterBackButtonCustomHandler();
     let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage', params: { "project_id" : this.project_id }});
     userProjectStoryVerticalModal.present();
+    userProjectStoryVerticalModal.onDidDismiss(() => {
+      console.log('story close');
+      this.initializeBackButtonCustomHandler();
+    });
+
   }
 
   openUserProjectInterviewDetailPage() {
+    console.log('detail open');
+    this.ModalWrapperPage.unRegisterBackButtonCustomHandler();
     let userProjectInterviewDetailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewDetailPage', params: { "project_participant_id" : this.project_participant_id }});
     userProjectInterviewDetailModal.present();
+    userProjectInterviewDetailModal.onDidDismiss(() => {
+      console.log('detail close');
+      this.initializeBackButtonCustomHandler();
+    });
   }
 
   textCount(text: string) {

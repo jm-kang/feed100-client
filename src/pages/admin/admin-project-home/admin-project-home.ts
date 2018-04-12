@@ -72,6 +72,7 @@ export class AdminProjectHomePage {
       interview_num: 2,
     },
   ];
+  is_proceeding;
 
   constructor(
     public navCtrl: NavController,

@@ -191,7 +191,9 @@ export class AdminProjectGroupInterviewPage {
   }
 
   checkAll() {
-    this.group = this.interviews;
+    this.group = this.interviews.map((interview) => {
+      return interview;
+    });
     for(let interview of this.interviews) {
       interview.isCheck = true;
     }
