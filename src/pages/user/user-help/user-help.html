@@ -51,15 +51,15 @@
         </ion-item>
         <div class="content-wrapper" padding *ngIf="help.showDetails">
             <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
-          <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-            <img style="max-height: 10rem;" [src]="help.topImg" />
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.topImg">
+            <img [src]="help.topImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg">
             <img [src]="help.bottomImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content2" [innerHTML]="help.content2"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg2">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg2">
             <img [src]="help.bottomImg2" />
           </div> 
         </div>
@@ -67,7 +67,7 @@
     </ion-list>
     <ion-list>
       <ion-list-header>
-        3. 프로젝트 진행중 <small>(피드백 토론, 인터뷰, 심층 피드백)</small>
+        3. 프로젝트 진행하기
       </ion-list-header>
       <div class="item-wrapper" *ngFor="let help of userHelpPart3" >
         <ion-item class="title-wrapper" (click)="toggleDetails(help)"><ion-icon color="primary" item-right [name]="help.icon"></ion-icon>
@@ -75,15 +75,15 @@
         </ion-item>
         <div class="content-wrapper" padding *ngIf="help.showDetails">
             <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
-          <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-            <img style="max-height: 10rem;" [src]="help.topImg" />
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.topImg">
+            <img [src]="help.topImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg">
             <img [src]="help.bottomImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content2" [innerHTML]="help.content2"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg2">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg2">
             <img [src]="help.bottomImg2" />
           </div> 
         </div>
@@ -99,15 +99,39 @@
         </ion-item>
         <div class="content-wrapper" padding *ngIf="help.showDetails">
             <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
-          <div style="width: 70vw;" class="image-wrapper" *ngIf="help.topImg">
-            <img style="max-height: 10rem;" [src]="help.topImg" />
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.topImg">
+            <img [src]="help.topImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg">
             <img [src]="help.bottomImg" />
           </div>
           <div class="text-wrapper" *ngIf="help.content2" [innerHTML]="help.content2"></div>
-          <div class="image-wrapper" *ngIf="help.bottomImg2">
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg2">
+            <img [src]="help.bottomImg2" />
+          </div> 
+        </div>
+      </div>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        5. 포인트 적립 및 환전
+      </ion-list-header>
+      <div class="item-wrapper" *ngFor="let help of userHelpPart5" >
+        <ion-item class="title-wrapper" (click)="toggleDetails(help)"><ion-icon color="primary" item-right [name]="help.icon"></ion-icon>
+          <span [innerHTML]="help.title"></span>
+        </ion-item>
+        <div class="content-wrapper" padding *ngIf="help.showDetails">
+            <div class="subtitle-wrapper" *ngIf="help.subTitle"><ion-icon name="ios-arrow-forward"></ion-icon>&ensp;<span [innerHTML]="help.subTitle"></span></div>
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.topImg">
+            <img [src]="help.topImg" />
+          </div>
+          <div class="text-wrapper" *ngIf="help.content" [innerHTML]="help.content"></div>
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg">
+            <img [src]="help.bottomImg" />
+          </div>
+          <div class="text-wrapper" *ngIf="help.content2" [innerHTML]="help.content2"></div>
+          <div style="width: calc(100vw - 32px)" class="image-wrapper" *ngIf="help.bottomImg2">
             <img [src]="help.bottomImg2" />
           </div> 
         </div>

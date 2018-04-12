@@ -35,9 +35,9 @@ export class AppIntroPage {
       description: '다양한 서비스를 경험하고<br>소중한 피드백을 들려주세요!',
     },
     {
-      title: '스타트업에 적합한<br>고객반응조사 플랫폼',
+      title: 'FEED100<br>지금 사용해 보세요!',
       imageUrl: 'assets/img/appintro4.png',
-      description: '가치를 같이 만들어가는<br>맞춤형 피드백 플랫폼!',
+      description: '스타트업에 적합한<br>고객반응조사 플랫폼',
     }
   ];
 
