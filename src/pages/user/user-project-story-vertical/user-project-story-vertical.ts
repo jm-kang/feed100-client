@@ -2,6 +2,7 @@ import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Content, ViewController, Platform } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 declare var cordova:any;
 
@@ -69,7 +70,8 @@ export class UserProjectStoryVerticalPage {
     public platform: Platform,    
     public ModalWrapperPage: ModalWrapperPage,
     public commonService: CommonServiceProvider,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    private photoViewer: PhotoViewer,) {
   }
 
   ionViewDidLoad() {
@@ -128,4 +130,7 @@ export class UserProjectStoryVerticalPage {
     cordova.ThemeableBrowser.open(this.project_link, '_system');
   }
 
+  photoView(url) {
+    this.photoViewer.show(url);
+  }
 }

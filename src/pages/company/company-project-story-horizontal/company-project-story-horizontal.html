@@ -44,7 +44,7 @@
     </ion-slide>
 
     <ion-slide class="story-content-slide" *ngFor="let projectStorySlide of projectStorySlides">
-      <img [src]="projectStorySlide.storyImage"/>
+      <img [src]="projectStorySlide.storyImage" (click)="photoView(projectStorySlide.storyImage)" tappable/>
       <div class="video-container" *ngIf="projectStorySlide.storyVideo">
         <iframe width="100%" [src]="projectStorySlide.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
       </div>

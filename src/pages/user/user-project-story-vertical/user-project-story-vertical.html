@@ -41,7 +41,7 @@
     <h4 text-center>프로젝트 스토리</h4>
     <div class="divider-dot"><span class="dot"></span></div>
     <div class="storys-wrapper" *ngFor="let projectStory of projectStories">
-      <img [src]="projectStory.storyImage"/>
+      <img [src]="projectStory.storyImage" (click)="photoView(projectStory.storyImage)" tappable/>
       <div class="video-container" *ngIf="projectStory.storyVideo">
         <iframe width="100%" [src]="projectStory.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
       </div>

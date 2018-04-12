@@ -1,4 +1,3 @@
-import { UserProjectInterviewFormPage } from './../pages/user/user-project-interview-form/user-project-interview-form';
 import { CompanyConfigurePage } from './../pages/company/company-configure/company-configure';
 import { UserConfigurePage } from './../pages/user/user-configure/user-configure';
 import { Component } from '@angular/core';
@@ -21,7 +20,7 @@ import { CommonServiceProvider } from '../providers/common-service/common-servic
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = UserProjectInterviewFormPage; 
+  rootPage:any = LoginPage; 
 
   constructor(
     platform: Platform,
@@ -39,7 +38,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-      // this.verifyLoginState();
+      this.verifyLoginState();
       keyboard.disableScroll(true);
       screenOrientation.lock(screenOrientation.ORIENTATIONS.PORTRAIT);
       ModalCmp.prototype._viewWillEnter = () => {};
