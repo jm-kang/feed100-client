@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content, Platform } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
 
 declare var cordova:any;
@@ -47,18 +47,36 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,
     public ModalWrapperPage: ModalWrapperPage,
+    private platform: Platform,
     private domSanitizer: DomSanitizer) {
+      this.initializeBackButtonCustomHandler();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectGroupInterviewQuestionEditorPage');
     this.project_id = this.ModalWrapperPage.modalParams.project_id;
     this.group = this.ModalWrapperPage.modalParams.group;
+    
+    this.isHelpHide = true;
   }
 
   ionViewWillEnter() {    
     console.log('ionViewWillEnter CompanyProjectGroupInterviewQuestionEditorPage');
-    this.isHelpHide = true;
+  }
+
+  initializeBackButtonCustomHandler() {
+    this.ModalWrapperPage.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        this.customHandleBackButton();
+    }, 10);
+  }
+
+  customHandleBackButton() {
+    if(this.isHelpHide) {
+      this.dismiss();
+    } 
+    else {
+      this.isHelpHide = true;
+    }
   }
 
   completeEditor() {      
@@ -101,7 +119,10 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
   }
 
   dismiss() {
-    this.ModalWrapperPage.dismissModal();
+    this.commonService.showConfirmAlert('취소하실 경우 현재까지 작성한 내용이 저장되지 않습니다. 그래도 취소하시겠습니까?', 
+    () => {
+      this.ModalWrapperPage.dismissModal();
+    });
   }
 
   help() {

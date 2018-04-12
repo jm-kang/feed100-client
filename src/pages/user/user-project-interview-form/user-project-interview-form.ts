@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController, Content, Slides, Platform } from 'ionic-angular';
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { UserServiceProvider } from '../../../providers/user-service/user-service';
@@ -18,7 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: 'user-project-interview-form.html',
 })
 export class UserProjectInterviewFormPage {
-  // @ViewChild('input') myInput ;
+  // @ViewChild('input') myInput ;  
   @ViewChild(Slides) slides: Slides;
   firstImpressionScoreNums = [false,false,false,false,false,false,false,false,false,false];
 
@@ -62,14 +62,18 @@ export class UserProjectInterviewFormPage {
     "value" : ""
   };
 
+  unregisterBackButtonAction;
+
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams, 
     public modalCtrl: ModalController, 
     public viewCtrl: ViewController,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider,
+    private platform: Platform,
     private domSanitizer: DomSanitizer) {
+      this.initializeBackButtonCustomHandler();
   }
 
   ionViewDidLoad() {
@@ -78,11 +82,35 @@ export class UserProjectInterviewFormPage {
     this.slides.lockSwipeToPrev(true);
     this.slides.lockSwipeToNext(true);
 
-    this.isHelpHide = true;    
+    this.isHelpHide = true;
   }
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter UserProjectInterviewFormPage');    
+  }
+
+  ionViewWillLeave() {
+    this.unRegisterBackButtonCustomHandler();
+  }
+
+  unRegisterBackButtonCustomHandler() {
+    this.unregisterBackButtonAction && this.unregisterBackButtonAction();
+    this.unregisterBackButtonAction = '';
+  }
+
+  initializeBackButtonCustomHandler() {
+    this.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        this.customHandleBackButton();
+    }, 10);
+  }
+
+  customHandleBackButton() {
+    if(this.isHelpHide) {
+      this.back();
+    } 
+    else {
+      this.isHelpHide = true;
+    }
   }
 
   completeEditor() {
@@ -212,8 +240,12 @@ export class UserProjectInterviewFormPage {
   }
 
   openUserProjectStoryVerticalPage() {
+    this.unRegisterBackButtonCustomHandler();
     let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage', params: { "project_id" : this.project_id }});
     userProjectStoryVerticalModal.present();
+    userProjectStoryVerticalModal.onDidDismiss(() => {
+      this.initializeBackButtonCustomHandler();
+    });
   }
 
   textCount(text: string) {
@@ -288,7 +320,10 @@ export class UserProjectInterviewFormPage {
   }
 
   back() {
-    this.navCtrl.pop();
+    this.commonService.showConfirmAlert('취소하실 경우 현재까지 작성한 내용이 저장되지 않습니다. 그래도 취소하시겠습니까?', 
+    () => {
+      this.navCtrl.pop();
+    });
   }
 
   goNextSlide(content) {
