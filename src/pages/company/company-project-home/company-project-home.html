@@ -22,6 +22,17 @@
       </ion-buttons>
     </ion-navbar>
   </ion-header>
+
+  <ion-header *ngIf="!isProjectProceeding || (isProjectProceeding && interviews.length == 0)">
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button ion-button class="logout-btn" (click)="logout()">
+          로그아웃
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
   
   <!-- 프로젝트 대기중 -->
   <div *ngIf="!isProjectProceeding" class="waiting-project">

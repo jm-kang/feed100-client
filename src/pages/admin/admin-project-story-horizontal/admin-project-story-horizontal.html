@@ -65,7 +65,8 @@
       </div>
       <button ion-button block outline class="m-b-15" *ngIf="isLink" (click)="openAdminProjectLinkPage()">테스트 링크</button>
       <button ion-button block outline class="m-b-15" (click)="updatePrivateState()">{{(isPrivate) ? '비공개' : '공개'}}</button>
-      <button ion-button block outline (click)="terminateProject()">{{(isTermination) ? '종료' : '진행중'}}</button>
+      <button ion-button block outline class="m-b-15" (click)="terminateProject()">{{(isTermination) ? '심사 종료' : '진행중'}}</button>
+      <button ion-button block outline (click)="endRecommendationScore()">추천지수 마감</button>
     </ion-slide>
   </ion-slides>
 </ion-content>

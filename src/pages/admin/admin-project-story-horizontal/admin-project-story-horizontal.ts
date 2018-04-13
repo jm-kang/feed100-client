@@ -216,10 +216,15 @@ export class AdminProjectStoryHorizontalPage {
 
   terminateProject() {
     let message = '';
-    // let value;
-    if(!this.isTermination) {
+    let value;
+
+    if(this.isTermination) {
+      message = '현재 심사 종료 상태입니다.<br/>진행중 상태로 변경하시겠습니까?';
+      value = 0;
+    }
+    else {
       message = '현재 진행중 상태입니다.<br/>종료 상태로 변경하시겠습니까?';
-      // value = 1;
+      value = 1;
     }
     this.commonService.showConfirmAlert(message, 
     () => {
@@ -240,6 +245,41 @@ export class AdminProjectStoryHorizontalPage {
       //         this.isTermination = true;
       //       }
       //       this.commonService.showBasicAlert('변경되었습니다.');
+      //     }
+      //     else if(data.success == false) {
+      //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+      //       .then(() => {
+      //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+      //       })
+      //     }
+      //   },
+      //   (err) => {
+      //     console.log(err);
+      //     this.commonService.showBasicAlert('오류가 발생했습니다.');
+      //   }
+      // );  
+    }
+    );    
+  }
+
+  endRecommendationScore() {
+    let message = '';
+    if(!this.isTermination) {
+      message = '보상받기를 하지 않은 유저의 추천지수를 강제로 마감하시겠습니까?';
+    }
+    this.commonService.showConfirmAlert(message, 
+    () => {
+      // this.commonService.isLoadingActive = true;
+      // let loading = this.commonService.presentLoading();
+  
+      // this.adminService.updateProjectPrivateState(this.project_id)
+      // .finally(() => {
+      //   loading.dismiss();
+      // })
+      // .subscribe(
+      //   (data) => {
+      //     if(data.success == true) {
+      //       this.commonService.showBasicAlert('마감되었습니다.');
       //     }
       //     else if(data.success == false) {
       //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
