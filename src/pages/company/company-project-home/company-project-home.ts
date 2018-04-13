@@ -175,112 +175,112 @@ export class CompanyProjectHomePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
 
-    // to check if we have permission
-    this.push.hasPermission()
-    .then((res: any) => {
-      if (res.isEnabled) {
-        console.log('We have permission to send push notifications');
-      } else {
-        console.log('We do not have permission to send push notifications');
-      }
-    });
+  //   // to check if we have permission
+  //   this.push.hasPermission()
+  //   .then((res: any) => {
+  //     if (res.isEnabled) {
+  //       console.log('We have permission to send push notifications');
+  //     } else {
+  //       console.log('We do not have permission to send push notifications');
+  //     }
+  //   });
 
 
-    // to initialize push notifications
+  //   // to initialize push notifications
 
-    const options: PushOptions = {
-      android: {
-          senderID: '889490373924'
-      },
-      ios: {
-          alert: true,
-          badge: true,
-          sound: true,
-          clearBadge: true
-      },
-      windows: {}
-    };
+  //   const options: PushOptions = {
+  //     android: {
+  //         senderID: '889490373924'
+  //     },
+  //     ios: {
+  //         alert: true,
+  //         badge: true,
+  //         sound: true,
+  //         clearBadge: true
+  //     },
+  //     windows: {}
+  //   };
 
-    const pushObject: PushObject = this.push.init(options);
+  //   const pushObject: PushObject = this.push.init(options);
 
-    pushObject.on('notification').subscribe((notification: any) => {
-      console.log('Received a notification', notification);
-      console.log(JSON.stringify(notification.additionalData));
-      if(notification.additionalData.foreground) {
-        console.log('foreground');
-        this.commonService.showBasicAlert(notification.message);
-      }
-      else {
-        console.log('background');
-      }
-      this.refreshCurrentPage();
-    });
+  //   pushObject.on('notification').subscribe((notification: any) => {
+  //     console.log('Received a notification', notification);
+  //     console.log(JSON.stringify(notification.additionalData));
+  //     if(notification.additionalData.foreground) {
+  //       console.log('foreground');
+  //       this.commonService.showBasicAlert(notification.message);
+  //     }
+  //     else {
+  //       console.log('background');
+  //     }
+  //     this.refreshCurrentPage();
+  //   });
 
 
-    pushObject.on('registration').subscribe((registration: any) => {
-      console.log('Device registered', registration);
-      console.log(registration.registrationId);
-      this.uniqueDeviceId.get()
-      .then((uuid: any) => {
-        console.log('uuid:', uuid);
-        this.companyService.registerDeviceToken(uuid, registration.registrationId)
-        .subscribe(
-          (data) => {
-            console.log(data);
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
+  //   pushObject.on('registration').subscribe((registration: any) => {
+  //     console.log('Device registered', registration);
+  //     console.log(registration.registrationId);
+  //     this.uniqueDeviceId.get()
+  //     .then((uuid: any) => {
+  //       console.log('uuid:', uuid);
+  //       this.companyService.registerDeviceToken(uuid, registration.registrationId)
+  //       .subscribe(
+  //         (data) => {
+  //           console.log(data);
+  //         },
+  //         (err) => {
+  //           console.log(err);
+  //         }
+  //       );
 
-      })
-      .catch((error: any) => console.log(error));
-    });
+  //     })
+  //     .catch((error: any) => console.log(error));
+  //   });
 
-    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
-  }
+  //   pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+  // }
 
-  ionViewWillEnter(){
-    console.log('ionViewWillEnter CompanyProjectHomePage');
-    let loading = this.commonService.presentLoading();
+  // ionViewWillEnter(){
+  //   console.log('ionViewWillEnter CompanyProjectHomePage');
+  //   let loading = this.commonService.presentLoading();
     
-    this.companyService.getProjectHome()
-    .finally(() => {
-      loading.dismiss();
-    })
-    .subscribe(
-      (data) => {
-        if(data.success == true) {
-          if(data.data) {
-            this.isProjectProceeding = true;
-            this.project_id = data.data.project_id;
-            this.project_name = data.data.project_name;
-            this.project_main_image = data.data.project_main_image;
-            this.project_end_date = data.data.project_end_date;
-            this.interviews = data.data.participants;
-            this.participants_num = this.interviews.length;
-            if(this.participants_num) {
-              this.setStats();
-              this.companyService.setNotificationNum();
-              this.is_proceeding = data.data.is_proceeding;
-            }
-          }
-          else {
-            this.isProjectProceeding = false;
-          }
-        }
-        else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewWillEnter();
-          })
-        }
-      },
-      (err) => {
-        console.log(err);
-        this.commonService.showBasicAlert('오류가 발생했습니다.');
-      }
-    );
+  //   this.companyService.getProjectHome()
+  //   .finally(() => {
+  //     loading.dismiss();
+  //   })
+  //   .subscribe(
+  //     (data) => {
+  //       if(data.success == true) {
+  //         if(data.data) {
+  //           this.isProjectProceeding = true;
+  //           this.project_id = data.data.project_id;
+  //           this.project_name = data.data.project_name;
+  //           this.project_main_image = data.data.project_main_image;
+  //           this.project_end_date = data.data.project_end_date;
+  //           this.interviews = data.data.participants;
+  //           this.participants_num = this.interviews.length;
+  //           if(this.participants_num) {
+  //             this.setStats();
+  //             this.companyService.setNotificationNum();
+  //             this.is_proceeding = data.data.is_proceeding;
+  //           }
+  //         }
+  //         else {
+  //           this.isProjectProceeding = false;
+  //         }
+  //       }
+  //       else if(data.success == false) {
+  //         this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+  //         .then(() => {
+  //           this.ionViewWillEnter();
+  //         })
+  //       }
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //       this.commonService.showBasicAlert('오류가 발생했습니다.');
+  //     }
+  //   );
 
   }
   
@@ -381,5 +381,14 @@ export class CompanyProjectHomePage {
   openCompanyHelpPage() {
     let manualModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyHelpPage'});
     manualModal.present();
+  }
+
+  logout() {
+    this.commonService.showConfirmAlert('정말 로그아웃하시겠습니까?',
+      () => {
+        this.commonService.logout(this.navCtrl);
+        localStorage.clear();
+      }
+    );
   }
 }
