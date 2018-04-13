@@ -181,7 +181,7 @@ export class AdminProjectInterviewDetailPage {
       this.back();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 

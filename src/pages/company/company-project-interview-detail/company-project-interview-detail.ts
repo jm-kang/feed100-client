@@ -182,7 +182,7 @@ export class CompanyProjectInterviewDetailPage {
       this.back();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 
