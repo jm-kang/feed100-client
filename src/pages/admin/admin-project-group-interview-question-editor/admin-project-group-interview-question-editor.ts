@@ -73,7 +73,7 @@ export class AdminProjectGroupInterviewQuestionEditorPage {
       this.dismiss();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 

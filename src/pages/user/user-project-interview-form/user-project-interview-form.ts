@@ -109,7 +109,7 @@ export class UserProjectInterviewFormPage {
       this.back();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 

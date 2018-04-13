@@ -75,7 +75,7 @@ export class CompanyProjectGroupInterviewQuestionEditorPage {
       this.dismiss();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 

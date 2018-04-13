@@ -106,7 +106,7 @@ export class UserProjectInterviewAnswerPage {
       this.dismiss();
     } 
     else {
-      this.isHelpHide = true;
+      this.help();
     }
   }
 
