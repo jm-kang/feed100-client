@@ -74,12 +74,12 @@ export class AdminTabsPage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showBasicAlert(notification.message);
+        this.commonService.showToast(notification.message);
+        this.refreshCurrentPage();
       }
       else {
         console.log('background');
       }
-      this.refreshCurrentPage();      
     });
 
 
@@ -116,7 +116,7 @@ export class AdminTabsPage {
 
   refreshCurrentPage() {
     let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
-    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPages.length) {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }

@@ -425,6 +425,76 @@ export class UserServiceProvider {
     );
 
   }
+
+  accessProject(componentRef, project_id) {
+    this.commonService.isLoadingActive = true;
+    let loading = this.commonService.presentLoading();
+    
+    // is_end(심사) / is_exceeded / is_proceeding
+    this.getUserAndProjectInfo(project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(data.data.project_info.is_proceeding) {
+            if(data.data.project_participation_info) {
+              if(data.data.project_participation_info.process_completion) {
+                this.openUserProjectHomePage(componentRef, project_id);
+              }
+              else if(data.data.project_participation_info.process_quiz) {
+                this.openUserProjectInterviewFormPage(componentRef, project_id);
+              }
+              else if(data.data.project_participation_info.process_condition) {
+                this.openUserProjectStoryPage(componentRef, project_id, true, data.data.project_participation_info.process_test);
+              }
+              else {
+                // this.commonService.showBasicAlert(messages[3]);
+              }
+            }
+            else {
+              if(data.data.project_info.is_exceeded) {
+                this.openUserProjectStoryPage(componentRef, project_id, false, false);
+              }
+              else {
+                this.openUserProjectParticipationConditionFormPage(componentRef, project_id);
+              }
+            }
+          }
+          else {
+            if(data.data.project_participation_info) {
+              if(!data.data.project_participation_info.project_reward_date) {
+                if(!data.data.project_info.is_judge_end) {
+                  // this.commonService.showBasicAlert(messages[7])
+                }
+                else { 
+                  this.openUserProjectRewardFormPage(componentRef, project_id);
+                }    
+              }
+              else {
+                this.openUserProjectStoryPage(componentRef, project_id, false, false);
+              }
+            }
+            else {
+              this.openUserProjectStoryPage(componentRef, project_id, false, false);
+            }
+          }
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, componentRef.navCtrl)
+          .then(() => {
+            this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
+
+  }
   
   openUserProjectHomePage(componentRef, project_id) {
     componentRef.navCtrl.push('UserProjectHomePage', { "project_id" : project_id });

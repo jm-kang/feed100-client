@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
 import { CompanyServiceProvider } from './../../../providers/company-service/company-service';
@@ -168,6 +168,7 @@ export class CompanyProjectHomePage {
     public appCtrl: App,
     private push: Push,
     private uniqueDeviceId: UniqueDeviceID,
+    public zone: NgZone,
     public commonService: CommonServiceProvider,
     public companyService: CompanyServiceProvider,) {
   }
@@ -207,12 +208,27 @@ export class CompanyProjectHomePage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showBasicAlert(notification.message);
+        this.commonService.showToast(notification.message);
+        this.refreshCurrentPage();
       }
       else {
         console.log('background');
+        if(notification.additionalData.project_id) {
+          if(!notification.additionalData.coldstart) {
+            this.zone.run(() => {
+              this.commonService.dismissAllModal();
+              this.appCtrl.getRootNavs()[0].goToRoot({});
+            }); 
+          }
+          if(notification.additionalData.project_participant_id) {
+            this.openCompanyProjectInterviewDetailPage(notification.project_participant_id);
+          }
+          else {
+            this.openCompanyProjectReportPage();            
+          }
+        }
       }
-      this.refreshCurrentPage();
+
     });
 
 
@@ -371,7 +387,7 @@ export class CompanyProjectHomePage {
 
   refreshCurrentPage() {
     let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
-    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPages.length) {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }

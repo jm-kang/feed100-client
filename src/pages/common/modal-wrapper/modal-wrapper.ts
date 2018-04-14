@@ -31,14 +31,16 @@ export class ModalWrapperPage {
 
   ionViewWillUnload() {
     console.log('ionViewWillUnload ModalWrapperPage');
-    this.commonService.modalWrapperPage = '';
+    this.commonService.modalWrapperPages.pop();
+    console.log(this.commonService.modalWrapperPages.length);
     this.unRegisterBackButtonCustomHandler();    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalWrapperPage');
-    this.commonService.modalWrapperPage = this;
-
+    this.commonService.modalWrapperPages.push(this);
+    console.log(this.commonService.modalWrapperPages);
+    console.log(this.commonService.modalWrapperPages.length);
     this.modalPage = this.navParams.get('page');
     this.modalParams = this.navParams.get('params');
     console.log(JSON.stringify(this.modalParams));

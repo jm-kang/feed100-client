@@ -28,7 +28,7 @@ import { isDevMode } from '@angular/core/src/application_ref';
 @Injectable()
 export class CommonServiceProvider {
   isLoadingActive = true;
-  modalWrapperPage;
+  modalWrapperPages = [];
   isDevMode = true;
 
   constructor(
@@ -215,11 +215,7 @@ export class CommonServiceProvider {
   logout(navCtrl) {
     this.isLoadingActive = true;
     let loading = this.presentLoading();
-
-    if(this.modalWrapperPage) {
-      console.log('ModalWrapperPage dismissModal');
-      this.modalWrapperPage.dismissModal();
-    }
+    this.dismissAllModal();
     Observable.fromPromise(this.app.getRootNavs()[0].setRoot(LoginPage))
     .finally(() => {
       this.statusBar.show();
@@ -425,4 +421,11 @@ export class CommonServiceProvider {
     return loading;
   }
 
+  dismissAllModal() {
+    let modalLen = this.modalWrapperPages.length;
+    for(let i=modalLen; i>0; i--) {
+      console.log('ModalWrapperPage dismissModal' + i);
+      this.modalWrapperPages[i-1].dismissModal();
+    }
+  }
 }
