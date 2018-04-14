@@ -14,6 +14,7 @@ export class DDayPipe implements PipeTransform {
    * Takes a value and makes it lowercase.
    */
   transform(value: string, ...args) {
+    console.log(value);
     if(value.match('전')) {
       return '종료';
     }

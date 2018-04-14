@@ -174,7 +174,7 @@ export class CompanyProjectHomePage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad CompanyProjectHomePage');
-
+    this.commonService.isLoadingActive = true;
     // to check if we have permission
     this.push.hasPermission()
     .then((res: any) => {

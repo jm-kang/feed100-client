@@ -114,12 +114,12 @@ export class CompanyProjectInterviewDetailPage {
     this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');    
     this.project_participant_id = this.navParams.get('project_participant_id');
+    this.isHelpHide = true;    
     this.keyboard.disableScroll(false); // 추가
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectInterviewDetailPage');
-    this.isHelpHide = true;
     let loading = this.commonService.presentLoading();
     
     this.companyService.getInterviews(this.project_participant_id)

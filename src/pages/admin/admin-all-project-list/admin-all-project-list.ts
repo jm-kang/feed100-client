@@ -58,33 +58,34 @@ export class AdminAllProjectListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminAllProjectListPage');
+    this.commonService.isLoadingActive = true;    
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AdminAllProjectListPage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
     
-    // this.adminService.getAllProjects()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.allProjects = data.data;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       })
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
+    this.adminService.getAllProjects()
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.allProjects = data.data;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          })
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    );
   }
 
   back() {

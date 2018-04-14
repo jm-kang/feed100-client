@@ -35,7 +35,7 @@
       <span class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="avatar_image" />
       </span>
-      <button class="more-btn" ion-button (click)="sanctionProject(project_id, user_id, project_participant_id)">
+      <button class="more-btn" ion-button (click)="sanctionParticipant()">
         <ion-icon name="md-more"></ion-icon>
       </button>
     </ion-buttons>
@@ -136,24 +136,24 @@
       <!-- ========================Company============================= -->
       <div class="interview-bubble-wrapper">
         <div text-right><div class="right-interview-bubble interview-bubble">
-          <p text-left class="interview-comment pre-line"><b>Q.</b> {{interview.interview_request}}</p>
-          <p text-left class="date-text">{{interview.interview_request_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+          <p text-left class="interview-comment pre-line"><b>Q.</b> {{interview.interview_question}}</p>
+          <p text-left class="date-text">{{interview.interview_question_registration_date | amLocale:'ko' | amTimeAgo}}</p>
         </div></div>
         <!-- ==========================USER=============================== -->
-        <div text-left *ngIf="interview.interview_response"><div class="left-interview-bubble interview-bubble">
-          <p class="interview-comment pre-line"><b>A.</b> {{interview.interview_response}}</p>
-          <p class="date-text">{{interview.interview_response_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+        <div text-left *ngIf="interview.interview_answer"><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> {{interview.interview_answer}}</p>
+          <p class="date-text">{{interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo}}</p>
           <span class="item-tag-wrapper">
             <span class="btn-item-more">
               <!-- 신고하기 수정 -->
-              <button [ngStyle]="{'background-color': interview.isLike ? '#FF533D' : '#fff', 'box-shadow': interview.isLike ? '0 8px 16px 0 rgba(144,0,0,0.2)' : '0 4px 16px 0 rgba(0,0,0,0.1)'}" class="like-btn" ion-button (click)="clickLike(interview)">
-                <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.isLike"></ion-icon>
-                <ion-icon class="like-false-icon" name="ios-heart" *ngIf="!interview.isLike"></ion-icon>
+              <button [ngStyle]="{'background-color': interview.is_like ? '#FF533D' : '#fff', 'box-shadow': interview.is_like ? '0 8px 16px 0 rgba(144,0,0,0.2)' : '0 4px 16px 0 rgba(0,0,0,0.1)'}" class="like-btn" ion-button (click)="clickLike(interview)">
+                <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.is_like"></ion-icon>
+                <ion-icon class="like-false-icon" name="ios-heart" *ngIf="!interview.is_like"></ion-icon>
               </button>
             </span>
           </span>
         </div></div>
-        <div text-left *ngIf="!interview.interview_response"><div class="left-interview-bubble interview-bubble interview-waiting-response">
+        <div text-left *ngIf="!interview.interview_answer"><div class="left-interview-bubble interview-bubble interview-waiting-response">
           <p class="interview-comment pre-line">답변 대기중 ...</p>
         </div></div>
       </div>

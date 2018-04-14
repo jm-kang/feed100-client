@@ -155,6 +155,6 @@ export class CompanyNotificationPage {
   }
 
   openCompanyProjectReportPage(project_id) {
-    this.navCtrl.push('CompanyProjectReportPage', { "project_id" : project_id })
+    this.navCtrl.push('CompanyProjectReportPage', { 'project_id' : project_id })
   }
 }

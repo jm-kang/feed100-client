@@ -102,8 +102,8 @@ export class AdminServiceProvider {
   }
   
   // 리뉴얼 후
-  getProjectReports(project_id) {
-    let url = this.commonService.getServerUrl() + '/admin/api/comprehensive-reports/' + project_id;
+  getProjectReport(project_id) {
+    let url = this.commonService.getServerUrl() + '/admin/api/comprehensive-report/' + project_id;
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());

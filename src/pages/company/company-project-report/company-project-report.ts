@@ -263,11 +263,11 @@ export class CompanyProjectReportPage {
     console.log('ionViewDidLoad CompanyProjectReportPage');
     this.commonService.isLoadingActive = true;
     this.project_id = this.navParams.get('project_id');
+    this.isHelpHide = true;    
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter CompanyProjectReportPage');
-    this.isHelpHide = true;
     let loading = this.commonService.presentLoading();
 
     this.companyService.getProjectReport(this.project_id)

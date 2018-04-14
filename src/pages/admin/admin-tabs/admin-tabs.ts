@@ -62,8 +62,7 @@ export class AdminTabsPage {
       ios: {
           alert: true,
           badge: true,
-          sound: true,
-          clearBadge: true
+          sound: true
       },
       windows: {}
     };
@@ -111,8 +110,8 @@ export class AdminTabsPage {
     console.log('ionViewWillEnter AdminTabsPage');
   }
 
-  getInterviewNum() {
-    return this.adminService.interviewNum;
+  getNotificationNum() {
+    return this.adminService.notificationNum;
   }
 
   refreshCurrentPage() {
@@ -123,8 +122,4 @@ export class AdminTabsPage {
     }
   }
 
-  getNotificationNum() {
-    // alarmNum -> notificationNum으로
-    return this.adminService.alarmNum;
-  }
 }
