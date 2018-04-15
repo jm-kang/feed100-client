@@ -198,7 +198,7 @@
     </div>
     <div class="textarea-wrapper">
       <!-- <ion-item>  -->
-        <textarea autofocus class="textarea" rows="1" fz-elastic placeholder="인터뷰 질문을 작성해주세요." [(ngModel)]="questionInterview"></textarea>
+        <textarea class="textarea" rows="1" fz-elastic placeholder="인터뷰 질문을 작성해주세요." [(ngModel)]="questionInterview"></textarea>
         <button [disabled]="minTextLength > (questionInterview | textcount) || maxTextLength < (questionInterview | textcount)" (click)="sendInterview()">
           <ion-icon name="md-send"></ion-icon>
         </button>    

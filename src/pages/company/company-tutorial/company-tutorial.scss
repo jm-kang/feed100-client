@@ -1,3 +1,659 @@
 page-company-tutorial {
+    .content-ios .swiper-container-horizontal > .swiper-pagination-bullets {
+        top: 30px;
+        bottom: auto;
+    }
+    .content-md .swiper-container-horizontal > .swiper-pagination-bullets {
+        top: 20px;
+        bottom: auto;
+    }
+    .swiper-pagination-bullet-active {
+        background: #ff6700;
+    }
+    .content-ios.tutorial-intro-content {
+        .image-wrapper {
+            height: calc(100vh - 70px);
+            padding-bottom: 10px;
+        }
+    }
+    .content-md.tutorial-intro-content {
+        // margin-top: 20px;
+    }
+    .tutorial-intro-content {
+        .image-wrapper {
+            height: calc(100vh - 60px);
+            padding-bottom: 10px;
+            img {
+                box-shadow: 0 14px 28px rgba(0,0,0,0), 0 10px 24px rgba(0,0,0,0.2);
+                border-radius: 10px;
+            }
+        }
+        .swiper-slide {
+            align-items: flex-end;
+        }
+    }
+    .tutorial-project-home-content {
+        .scroll-content {
+            padding: 0 !important;
+            margin-top: 0 !important;
+        }
+    
+        .header {
+            .title-ios {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+            .toolbar-title {
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #fff;
+            }
+            .bar-button {
+                color: #eee;
+            }
+        }
+        .header-ios {
+            padding-top: 20px;
+        }
+        
+        .processing-project {
+            h1 {
+                margin: 0;
+                margin-bottom: 20px;
+                font-size: 1.5rem;
+                font-weight: bold;
+            }
+            .overlap-image {
+                width: 100%;
+                position: absolute;
+                display: flex;
+                background: rgba(0,0,0,0.3);
+                top: 0;
+            }
+            .project-stats-background-wrapper {
+                height: 64px;
+                position: absolute;
+                width: 100%;
+                overflow: hidden;
+                .project-stats-background {
+                    height: 100%;
+                    background: rgba(50,50,50,0.5);
+                    -webkit-backdrop-filter: blur(5px);
+                    backdrop-filter: blur(5px);
+                    transform: scale(1.4);
+                }
+            }
+    
+            .project-stats {
+                height: 64px;
+                width: 100%;
+                position: absolute;
+                .grid {
+                    padding: 0;
+                    height: 100%;
+                    .row {
+                        height: 100%;
+                        .col {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            .stat-score{
+                                color: #fff;
+                                font-size: 1.9rem;
+                                font-weight: bold;
+                            }
+                            .stat-summary {
+                                font-size: 1.2rem;
+                                color: #ccc;
+                            }
+                        }
+                    }
+                }
+            }
+    
+            .processing-project-content {
+                .btn-section {
+                    .grid, .grid .col {
+                        padding: 0;
+                    }
+                    .grid {
+                        .col {
+                            .button {
+                                margin: 0;
+                                width: 100%;
+                                border-radius: 0;
+                                font-weight: bold;
+                                color: #383838;
+                                background-color: #fff;
+                                box-shadow: 0 4px 4px rgba(0,0,0,0), 0 1px 8px rgba(0,0,0,0.15);
+                            }
+                        }
+                    }
+                }
+    
+                .graph-section {
+                    padding: 20px;
+                    padding-bottom: 50px;
+                    background-color: #fff;
+                    .table {
+                        width: 100%;
+                        border-top: 1px solid #D4D6D8;
+                        border-bottom: 1px solid #D4D6D8;
+                        .tr {
+                            height: 20px;
+                            border-top: 0.55px solid #E9EBED;
+                            width: 100%;
+                        }
+                        .tr:nth-child(1) {
+                            border-top: 0;
+                        }
+                    }
+    
+                    .graph-box {
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        position: absolute;
+                        width: calc(100% - 40px);
+                        margin-top: -117px;
+                        .graph-percent {
+                            font-size: 11px;
+                            margin-bottom: 3px;
+                        }
+                        .graph-title {
+                            font-size: 11px;
+                            color: #383838;
+                        }
+                        .gender-wrapper {
+                            display: flex;
+                            align-items: flex-end;
+                            .man-wrapper {
+                                .graph-percent {
+                                    color: #00A2FF;
+                                }
+                            }
+                            .woman-wrapper {
+                                .graph-percent {
+                                    color: #FF644E;
+                                }
+                            }
+                            .gender-graph {
+                                display: inline-flex;
+                                height: 100px;
+                                .gender-default {
+                                    height: 100%;
+                                }
+                                .gender-color-wrapper {
+                                    height: 100px;
+                                    position: absolute;
+                                    display: flex;
+                                    align-items: flex-end;
+                                    .gender-color {
+                                        display: flex;
+                                        align-items: flex-end;
+                                        img {
+                                            height: 100px;
+                                            width: auto;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        .ages-wrapper {
+                            height: 100px;
+                            display: flex;
+                            align-items: flex-end;
+                            .age-wrapper {
+                                width: 34px;
+                            }
+                            .gender-graph {
+                                display: inline-flex;
+                                width: 20px;
+                                margin: 0 auto;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+    }
+    
+    .tutorial-project-home-content.content-ios {
+        .project-header-image {
+            height: calc(64px + 64px + 10px);
+        }
+        .overlap-image {
+            height: calc(64px + 64px + 10px);
+        }
+        .project-stats,.project-stats-background-wrapper {
+            top: calc(64px + 10px);
+        }
+    }
 
+    .tutorial-project-home-content.content-md {
+        .project-header-image {
+            height: calc(56px + 64px + 10px);
+        }
+        .overlap-image {
+            height: calc(56px + 64px + 10px);
+        }
+        .project-stats,.project-stats-background-wrapper {
+            top: calc(56px + 10px);
+        }
+    }
+
+    .tutorial-group-interview-header {
+        background-color: #fff;
+        border-bottom: 1px solid rgba(55,55,55,0.05);
+        position: relative;
+    
+        ion-buttons {
+            margin: 0 8px;
+        }
+    
+        ion-buttons .button-inner {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .bar-button {
+            width: auto;
+        }
+
+        .complete-button {
+            color: #ff6400;
+        }
+
+        .title {
+            left: 0;
+            top: 0;
+            padding: 0 90px 1px;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            pointer-events: none;
+        }
+    
+         .toolbar-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: -webkit-box !important;
+        }
+        ion-navbar ion-buttons[start] {
+            order: 1;
+        }
+    }
+    .tutorial-group-interview-content.content-ios {
+        margin-top: 64px;
+    }
+    .tutorial-group-interview-content.content-md {
+        margin-top: 56px;
+    }
+    .tutorial-group-interview-content {
+        .fixed-content {
+            content: '';
+        }
+        .check-box {
+            border-radius: 50px;
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .check {
+            background-color: #ff6700;
+            color: #fff;
+        }
+        .not-check {
+            border: 1px solid #D4D6D8;
+        }
+        h1 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            span {
+                margin-top: 0.3rem !important;
+                font-size: 1.2rem;
+                font-weight: normal;
+                color: #787878;
+            }
+            .check-all, .uncheck-all {
+                margin-top: 0.1rem !important;
+                font-size: 1.3rem;
+                font-weight: 500;
+            }
+            .check-all {
+                color: #585858;
+            }
+            .uncheck-all {
+                color: #ff6700;
+            }
+        }
+    
+        .empty-content {
+            height: 100% !important;
+        }
+    }
+
+    .tutorial-group-interview-question-editor-header {
+
+    }
+
+    .content-ios.tutorial-group-interview-question-editor-content {
+        margin-top: 188px;
+    }
+    .content-md.tutorial-group-interview-question-editor-content {
+        margin-top: 180px;
+    }
+    
+    .tutorial-group-interview-question-editor-content {
+        .question-wrapper {
+            color: #787878 !important;
+            font-size: 1.2rem !important;
+        }
+        .point-notice {
+            font-size: 1.5rem !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .complete-button {
+            color: #ff6700 !important;
+        }
+        .divider {
+            background-color: rgba(55,55,55,0.8);
+            width: 80%;
+            margin: 0 auto;
+            height: 0.55px;;
+        }
+        .help-wrapper h2 {
+            font-size: 1.3rem !important;
+        }
+
+        .toolbar-title-ios {
+            align-items: center;
+        }
+        .help-btn {
+            position: relative;
+            margin-top: 1px !important;
+            margin-left: 10px;
+        }
+    }
+
+    .tutorial-project-story-horizontal-content {
+        .progress-inner {
+            background-color: #FE6B01;
+        }
+    
+        .project-last-slide-wrapper {
+            margin-bottom: 32px;
+            h3 {
+                font-size: 1.5rem;
+                color: #c8c8c8;
+                line-height: 1.6;
+            }
+            p {
+                font-size: 1.3rem;
+                color: #aaa;
+            }
+        }
+    
+        .project-last-slide-wrapper .story-name {
+            width: 90%;
+            font-size: 2rem;
+            color: #fff;
+            margin: 0 auto;
+            font-weight: bold;
+            line-height: 1.6
+        }
+    
+        .slide-title-wrapper.last-slide-title-wrapper {
+            position: absolute;
+            left: 0;
+        }
+    
+        .project-last-slide-buttons {
+            margin-top:10px;
+        }
+    
+        .project-last-slide-buttons.multi-button-wrapper {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            width: 100%;
+            margin: 0;
+            margin-left: -16px;
+            padding: 16px;
+            .disable-btn {
+                border-color: #aaa;
+                color: #aaa;
+            }
+        }
+    
+        .project-last-slide-buttons button {
+            font-size: 1.2rem;
+            height: 3em;
+            font-weight: bold;
+            width: 50%;
+            margin: 0;
+        }
+    
+        .story-name {
+            font-size: 2.7rem;
+        }
+    
+        .item-block .item-inner {
+            border-bottom : 0 !important;
+        }
+    }
+
+    .tutorial-project-story-horizontal-footer {
+        .avatar-span-wrapper,.bar-item-wrapper {
+            .item-inner {
+                border-bottom: 0 !important;
+            }
+        }
+        .story-back-button.bar-buttons-md {
+            display: inline-block !important;
+        }
+        ion-buttons[start] {
+            order: 1;
+        }
+    }
+
+    .tutorial-project-interview-detail-header {
+        .avatar-span-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .more-btn {
+                font-size: 2rem;
+                width: 2.2rem;
+                color: #787878;
+            }
+        }
+        .avatar-span {
+            height: 2.5em;
+            width: 2.5em;
+            margin-right: 8px !important;
+            overflow: hidden;
+            border-radius: 100px;
+            border: 1px solid #e4e4e4;
+            display: inline-block;
+        }
+    
+        .avatar-span {
+            margin-right: 0 !important;
+            margin-left: 8px;
+        }
+    
+        .avatar-span .avatar-span-image {
+            height: 2.5em;
+            width: 2.5em;
+        }
+        .waiting-reply {
+            color: #787878 !important;
+            background-color: #f3f3f3;
+        }
+    
+        border-bottom: 0.25px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .tutorial-project-interview-detail-content {
+        .like-true-icon { color: #fff; }
+        .like-false-icon {color: #ddd; }
+        .item-tag-wrapper {
+            position: absolute;
+            right: -20px;
+            bottom: 0px;
+            .btn-item-more {
+                top:4px;
+                display: inline-block;
+                .button {
+                    font-size: 2rem;
+                    color: #c8c8c8;
+                    background-color: transparent;
+                    padding: 0;
+                    margin: 0;
+                }
+                .like-btn {
+                    height: 4rem;
+                    width: 4rem;
+                }
+                .more-btn {
+                    height: 4rem;
+                    width: 2rem;
+                }
+            }
+        }
+        .scroll-content {
+            margin-bottom: 0 !important;
+            padding-bottom: 150px;
+        }
+    
+    }
+
+    .help {
+        top: 0;
+    }
+
+    .tutorial-project-interview-detail-footer {
+        .help-btn-wrapper {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 100px;
+            box-shadow: 0 6px 16px 0 rgba(144,0,0,0.1);
+            background-color: #fff;
+            .help-btn {
+                position: relative;
+                font-size: 2rem;
+                margin: 0 !important;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .tutorial-project-report-content {
+        .user-report-card {
+            border-radius: 9px;
+            margin-bottom: 20px;
+            .best-badge {
+                padding: 3px 8px;
+                span {
+                    color: #fff !important;
+                    font-size: 10px !important;
+                }
+            }
+    
+            .user-nickname-button {
+                color: #383838 !important;
+                font-size: 1.5rem !important;
+            }
+    
+            .user-nickname-button.activated {
+                color: #ff6400 !important;
+                font-size: 1.5rem !important;
+            }
+    
+            .report-card-footer-wrapper {
+                padding-bottom: 8px;
+                h1 {
+                    font-size: 1.6rem;
+                    color: #999;
+                    margin-bottom : 0 !important;
+                }
+            }
+    
+            .btn-item-more .button {
+                font-size: 2rem;
+            }
+    
+            .btn-item-more .button .icon {
+                color: #a8a8a8 !important;
+            }
+    
+            .btn-item-more {
+                top:-2px !important;
+            }
+        }
+    
+        
+        
+        .interview-card {
+            background-color: #fff;
+            text-align: right;
+            .interview-card-avatar {
+                padding: 16px 24px 0 24px;
+                margin: 0;
+                font-size: 1.2rem;
+                color: #787878;
+            }
+            .interview-content {
+                padding: 0 24px 10px 24px;
+                font-size: 1.5rem;
+                line-height: 1.5;
+                color: #383838;
+            }
+            .interview-summary {
+                margin-top: -20px;
+            }
+            .avatar-span-wrapper {
+                padding: 0 16px 10px 16px;
+                .avatar-span {
+                    border-radius: 50px;
+                    border: 1px solid #e8e8e8;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 8px;
+                    .avatar-span-image {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+            .like-check {
+                font-size: 1.6rem;
+                margin-top: -4px;
+                color: #FF533D;
+            }
+        }
+    }
+
+    .tutorial-project-report-footer {
+        .bar-button {
+            color: #383838;
+        }
+        .avatar-span-wrapper h3 {
+            color: #585858;
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+    }
 }
