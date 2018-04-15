@@ -7,6 +7,11 @@ page-company-tutorial {
         top: 20px;
         bottom: auto;
     }
+    .skip-button {
+        font-weight: bold;
+        color: #ff6700 !important;
+        width: auto !important;
+    }
     .swiper-pagination-bullet-active {
         background: #ff6700;
     }
@@ -503,6 +508,13 @@ page-company-tutorial {
         border-bottom: 0.25px solid rgba(0, 0, 0, 0.1);
     }
 
+    .content-md.tutorial-project-interview-detail-content {
+        margin-top: 44px;
+    }
+    .content-ios.tutorial-project-interview-detail-content {
+        margin-top: 64px;
+    }
+
     .tutorial-project-interview-detail-content {
         .like-true-icon { color: #fff; }
         .like-false-icon {color: #ddd; }
@@ -654,6 +666,12 @@ page-company-tutorial {
             color: #585858;
             font-size: 1.3rem;
             font-weight: 500;
+        }
+        .story-back-button.bar-buttons-md {
+            display: inline-block !important;
+        }
+        ion-buttons[start] {
+            order: 1;
         }
     }
 }

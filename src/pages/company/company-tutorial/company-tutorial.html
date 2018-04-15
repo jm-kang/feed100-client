@@ -7,7 +7,7 @@
 <ion-header no-border *ngIf="openTurorialIntro">
   <ion-navbar transparent>
     <ion-buttons right class="m-r-16">
-      <button ion-button color="light" *ngIf="introSlideIndex == introSlides.length - 1" class="skip-button" (click)="skip()">확인</button>
+      <button ion-button color="light" *ngIf="introSlideIndex >= introSlides.length - 1" class="skip-button" (click)="skip()">시작하기</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -22,9 +22,6 @@
       </div>
     </ion-slide>
   </ion-slides>
-  <div class="floating-buttons" *ngIf="introSlideIndex >= introSlides.length - 1">
-    <button ion-button clear large full>시작하기!</button>
-  </div>
 </ion-content>
 
 <div class="help" [ngStyle]="{'display': isInfoHide ? 'none' : 'flex'}">
@@ -154,7 +151,7 @@
     </div>
   </div>
   <ion-fab right bottom>
-    <button ion-fab color="primary" (click)="openTutorialProjectGroupInterviewPage()"><ion-icon name="ios-chatbubbles"></ion-icon></button>
+    <button ion-fab color="primary" (click)="openTutorialProjectGroupInterviewPage(); uncheckAll();"><ion-icon name="ios-chatbubbles"></ion-icon></button>
   </ion-fab>
 </ion-content>
   
@@ -368,7 +365,7 @@
     </ion-buttons>
     <ion-title>
       <span class="project-header-title">
-        {{nickname}}
+        {{userDetail.nickname}}
       </span>
     </ion-title>
     <ion-buttons class="avatar-span-wrapper" end>
@@ -382,7 +379,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content class="interview-ion-content tutorial-project-interview-detail-content" #content *ngIf="openTutorialProjectInterviewDetail">
-  <div>
+  <div style="margin-bottom: 40px;">
     <!-- 기본 정보 파트 -->
     <div class="interview-wrapper">
       <div class="interview-devide m-b-40 m-t-20"><span class="line-content">1차 인터뷰</span></div>

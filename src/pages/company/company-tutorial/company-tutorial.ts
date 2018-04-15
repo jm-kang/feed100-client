@@ -542,7 +542,7 @@ export class CompanyTutorialPage {
     this.totalStoryPageNum = this.projectStorySlides.length + 1;
 
     this.userDetail = {
-      nickname : "포텐브라더스",
+      nickname : "Matt",
       avatar_image : "assets/img/user-avatar-image-man1.png",
       minTextLength : 20,
       maxTextLength : 100,
@@ -834,17 +834,17 @@ export class CompanyTutorialPage {
 
   // story function
   storySlideChanged() {
-    if(this.storySlides.isBeginning()) {
-      this.storySlides.lockSwipeToPrev(true);  // 추가
-      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
-      this.isFirstSlide = true;
-    } else {
-      this.storySlides.lockSwipeToPrev(false);  // 추가
-      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
-      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
-      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
-      this.isFirstSlide = false;
-    }
+    // if(this.storySlides.isBeginning()) {
+    //   this.storySlides.lockSwipeToPrev(true);  // 추가
+    //   document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
+    //   this.isFirstSlide = true;
+    // } else {
+    //   this.storySlides.lockSwipeToPrev(false);  // 추가
+    //   document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+    //   document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+    //   document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
+    //   this.isFirstSlide = false;
+    // }
 
     if(this.storySlides.getActiveIndex() > this.totalStoryPageNum) {
       this.currentStoryPageNum = this.totalStoryPageNum;  
@@ -926,7 +926,6 @@ export class CompanyTutorialPage {
     }
     this.commonService.showConfirmAlert('해당 내용으로 선택된 유저들에게 인터뷰를 요청합니다.<br/>작성 후에는 수정하거나 삭제할 수 없습니다.<br>인터뷰를 요청하시겠습니까?', 
     () => {
-      this.openTutorialProjectHomePage(); 
       this.commonService.showBasicAlert('이와 같이 인터뷰를 진행해 주시면 됩니다!<br>고객들을 이해하고 진짜 원하는 것이 무엇인지 이끌어 내길 바랍니다!');
     });          
   }
@@ -934,17 +933,17 @@ export class CompanyTutorialPage {
 
   // report function
   reportSlideChanged() {
-    if(this.reportSlides.isBeginning()) {
-      this.reportSlides.lockSwipeToPrev(true);  // 추가
-      document.querySelector(".project-report-content .slides")['style'].marginLeft = '16px'; // 추가
-      this.isFirstSlide = true;
-    } else {
-      this.reportSlides.lockSwipeToPrev(false);  // 추가
-      document.querySelector(".project-report-content .slides")['style'].marginLeft = '0'; // 추가
-      document.querySelector(".project-report-content .slides")['style'].transitionProperty = 'margin-left'; // 추가
-      document.querySelector(".project-report-content .slides")['style'].transitionDuration = '0.4s'; // 추가
-      this.isFirstSlide = false;
-    }
+    // if(this.reportSlides.isBeginning()) {
+    //   this.reportSlides.lockSwipeToPrev(true);  // 추가
+    //   document.querySelector(".project-report-content .slides")['style'].marginLeft = '16px'; // 추가
+    //   this.isFirstSlide = true;
+    // } else {
+    //   this.reportSlides.lockSwipeToPrev(false);  // 추가
+    //   document.querySelector(".project-report-content .slides")['style'].marginLeft = '0'; // 추가
+    //   document.querySelector(".project-report-content .slides")['style'].transitionProperty = 'margin-left'; // 추가
+    //   document.querySelector(".project-report-content .slides")['style'].transitionDuration = '0.4s'; // 추가
+    //   this.isFirstSlide = false;
+    // }
 
     if(this.reportSlides.getActiveIndex() > this.totalReportNum) {
       this.currentReportNum = this.totalReportNum;  
@@ -971,6 +970,7 @@ export class CompanyTutorialPage {
     this.reportSlides.slideTo(index, 300);
     this.isNavHide = true;
   }
+  
   reportNav() {
     if(this.isNavHide) {
       this.isNavHide = false;
@@ -990,6 +990,7 @@ export class CompanyTutorialPage {
       document.querySelector(".scroll-content")['style'].overflow = 'scroll';
     }
   }
+  
   skip() {
     this.openTutorialProjectHomePage();
   }
