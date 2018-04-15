@@ -17,7 +17,7 @@ import { AdminServiceProvider } from '../../../providers/admin-service/admin-ser
   templateUrl: 'admin-mypage.html',
 })
 export class AdminMypagePage {
-  avatarImage = "./../../assets/img/company-avatar-image.png";
+  avatarImage = "assets/img/company-avatar-image.png";
   nickname = "관리자";;
   username = "admin@feed100.me";
 
