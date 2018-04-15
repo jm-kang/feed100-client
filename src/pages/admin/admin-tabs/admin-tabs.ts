@@ -74,12 +74,12 @@ export class AdminTabsPage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showToast(notification.message);
         this.refreshCurrentPage();
       }
       else {
         console.log('background');
       }
+      this.commonService.showToast(notification.message);
     });
 
 

@@ -195,8 +195,7 @@ export class CompanyProjectHomePage {
       ios: {
           alert: true,
           badge: true,
-          sound: true,
-          clearBadge: true
+          sound: true
       },
       windows: {}
     };
@@ -208,7 +207,6 @@ export class CompanyProjectHomePage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showToast(notification.message);
         this.refreshCurrentPage();
       }
       else {
@@ -221,14 +219,14 @@ export class CompanyProjectHomePage {
             }); 
           }
           if(notification.additionalData.project_participant_id) {
-            this.openCompanyProjectInterviewDetailPage(notification.project_participant_id);
+            this.openCompanyProjectInterviewDetailPage(notification.additionalData.project_participant_id);
           }
           else {
             this.openCompanyProjectReportPage();            
           }
         }
       }
-
+      this.commonService.showToast(notification.message);
     });
 
 

@@ -80,7 +80,6 @@ export class UserTabsPage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showToast(notification.message);
         this.refreshCurrentPage();
       }
       else {
@@ -95,6 +94,7 @@ export class UserTabsPage {
           this.userService.accessProject(this, notification.additionalData.project_id);
         }
       }
+      this.commonService.showToast(notification.message);      
     });
     
 
