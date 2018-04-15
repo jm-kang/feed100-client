@@ -132,17 +132,17 @@ export class AdminProjectStoryHorizontalPage {
   }
 
   slideChanged() {
-    if(this.slides.isBeginning()) {
-      this.slides.lockSwipeToPrev(true);  // 추가
-      document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
-      this.isFirstSlide = true;
-    } else {
-      this.slides.lockSwipeToPrev(false);  // 추가
-      document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
-      document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
-      document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
-      this.isFirstSlide = false;
-    }
+    // if(this.slides.isBeginning()) {
+    //   this.slides.lockSwipeToPrev(true);  // 추가
+    //   document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
+    //   this.isFirstSlide = true;
+    // } else {
+    //   this.slides.lockSwipeToPrev(false);  // 추가
+    //   document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
+    //   document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
+    //   document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
+    //   this.isFirstSlide = false;
+    // }
 
     if(this.slides.getActiveIndex() > this.totalPageNum) {
       this.currentPageNum = this.totalPageNum;  

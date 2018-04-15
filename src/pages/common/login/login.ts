@@ -26,13 +26,13 @@ export class LoginPage {
       loginBg: 'assets/img/login-bg1.png',
       loginTopImg: 'assets/img/login-top-img1.png',
       title: '',
-      content: '의견을 말하고 포인트를 쌓자!<br>당신의 소중한 피드백을 들려주세요~!.'
+      content: '여러분의 소중한 의견을 들려주고 포인트를 적립하세요!<br>FEED100이 여러분의 생각과 경험을 사겠습니다!'
     },
     {
       loginBg: 'assets/img/login-bg2.png',
       loginTopImg: 'assets/img/login-top-img2.png',
       title: '',
-      content: '원하는 고객에게 직접 묻고 직접 듣자!<br>맞춤형 피드백 플랫폼 FEED100'
+      content: '원하는 고객에게 직접 묻고 직접 듣자!<br>스타트업에 적합한 고객반응조사 플랫폼 FEED100'
     },
   ]
 
