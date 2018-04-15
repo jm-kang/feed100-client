@@ -229,7 +229,7 @@ export class AdminProjectStoryHorizontalPage {
       value = 0;
     }
     else {
-      message = '현재 진행중 상태입니다.<br/>종료 상태로 변경하시겠습니까?';
+      message = '현재 진행중 상태입니다.<br/>종료 상태로 변경하시겠습니까?<br>변경되면 유저에게 종료 푸쉬 알림이 갑니다.<br>신중히 결정해주세요.';
       value = 1;
     }
     this.commonService.showConfirmAlert(message, 
@@ -269,7 +269,7 @@ export class AdminProjectStoryHorizontalPage {
   }
 
   endRecommendationRate() {
-    let message = '보상받기를 하지 않은 유저의 추천지수를 강제로 마감하시겠습니까?';
+    let message = '보상받기를 하지 않은 유저들의 추천지수를 강제로 입력받아 마감하시겠습니까?>변경되면 기업에게 종료 푸쉬 알림이 갑니다.<br>신중히 결정해주세요.';
     this.commonService.showConfirmAlert(message, 
     () => {
       this.commonService.isLoadingActive = true;
