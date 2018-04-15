@@ -847,17 +847,17 @@ export class CompanyTutorialPage {
 
   // story function
   storySlideChanged() {
-    // if(this.storySlides.isBeginning()) {
-    //   this.storySlides.lockSwipeToPrev(true);  // 추가
+    if(this.storySlides.isBeginning()) {
+      this.storySlides.lockSwipeToPrev(true);  // 추가
     //   document.querySelector(".story-slide .slides")['style'].marginLeft = '16px'; // 추가
-    //   this.isFirstSlide = true;
-    // } else {
-    //   this.storySlides.lockSwipeToPrev(false);  // 추가
+      this.isFirstSlide = true;
+    } else {
+      this.storySlides.lockSwipeToPrev(false);  // 추가
     //   document.querySelector(".story-slide .slides")['style'].marginLeft = '0'; // 추가
     //   document.querySelector(".story-slide .slides")['style'].transitionProperty = 'margin-left'; // 추가
     //   document.querySelector(".story-slide .slides")['style'].transitionDuration = '0.4s'; // 추가
-    //   this.isFirstSlide = false;
-    // }
+      this.isFirstSlide = false;
+    }
 
     if(this.storySlides.getActiveIndex() > this.totalStoryPageNum) {
       this.currentStoryPageNum = this.totalStoryPageNum;  
@@ -946,17 +946,17 @@ export class CompanyTutorialPage {
 
   // report function
   reportSlideChanged() {
-    // if(this.reportSlides.isBeginning()) {
-    //   this.reportSlides.lockSwipeToPrev(true);  // 추가
+    if(this.reportSlides.isBeginning()) {
+      this.reportSlides.lockSwipeToPrev(true);  // 추가
     //   document.querySelector(".project-report-content .slides")['style'].marginLeft = '16px'; // 추가
-    //   this.isFirstSlide = true;
-    // } else {
-    //   this.reportSlides.lockSwipeToPrev(false);  // 추가
+      this.isFirstSlide = true;
+    } else {
+      this.reportSlides.lockSwipeToPrev(false);  // 추가
     //   document.querySelector(".project-report-content .slides")['style'].marginLeft = '0'; // 추가
     //   document.querySelector(".project-report-content .slides")['style'].transitionProperty = 'margin-left'; // 추가
     //   document.querySelector(".project-report-content .slides")['style'].transitionDuration = '0.4s'; // 추가
-    //   this.isFirstSlide = false;
-    // }
+      this.isFirstSlide = false;
+    }
 
     if(this.reportSlides.getActiveIndex() > this.totalReportNum) {
       this.currentReportNum = this.totalReportNum;  
