@@ -109,6 +109,7 @@ export class CompanyTutorialPage {
     private photoViewer: PhotoViewer,
     public actionSheetCtrl: ActionSheetController,
     public keyboard: Keyboard,) {
+      this.initializeBackButtonCustomHandler();
   }
 
   ionViewDidLoad() {
@@ -725,6 +726,16 @@ export class CompanyTutorialPage {
     this.totalReportNum = (this.projectUserProfileSlides.length + this.projectUserParticipationConditionSlides.length + this.projectStatSlides.length) + 3 + 5 + 1;
   }
 
+  initializeBackButtonCustomHandler() {
+    this.ModalWrapperPage.unregisterBackButtonAction = this.platform.registerBackButtonAction(() => {
+        this.customHandleBackButton();
+    }, 10);
+  }
+
+  customHandleBackButton() {
+    this.dismiss();
+  }
+
   // intro function
   introSlideChanged() {
     this.introSlideIndex = this.slider.getActiveIndex();
@@ -995,8 +1006,11 @@ export class CompanyTutorialPage {
     this.openTutorialProjectHomePage();
   }
 
-  back() {
-    this.navCtrl.pop();
+  dismiss() {
+    this.commonService.showConfirmAlert('샘플 프로젝트를 종료하시겠습니까?', 
+    () => {
+      this.ModalWrapperPage.dismissModal();
+    });
   }
 
   openTutorialProjectHomePage() {
