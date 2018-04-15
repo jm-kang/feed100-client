@@ -1,3 +1,4 @@
+import { ModalWrapperPage } from './../../common/modal-wrapper/modal-wrapper';
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Slides, Content, Platform, AlertController, ActionSheetController } from 'ionic-angular';
 import { ThemeableBrowser, ThemeableBrowserOptions, ThemeableBrowserObject } from '@ionic-native/themeable-browser';
@@ -26,7 +27,7 @@ export class CompanyTutorialPage {
   @ViewChild('slider') slider: Slides;
   @ViewChild('storySlide') storySlides: Slides;
   @ViewChild('reportSlide') reportSlides: Slides;
-  @ViewChild('content') content: Content;
+  @ViewChild('interviewDetailContent') detailContent: Content;
 
   openTurorialIntro;
   openTutorialProjectHome;
@@ -108,7 +109,8 @@ export class CompanyTutorialPage {
     private domSanitizer: DomSanitizer,
     private photoViewer: PhotoViewer,
     public actionSheetCtrl: ActionSheetController,
-    public keyboard: Keyboard,) {
+    public keyboard: Keyboard,
+    public ModalWrapperPage: ModalWrapperPage) {
       this.initializeBackButtonCustomHandler();
   }
 
@@ -1033,7 +1035,7 @@ export class CompanyTutorialPage {
     this.openTutorialProjectInterviewDetail = true;
     this.userDetail.questionInterview = "";
     setTimeout(() => {
-      this.content.scrollToBottom(300);
+      this.detailContent.scrollToBottom(300);
       console.log("asdasd");
     }, 500);
     this.pageInfo1 = "본 프로젝트는 샘플 프로젝트로 실제 데이터가<br>어떤 방식으로 보이는지 확인하기 위함입니다.";
