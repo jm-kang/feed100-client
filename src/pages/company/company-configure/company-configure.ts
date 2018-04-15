@@ -87,7 +87,8 @@ export class CompanyConfigurePage {
   }
 
   openCompanyTutorialPage() {
-    this.navCtrl.push('CompanyTutorialPage');
+    let tutorailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'CompanyTutorialPage'});
+    tutorailModal.present();
   }
 
   openCompanyHelpPage() {

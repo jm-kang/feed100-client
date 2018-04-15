@@ -37,7 +37,7 @@
   <ion-header>
     <ion-navbar hideBackButton="true">
       <ion-buttons start>
-        <button ion-button (click)="back()" icon-only>
+        <button ion-button (click)="dismiss()" icon-only>
           <ion-icon name="ios-close"></ion-icon>
         </button>
       </ion-buttons>
@@ -378,7 +378,7 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content class="interview-ion-content tutorial-project-interview-detail-content" #content *ngIf="openTutorialProjectInterviewDetail">
+<ion-content class="interview-ion-content tutorial-project-interview-detail-content" #interviewDetailContent *ngIf="openTutorialProjectInterviewDetail">
   <div style="margin-bottom: 40px;">
     <!-- 기본 정보 파트 -->
     <div class="interview-wrapper">
@@ -468,12 +468,12 @@
       <div class="interview-bubble-wrapper">
         <div text-right><div class="right-interview-bubble interview-bubble">
           <p text-left class="interview-comment pre-line"><b>Q.</b> {{interview.interview_question}}</p>
-          <p text-left class="date-text">{{interview.interview_question_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+          <p text-left class="date-text">{{interview.interview_question_registration_date}}</p>
         </div></div>
         <!-- ==========================USER=============================== -->
         <div text-left *ngIf="interview.interview_answer"><div class="left-interview-bubble interview-bubble">
           <p class="interview-comment pre-line"><b>A.</b> {{interview.interview_answer}}</p>
-          <p class="date-text">{{interview.interview_answer_registration_date | amLocale:'ko' | amTimeAgo}}</p>
+          <p class="date-text">{{interview.interview_answer_registration_date}}</p>
           <span class="item-tag-wrapper">
             <span class="btn-item-more">
               <!-- 신고하기 수정 -->
