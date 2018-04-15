@@ -29,7 +29,7 @@ import { isDevMode } from '@angular/core/src/application_ref';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPages = [];
-  isDevMode = true;
+  isDevMode = false;
 
   constructor(
     public http: Http,
