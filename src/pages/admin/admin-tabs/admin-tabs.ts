@@ -62,8 +62,7 @@ export class AdminTabsPage {
       ios: {
           alert: true,
           badge: true,
-          sound: true,
-          clearBadge: true
+          sound: true
       },
       windows: {}
     };
@@ -75,12 +74,12 @@ export class AdminTabsPage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showBasicAlert(notification.message);
+        this.refreshCurrentPage();
       }
       else {
         console.log('background');
       }
-      this.refreshCurrentPage();      
+      this.commonService.showToast(notification.message);
     });
 
 
@@ -111,20 +110,16 @@ export class AdminTabsPage {
     console.log('ionViewWillEnter AdminTabsPage');
   }
 
-  getInterviewNum() {
-    return this.adminService.interviewNum;
+  getNotificationNum() {
+    return this.adminService.notificationNum;
   }
 
   refreshCurrentPage() {
     let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
-    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPages.length) {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }
   }
 
-  getNotificationNum() {
-    // alarmNum -> notificationNum으로
-    return this.adminService.alarmNum;
-  }
 }

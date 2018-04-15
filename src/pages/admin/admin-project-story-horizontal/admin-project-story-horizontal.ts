@@ -26,35 +26,43 @@ export class AdminProjectStoryHorizontalPage {
   project_id;
 
   isFirstSlide: boolean = true;
-  isLink: boolean = true;
   // 프로젝트에 테스트할 링크가 있는지
-  projectMainImage: string = "./../../assets/img/project-main-image3.png";
-  nickname: string = "포텐브라더스";
-  projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
-  projectViewNum: number = 0;
-  participantNum: number = 0;
-  maxParticipantNum: number = 0;
-  maxReward: number = 5500;
-  progressState: string = "2018-04-20 00:00:00";
-  projectSummary: string = "";
-  projectRegistrationDate: string = "";
-  project_link;
+  isLink;
 
+  // projectMainImage: string = "./../../assets/img/project-main-image3.png";
+  // nickname: string = "포텐브라더스";
+  // projectName: string = "스마트 거치대 CUBIT : 스마트폰을 이용한 편리한 촬영 도구";
+  // projectViewNum: number = 0;
+  // participantNum: number = 0;
+  // maxParticipantNum: number = 0;
+  // maxReward: number = 5500;
+  // progressState: string = "2018-04-20 00:00:00";
+  // projectSummary: string = "";
+  // projectRegistrationDate: string = "";
+  
+  projectMainImage;
+  nickname;
+  projectName;
+  projectViewNum;
+  maxReward;
+  progressState;
+  project_link;
 
   currentPageNum: number = 0;
   totalPageNum: number = 0;
   progressPercent: number = 0;
 
-  projectStorySlides = [
-    {
-      storyImage: "./../../assets/img/project-story-sample-image.png",
-      storyVideo: "",
-      storyContent: "CUBIT의 주요 고객은 커플 및 가족입니다. 왜냐하면 사진 촬영을 가장 많이 하고 촬영 보조 기기를 자주 사용하는 층이기 때문입니다."
-    }
-  ];
+  // projectStorySlides = [
+  //   {
+  //     storyImage: "./../../assets/img/project-story-sample-image.png",
+  //     storyVideo: "",
+  //     storyContent: "CUBIT의 주요 고객은 커플 및 가족입니다. 왜냐하면 사진 촬영을 가장 많이 하고 촬영 보조 기기를 자주 사용하는 층이기 때문입니다."
+  //   }
+  // ];
+  projectStorySlides;
 
   isPrivate;
-  isTermination;
+  isJudgeEnd;
 
   constructor(
     public navCtrl: NavController, 
@@ -68,56 +76,55 @@ export class AdminProjectStoryHorizontalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectStoryHorizontalPage');
-    // this.commonService.isLoadingActive = true;
-    // this.project_id = this.navParams.get('project_id');
+    this.commonService.isLoadingActive = true;
+    this.project_id = this.navParams.get('project_id');
     this.slides.lockSwipeToPrev(true);  
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AdminProjectStoryHorizontalPage');
-    // let loading = this.commonService.presentLoading();
+    let loading = this.commonService.presentLoading();
+    
+    this.adminService.getProject(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          if(this.platform.is('android')) {
+            this.isLink = (data.data.android_link) ? true : false;
+            this.project_link = data.data.android_link;
+          }
+          else if(this.platform.is('ios')) {
+            this.isLink = (data.data.ios_link) ? true : false;
+            this.project_link = data.data.ios_link;
+          }
+          this.projectMainImage = data.data.project_main_image;
+          this.nickname = data.data.nickname;
+          this.projectName = data.data.project_name;
+          this.projectViewNum = data.data.project_view_num;
+          this.maxReward = data.data.project_max_reward;          
+          this.progressState = data.data.project_end_date;
+          this.projectStorySlides = JSON.parse(data.data.project_story);
 
-    // this.adminService.getProject(this.project_id)
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       if(this.platform.is('android')) {
-    //         this.isLink = (data.data.project_android_link) ? true : false;
-    //         this.project_link = data.data.project_android_link;
-    //       }
-    //       else if(this.platform.is('ios')) {
-    //         this.isLink = (data.data.project_ios_link) ? true : false;
-    //         this.project_link = data.data.project_ios_link;
-    //       }
-    //       this.projectMainImage = data.data.project_main_image;
-    //       this.nickname = data.data.nickname;
-    //       this.projectName = data.data.project_name;
-    //       this.projectViewNum = data.data.project_view_num;
-    //       this.participantNum = data.data.participant_num;
-    //       this.maxParticipantNum = data.data.max_participant_num;
-    //       this.progressState = data.data.project_end_date;
-    //       this.projectSummary = data.data.project_summary;
-    //       this.projectRegistrationDate = data.data.project_registration_date;
-    //       this.projectStorySlides = JSON.parse(data.data.project_story);
-    //       this.isPrivate = data.data.is_private;
+          this.isPrivate = data.data.is_private;
+          this.isJudgeEnd = data.data.is_judge_end;
 
           this.totalPageNum = this.projectStorySlides.length + 1;
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       });
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // )    
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )    
   }
 
   back() {
@@ -214,11 +221,10 @@ export class AdminProjectStoryHorizontalPage {
     );
   }
 
-  terminateProject() {
+  endJudge() {
     let message = '';
     let value;
-
-    if(this.isTermination) {
+    if(this.isJudgeEnd) {
       message = '현재 심사 종료 상태입니다.<br/>진행중 상태로 변경하시겠습니까?';
       value = 0;
     }
@@ -228,71 +234,68 @@ export class AdminProjectStoryHorizontalPage {
     }
     this.commonService.showConfirmAlert(message, 
     () => {
-      // this.commonService.isLoadingActive = true;
-      // let loading = this.commonService.presentLoading();
+      this.commonService.isLoadingActive = true;
+      let loading = this.commonService.presentLoading();
   
-      // this.adminService.updateProjectPrivateState(this.project_id, value)
-      // .finally(() => {
-      //   loading.dismiss();
-      // })
-      // .subscribe(
-      //   (data) => {
-      //     if(data.success == true) {
-      //       if(this.isTermination) {
-      //         this.isTermination = false;
-      //       }
-      //       else {
-      //         this.isTermination = true;
-      //       }
-      //       this.commonService.showBasicAlert('변경되었습니다.');
-      //     }
-      //     else if(data.success == false) {
-      //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-      //       .then(() => {
-      //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-      //       })
-      //     }
-      //   },
-      //   (err) => {
-      //     console.log(err);
-      //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-      //   }
-      // );  
+      this.adminService.updateProjectPrivateState(this.project_id, value)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            if(this.isJudgeEnd) {
+              this.isJudgeEnd = false;
+            }
+            else {
+              this.isJudgeEnd = true;
+            }
+            this.commonService.showBasicAlert('변경되었습니다.');
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            })
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+        }
+      );  
     }
     );    
   }
 
-  endRecommendationScore() {
-    let message = '';
-    if(!this.isTermination) {
-      message = '보상받기를 하지 않은 유저의 추천지수를 강제로 마감하시겠습니까?';
-    }
+  endRecommendationRate() {
+    let message = '보상받기를 하지 않은 유저의 추천지수를 강제로 마감하시겠습니까?';
     this.commonService.showConfirmAlert(message, 
     () => {
-      // this.commonService.isLoadingActive = true;
-      // let loading = this.commonService.presentLoading();
+      this.commonService.isLoadingActive = true;
+      let loading = this.commonService.presentLoading();
   
-      // this.adminService.updateProjectPrivateState(this.project_id)
-      // .finally(() => {
-      //   loading.dismiss();
-      // })
-      // .subscribe(
-      //   (data) => {
-      //     if(data.success == true) {
-      //       this.commonService.showBasicAlert('마감되었습니다.');
-      //     }
-      //     else if(data.success == false) {
-      //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-      //       .then(() => {
-      //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-      //       })
-      //     }
-      //   },
-      //   (err) => {
-      //     console.log(err);
-      //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-      //   }
-      // );  
+      this.adminService.endProjectRecommendationRate(this.project_id)
+      .finally(() => {
+        loading.dismiss();
+      })
+      .subscribe(
+        (data) => {
+          if(data.success == true) {
+            this.commonService.showBasicAlert('마감되었습니다.');
+          }
+          else if(data.success == false) {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            })
+          }
+        },
+        (err) => {
+          console.log(err);
+          this.commonService.showBasicAlert('오류가 발생했습니다.');
+        }
+      );  
     }
     );    
   }

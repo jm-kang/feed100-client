@@ -30,15 +30,11 @@ export class CompanyServiceProvider {
   }
 
   // 리뉴얼 후
-  registerDeviceToken(uuid, device_token) {
-    let url = this.commonService.getServerUrl() + '/company/api/device-token';
-    let data = {
-      "uuid" : uuid,
-      "device_token" : device_token
-    };
+  getProjectHome() {
+    let url = this.commonService.getServerUrl() + '/company/api/project/home';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
+      return this.http.get(url, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -48,15 +44,6 @@ export class CompanyServiceProvider {
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
-
-  // 리뉴얼 후
-  readNotification(notification_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/notification/' + notification_id + '/read';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -75,6 +62,42 @@ export class CompanyServiceProvider {
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  getProjectParticipants(project_id) {
+    let url = this.commonService.getServerUrl() + '/company/api/participants/' + project_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+    
+  // 리뉴얼 후
+  getProject(project_id) {
+    let url = this.commonService.getServerUrl() + '/company/api/project/' + project_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  getProjectReport(project_id) {
+    let url = this.commonService.getServerUrl() + '/company/api/comprehensive-report/' + project_id;
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.get(url, { headers: headers }).map(res => res.json());
+    });
+  }
+
+  // 리뉴얼 후
+  readNotification(notification_id) {
+    let url = this.commonService.getServerUrl() + '/company/api/notification/' + notification_id + '/read';
+    return Observable.fromPromise(this.commonService.getHeaders('access'))
+    .mergeMap((headers) => {
+      return this.http.put(url, {}, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -111,40 +134,17 @@ export class CompanyServiceProvider {
       return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
   }
-  
-  // 리뉴얼 후
-  getProject(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
 
   // 리뉴얼 후
-  getProjectHome() {
-    let url = this.commonService.getServerUrl() + '/company/api/project/home';
+  registerDeviceToken(uuid, device_token) {
+    let url = this.commonService.getServerUrl() + '/company/api/device-token';
+    let data = {
+      "uuid" : uuid,
+      "device_token" : device_token
+    };
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
-
-  // 리뉴얼 후
-  getProjectParticipants(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/participants/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
-
-  // 리뉴얼 후
-  getProjectReport(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/comprehensive-report/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
+      return this.http.post(url, data, { headers: headers }).map(res => res.json());
     });
   }
 
@@ -206,173 +206,174 @@ export class CompanyServiceProvider {
   //   componentRef.navCtrl.push('CompanyProjectStoryPage', { "project_id" : project_id });
   // }
 
+  // 리뉴얼 전
 
-  getCompanyInfo() {
-    let url = this.commonService.getServerUrl() + '/company/api/company';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getCompanyInfo() {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company';
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  updateAccount(avatar_image, nickname) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/account';
-    let data = {
-      "avatar_image" : avatar_image,
-      "nickname" : nickname
-    };
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.put(url, data, { headers: headers }).map(res => res.json());
-    });
-  }
+  // updateAccount(avatar_image, nickname) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/account';
+  //   let data = {
+  //     "avatar_image" : avatar_image,
+  //     "nickname" : nickname
+  //   };
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.put(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getCompanyHome() {
-    let url = this.commonService.getServerUrl() + '/company/api/company/home';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getCompanyHome() {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/home';
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getIsMyProject(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/project/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getIsMyProject(project_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/project/' + project_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  reportNewsfeed(newsfeed_id, newsfeed_comment_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/report/newsfeed';
-    let data = {
-      "newsfeed_id" : newsfeed_id,
-      "newsfeed_comment_id" : newsfeed_comment_id
-    }
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    });
-  }
+  // reportNewsfeed(newsfeed_id, newsfeed_comment_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/report/newsfeed';
+  //   let data = {
+  //     "newsfeed_id" : newsfeed_id,
+  //     "newsfeed_comment_id" : newsfeed_comment_id
+  //   }
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.post(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/report/project';
-    let data = {
-      "project_id" : project_id,
-      "project_participant_id" : project_participant_id,
-      "feedback_id" : feedback_id,
-      "opinion_id" : opinion_id,
-      "interview_id" : interview_id,
-      "report_id" : report_id
-    }
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    });
-  } 
+  // reportProject(project_id, project_participant_id, feedback_id, opinion_id, interview_id, report_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/report/project';
+  //   let data = {
+  //     "project_id" : project_id,
+  //     "project_participant_id" : project_participant_id,
+  //     "feedback_id" : feedback_id,
+  //     "opinion_id" : opinion_id,
+  //     "interview_id" : interview_id,
+  //     "report_id" : report_id
+  //   }
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.post(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // } 
    
-  getProjectInterviews(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/project/' + project_id + '/interviews';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getProjectInterviews(project_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/project/' + project_id + '/interviews';
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getInterview(project_participant_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/company/interview/' + project_participant_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getInterview(project_participant_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/company/interview/' + project_participant_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
 
-  getNewsfeeds() {
-    let url = this.commonService.getServerUrl() + '/company/api/newsfeeds';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getNewsfeeds() {
+  //   let url = this.commonService.getServerUrl() + '/company/api/newsfeeds';
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getNewsfeed(newsfeed_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/newsfeed/' + newsfeed_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getNewsfeed(newsfeed_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/newsfeed/' + newsfeed_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  newsfeedLike(newsfeed_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/newsfeed/like';
-    let data = {
-      "newsfeed_id" : newsfeed_id
-    }
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    });
-  }
+  // newsfeedLike(newsfeed_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/newsfeed/like';
+  //   let data = {
+  //     "newsfeed_id" : newsfeed_id
+  //   }
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.post(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  writeNewsfeedComment(newsfeed_id, newsfeed_comment_content) {
-    let url = this.commonService.getServerUrl() + '/company/api/newsfeed/comment';
-    let data = {
-      "newsfeed_id" : newsfeed_id,
-      "newsfeed_comment_content" : newsfeed_comment_content
-    }
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.post(url, data, { headers: headers }).map(res => res.json());
-    });
-  }
+  // writeNewsfeedComment(newsfeed_id, newsfeed_comment_content) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/newsfeed/comment';
+  //   let data = {
+  //     "newsfeed_id" : newsfeed_id,
+  //     "newsfeed_comment_content" : newsfeed_comment_content
+  //   }
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.post(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getProjects() {
-    let url = this.commonService.getServerUrl() + '/company/api/projects';
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getProjects() {
+  //   let url = this.commonService.getServerUrl() + '/company/api/projects';
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getSideMenuData(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/side-menu/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getSideMenuData(project_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/project/side-menu/' + project_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getProjectParticipant(project_participant_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/participant/' + project_participant_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getProjectParticipant(project_participant_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/project/participant/' + project_participant_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getProjectReports(project_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/reports/' + project_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getProjectReports(project_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/project/reports/' + project_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  selectReport(project_participant_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/report/select/' + project_participant_id;
-    let data = {};
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.put(url, data, { headers: headers }).map(res => res.json());
-    });
-  }
+  // selectReport(project_participant_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/project/report/select/' + project_participant_id;
+  //   let data = {};
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.put(url, data, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 
-  getFeedback(project_id, feedback_id) {
-    let url = this.commonService.getServerUrl() + '/company/api/project/' + project_id + '/feedback/' + feedback_id;
-    return Observable.fromPromise(this.commonService.getHeaders('access'))
-    .mergeMap((headers) => {
-      return this.http.get(url, { headers: headers }).map(res => res.json());
-    });
-  }
+  // getFeedback(project_id, feedback_id) {
+  //   let url = this.commonService.getServerUrl() + '/company/api/project/' + project_id + '/feedback/' + feedback_id;
+  //   return Observable.fromPromise(this.commonService.getHeaders('access'))
+  //   .mergeMap((headers) => {
+  //     return this.http.get(url, { headers: headers }).map(res => res.json());
+  //   });
+  // }
 }

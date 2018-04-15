@@ -262,12 +262,12 @@ export class AdminProjectReportPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminProjectReportPage');
     this.commonService.isLoadingActive = true;
+    this.isHelpHide = true;    
     this.project_id = this.navParams.get('project_id');
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AdminProjectReportPage');
-    this.isHelpHide = true;
     let loading = this.commonService.presentLoading();
 
     this.adminService.getProjectReport(this.project_id)

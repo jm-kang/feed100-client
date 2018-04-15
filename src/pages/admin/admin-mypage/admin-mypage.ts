@@ -32,45 +32,16 @@ export class AdminMypagePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminMypagePage');
-    this.commonService.isLoadingActive = true;
   }
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AdminMypagePage');
-    // let loading = this.commonService.presentLoading();
-    
-    // this.adminService.getAdminInfo()
-    // .finally(() => {
-    //   loading.dismiss();
-    // })
-    // .subscribe(
-    //   (data) => {
-    //     if(data.success == true) {
-    //       this.avatarImage = data.data.avatar_image;
-    //       this.levelClass = data.data.level_class;
-    //       this.nickname = data.data.nickname;
-    //       this.username = data.data.username;
-          
-    //       this.adminService.setNotificationNum();
-    //     }
-    //     else if(data.success == false) {
-    //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-    //       .then(() => {
-    //         this.ionViewWillEnter();
-    //       })
-    //     }
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.commonService.showBasicAlert('오류가 발생했습니다.');
-    //   }
-    // );
   }
 
   doRefresh(refresher) {
-    this.commonService.isLoadingActive = true;
-    this.ionViewWillEnter();
-    refresher.complete();
+    // this.commonService.isLoadingActive = true;
+    // this.ionViewWillEnter();
+    // refresher.complete();
   }
 
   openAdminConfigurePage() {

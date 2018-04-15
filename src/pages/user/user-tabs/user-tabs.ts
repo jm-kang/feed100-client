@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams, App, Nav, ModalController } from 'ionic-angular';
 
 import { UserProjectPage } from './../user-project/user-project';
@@ -39,6 +39,7 @@ export class UserTabsPage {
     public modalCtrl: ModalController,
     private push: Push, 
     private uniqueDeviceID: UniqueDeviceID,
+    public zone: NgZone,
     public commonService: CommonServiceProvider,
     public userService: UserServiceProvider) {
   }
@@ -79,12 +80,21 @@ export class UserTabsPage {
       console.log(JSON.stringify(notification.additionalData));
       if(notification.additionalData.foreground) {
         console.log('foreground');
-        this.commonService.showBasicAlert(notification.message);
+        this.refreshCurrentPage();
       }
       else {
         console.log('background');
+        if(notification.additionalData.project_id) {
+          if(!notification.additionalData.coldstart) {
+            this.zone.run(() => {
+              this.commonService.dismissAllModal();
+              this.appCtrl.getRootNavs()[0].goToRoot({});
+            }); 
+          }
+          this.userService.accessProject(this, notification.additionalData.project_id);
+        }
       }
-      this.refreshCurrentPage();
+      this.commonService.showToast(notification.message);      
     });
     
 
@@ -163,7 +173,7 @@ export class UserTabsPage {
 
   refreshCurrentPage() {
     let instance = this.appCtrl.getActiveNavs()[0].getActive().instance;
-    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPage) {
+    if(instance && instance.ionViewWillEnter && !this.commonService.modalWrapperPages.length) {
       console.log('refreshCurrentPage');
       instance.ionViewWillEnter();
     }
