@@ -17,7 +17,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/fromPromise';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/finally';
-import { isDevMode } from '@angular/core/src/application_ref';
 
 /*
   Generated class for the CommonServiceProvider provider.
