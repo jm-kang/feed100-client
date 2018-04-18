@@ -4,15 +4,853 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>user-tutorial</ion-title>
+<ion-header no-border *ngIf="openTurorialIntro">
+  <ion-navbar transparent>
+    <ion-buttons right class="m-r-16">
+      <button ion-button color="light" *ngIf="introSlideIndex >= introSlides.length - 1" class="skip-button" (click)="skip()">시작하기</button>
+    </ion-buttons>
   </ion-navbar>
-
 </ion-header>
 
-
-<ion-content padding>
-
+<!-- TutorialIntro -->
+<ion-content fullscreen="true" class="no-padding-top tutorial-intro-content" no-bounce *ngIf="openTurorialIntro">
+  <ion-slides #slider pager="true" (ionSlideWillChange)="introSlideChanged()">
+    <ion-slide *ngFor="let slide of introSlides"
+               class="slide-background">
+      <div class="image-wrapper">
+        <img [src]="slide.imageUrl" />
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ion-content>
+
+<div class="help" [ngStyle]="{'display': isInfoHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h2 class="m-b-30" [innerHTML]="pageInfo1"></h2>
+    <h1 class="m-b-60" [innerHTML]="pageInfo2"></h1>
+    <div class="hide-help-btn" (click)="info()" tappable>확인</div>
+  </div>
+</div>
+
+<!-- TutorialProjectHome -->
+<ion-content class="tutorial-project-home-content" [ngStyle]="{'background-color': '#e9eAeB'}" *ngIf="openTutorialProjectHome">
+  <ion-header>
+    <ion-navbar hideBackButton="true">
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()" icon-only>
+          <ion-icon name="ios-close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>FEE100 샘플 프로젝트</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+  <div class="processing-project">
+    <div class="project-header-image cropper">
+      <img [src]="projectMainImage" />
+      <span class="overlap-image"></span>
+      <div class="project-stats-background-wrapper">
+        <div class="project-stats-background"></div>
+      </div>
+    </div>
+    <div class="project-stats">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score">7.5</div>
+              <div text-center class="stat-summary">첫인상 점수</div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score">30</div>
+              <div text-center class="stat-summary">참여 인원</div>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="stat-box">
+              <div text-center class="stat-score" [ngStyle]="{'color': '#fff'}">
+                <span class="d-tag">D-</span>3
+              </div>
+              <div text-center class="stat-summary">프로젝트 기간</div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <div class="processing-project-content">
+      <div class="btn-section m-t-5">
+        <ion-grid>
+          <ion-row>
+            <ion-col class="m-r-5">
+              <button ion-button (click)="openTutorialProjectStoryHorizontalPage()">스토리 보기</button>
+            </ion-col>
+            <ion-col>
+              <button ion-button (click)="openTutorialProjectReportPage()">종합 보고서</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="graph-section m-t-5">
+        <h1>유저 통계</h1>
+        <div class="graph-wrapper">
+          <div class="table"><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div><div class="tr"></div></div>
+          <div class="graph-box">
+            <div class="gender-wrapper m-r-20">
+              <div class="man-wrapper m-r-10">
+                <div text-center class="graph-percent"><b>66.6</b>%</div>
+                <div text-center class="gender-graph">
+                  <div class="gender-color-wrapper">
+                    <div class="gender-color cropper" [ngStyle]="{'height': 66.6 + 'px'}"><img src="assets/img/man-color.png" /></div>
+                  </div>
+                  <img class="gender-default" src="assets/img/man-default.png" alt="">
+                </div>
+                <div class="graph-title" text-center>남자</div>
+              </div>
+              <div text-center class="woman-wrapper">
+                <div text-center class="graph-percent"><b>33.3</b>%</div>
+                <div text-center class="gender-graph">
+                  <div class="gender-color-wrapper">
+                    <div class="gender-color cropper" [ngStyle]="{'height': 33.3 + 'px'}"><img src="assets/img/woman-color.png" /></div>
+                  </div>
+                  <img class="gender-default" src="assets/img/woman-default.png" alt="">
+                </div>
+                <div class="graph-title" text-center>여자</div>
+              </div>
+            </div>
+            <div class="ages-wrapper">
+              <div text-center class="age-wrapper" *ngFor="let age of projectHomeAges">
+                <div text-center class="graph-percent"><b>{{age.percent}}</b>%</div>
+                <div text-center class="gender-graph" [ngStyle]="{'height': age.percent + 'px', 'background-color' : age.percent == 50 ? '#ff6700' : '#D9DDE2'}"></div>
+                <div class="graph-title" text-center>{{age.title}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="interview-section m-t-5 m-b-5">
+        <h1 class="p-t-20 p-l-20 p-r-20">유저 목록<span float-right>총 {{tutorialUsers.length}}명</span></h1>
+        <div>
+          <ion-list>
+            <ion-item tappable float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let user of tutorialUsers" (click)="openTutorialProjectInterviewDetailPage()">
+              <span item-start class="avatar-image avatar-span cropper">
+                <img class="avatar-span-image" src="assets/img/{{user.avatar_image}}.png" />
+              </span>
+              <h2 [innerHTML]="user.nickname"></h2>
+              <p *ngIf="user.interview.content">{{user.interview.content}}</p>
+              <div item-end class="interview-item-end">
+                <ion-note [innerHTML]="user.interview.date"></ion-note>
+                <div class="badge-new" *ngIf="user.not_read_interview_num != 0">{{user.not_read_interview_num}}</div>
+                <div class="blank-badge-new" *ngIf="user.not_read_interview_num == 0">0</div>
+              </div>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="openTutorialProjectGroupInterviewPage(); uncheckAll();"><ion-icon name="ios-chatbubbles"></ion-icon></button>
+  </ion-fab>
+</ion-content>
+  
+<!-- TutorialGroupInterview -->
+<ion-header class="tabs-header tutorial-group-interview-header" *ngIf="openTutorialGroupInterview">
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="openTutorialProjectHomePage()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>그룹 인터뷰</ion-title>
+    <ion-buttons end>
+      <button [disabled]="group.length == 0 || !group.length" class="complete-button" ion-button (click)="openTutorialProjectGroupInterviewQuestionEditorPage()" icon-only>
+        보내기 <span *ngIf="group.length > 0">&nbsp;{{group.length}}</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="tutorial-group-interview-content" *ngIf="openTutorialGroupInterview">
+  <div class="group-section">
+    <div class="default-group" *ngIf="group.length == 0 || !group.length">그룹 인터뷰할 유저들을 선택해주세요!</div>
+    <span class="group-user-box" *ngFor="let user of group">
+      <button color="light" ion-button class="active-button" (click)="inactive(user)">
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image"  src="assets/img/{{user.avatar_image}}.png" />
+          <span class="close-wrapper">
+            <ion-icon name="ios-close"></ion-icon>
+          </span>
+        </span>
+      </button>
+      <p text-center class="user-nickname">{{user.nickname}}</p>
+    </span>
+  </div>
+  <h1 class="p-t-20 p-l-20 p-r-20">유저 목록&ensp;<span>총 {{tutorialUsers.length}}명</span>
+    <span tappable class="check-all" float-right *ngIf="group.length == 0" (click)="checkAll()">전체 선택</span>
+    <span tappable class="uncheck-all" float-right *ngIf="group.length != 0" (click)="uncheckAll()">전체 해제</span>
+  </h1>
+  <div class="interview-section">
+    <ion-list class="m-t-10">
+      <ion-item float-left class="interview-item avatar-span-wrapper item-flex" *ngFor="let user of tutorialUsers; let index = index" tappable (click)="check(index)">
+        <span item-start *ngIf="user.isCheck" class="check-box check"><ion-icon name="ios-checkmark"></ion-icon></span>
+        <span item-start *ngIf="!user.isCheck" class="check-box not-check"></span>
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image"  src="assets/img/{{user.avatar_image}}.png" />
+        </span>
+        <h2 [innerHTML]="user.nickname"></h2>
+        <p>첫인상 점수 {{user.project_first_impression_rate}}점 | 나이 {{user.age}} | 성별 {{user.gender}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+
+<!-- TutorialGroupInterviewQuestionEditor -->
+<div class="help" [ngStyle]="{'display': isHelpHide ? 'none' : 'flex'}">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h1 class="m-b-30">어떻게 써야할지 막막하시나요?</h1>
+    <h2 class="m-b-30">아래 링크를 통해 인터뷰 방법에 대해 알아보세요!</h2>
+    <div class="buttons-wrapper m-b-30">
+      <span tappable class="interview-link-btn" (click)="openInterviewInfo()">인터뷰 방법 알아보기</span>
+    </div>
+    <div class="divider m-b-30"></div>
+    <h2 class="m-b-30">아래 예문들을 참고해 보세요!</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <span class="help-references" *ngFor="let helpReferance of helpReferances">{{helpReferance}}</span>
+    </div>
+    <div class="hide-help-btn" (click)="help()" tappable>닫기</div>
+  </div>
+</div>
+
+<ion-header class="editor-header tutorial-group-interview-question-editor-header" *ngIf="openTutorialGroupInterviewQuestionEditor">
+  <ion-navbar>
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button (click)="cancel()" icon-only>
+        취소
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button [disabled]="minTextLength > (questionContent | textcount) || maxTextLength < (questionContent | textcount)" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        완료
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div text-center class="question-wrapper m-b-10">아래 {{group.length}}명의 유저들에게 공통된 질문을 보냅니다.<br>선택된 유저를 확인하고 질문해주세요.</div>
+  <div class="group-section">
+    <span class="group-user-box" *ngFor="let user of group">
+      <button color="light" ion-button class="active-button">
+        <span item-start class="avatar-image avatar-span cropper">
+          <img class="avatar-span-image" src="assets/img/{{user.avatar_image}}.png" />
+        </span>
+      </button>
+      <p text-center class="user-nickname">{{user.nickname}}</p>
+    </span>
+  </div>
+</ion-header>
+<ion-content class="editor-modal tutorial-group-interview-question-editor-content" *ngIf="openTutorialGroupInterviewQuestionEditor">
+  <div class="editor-content" style="height: 100%">
+    <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+      <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(questionContent))}">
+        <div text-center class="point-notice">
+          {{pointNotice(textCount(questionContent))}}
+          <span tappable class="help-btn" (click)="help()">
+            <ion-icon name="ios-help-circle-outline"></ion-icon>
+          </span>
+        </div>
+      </div>
+      <div class="interview-text-count-wrapper">
+        <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(questionContent) + '%', 'margin-left': textCount(questionContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(questionContent))}">{{textCount(questionContent)}}</div>
+        <div class="progress-outer">
+          <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(questionContent))}" [style.width]="textCountPercent(questionContent) + '%'">
+              <!-- {{progress}}% -->
+          </div>
+        </div>
+      </div>
+    </div> 
+    <textarea class="m-t-0 h-30" [(ngModel)]="questionContent" [placeholder]="contentPlaceholder"></textarea>
+  </div>
+</ion-content>
+
+<!-- TutorialProjectStoryHorizontal -->
+<ion-content class="story-slide tutorial-project-story-horizontal-content" no-bounce *ngIf="openTutorialProjectStoryHorizontal">
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [ngStyle]="{'-webkit-filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)','filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)'}" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+  </div>
+  <ion-slides #storySlide pager="false" (ionSlideDidChange)="storySlideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextSlide()">
+          <h1 class="title">프로젝트 스토리 ></h1>
+        </button>
+      </ion-buttons>
+      <h2 class="m-b-20">{{projectName}}</h2>
+      <div class="project-state-wrapper">
+        <span class="project-state-icon">
+          <!-- <ion-icon name="md-calendar" item-start></ion-icon> -->
+          <img src="assets/img/calendar.png" />
+        </span>
+        <span class="project-state-content">
+          3일 남음
+        </span>
+        <span margin-left class="project-state-icon">
+          <!-- <ion-icon name="md-people" item-start></ion-icon> -->
+          <img src="assets/img/feed100-coin-single.png" />
+        </span>
+        <span class="project-state-content">
+          <b>max {{maxReward}}p</b>
+        </span>
+      </div>
+      <h6 class="m-t-40">* 이 콘텐츠의 저작권은 모두 포텐브라더스가 소유하고 있습니다.</h6>
+
+    </ion-slide>
+
+    <ion-slide class="story-content-slide" *ngFor="let projectStorySlide of projectStorySlides">
+      <img [src]="projectStorySlide.storyImage"/>
+      <div class="video-container" *ngIf="projectStorySlide.storyVideo">
+        <iframe width="100%" [src]="projectStorySlide.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p text-left class="story-content-slide-content pre-line">{{projectStorySlide.storyContent}}</p>
+    </ion-slide>
+
+    <ion-slide padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 스토리 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <h2 class="story-name">{{projectName}}</h2>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <h3>by. {{nickname}}</h3>
+        </ion-item>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-footer class="story-footer tutorial-project-story-horizontal-footer" *ngIf="openTutorialProjectStoryHorizontal">
+  <progress-bar [progress]="storyProgressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons class="story-back-button" start>
+      <button ion-button (click)="openTutorialProjectHomePage()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectMainImage" />
+      </span>
+      <h3>{{nickname}}</h3>
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentStoryPageNum}} / {{totalStoryPageNum}}</p>
+    </ion-item>
+    <ion-buttons class="bar-end-buttons" end>
+      <button ion-button>
+        <ion-icon name="ios-eye-outline" item-start></ion-icon>
+        <p>{{projectViewNum}}</p>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>
+
+<!-- TutorialProjectInterviewDetail -->
+<ion-header class="editor-header tutorial-project-interview-detail-header" *ngIf="openTutorialProjectInterviewDetail">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button (click)="interviewDetailBack()" icon-only>
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title">
+        {{userDetail.nickname}}
+      </span>
+    </ion-title>
+    <ion-buttons class="avatar-span-wrapper" end>
+      <span class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="userDetail.avatar_image" />
+      </span>
+      <button class="more-btn" ion-button (click)="reportInterview()">
+        <ion-icon name="md-more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="interview-ion-content tutorial-project-interview-detail-content" #interviewDetailContent *ngIf="openTutorialProjectInterviewDetail">
+  <div style="margin-bottom: 40px;">
+    <!-- 기본 정보 파트 -->
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-20"><span class="line-content">1차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 안녕하십니까? {{userDetail.nickname}}님. 간단한 자기소개 부탁드릴게요!</p>
+          <p text-left class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 안녕하세요! 저는 {{userDetail.region}}에 거주하고 있는 {{userDetail.age}} {{userDetail.gender}} {{userDetail.nickname}}이라고 합니다. 직업은 {{userDetail.job}}이며, 현재 {{userDetail.marriage}}인 상태입니다.</p>
+          <p class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">2차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 반갑습니다. 지금부터 기본적인 질문 몇가지를 드릴텐데요. 우선 현재 사용하고 계신 스마트폰 정보가 어떻게 되시나요?</p>
+          <p text-left class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> OS는 {{userDetail.phone_os}}이고, 사용중인 기기는 {{userDetail.phone_model}}입니다.</p>
+          <p class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper" *ngFor="let condition of userDetail.project_participation_objective_conditions; let i = index">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{3 + i}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> {{condition.question}}</p>
+          <p text-left class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> {{condition.value}}</p>
+          <p class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{3+userDetail.project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 응답 감사합니다. 앞으로 인터뷰를 진행하게 될텐데 선호하는 인터뷰 시간을 말씀해주세요!</p>
+          <p text-left class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 저는 {{userDetail.preferred_interview_time}} 정도가 좋을 것 같습니다.</p>
+          <p class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="interview-wrapper">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{4+userDetail.project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> 저희 서비스의 첫 인상은 어떠셨나요? 점수로 표현하자면 1점에서 10점 중 몇점을 주시겠습니까?</p>
+          <p text-left class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> 저의 솔직한 첫인상 점수는 {{userDetail.project_first_impression_rate}}점 입니다.</p>
+          <p class="date-text">{{userDetail.project_participation_date}}</p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- 인터뷰 파트 -->
+    <div class="interview-wrapper" *ngFor="let interview of userDetail.interviews; let count = index">
+      <div class="interview-devide m-b-40 m-t-50"><span class="line-content">{{count+1+4+userDetail.project_participation_objective_conditions.length}}차 인터뷰</span></div>
+      <!-- ========================Company============================= -->
+      <div class="interview-bubble-wrapper">
+        <div text-right><div class="right-interview-bubble interview-bubble">
+          <p text-left class="interview-comment pre-line"><b>Q.</b> {{interview.interview_question}}</p>
+          <p text-left class="date-text">{{interview.interview_question_registration_date}}</p>
+        </div></div>
+        <!-- ==========================USER=============================== -->
+        <div text-left *ngIf="interview.interview_answer"><div class="left-interview-bubble interview-bubble">
+          <p class="interview-comment pre-line"><b>A.</b> {{interview.interview_answer}}</p>
+          <p class="date-text">{{interview.interview_answer_registration_date}}</p>
+          <span class="item-tag-wrapper">
+            <span class="btn-item-more">
+              <!-- 신고하기 수정 -->
+              <button [ngStyle]="{'background-color': interview.is_like ? '#FF533D' : '#fff', 'box-shadow': interview.is_like ? '0 8px 16px 0 rgba(144,0,0,0.2)' : '0 4px 16px 0 rgba(0,0,0,0.1)'}" class="like-btn" ion-button (click)="clickLike(interview)">
+                <ion-icon class="like-true-icon" name="ios-heart" *ngIf="interview.is_like"></ion-icon>
+                <ion-icon class="like-false-icon" name="ios-heart" *ngIf="!interview.is_like"></ion-icon>
+              </button>
+            </span>
+          </span>
+        </div></div>
+        <div text-left *ngIf="!interview.interview_answer"><div class="left-interview-bubble interview-bubble interview-waiting-response">
+          <p class="interview-comment pre-line">답변 대기중 ...</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer class="editor-textarea-footer tutorial-project-interview-detail-footer" *ngIf="openTutorialProjectInterviewDetail">
+  <div class="footer-textarea-summary">
+    <div class="footer-textarea-summary-wrapper">
+      <span class="textcount-summary-wrapper">
+        <span [ngStyle]="{'color': countColor(textCount(userDetail.questionInterview))}">
+          <strong>{{pointNotice(textCount(userDetail.questionInterview))}}</strong>
+        </span>
+      </span>
+      <span class=" help-btn-wrapper" float-right>
+        <span tappable class="help-btn" (click)="help()">
+          ?
+        </span>
+      </span>
+      <span class="textcount-wrapper m-r-5" float-right>
+        <span [ngStyle]="{'color': countColor(textCount(userDetail.questionInterview))}">
+          {{textCount(userDetail.questionInterview)}}
+        </span>
+      </span>
+    </div>
+  </div>
+  <div class="textarea-wrapper">
+      <textarea class="textarea" rows="1" fz-elastic placeholder="인터뷰 질문을 작성해주세요." [(ngModel)]="userDetail.questionInterview"></textarea>
+      <button [disabled]="minTextLength > (userDetail.questionInterview | textcount) || maxTextLength < (userDetail.questionInterview | textcount)" (click)="sendInterview()">
+        <ion-icon name="md-send"></ion-icon>
+      </button>    
+  </div>
+</ion-footer>
+
+<!-- TutorialProjectReport -->
+<div class="help" [ngStyle]="{'display': isNavHide ? 'none' : 'flex'}" *ngIf="openTutorialProjectReport">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h2 class="m-b-30">원하는 페이지로 이동하기</h2>
+    <div class="help-references-wrapper m-b-60 p-l-16 p-r-16">
+      <div class="help-references-item"><div class="help-references" tappable (click)="goToReportSlide(1)">1. 유저 정보 ></div></div>
+      <div class="help-references-item"><div class="help-references" tappable (click)="goToReportSlide(projectUserProfileSlides.length + 2)">2. 설문 결과 ></div></div>
+      <div class="help-references-item"><div class="help-references" tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 3)">3. 첫인상 점수 ></div></div>
+      <div class="help-references-item"><div class="help-references" tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 5)">4. 추천 지수 ></div></div>
+      <div class="help-references-item"><div class="help-references" tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 7)"> 5. Interview ></div></div>
+    </div>
+    <div class="hide-help-btn" (click)="reportNav()" tappable>닫기</div>
+  </div>
+</div>
+<ion-content class="story-slide project-report-content tutorial-project-report-content" no-bounce *ngIf="openTutorialProjectReport">
+  <ion-slides #reportSlide pager="false" (ionSlideDidChange)="reportSlideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextReportSlide()">
+          <h1 class="title">종합 보고서 ></h1>
+        </button>
+      </ion-buttons>
+      <h2 [innerHTML]="projectName"></h2>
+      <div class="project-state-wrapper">
+        <span class="project-state-icon">
+          <!-- <ion-icon name="md-calendar" item-start></ion-icon> -->
+          <img src="assets/img/calendar-circle.png" />
+        </span>
+        <span class="project-state-content">
+          3일 남음
+        </span>
+        <span margin-left class="project-state-icon">
+          <!-- <ion-icon name="md-people" item-start></ion-icon> -->
+          <img src="assets/img/people.png" />
+        </span>
+        <span class="project-state-content">
+          30명 참여
+        </span>
+      </div>
+      <p class="summary">
+        <span tappable (click)="goNextReportSlide()">1. 유저 정보 ></span><br>
+        <span tappable (click)="goToReportSlide(projectUserProfileSlides.length + 2)">2. 설문 결과 ></span><br>
+        <span tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 3)">3. 첫인상 점수 ></span><br>
+        <span tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 5)">4. 추천 지수 ></span><br>
+        <span tappable (click)="goToReportSlide(projectUserProfileSlides.length + projectUserParticipationConditionSlides.length + 7)"> 5. Interview ></span>
+      </p>
+
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">1.</div>
+        <h2 class="report-section1">유저 정보</h2>
+      </div>
+    </ion-slide>
+  
+    <ion-slide class="story-content-slide" *ngFor="let projectUserProfileSlide of projectUserProfileSlides">
+      <div *ngIf="projectUserProfileSlide.totalNum != 0">
+        <div class="report-content-header">
+          <h2>{{projectUserProfileSlide.title}}</h2>
+          <h4 class="report-section1 report-section1-devide">유저 정보</h4>
+        </div>
+        <div class="chart-wrapper">
+          <canvas baseChart width="100%" height="100%" [colors]="projectUserProfileSlide.colors" [datasets]="projectUserProfileSlide.datasets" [labels]="projectUserProfileSlide.labels" [chartType]="projectUserProfileSlide.type" [options]="projectUserProfileSlide.options"></canvas> 
+        </div>
+        <div class="story-content-slide-content">
+          <!-- <h3 class="sub-slide-title">{{projectUserProfileSlide.title}}</h3> -->
+          <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectUserProfileSlide.totalNum}}</strong> 명 중</h3>
+          <span class="stat-summary-block" *ngFor="let data of projectUserProfileSlide.datasets[0].data; let userProfileDataIndex=index"><span *ngIf="data != 0"><span class="square-dot" [style.background]="projectUserProfileSlide.colors[0].backgroundColor[userProfileDataIndex]"></span>{{projectUserProfileSlide.labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserProfileSlide.totalNum == 0) ? 0 : data/projectUserProfileSlide.totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectUserProfileSlide.datasets[0].data.length">,</span></span></span>
+        </div>
+      </div>
+      <div *ngIf="projectUserProfileSlide.totalNum == 0">
+        <div class="report-content-header">
+          <h2>{{projectUserProfileSlide.title}}</h2>
+          <h4 class="report-section1 report-section1-devide">유저 정보</h4>
+        </div>
+        <div class="empty-content content-absolute">
+          <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">2.</div>
+        <h2 class="report-section2">설문 결과</h2>
+      </div>
+    </ion-slide>
+    
+    <ion-slide class="story-content-slide" *ngFor="let projectUserParticipationConditionSlide of projectUserParticipationConditionSlides">
+      <div *ngIf="projectUserParticipationConditionSlide.totalNum != 0">
+        <div class="report-content-header">
+          <h3>Q. {{projectUserParticipationConditionSlide.question}}</h3>
+          <h4 class="report-section2 report-section2-devide">설문 결과</h4>
+        </div>
+        <div class="chart-wrapper">
+          <canvas baseChart width="100%" height="100%" [colors]="colors" [datasets]="projectUserParticipationConditionSlide.datasets" [labels]="projectUserParticipationConditionSlide.labels" [chartType]="type" [options]="options"></canvas> 
+        </div>
+        <div class="story-content-slide-content">
+          <!-- <h3 class="sub-slide-title">{{projectUserParticipationConditionSlide.question}}</h3> -->
+          <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectUserParticipationConditionSlide.totalNum}}</strong> 명 중</h3>
+          <span class="stat-summary-block" *ngFor="let data of projectUserParticipationConditionSlide.datasets[0].data; let participationConditionIndex=index"><span *ngIf="data != 0"><span class="square-dot" [style.background]="colors[0].backgroundColor[participationConditionIndex]"></span>{{projectUserParticipationConditionSlide.labels[participationConditionIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectUserParticipationConditionSlide.totalNum == 0) ? 0 : data/projectUserParticipationConditionSlide.totalNum*100 | round:1}}%)</small><span *ngIf="participationConditionIndex+1 != projectUserParticipationConditionSlide.datasets[0].data.length">,</span></span></span>
+        </div>
+      </div>
+      <div *ngIf="projectUserParticipationConditionSlide.totalNum == 0">
+        <div class="report-content-header">
+          <h3>{{projectUserParticipationConditionSlide.question}}</h3>
+          <h4 class="report-section2 report-section2-devide">설문 결과</h4>
+        </div>
+        <div class="empty-content content-absolute">
+          <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">3.</div>
+        <h2 class="report-section3">첫인상 점수</h2>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide">
+      <div *ngIf="projectStatSlides[0].totalNum != 0">
+        <div class="report-content-header">
+          <h2>{{projectStatSlides[0].title}}</h2>
+          <h4 class="report-section3 report-section3-devide m-b-0">첫인상 점수</h4>
+          <div class="stat-title">
+            <rating [(ngModel)]="projectStatSlides[0].average2" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+            <span item-end>{{projectStatSlides[0].average | round:1}}</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas baseChart width="100%" height="100%" [colors]="projectStatSlides[0].colors" [datasets]="projectStatSlides[0].datasets" [labels]="projectStatSlides[0].labels" [chartType]="projectStatSlides[0].type" [options]="projectStatSlides[0].options"></canvas> 
+        </div>
+        <div class="story-content-slide-content">
+          <div *ngIf="projectStatSlides[0].totalNum != 0">
+            <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectStatSlides[0].totalNum}}</strong> 명 중</h3>
+            <span class="stat-summary-block" *ngFor="let data of projectStatSlides[0].datasets[0].data; let userProfileDataIndex=index"><span *ngIf="data != 0">{{projectStatSlides[0].labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectStatSlides[0].totalNum == 0) ? 0 : data/projectStatSlides[0].totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlides[0].datasets[0].data.length">,</span></span></span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="projectStatSlides[0].totalNum == 0">
+        <div class="report-content-header">
+          <h3>{{projectStatSlides[0].title}}</h3>
+          <h4 class="report-section3 report-section3-devide">첫인상 점수</h4>
+        </div>
+        <div class="empty-content content-absolute">
+          <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">4.</div>
+        <h2 class="report-section4">추천 지수</h2>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide">
+      <div *ngIf="projectStatSlides[1].totalNum != 0">
+        <div class="report-content-header">
+          <h2>{{projectStatSlides[1].title}}</h2>
+          <h4 class="report-section5 report-section4-devide m-b-0">추천 지수</h4>
+          <div class="stat-title yellow-rating" *ngIf="projectStatSlides[1].title == '추천 지수'">
+            <rating [(ngModel)]="projectStatSlides[1].average2" readOnly="true" max="5" emptyStarIconName="ios-star-outline" starIconName="ios-star"></rating>
+            <span item-end>{{projectStatSlides[1].average}}</span>
+          </div>
+        </div>
+        <div class="chart-wrapper">
+          <canvas baseChart width="100%" height="100%" [colors]="projectStatSlides[1].colors" [datasets]="projectStatSlides[1].datasets" [labels]="projectStatSlides[1].labels" [chartType]="projectStatSlides[1].type" [options]="projectStatSlides[1].options"></canvas> 
+        </div>
+        <div class="story-content-slide-content">
+          <div *ngIf="projectStatSlides[1].totalNum != 0">
+            <h3 class="sub-slide-title">프로젝트 참여인원 <strong>{{projectStatSlides[1].totalNum}}</strong> 명 중</h3>
+            <span class="stat-summary-block" *ngFor="let data of projectStatSlides[1].datasets[0].data; let userProfileDataIndex=index"><span *ngIf="data != 0">{{projectStatSlides[1].labels[userProfileDataIndex]}} : <strong>{{data}}</strong> 명 <small>({{(projectStatSlides[1].totalNum == 0) ? 0 : data/projectStatSlides[1].totalNum*100 | round:1}}%)</small><span *ngIf="userProfileDataIndex+1 != projectStatSlides[1].datasets[0].data.length">,</span></span></span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="projectStatSlides[1].totalNum == 0">
+        <div class="report-content-header">
+          <h3>{{projectStatSlides[1].title}}</h3>
+          <h4 class="report-section4 report-section4-devide">추천 지수</h4>
+        </div>
+        <div class="empty-content content-absolute">
+          <span class="dark-trans-text under-icon">데이터 수집을 기다리는 중입니다 ...</span>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide report-section-slide">
+      <div class="report-section-wrapper">
+        <div class="number-under-devide">5.</div>
+        <h2 class="report-section5">Interview</h2>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide project-story-summary-content">
+      <div class="report-content-header">
+        <h2>만족스러웠던 점</h2>
+        <h4 class="report-section5 report-section5-devide">Interview</h4>
+      </div>
+      <div class="empty-content content-absolute" *ngIf="satisfiedInterviews.length == 0">
+        <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
+      </div>
+      <div *ngFor="let interview of satisfiedInterviews"> 
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left [innerHTML]="interview.interview_answer_registration_date"></p>
+          </div>
+          <div class="interview-content width100" text-left>
+            <div class="interview-summary pre-line">
+              {{interview.interview_answer}}   
+            </div>
+          </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide project-story-summary-content">
+      <div class="report-content-header">
+        <h2>아쉬웠던 점</h2>
+        <h4 class="report-section5 report-section5-devide">Interview</h4>
+      </div>
+      <div class="empty-content content-absolute" *ngIf="unsatisfiedInterviews.length == 0">
+        <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
+      </div>
+      <div *ngFor="let interview of unsatisfiedInterviews"> 
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left [innerHTML]="interview.interview_answer_registration_date"></p>
+          </div>
+          <div class="interview-content width100" text-left>
+            <div class="interview-summary pre-line">
+              {{interview.interview_answer}}   
+            </div>
+          </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide class="story-content-slide project-story-summary-content">
+      <div class="report-content-header">
+        <h2>찜한 리스트</h2>
+        <h4 class="report-section5 report-section5-devide">Interview</h4>
+      </div>
+      <div class="empty-content content-absolute" *ngIf="likeInterviews.length == 0">
+        <span class="dark-trans-text under-icon">아직 인터뷰가 없습니다.</span>
+      </div>
+      <div *ngFor="let interview of likeInterviews"> 
+        <div class="interview-card">
+          <div class="interview-card-avatar">
+            <p text-left>
+              {{interview.interview_answer_registration_date}}
+              <span class="like-check" float-right>
+                <ion-icon name="ios-heart"></ion-icon>
+              </span>
+            </p>
+          </div>
+          <div class="interview-content width100" text-left>
+            <div class="interview-summary pre-line">
+              {{interview.interview_answer}}   
+            </div>
+          </div>
+          <ion-item class="avatar-span-wrapper item-flex">
+            <span item-start class="avatar-image avatar-span cropper">
+              <img class="avatar-span-image" [src]="interview.avatar_image" />
+            </span>
+            <h3>
+              <!-- <span class="best-badge" *ngIf="interview.is_best">
+                <span>BEST</span>
+              </span> -->
+              <span class="user-nickname-button">{{interview.nickname}}</span>
+            </h3>
+          </ion-item>
+        </div>
+      </div>
+    </ion-slide>
+
+    <ion-slide padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstReportSlide()">
+          <h1 class="title">&lt; 종합 보고서 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <h3>문의하실 내용은 아래 메일로 보내주시기 바랍니다.</h3>
+        <h2>feed100.help@gmail.com</h2>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-footer class="story-footer project-report-footer tutorial-project-report-footer" *ngIf="openTutorialProjectReport">
+  <progress-bar [progress]="reportProgressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-buttons class="story-back-button" start>
+      <button ion-button (click)="openTutorialProjectHomePage()">
+        <ion-icon name="ios-arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-item class="avatar-span-wrapper item-flex p-l-20" *ngIf="isFirstSlide" (click)="reportNav()" tappable>
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectMainImage" />
+      </span>
+      <h3>{{nickname}}</h3>
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num p-l-20" (click)="reportNav()" tappable>
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentReportNum}} / {{totalReportNum}}</p>
+    </ion-item>
+  </ion-navbar>
+</ion-footer>
