@@ -48,9 +48,6 @@ export class MyApp {
           localStorage.setItem('isAppIntroChecked', 'true');
         }
       }, 1000);
-      setTimeout(() => {
-        this.commonService.showUpdateAlert('update');
-      }, 5000);
     });
   }
 
