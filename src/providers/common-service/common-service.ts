@@ -28,6 +28,7 @@ import 'rxjs/add/operator/finally';
 export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPages = [];
+  
   isDevMode = false;
 
   constructor(
@@ -293,6 +294,7 @@ export class CommonServiceProvider {
         }
         else if(data.message == 'version is not match') { // 버전 업데이트
           this.showUpdateAlert('FEED100의 새로운 버전이 있습니다.<br/>안정적인 서비스 이용을 위해 새로운 버전으로 업데이트 해주세요.'); 
+          this.logout(navCtrl);
         }
         else if(data.message == 'email is not verified') { // 이메일 인증 전
           this.showBasicAlert('이메일 인증 완료 후 다시 시도해주세요.');          
@@ -344,7 +346,8 @@ export class CommonServiceProvider {
             }
             else if(this.platform.is('ios')) {
               this.market.open('id1329537100');
-            }  
+            }
+            this.showUpdateAlert(message);
           }
         }
       ],
