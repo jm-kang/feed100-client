@@ -237,7 +237,7 @@ export class AdminProjectStoryHorizontalPage {
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
   
-      this.adminService.updateProjectPrivateState(this.project_id, value)
+      this.adminService.endProjectJudge(this.project_id, value)
       .finally(() => {
         loading.dismiss();
       })
