@@ -24,6 +24,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: 'user-tutorial.html',
 })
 export class UserTutorialPage {
+  openTurorialIntro;
   
   constructor(
     public navCtrl: NavController,
@@ -44,7 +45,7 @@ export class UserTutorialPage {
 
   ionViewWillEnter() {
     console.log('ionViewDidLoad UserTutorialPage');
-    
+    this.openTurorialIntro = true;
   }
 
 }
