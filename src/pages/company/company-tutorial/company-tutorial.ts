@@ -29,7 +29,7 @@ export class CompanyTutorialPage {
   @ViewChild('reportSlide') reportSlides: Slides;
   @ViewChild('interviewDetailContent') detailContent: Content;
 
-  openTurorialIntro;
+  openTutorialIntro;
   openTutorialProjectHome;
   openTutorialGroupInterview;
   openTutorialGroupInterviewQuestionEditor;
@@ -120,7 +120,7 @@ export class CompanyTutorialPage {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter AppIntroPage');
-    this.openTurorialIntro = true;
+    this.openTutorialIntro = true;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1016,7 +1016,7 @@ export class CompanyTutorialPage {
   }
 
   openTutorialProjectHomePage() {
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = true;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1026,7 +1026,7 @@ export class CompanyTutorialPage {
   }
 
   openTutorialProjectInterviewDetailPage() {
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1049,7 +1049,7 @@ export class CompanyTutorialPage {
     this.currentStoryPageNum = 0;
     this.storyProgressPercent = 0;
     this.isFirstSlide = true;
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1067,7 +1067,7 @@ export class CompanyTutorialPage {
     this.currentReportNum = 0;
     this.reportProgressPercent = 0;
     this.isFirstSlide = true;
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1082,7 +1082,7 @@ export class CompanyTutorialPage {
   }
 
   openTutorialProjectGroupInterviewPage() {
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = true;
     this.openTutorialGroupInterviewQuestionEditor = false;
@@ -1097,7 +1097,7 @@ export class CompanyTutorialPage {
   }
 
   openTutorialProjectGroupInterviewQuestionEditorPage() {
-    this.openTurorialIntro = false;
+    this.openTutorialIntro = false;
     this.openTutorialProjectHome = false;
     this.openTutorialGroupInterview = false;
     this.openTutorialGroupInterviewQuestionEditor = true;
