@@ -6,5 +6,143 @@
 -->
 <!-- TutorialIntro -->
 <ion-content fullscreen="true" class="tutorial-intro-content" no-bounce *ngIf="openTutorialIntro">
-  
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          만나서 반갑습니다.<br>저는 FEED100 연구소장입니다.<br><br>그대는 이번 채용에서<br>가장 촉망받는 인턴 사원이니<br><br>이 튜토리얼만 잘 따라오면<br>금방 승진할 수 있을 것 같군요!<br><br>그럼 시작해볼까요?
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectTabsPage()">시작하기 ></div>
+  </div>
+</ion-content>
+
+<!-- ProjectTabs -->
+<div class="help cover-project-tabs" [ngStyle]="{'display': isInfoHide ? 'none' : 'flex'}">
+  <div text-center class="cover-card-header">
+    마음에 드는 프로젝트를 골라<br>
+    <b>'참여하기'</b>를 누르면 참여할 수 있어요!
+  </div>
+  <div class="cover-card p-l-28 p-r-28" text-center>
+    <div class="p-r-16 p-l-16">
+      <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
+        <div class="vertical-project-card" (click)="accessProjectCard(recommendedProject.project_id)">
+          <span class="left-span">
+            <div class="project-card-main-image-wrapper cropper">
+              <img [src]="recommendedProject.project_main_image" />  
+            </div>
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.project_max_reward}}p</span>
+              </span>
+            </div>
+          </span>
+          <span class="right-span height100">
+            <div text-left class="card-content">
+              <span class="project-card-summary-wrapper">
+                <p class="project-card-summary">{{recommendedProject.project_name}}</p>
+              </span>
+              <span class="summary-btn-wrapper">
+                <span tappable class="summary-btn">참여하기 ></span>
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div text-left class="cover-card-footer">
+      <b>프로젝트란?</b><br>
+      기업의 새로운 서비스를 소개하고 일정 기간 동안<br>
+      인터뷰를 할 수 있는 소통을 위한 하나의 단위를 말합니다.
+    </div>
+  </div>
+</div>
+<ion-header class="tabs-header" *ngIf="openProjectTabs">
+  <ion-navbar hideBackButton="true">
+    <ion-title>프로젝트</ion-title>
+    <ion-buttons end>
+      <button ion-button>
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen="true" class="project-tabs-content project-page-content" no-bounce *ngIf="openProjectTabs">
+  <!-- 추천 프로젝트 -->
+  <section class="recommended-section m-b-30" *ngIf = "recommendedProjects.length">
+      <div class="home-group-title p-r-28 p-l-28">
+        추천 프로젝트
+        <p>마음에 드는 프로젝트에 참여해보세요!</p>
+      </div>
+      <div class="p-r-16 p-l-16">
+        <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
+          <div class="vertical-project-card">
+            <span class="left-span">
+              <div class="project-card-main-image-wrapper cropper">
+                <img [src]="recommendedProject.project_main_image" />  
+              </div>
+              <div class="project-card-overlay-wrapper">
+                <span class="project-card-overlay">
+                  <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.project_max_reward}}p</span>
+                </span>
+              </div>
+            </span>
+            <span class="right-span height100">
+              <div text-left class="card-content">
+                <span class="project-card-summary-wrapper">
+                  <p class="project-card-summary">{{recommendedProject.project_name}}</p>
+                </span>
+                <span class="summary-btn-wrapper">
+                  <span tappable class="summary-btn">참여하기 ></span>
+                </span>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- 모든 프로젝트 -->
+    <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
+      <div text-center class="home-group-title" [ngStyle]="{'border-top': recommendedProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : recommendedProjects.length ? '24px' : '120px'}">
+        <div>더 많은 프로젝트를<br>보고싶다면?</div>
+        <span tappable>모든 프로젝트 보기 ></span>
+      </div>
+    </section>
+</ion-content>
+<ion-footer class="project-tabs-footer" *ngIf="openProjectTabs">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="ios-globe"></ion-icon>
+        프로젝트
+      </ion-col>
+      <ion-col>
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        알림
+      </ion-col>
+      <ion-col>
+        <ion-icon name="ios-contact-outline"></ion-icon>
+        마이페이지
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+<!-- ProjectTabsIntro -->
+<ion-content fullscreen="true" class="tutorial-intro-content" no-bounce *ngIf="openProjectTabsIntro">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          프로젝트마다 안내사항들을 알려줄 거에요.<br>내용에 대하여 동의 후 넘어갈 수 있어요~<br>불이익이 없도록 잘 읽어보시길 바랍니다!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectTabsPage()">시작하기 ></div>
+  </div>
 </ion-content>

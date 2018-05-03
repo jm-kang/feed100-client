@@ -1,3 +1,134 @@
 page-user-tutorial {
+    .tutorial-intro-content {
+        background-color: #000;
+    }
 
+    .info-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        height: 100vh;
+        width: 100vw;
+        .info-div {
+            img {
+                display: block;
+                width: 100px;
+                margin-left: 10px;
+            }
+            .balloon-shadow {
+                margin-top: -1px;
+                position: relative;
+                top: 1px;
+                z-index: 0;
+                width: 100px;
+                margin-left: 10px;
+                height: 1px;
+                box-shadow: 0 0 8px rgba(0,0,0,1);
+            }
+        }
+        .box-bottom {
+            position: absolute;
+            bottom: 40px;
+            font-size: 2rem;
+            color: #ff6700;
+            font-weight: bold;
+        }
+    }
+
+    .balloon {
+        display: inline-block;
+        position: relative;
+        background: #ccc;
+        height: auto;
+        width: 80vw;
+        margin: 0 auto 10px;
+        border-radius: 15px;
+        padding: 24px 16px;
+        .inner-balloon {
+            text-align: center;
+            font-size: 1.4rem;
+            color: #383838;
+            font-weight: bold;
+            line-height: 1.5;
+        }
+    }
+    .balloon:after {
+        content: '';
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        z-index: -1;
+        background: #000;
+        top: -20px;
+        left: 85px;
+    }
+    .balloon:before {
+        content: '';
+        position: absolute;
+        height: 50px;
+        width: 50px;
+        border-radius: 25px;
+        z-index: -1;
+        background: #ccc;
+        top: -15px;
+        left: 100px;
+    }
+
+    .recommended-section {
+        margin-top: 80px
+    }
+
+    .project-tabs-footer {
+        background-color: #f8f8f8;
+        border-top: 1px solid #e8e8e8;
+        .grid { 
+            padding: 0;
+        }
+        .col {
+            text-align: center;
+            .icon {
+                display: block;
+                margin-bottom: 5px;
+                font-size: 2.7rem;
+            }
+            color: #888;
+            font-size: 1.2rem;
+        }
+        .col:nth-child(1) {
+            color: #ff6700;    
+        }
+    }
+    .help {
+        background: rgba(0,0,0,0.8);
+    }
+
+    .cover-project-tabs {
+        .cover-card-header {
+            position: absolute;
+            top: 80px;
+            font-weight: bold;
+            font-size: 1.6rem;
+            line-height: 1.4;
+            b {
+                color: #ff6700;
+            }
+        }
+        .cover-card {
+            position: absolute;
+            top: calc(80px + 54.5px + 12px - 5px);
+            .project-card-summary {
+                color: #383838;
+            }
+        }
+        .cover-card-footer {
+            // position: absolute;
+            // bottom: 100px;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            padding: 30px 20px 20px 20px;
+            color: #efefef;
+        }
+    }
 }
