@@ -16,17 +16,19 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectTabsPage()">시작하기 ></div>
+  </div>
+  <div class="box-bottom" tappable (click)="openProjectTabsPage()">
+    <span>시작하기 ></span>
   </div>
 </ion-content>
 
 <!-- ProjectTabs -->
 <div class="help cover-project-tabs" [ngStyle]="{'display': isInfoHide ? 'none' : 'block'}">
-  <div text-center class="cover-card-header">
+  <div text-center class="cover-card-header width100">
     마음에 드는 프로젝트를 골라<br>
     <b>'참여하기'</b>를 누르면 참여할 수 있어요!
   </div>
-  <div class="cover-card p-l-28 p-r-28" text-center>
+  <div class="cover-card p-l-20 p-r-20" text-center>
     <div>
       <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
         <div class="vertical-project-card" (click)="accessProjectCard()">
@@ -143,7 +145,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -159,7 +163,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -267,7 +273,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectStoryPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectStoryPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -283,7 +291,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openUserProjectLinkPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openUserProjectLinkPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -299,7 +309,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectTestIntro()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectTestIntro()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -398,7 +410,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectStoryQuizIntroPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectStoryQuizIntroPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -474,7 +488,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openInterviewFormPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openInterviewFormPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -509,15 +525,15 @@
     </ion-buttons>
     <ion-title *ngIf="currentInterviewSlide == 1">
       인터뷰 질문
-      <span tappable class="help-btn" (click)="help()">
+      <!-- <span tappable class="help-btn" (click)="help()">
         <ion-icon name="ios-help-circle-outline"></ion-icon>
-      </span>
+      </span> -->
     </ion-title>
     <ion-buttons end>
-      <button *ngIf="currentInterviewSlide == 0" [disabled]="firstImpressionScore < 1" class="complete-button" ion-button (click)="goNextInterviewSlide(' ')" icon-only>
+      <button *ngIf="currentInterviewSlide == 0" [disabled]="firstImpressionScore < 1" class="complete-button" ion-button (click)="goNext()" icon-only>
         다음
       </button>
-      <button *ngIf="currentInterviewSlide == 1" [disabled]="satisfiedContent.answerContent != '피드백은 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~'" class="complete-button" ion-button (click)="goNextInterviewSlide(satisfiedContent.answerContent)" icon-only>
+      <button *ngIf="currentInterviewSlide == 1" [disabled]="20 > textCount(satisfiedContent.answerContent)" class="complete-button" ion-button (click)="goNextInterviewSlide(satisfiedContent.answerContent)" icon-only>
         다음
       </button>
       <button *ngIf="currentInterviewSlide == 2" [disabled]="!interviewTimeSlide.value" class="complete-button" ion-button (click)="completeEditor()" icon-only>
@@ -559,10 +575,10 @@
       <div class="editor-content" style="height: 100%">
         <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
           <div class="question-wrapper interview-question m-b-30">Q. <span [innerHTML]="satisfiedContent.interviewQuestion"></span></div>
-          <div class="buttons-wrapper m-b-30">
+          <!-- <div class="buttons-wrapper m-b-30">
             <span tappable class="editor-open-btn" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
-            <!-- <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span> -->
-          </div>
+            <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span>
+          </div> -->
           <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(satisfiedContent.answerContent))}">
             <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(satisfiedContent.answerContent)) > 0">+</span> {{rewardPoint(textCount(satisfiedContent.answerContent))}}p</div>
             <div text-center class="point-notice">{{pointNotice(textCount(satisfiedContent.answerContent))}}</div>
@@ -614,7 +630,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectHomePage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectHomePage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -630,7 +648,9 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openInterviewAnswerPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openInterviewAnswerPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -671,12 +691,9 @@
     </ion-buttons>
     <ion-title>
       인터뷰 질문
-      <span tappable class="help-btn" (click)="help()">
-        <ion-icon name="ios-help-circle-outline"></ion-icon>
-      </span>
     </ion-title>
     <ion-buttons end>
-      <button [disabled]="answerContent != '인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.'" class="complete-button" ion-button (click)="completeAnswerEditor()" icon-only>
+      <button [disabled]="20 > textCount(answerContent)" class="complete-button" ion-button (click)="completeAnswerEditor()" icon-only>
         완료
       </button>
     </ion-buttons>
@@ -686,9 +703,9 @@
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
       <div class="question-wrapper interview-question m-b-30 pre-line">Q. <span [innerHTML]="interviewQuestion"></span></div>
-      <div class="buttons-wrapper m-b-30">
+      <!-- <div class="buttons-wrapper m-b-30">
         <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
-      </div>
+      </div> -->
       <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
         <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(answerContent)) > 0">+</span> {{rewardPoint(textCount(answerContent))}}p</div>
         <div text-center class="point-notice">{{pointNotice(textCount(answerContent))}}</div>
@@ -712,13 +729,15 @@
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
       <div class="balloon-shadow"></div>
-      <div class="balloon balloon-white">
+      <div class="balloon">
         <div class="inner-balloon">
           축하해요!<br>튜토리얼 프로젝트를 성공적으로 마무리했습니다!<br>이제 포인트를 성과금으로 받아야겠죠?<br>포인트는 프로젝트 종료 후 ‘보상받기’를 누르고<br>추천지수를 입력하면 획득할 수 있습니다.<br>그럼 보상을 받으러 가볼까요?
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectSecondTabsPage()">다음으로 ></div>
+    <div class="box-bottom" tappable (click)="openProjectSecondTabsPage()">
+      <span>다음으로 ></span>
+    </div>
   </div>
 </div>
 
@@ -925,6 +944,8 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="endTutorial()">튜토리얼 종료 ></div>
+    <div class="box-bottom" tappable (click)="endTutorial()">
+      <span>튜토리얼 종료 ></span>
+    </div>
   </div>
 </ion-content>
