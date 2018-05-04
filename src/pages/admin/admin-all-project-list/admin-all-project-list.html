@@ -40,11 +40,11 @@
             <div class="project-card-main-image-wrapper cropper">
               <img [src]="allProject.project_main_image" />  
             </div>
-            <!-- <div class="project-card-overlay-wrapper">
+            <div class="project-card-overlay-wrapper" *ngIf="!allProject.is_proceeding">
               <span class="project-card-overlay">
-                <span class="project-card-overlay-item p-card-tag">max {{allProject.max_reward}}p</span>
+                <span class="project-card-overlay-item p-card-end-tag">종료</span>
               </span>
-            </div> -->
+            </div>
           </span>
           <span class="right-span height100">
             <div text-left class="card-content">

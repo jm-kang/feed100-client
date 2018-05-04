@@ -108,7 +108,7 @@ export class UserTutorialPage {
   firstImpressionScore = 0;
   currentInterviewSlide;
   satisfiedContent = {
-    interviewQuestion: "아래 문구를 따라서 써주세요~<br><br>피드백은 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~",
+    interviewQuestion: "아래 문구를 따라서 써주세요~<br><br>인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~",
     answerContent: ""
   }
   interviewTimeSlide =  {
@@ -195,7 +195,7 @@ export class UserTutorialPage {
     this.projectViewNum = 410;
     this.maxReward = 5500;
     this.progressState = "3일 전";
-    this.testInfo = "테스트 미션은 이곳에 기재됩니다.<br><br>1. 테스트 시작하기 버튼을 눌러주세요.<br>2. 문구를 잘 읽어주세요.<br><br>모든 과정을 마친 후 다시 FEED100으로<br>돌아온 후 피드백 작성하기 클릭!";
+    this.testInfo = "테스트 미션은 이곳에 기재됩니다.<br><br>1. 테스트 시작하기 버튼을 눌러주세요.<br>2. 문구를 잘 읽어주세요.<br><br>모든 과정을 마친 후 다시 FEED100으로<br>돌아온 후 인터뷰 작성하기 클릭!";
     this.projectStorySlides = [
       {
         storyImage: "assets/img/project-story-tutorial-image1.png",
@@ -608,7 +608,6 @@ export class UserTutorialPage {
         this.commonService.showToast('+ 500 포인트가 적립되었습니다.');
         this.totalReward = 500;
         // this.commonService.showBasicAlert('축하합니다! 프로젝트에 성공적으로 참여했습니다. 안내 내용을 확인해주세요!');
-
       }
     );
   }
@@ -670,15 +669,23 @@ export class UserTutorialPage {
     return this.reward;
   }
 
-  goNextInterviewSlide(content) {
-    if(this.commonService.hasEmoji(content)) {
-      return false;
-    }
-    this.satisfiedContent.answerContent = this.commonService.textAreaFilter(this.satisfiedContent.answerContent);
+  goNext() {
     this.interviewSlider.lockSwipeToNext(false);
     this.interviewSlider.slideNext(300);
     this.interviewSlider.lockSwipeToNext(true);
     this.currentInterviewSlide = this.interviewSlider.getActiveIndex();
+  }
+
+  goNextInterviewSlide(content) {
+    console.log(content);
+    if(content == "인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~") {
+      this.interviewSlider.lockSwipeToNext(false);
+      this.interviewSlider.slideNext(300);
+      this.interviewSlider.lockSwipeToNext(true);
+      this.currentInterviewSlide = this.interviewSlider.getActiveIndex();
+    } else {
+      this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
+    }
   }
   goPrevSlide() {
     this.interviewSlider.lockSwipeToPrev(false);
@@ -725,6 +732,7 @@ export class UserTutorialPage {
     this.openTutorialEnd = false;
     setTimeout(() => {
       this.openProjectHomeSecondIntro = true;
+      this.commonService.showToast('새로운 인터뷰가 도착했어요!');
     }, 1000);
   }
 
@@ -755,31 +763,34 @@ export class UserTutorialPage {
   completeAnswerEditor() {
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br>작성 후에는 수정할 수 없으며,<br>부적절한 글을 작성할 경우 삭제 및 프로젝트에서 제외될 수 있습니다.', 
       () => {
-        this.isInfoHide = true;
-        this.isSecondInfoHide = false;
-        this.openTutorialIntro = false;
-        this.openProjectTabs = false;
-        this.openProjectParticipationInfoIntro = false;
-        this.openProjectParticipationIntro = false;
-        this.openProjectParticipation = false;
-        this.openProjectStoryIntro = false;
-        this.openProjectStory = false;
-        this.openProjectStoryQuizIntro = false;
-        this.openProjectStoryQuiz = false;
-        this.openInterviewFormIntro = false;
-        this.openInterviewForm = false;
-        this.openProjectHomeIntro = false;
-        this.openProjectHome = false;
-        this.openProjectInterviewAnswer = false;
-        this.openTutorialSecondIntro = true;
-        this.openProjectSecondTabs = true;
-        this.openProjectRewardForm = false;
-        this.openTutorialEnd = false;
-        // this.commonService.showToast('+ ' + this.reward + ' 포인트가 적립되었습니다.');
-        this.commonService.showToast('+ 500 포인트가 적립되었습니다.');
-        this.totalReward = 1000;
-        // this.commonService.showBasicAlert('축하합니다! 프로젝트에 성공적으로 참여했습니다. 안내 내용을 확인해주세요!');
-
+        if(this.answerContent == "인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.") {
+          this.isInfoHide = true;
+          this.isSecondInfoHide = false;
+          this.openTutorialIntro = false;
+          this.openProjectTabs = false;
+          this.openProjectParticipationInfoIntro = false;
+          this.openProjectParticipationIntro = false;
+          this.openProjectParticipation = false;
+          this.openProjectStoryIntro = false;
+          this.openProjectStory = false;
+          this.openProjectStoryQuizIntro = false;
+          this.openProjectStoryQuiz = false;
+          this.openInterviewFormIntro = false;
+          this.openInterviewForm = false;
+          this.openProjectHomeIntro = false;
+          this.openProjectHome = false;
+          this.openProjectInterviewAnswer = false;
+          this.openTutorialSecondIntro = true;
+          this.openProjectSecondTabs = true;
+          this.openProjectRewardForm = false;
+          this.openTutorialEnd = false;
+          // this.commonService.showToast('+ ' + this.reward + ' 포인트가 적립되었습니다.');
+          this.commonService.showToast('+ 500 포인트가 적립되었습니다.');
+          this.totalReward = 1000;
+          // this.commonService.showBasicAlert('축하합니다! 프로젝트에 성공적으로 참여했습니다. 안내 내용을 확인해주세요!');
+        } else {
+          this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
+        }
       }
     );
   }
@@ -849,6 +860,7 @@ export class UserTutorialPage {
           (data) => {
             if(data.success == true) {
               if(data.data) {
+        this.rewardSlider.lockSwipeToPrev(true);
                 this.rewardSlider.lockSwipeToNext(false);
                 this.rewardSlider.slideNext(300);
                 this.rewardSlider.lockSwipeToNext(true);
@@ -856,7 +868,7 @@ export class UserTutorialPage {
               else {
                 if(data.message == 'is already rewarded') {
                   this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
-                  this.endTurorial();
+                  this.endTutorial();
                 }
               }
             }
@@ -899,7 +911,7 @@ export class UserTutorialPage {
     }
   }
 
-  endTurorial() {
+  endTutorial() {
     this.navCtrl.setRoot('UserTabsPage');    
   }
 }
