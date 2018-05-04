@@ -9,6 +9,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 declare var cordova:any;
 
 import { CommonServiceProvider } from '../../../providers/common-service/common-service';
+import { UserServiceProvider } from '../../../providers/user-service/user-service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 /**
@@ -137,6 +138,7 @@ export class UserTutorialPage {
     public navCtrl: NavController,
     public navParams: NavParams, 
     public viewCtrl: ViewController,
+    public userService: UserServiceProvider,    
     public commonService: CommonServiceProvider,
     private platform: Platform,
     private domSanitizer: DomSanitizer,
@@ -847,10 +849,41 @@ export class UserTutorialPage {
   goNextRewardSlide(index) {
     switch(index) {
       case 0:
+        this.commonService.isLoadingActive = true;
+        let loading = this.commonService.presentLoading();
+
+        this.userService.rewardTutorial()
+        .finally(() => {
+          loading.dismiss();
+        })
+        .subscribe(
+          (data) => {
+            if(data.success == true) {
+              if(data.data) {
         this.rewardSlider.lockSwipeToPrev(true);
-        this.rewardSlider.lockSwipeToNext(false);
-        this.rewardSlider.slideNext(300);
-        this.rewardSlider.lockSwipeToNext(true);
+                this.rewardSlider.lockSwipeToNext(false);
+                this.rewardSlider.slideNext(300);
+                this.rewardSlider.lockSwipeToNext(true);
+                      }
+              else {
+                if(data.message == 'is already rewarded') {
+                  this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
+                  this.endTurorial();
+                }
+              }
+            }
+            else if(data.success == false) {
+              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+              .then(() => {
+                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+              });
+            }
+          },
+          (err) => {
+            console.log(err);
+            this.commonService.showBasicAlert('오류가 발생했습니다.');
+          }
+        );
         break;
       case 1:
         this.isInfoHide = true;
@@ -879,6 +912,6 @@ export class UserTutorialPage {
   }
 
   endTurorial() {
-    this.navCtrl.pop();
+    this.navCtrl.setRoot('UserTabsPage');    
   }
 }

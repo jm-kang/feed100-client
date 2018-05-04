@@ -150,9 +150,9 @@ export class UserTabsPage {
             this.openUserProfileModificationFormPage();
           }
           // 튜토리얼 안한 경우
-          // else if(!data.data.is_tutorial_completed) {
-          //   this.openUserTutorialPage();
-          // }
+          else if(!data.data.is_tutorial_completed) {
+            this.openUserTutorialPage();
+          }
         }
         else if(data.success == false) {
           this.commonService.showBasicAlert('오류가 발생했습니다.');
