@@ -868,7 +868,7 @@ export class UserTutorialPage {
               else {
                 if(data.message == 'is already rewarded') {
                   this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
-                  this.endTurorial();
+                  this.endTutorial();
                 }
               }
             }
@@ -911,7 +911,7 @@ export class UserTutorialPage {
     }
   }
 
-  endTurorial() {
+  endTutorial() {
     this.navCtrl.setRoot('UserTabsPage');    
   }
 }
