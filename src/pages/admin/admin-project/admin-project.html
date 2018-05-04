@@ -35,7 +35,7 @@
     </div>
     <div class="p-r-16 p-l-16">
       <div tappable class="vertical-project-card-wrapper" *ngFor="let proceedingProject of proceedingProjects">
-        <div class="vertical-project-card" (click)="accessProjectCard(proceedingProject.project_id)">
+        <div class="vertical-project-card" tappable (click)="accessProjectCard(proceedingProject.project_id)">
           <span class="left-span">
             <div class="project-card-main-image-wrapper cropper">
               <img [src]="proceedingProject.project_main_image" />  

@@ -221,6 +221,9 @@ ion-spinner {
 .m-t-60 {
     margin-top: 60px !important;
 }
+.m-t-80 {
+    margin-top: 80px !important;
+}
 
 // padding value
 .p-t-4 {
@@ -1608,7 +1611,7 @@ p {
         background-position: center;
 
         -webkit-filter: opacity(20%);
-        filter: opacity(20%);
+        filter: opacity(10%);
         transform: scale(1.2);
         transition: all 0.4s ease-out;;
     }

@@ -4,7 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header no-border *ngIf="openTurorialIntro">
+<ion-header no-border *ngIf="openTutorialIntro">
   <ion-navbar transparent>
     <ion-buttons right class="m-r-16">
       <button ion-button color="light" *ngIf="introSlideIndex >= introSlides.length - 1" class="skip-button" (click)="skip()">시작하기</button>
@@ -13,7 +13,7 @@
 </ion-header>
 
 <!-- TutorialIntro -->
-<ion-content fullscreen="true" class="no-padding-top tutorial-intro-content" no-bounce *ngIf="openTurorialIntro">
+<ion-content fullscreen="true" class="no-padding-top tutorial-intro-content" no-bounce *ngIf="openTutorialIntro">
   <ion-slides #slider pager="true" (ionSlideWillChange)="introSlideChanged()">
     <ion-slide *ngFor="let slide of introSlides"
                class="slide-background">

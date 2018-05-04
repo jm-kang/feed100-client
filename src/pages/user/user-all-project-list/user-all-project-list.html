@@ -35,7 +35,7 @@
     </div> -->
     <div class="p-r-16 p-l-16">
       <div tappable class="vertical-project-card-wrapper" *ngFor="let allProject of allProjects">
-        <div class="vertical-project-card" (click)="accessProjectCard(allProject.project_id)">
+        <div class="vertical-project-card" tappable (click)="accessProjectCard(allProject.project_id)">
           <span class="left-span">
             <div class="project-card-main-image-wrapper cropper">
               <img [src]="allProject.project_main_image" />  
@@ -61,3 +61,5 @@
     </div>
   </section>
 </ion-content>
+
+<!-- allProject.is_proceeding : 진행중 -->
