@@ -237,7 +237,7 @@ export class AdminProjectStoryHorizontalPage {
       this.commonService.isLoadingActive = true;
       let loading = this.commonService.presentLoading();
   
-      this.adminService.updateProjectPrivateState(this.project_id, value)
+      this.adminService.endProjectJudge(this.project_id, value)
       .finally(() => {
         loading.dismiss();
       })
@@ -269,7 +269,7 @@ export class AdminProjectStoryHorizontalPage {
   }
 
   endRecommendationRate() {
-    let message = '보상받기를 하지 않은 유저들의 추천지수를 강제로 입력받아 마감하시겠습니까?>변경되면 기업에게 종료 푸쉬 알림이 갑니다.<br>신중히 결정해주세요.';
+    let message = '보상받기를 하지 않은 유저들의 추천지수를 강제로 입력받아 마감하시겠습니까? 변경되면 기업에게 종료 푸쉬 알림이 갑니다.<br>신중히 결정해주세요.';
     this.commonService.showConfirmAlert(message, 
     () => {
       this.commonService.isLoadingActive = true;
