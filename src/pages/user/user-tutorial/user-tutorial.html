@@ -134,7 +134,7 @@
 </ion-footer>
 
 <!-- ProjectParticipationInfoIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationInfoIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationInfoIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -152,7 +152,7 @@
 </div>
 
 <!-- ProjectParticipationIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -262,7 +262,7 @@
 </div>
 
 <!-- ProjectStoryIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -280,7 +280,7 @@
 </div>
 
 <!-- Link -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openLink ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openLink ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -298,7 +298,7 @@
 </div>
 
 <!-- Test -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTestIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTestIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -399,7 +399,7 @@
 </ion-footer>
 
 <!-- ProjectStoryQuizIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryQuizIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryQuizIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -477,7 +477,7 @@
 </div>
 
 <!-- InterviewFormIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openInterviewFormIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openInterviewFormIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -619,7 +619,7 @@
 </ion-content>
 
 <!-- ProjectHomeIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -637,7 +637,7 @@
 </div>
 
 <!-- ProjectHomeSecondIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeSecondIntro ? 'none' : 'flex'}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeSecondIntro ? 'none' : 'block'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -724,7 +724,7 @@
 </ion-content>
 
 <!-- TutorialSecondIntro -->
-<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTutorialSecondIntro ? 'none' : 'flex', 'z-index': 1000}">
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTutorialSecondIntro ? 'none' : 'block', 'z-index': 1000}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -933,6 +933,10 @@
 </ion-content>
 
 <!-- TutorialEnd -->
+<ion-header class="editor-header" *ngIf="openTutorialEnd" style="z-index: -1">
+  <ion-navbar hideBackButton="true">
+  </ion-navbar>
+</ion-header>
 <ion-content fullscreen="true" class="tutorial-intro-content" no-bounce *ngIf="openTutorialEnd">
   <div class="info-box">
     <div class="info-div">

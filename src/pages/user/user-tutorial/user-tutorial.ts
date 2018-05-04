@@ -860,7 +860,7 @@ export class UserTutorialPage {
           (data) => {
             if(data.success == true) {
               if(data.data) {
-        this.rewardSlider.lockSwipeToPrev(true);
+                this.rewardSlider.lockSwipeToPrev(true);
                 this.rewardSlider.lockSwipeToNext(false);
                 this.rewardSlider.slideNext(300);
                 this.rewardSlider.lockSwipeToNext(true);
@@ -868,7 +868,7 @@ export class UserTutorialPage {
               else {
                 if(data.message == 'is already rewarded') {
                   this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
-                  this.endTutorial();
+                  this.navCtrl.setRoot('UserTabsPage');
                 }
               }
             }
@@ -912,6 +912,7 @@ export class UserTutorialPage {
   }
 
   endTutorial() {
-    this.navCtrl.setRoot('UserTabsPage');    
+    this.navCtrl.setRoot('UserTabsPage');
+    this.commonService.showToast('튜토리얼을 완료하였습니다. 다양한 프로젝트에 참여해보세요!')
   }
 }
