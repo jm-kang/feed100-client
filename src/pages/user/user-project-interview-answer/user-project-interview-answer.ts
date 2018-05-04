@@ -41,9 +41,6 @@ export class UserProjectInterviewAnswerPage {
   maxTextLength: number = 50;
   isHelpHide: boolean;
 
-  projectKeywords = ["버튼위치","어려움","파일업로드"];
-  helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
-
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 

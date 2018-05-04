@@ -64,6 +64,9 @@ page-user-tutorial {
         top: -20px;
         left: 85px;
     }
+    .balloon-white:after {
+        background: #333333;
+    }
     .balloon:before {
         content: '';
         position: absolute;
@@ -75,11 +78,6 @@ page-user-tutorial {
         top: -15px;
         left: 100px;
     }
-
-    .recommended-section {
-        margin-top: 80px
-    }
-
     .project-tabs-footer {
         background-color: #f8f8f8;
         border-top: 1px solid #e8e8e8;
@@ -129,6 +127,425 @@ page-user-tutorial {
             line-height: 1.4;
             padding: 30px 20px 20px 20px;
             color: #efefef;
+        }
+    }
+
+    .project-participant-tutorial-header {
+        border-bottom: 0;
+        background-color: transparent !important;
+        background: transparent !important;
+        .bar-button {
+            color: #fff;
+        }
+        .toolbar-background {
+            background: transparent;
+        }
+        .modal-header {
+            background-color: transparent;
+            border-bottom: 0;
+        }
+        .project-header-title {
+            color: #fff;
+        }
+        .toolbar-title-md {
+            display: flex !important;
+            justify-content: center;
+        }
+    }
+
+    .project-participant-tutorial-content {
+        background-color: transparent !important;
+        .swiper-slide {
+            overflow-y: scroll;
+            align-items: baseline;
+            .q-mark-wrapper {
+                margin-top: 100px;   
+            }
+        }
+        .scroll-content,.editor-header,.modal-header,.toolbar-background {
+            background-color: transparent !important;
+            background: transparent !important;
+        }
+        .scroll-content {
+            margin-top: 0 !important;
+        }
+        .radio-icon,.checkbox-icon {
+            display: none !important;
+        }
+    
+        ion-radio,ion-checkbox {
+            margin: 0 !important;
+        }
+    
+        .item.item-radio ion-label,.item.item-checkbox ion-label {
+            color: #ddd;
+            font-size: 1.4rem !important;
+            white-space: unset;
+        }
+    
+        .item-radio-checked.item ion-label,.item-radio-checkbox.item ion-label {
+            color: #ff6400 !important;
+            white-space: unset;
+            overflow: unset;
+        }
+    
+        .item, .item-inner {
+            border: 0 !important;
+            padding: 0 !important;
+        }
+    
+        .participation-condition-options-wrapper {
+            // width: 50vw;
+            // margin: 0 auto;
+            margin-top: 16px;
+        }
+    
+        ion-navbar { 
+            z-index: 10 
+        }
+        .agree-checkbox {
+            display: inline-block;
+            float: left;
+            margin-left: 24px;
+    
+            .not-check-btn, .check-btn {
+                height: auto;;
+            }
+            .not-check-btn .check-circle, .check-btn .check-circle {
+                display: inline-block;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50px;
+            }
+            // .not-check-btn, .check-btn {
+            //     font-size: 1.5rem;
+            // }
+            .not-check-btn .button-inner, .check-btn .button-inner {
+                font-size: 1.5rem;
+            }
+            .not-check-btn {
+                // font-size: 3rem;
+                height: auto;
+                color: #dfdfdf;
+            }
+            .check-btn {
+                // font-size: 3rem;
+                height: auto;
+                color: #dfdfdf;
+                .icon {
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 2.2rem;
+                    font-weight: bold;
+                    color: #fff;
+                }
+            }
+    
+            .not-check-btn .check-circle {
+                border: 1.5px solid #686868;
+            }
+    
+            .check-btn .check-circle {
+                border: 1.5px solid #ff6700;
+                background-color: #ff6700;
+            }
+        }
+        .notice-title {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: bold;
+            margin-top: 150px;
+        }
+        .notice-content {
+            font-size: 1.4rem;
+            margin-bottom : 20px;
+            padding: 20px;
+            line-height: 1.5;
+        }
+    }
+
+    .slide-next-button-wrapper {
+        position: absolute;
+        z-index: 99;
+        right: 5px;
+        bottom: 16px;
+        .btn-wrapper {
+            display: inline-block;
+            .quiz-next-button-circle {
+                display: inline-flex;
+                width: 40px;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+                font-size: 2.5rem !important;
+                border: 1.5px solid #f4f4f4;
+                border-radius: 50px;
+                background: rgba(240,240,240,0.3);
+            }
+            .quiz-next-button-circle.check-next-btn {
+                border: 1.5px solid #ff6700 !important;
+                background: rgba(255,132,49,0.2) !important;
+            }
+        }
+    }
+    .survey-next-btn-wrapper {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        .agree-checkbox {
+            margin-left: 0;
+        }
+    }
+
+    .story-footer {
+        .item-inner {
+            border-bottom : 0 !important;
+        }
+    }
+
+    .project-last-slide {
+        .project-last-slide-buttons {
+            display: flex;
+        }
+        .item-inner {
+            border-bottom : 0 !important;
+        }
+    }
+
+    .project-last-slide-wrapper {
+        h3 {
+            font-size: 1.5rem;
+            color: #c8c8c8;
+            line-height: 1.5;
+        }
+        p {
+            font-size: 1.3rem;
+            color: #aaa;
+        }
+    }
+
+    .slide-ios {
+        .project-last-slide-wrapper {
+            margin-top: 120px;
+        }
+    }
+
+    .project-last-slide-wrapper .story-name {
+        width: 90%;
+        font-size: 2rem;
+        color: #fff;
+        margin: 0 auto;
+        font-weight: bold;
+        line-height: 1.6
+    }
+
+    .slide-title-wrapper.last-slide-title-wrapper {
+        position: absolute;
+        left: 0;
+    }
+
+    .project-last-slide-buttons {
+        margin-top:10px;
+    }
+
+    .project-last-slide-buttons.multi-button-wrapper {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        width: 100%;
+        margin: 0;
+        margin-left: -16px;
+        padding: 16px;
+        .disable-btn {
+            border-color: #aaa;
+            color: #aaa;
+        }
+    }
+
+    .project-last-slide-buttons button {
+        font-size: 1.2rem;
+        height: 3em;
+        font-weight: bold;
+        width: 50%;
+        margin: 0;
+    }
+    .interview-form-content.content-md {
+        .scroll-content{
+            margin-top: 57px;
+        }
+    }
+    .interview-form-content.content-ios {
+        .scroll-content{
+            margin-top: 64px;
+        }
+    }
+
+    .interview-form-content {
+        .slide-zoom {
+            height: 100%;
+
+        }
+        .header-md {
+            .toolbar-content {
+                left: 0;
+                top: 0;
+                padding: 0 90px 1px;
+                position: absolute;
+                width: 100%;
+                height: 56px;
+                min-height: 56px;
+                -webkit-box-pack: center;
+                justify-content: center;
+                display: flex;
+            }
+        }
+    
+        .radio-icon,.checkbox-icon {
+            display: none !important;
+        }
+    
+        ion-radio,ion-checkbox {
+            margin: 0 !important;
+        }
+    
+        .list .item-block .item-inner {
+            border-bottom: 0;
+        }
+    
+        .item.item-radio {
+            padding: 0;
+            margin: 0 auto;
+        }
+    
+        .item.item-radio ion-label,.item.item-checkbox ion-label {
+            color: #aaa;
+            font-size: 1.4rem !important;
+            white-space: unset;
+        }
+    
+        .item-radio-checked.item ion-label,.item-radio-checkbox.item ion-label {
+            color: #ff6400 !important;
+            white-space: unset;
+            overflow: unset;
+        }
+    
+        .list-ios > .item-block:first-child {
+            border-top: 0;
+        }
+        .list-ios > .item-block:last-child {
+            border-bottom: 0;
+        }
+    
+        .help-references {
+            border-radius: 20px !important;
+        }
+    }
+
+    .q-mark-wrapper {
+        margin-top: 130px !important;
+    }
+
+    .help-btn {
+        position: relative;
+    }
+
+    .project-home-page-content {
+        ion-buttons[start] {
+            order: 1;
+        }
+        .toolbar {
+            position: absolute;
+            margin-left: -16px;
+            .bar-button {
+                width: 25px;
+                color: #999;
+            }
+        }
+    
+        .toolbar-ios {
+            margin-top: 12px;
+            padding-left: 30px;
+            padding-right: 38px;
+        }
+    
+        .toolbar-md {
+            margin-top: 6px;
+            padding-left: 28px;
+            padding-right: 45px;
+        }
+    
+        .toolbar-content {
+            text-align: right;
+        }
+        .progress-state-wrapper {
+            // position: absolute;
+            // top: 60px;
+            // right: 40px;
+            display: inline-flex;
+            .project-state-icon {
+                display: inline-block;
+                img {
+                    width: 17px;
+                    height: 17px;
+                }
+            }
+            .project-state {
+                display: inline-block;
+                font-size: 1.4rem;
+                font-weight: bold;
+                color: #ff6700;
+                margin-left: 6px;
+            }
+        }
+        .project-home-wrapper {
+            border-radius: 16px;
+            border: 4px dashed #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+    
+            h1 {
+                color: #989898;
+                font-weight: bold;
+                line-height: 1.6;
+                font-size: 1.5rem;
+            }
+    
+            h5 {
+                font-size: 1.2rem;
+                margin-bottom: 0;
+                color: #aaa;
+    
+            }
+    
+            h2 {
+                font-size: 5rem;
+                font-weight: 100;
+                color: #ff6700;
+                margin-top: 0;
+                .p-tag {
+                    font-size: 3rem;
+                    color: #ff6700;
+                    font-weight: 300;
+                }
+            }
+    
+            p {
+                font-size: 1.2rem;
+                color: #9f9f9f;
+                line-height: 1.6;
+                font-weight: normal;
+            }
+    
+        }
+    }
+
+    .project-reward-page-content {
+        .rating-grid {
+            padding: 0 20px;
         }
     }
 }

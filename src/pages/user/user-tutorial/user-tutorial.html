@@ -27,9 +27,9 @@
     <b>'참여하기'</b>를 누르면 참여할 수 있어요!
   </div>
   <div class="cover-card p-l-28 p-r-28" text-center>
-    <div class="p-r-16 p-l-16">
+    <div>
       <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
-        <div class="vertical-project-card" (click)="accessProjectCard(recommendedProject.project_id)">
+        <div class="vertical-project-card" (click)="accessProjectCard()">
           <span class="left-span">
             <div class="project-card-main-image-wrapper cropper">
               <img [src]="recommendedProject.project_main_image" />  
@@ -72,45 +72,45 @@
 </ion-header>
 <ion-content fullscreen="true" class="project-tabs-content project-page-content" no-bounce *ngIf="openProjectTabs">
   <!-- 추천 프로젝트 -->
-  <section class="recommended-section m-b-30" *ngIf = "recommendedProjects.length">
-      <div class="home-group-title p-r-28 p-l-28">
-        추천 프로젝트
-        <p>마음에 드는 프로젝트에 참여해보세요!</p>
-      </div>
-      <div class="p-r-16 p-l-16">
-        <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
-          <div class="vertical-project-card">
-            <span class="left-span">
-              <div class="project-card-main-image-wrapper cropper">
-                <img [src]="recommendedProject.project_main_image" />  
-              </div>
-              <div class="project-card-overlay-wrapper">
-                <span class="project-card-overlay">
-                  <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.project_max_reward}}p</span>
-                </span>
-              </div>
-            </span>
-            <span class="right-span height100">
-              <div text-left class="card-content">
-                <span class="project-card-summary-wrapper">
-                  <p class="project-card-summary">{{recommendedProject.project_name}}</p>
-                </span>
-                <span class="summary-btn-wrapper">
-                  <span tappable class="summary-btn">참여하기 ></span>
-                </span>
-              </div>
-            </span>
-          </div>
+  <section class="recommended-section m-t-80 m-b-30" *ngIf = "recommendedProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      추천 프로젝트
+      <p>마음에 드는 프로젝트에 참여해보세요!</p>
+    </div>
+    <div class="p-r-16 p-l-16">
+      <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
+        <div class="vertical-project-card">
+          <span class="left-span">
+            <div class="project-card-main-image-wrapper cropper">
+              <img [src]="recommendedProject.project_main_image" />  
+            </div>
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.project_max_reward}}p</span>
+              </span>
+            </div>
+          </span>
+          <span class="right-span height100">
+            <div text-left class="card-content">
+              <span class="project-card-summary-wrapper">
+                <p class="project-card-summary">{{recommendedProject.project_name}}</p>
+              </span>
+              <span class="summary-btn-wrapper">
+                <span tappable class="summary-btn">참여하기 ></span>
+              </span>
+            </div>
+          </span>
         </div>
       </div>
-    </section>
-    <!-- 모든 프로젝트 -->
-    <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
-      <div text-center class="home-group-title" [ngStyle]="{'border-top': recommendedProjects.length ? '0.55px solid #f2f2f2' : 'none', 'padding-top' : recommendedProjects.length ? '24px' : '120px'}">
-        <div>더 많은 프로젝트를<br>보고싶다면?</div>
-        <span tappable>모든 프로젝트 보기 ></span>
-      </div>
-    </section>
+    </div>
+  </section>
+  <!-- 모든 프로젝트 -->
+  <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
+    <div text-center class="home-group-title" [ngStyle]="{'border-top': '0.55px solid #f2f2f2', 'padding-top' : '24px'}">
+      <div>더 많은 프로젝트를<br>보고싶다면?</div>
+      <span tappable>모든 프로젝트 보기 ></span>
+    </div>
+  </section>
 </ion-content>
 <ion-footer class="project-tabs-footer" *ngIf="openProjectTabs">
   <ion-grid>
@@ -131,8 +131,8 @@
   </ion-grid>
 </ion-footer>
 
-<!-- ProjectTabsIntro -->
-<ion-content fullscreen="true" class="tutorial-intro-content" no-bounce *ngIf="openProjectTabsIntro">
+<!-- ProjectParticipationInfoIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationInfoIntro ? 'none' : 'flex'}">
   <div class="info-box">
     <div class="info-div">
       <img src="assets/img/tutorial-avatar.png" alt="">
@@ -143,6 +143,788 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="openProjectTabsPage()">시작하기 ></div>
+    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectParticipationIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectParticipationIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          하지만 모두 참여할 수 있는 건 아니에요.<br>몇 가지 문항을 통해 자격을 확인할 테니<br>질문에 솔직하게 답 해주세요~
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectParticipantPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectParticipation -->
+<div class="story-main-image-wrapper" *ngIf="openProjectParticipation">
+  <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+</div>
+<ion-header class="editor-header project-participant-tutorial-header" *ngIf="openProjectParticipation">
+  <ion-navbar class="modal-header" hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button></button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title-wrapper">
+        <span class="project-header-title" text-center>
+          {{projectName | slicetext:20}}
+        </span>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="slide-question-content project-participant-tutorial-content" no-bounce *ngIf="openProjectParticipation">
+  <ion-slides #participantSlider pager="false" (ionSlideDidChange)="slideParticipationChanged()">
+    <ion-slide>
+      <h2 class="notice-title">프로젝트를 참여하기 전에 꼭 확인해주세요!</h2>
+      <div class="notice-content pre-line" [innerHTML]="project_notice"></div>
+      <div class="p-b-30">
+        <span class="survey-next-btn-wrapper" *ngIf="currentParticipationSlideIndex == 0">
+          <div class="agree-checkbox">
+            <button class="not-check-btn" ion-button clear (click)="check()" *ngIf="!isCheck"><span class="check-circle"></span>&emsp;위 내용에 동의하십니까?</button>
+            <button class="check-btn" ion-button clear (click)="check()" *ngIf="isCheck"><span class="check-circle"><ion-icon name="ios-checkmark"></ion-icon></span>&emsp;위 내용에 동의하십니까?</button>
+          </div>
+          <button ion-button clear *ngIf="!valueCheck(currentParticipationSlideIndex)" disabled>
+            <span class="quiz-next-button-circle">
+              다음
+            </span>
+          </button>
+          <button ion-button clear *ngIf="valueCheck(currentParticipationSlideIndex)" (click)="goNextParticipantSlide()">
+            <span class="quiz-next-button-circle check-next-btn">
+              다음
+            </span>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+    <ion-slide *ngFor="let participationConditionSlide of participationConditionSlides; let i = index">
+      <div class="q-mark-wrapper">
+        <span class="q-mark">Q</span>
+        <span class="q-mark-number">{{i+1}}</span>
+      </div>
+      <div class="question" [innerHTML]="participationConditionSlide.question"></div>
+      <div class="question-summary"><span class="text-red">주의!</span> 신중하게 대답해주세요.</div>
+      <div>
+        <div class="participation-condition-options-wrapper">
+          <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="participationConditionSlide.value">
+            <ion-item text-center *ngFor="let option of participationConditionSlide.options;">
+              <ion-label color="primary">{{option.option}}</ion-label>
+              <ion-radio [value]="option.option"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<div class="slide-next-button-wrapper" *ngIf="openProjectParticipation">
+  <span class="btn-wrapper" *ngIf="participationConditionSlides.length > currentParticipationSlideIndex && currentParticipationSlideIndex > 0">
+    <button ion-button clear *ngIf="!valueCheck(currentSlideIndex)" disabled>
+      <span class="quiz-next-button-circle">
+        <ion-icon color="light" name="ios-arrow-forward"></ion-icon>
+      </span>
+    </button>
+    <button ion-button clear *ngIf="valueCheck(currentParticipationSlideIndex)" (click)="goNextParticipantSlide()">
+      <span class="quiz-next-button-circle check-next-btn">
+        <ion-icon color="default" name="ios-arrow-forward"></ion-icon>
+      </span>
+    </button>
+  </span>
+  <span class="btn-wrapper" *ngIf="participationConditionSlides.length == currentParticipationSlideIndex">
+    <button ion-button clear *ngIf="!valueCheck(currentSlideIndex)" disabled>
+      <span class="quiz-next-button-circle">
+        <ion-icon color="light" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+    <button ion-button clear *ngIf="valueCheck(currentParticipationSlideIndex)" (click)="openUserProjectStoryPage()">
+      <span class="quiz-next-button-circle check-next-btn">
+        <ion-icon color="default" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+  </span>
+</div>
+
+<!-- ProjectStoryIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          역시~ 이해력이 남다르구먼!<br>매주 새롭고 다양한 서비스가 등록될테니<br>만약 떨어졌어도 너무 걱정하지 말아요~<br>이제 스토리를 보러 가볼까요?<br>퀴즈도 있으니 잘 봐야 합니다!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectStoryPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- Link -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openLink ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          좋아요!<br>다른 프로젝트에서도 테스트에 대하여<br>성실히 참여해 줄거라 믿습니다~!<br>이제 ‘인터뷰 하러가기’를 눌러주세요!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openUserProjectLinkPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- Test -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTestIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          스토리 이후에는 테스트 미션이 있습니다.<br>안내에 따라 테스트를 진행해주세요.<br>그럼 ‘테스트 시작하기’를 눌러 보시겠어요?<br>
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectTestIntro()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectStory -->
+<ion-content class="story-slide" no-bounce *ngIf="openProjectStory">
+  <div class="story-main-image-wrapper">
+    <div class="story-main-image" [ngStyle]="{'-webkit-filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)','filter': isFirstSlide ? 'opacity(30%)': 'opacity(25%) blur(5px)'}" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+  </div>
+  <ion-slides #storySlider pager="false" (ionSlideDidChange)="slideChanged()">
+    <ion-slide class="story-first-slide" padding>
+      <ion-buttons class="slide-title-wrapper">
+        <button ion-button clear (click)="goNextSlide()">
+          <h1 class="title">프로젝트 스토리 ></h1>
+        </button>
+      </ion-buttons>
+      <h2 class="m-b-20">{{projectName}}</h2>
+      <div class="project-state-wrapper">
+        <span class="project-state-icon">
+          <img src="assets/img/calendar.png" />
+        </span>
+        <span class="project-state-content">
+          {{progressState}}
+        </span>
+        <span margin-left class="project-state-icon">
+          <img src="assets/img/feed100-coin-single.png" />
+        </span>
+        <span class="project-state-content">
+          <b>max {{maxReward}}p</b>
+        </span>
+      </div>
+      <h6 class="m-t-40">* 이 콘텐츠의 저작권은 모두 포텐브라더스가 소유하고 있습니다.</h6>
+
+    </ion-slide>
+
+    <ion-slide class="story-content-slide" *ngFor="let projectStorySlide of projectStorySlides">
+      <img [src]="projectStorySlide.storyImage"/>
+      <div class="video-container" *ngIf="projectStorySlide.storyVideo">
+        <iframe width="100%" [src]="projectStorySlide.storyVideo | youtube" class="slide-video" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p text-left class="story-content-slide-content pre-line" [innerHTML]="projectStorySlide.storyContent"></p>
+    </ion-slide>
+
+    <ion-slide padding class="project-last-slide">
+      <ion-buttons class="slide-title-wrapper last-slide-title-wrapper">
+        <button ion-button clear (click)="goFirstSlide()">
+          <h1 class="title">&lt; 스토리 다시보기</h1>
+        </button>
+      </ion-buttons>
+      <div class="project-last-slide-wrapper">
+        <h2 class="story-name"><테스트 안내></h2>
+        <ion-item class="avatar-span-wrapper item-flex">
+          <p text-center>안내에 따라 테스트를 진행해주세요.<br>테스트 시작하기를 누르면 해당 링크로 이동됩니다.</p>
+          <h3 text-center class="m-t-20 text-white pre-line" [innerHTML]="testInfo"></h3> 
+        </ion-item>
+      </div>
+      
+      <ion-buttons class="project-last-slide-buttons multi-button-wrapper">
+        <button [ngStyle]="{'width': '50%'}" ion-button block outline *ngIf="isLink" (click)="openUserProjectLinkPage()">테스트 시작하기</button>
+        <button [ngStyle]="{'width': '50%'}" class="m-l-15" ion-button block outline *ngIf="checkLink" (click)="openUserProjectStoryQuizFormPage()">인터뷰 하러가기 ></button>
+        <button [ngStyle]="{'width': '50%'}" class="m-l-15 disable-btn" ion-button block outline *ngIf="!checkLink" disabled>인터뷰 하러가기 ></button>
+      </ion-buttons>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<ion-footer class="story-footer" *ngIf="openProjectStory">
+  <progress-bar [progress]="progressPercent"></progress-bar>
+  <ion-navbar hideBackButton="true">
+    <ion-item class="avatar-span-wrapper item-flex" *ngIf="isFirstSlide">
+      <span item-start class="avatar-image avatar-span cropper">
+        <img class="avatar-span-image" [src]="projectMainImage" />
+      </span>
+      <h3>{{nickname}}</h3>
+    </ion-item>
+    <ion-item *ngIf="!isFirstSlide" start class="bar-item-wrapper item-flex page-num">
+      <ion-icon name="ios-browsers-outline" item-start></ion-icon>
+      <p>{{currentPageNum}} / {{totalPageNum}}</p>
+    </ion-item>
+    <ion-buttons class="bar-end-buttons" end>
+      <button ion-button>
+        <ion-icon name="ios-eye-outline" item-start></ion-icon>
+        <p>{{projectViewNum}}</p>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-footer>
+
+<!-- ProjectStoryQuizIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectStoryQuizIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          서비스를 잘 이해했는지 퀴즈를 풀어볼까요?<br>이해했으면 누구나 풀 수 있는 문제이지만<br>틀리면 스토리 처음으로 돌아가니까<br>잘 풀어야 합니다!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectStoryQuizIntroPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectStoryQuiz -->
+<div class="story-main-image-wrapper" *ngIf="openProjectStoryQuiz">
+  <div class="story-main-image" [style.backgroundImage]="'url(' + projectMainImage + ')'"></div>
+</div>
+<ion-header class="editor-header project-participant-tutorial-header" *ngIf="openProjectStoryQuiz">
+  <ion-navbar class="modal-header" hideBackButton="true">
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button></button>
+    </ion-buttons>
+    <ion-title>
+      <span class="project-header-title-wrapper">
+        <span class="project-header-title" text-center>
+          {{projectName | slicetext:20}}
+        </span>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="slide-question-content project-participant-tutorial-content" *ngIf="openProjectStoryQuiz">
+  <ion-slides pager="false" #storyQuizSlider (ionSlideDidChange)="slideQuizChanged()">
+    <ion-slide *ngFor="let storyQuizSlide of storyQuizSlides; let i = index">
+      <div>
+        <div class="q-mark-wrapper">
+          <span class="q-mark">Q</span>
+          <span class="q-mark-number">{{i+1}}</span>
+        </div>
+        <div class="question" [innerHTML]="storyQuizSlide.question"></div>
+        <div class="question-summary"><span class="text-red">주의!</span> 스토리 퀴즈는 틀릴 시 스토리 처음화면으로 이동합니다.</div>
+        <div>
+          <div class="participation-condition-options-wrapper">
+            <ion-list (ionChange)="ionRadioChange(i)" radio-group [(ngModel)]="storyQuizSlide.value">
+              <ion-item text-center *ngFor="let option of storyQuizSlide.options;">
+                <ion-label color="primary">{{option.option}}</ion-label>
+                <ion-radio [value]="option.option"></ion-radio>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+<div class="slide-next-button-wrapper" *ngIf="openProjectStoryQuiz">
+  <span class="btn-wrapper" *ngIf="storyQuizSlides.length-1 == currentQuizSlideIndex">
+    <button ion-button clear *ngIf="!valueQuizCheck(currentQuizSlideIndex)" disabled>
+      <span class="quiz-next-button-circle">
+        <ion-icon color="light" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+    <button ion-button clear *ngIf="valueQuizCheck(currentQuizSlideIndex)" (click)="openUserProjectInterviewForm()">
+      <span class="quiz-next-button-circle check-next-btn">
+        <ion-icon color="default" name="ios-checkmark"></ion-icon>
+      </span>
+    </button>
+  </span>
+</div>
+
+<!-- InterviewFormIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openInterviewFormIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon balloon-white">
+        <div class="inner-balloon">
+          정말 유능하구먼!<br>정말 어려운 문제였는데 잘 맞췄어요!<br>그럼 이제 서비스에 대한<br>첫인상 평가와 함께 인터뷰를 작성해주세요!<br>경험하면서 느낀점에 대하여<br>솔직하게 작성해 주시면 됩니다!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openInterviewFormPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- InterviewForm -->
+<div class="help" [ngStyle]="{'display': isInterviewHelpHide ? 'none' : 'flex'}" *ngIf="openInterviewForm">
+  <div class="help-wrapper p-l-28 p-r-28" text-center>
+    <h1 class="m-b-10">어떻게 써야할지 막막하시나요?</h1>
+    <h2 class="m-b-20">인터뷰 응답에 대한 팁!</h2>
+    <div class="help-references-wrapper m-b-20 p-l-16 p-r-16">
+      <span class="help-references p-l-20 p-r-20 p-t-20 p-b-20 width100" style="border-radius: 30px">
+        <div class="help-references-inner">
+          <strong>1. How I Feel</strong><br>
+          &emsp;긍정, 부정, 비판 등 서비스에 대한 느낌을 솔직하게 작성합니다.<br><br>
+          <strong>2. What About</strong><br>
+          &emsp;앞서 느낀 감정이 어디서부터, 어떤 것에 대하여 그렇게 느낀 것인지 작성합니다.<br><br>
+          <strong>3. Why</strong><br>
+          &emsp;왜 그런 감정과 생각을 느끼고 작성했는지 이유에 대하여 작성합니다.<br><br>
+          <strong>4. Advice / Suggest</strong><br>
+          &emsp;장점은 부각시키고 단점은 보완할 수 있는 충고나 제안을 해주세요!
+        </div>
+      </span>
+    </div>
+    <p><strong>솔직한</strong> 여러분의 이야기를 들려주세요!</p>
+    <h2 class="m-b-60"><small>[주의] 관련 없는 내용이나 욕설이나 비난 비방은 통보없이 삭제 및 프로젝트에서 제외될 수 있습니다.</small></h2>
+    <div class="hide-help-btn" (click)="help()" tappable>닫기</div>
+  </div>
+</div>
+<ion-header class="editor-header" *ngIf="openInterviewForm">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button></button>
+    </ion-buttons>
+    <ion-title *ngIf="currentInterviewSlide == 1">
+      인터뷰 질문
+      <span tappable class="help-btn" (click)="help()">
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button *ngIf="currentInterviewSlide == 0" [disabled]="firstImpressionScore < 1" class="complete-button" ion-button (click)="goNextInterviewSlide(' ')" icon-only>
+        다음
+      </button>
+      <button *ngIf="currentInterviewSlide == 1" [disabled]="satisfiedContent.answerContent != '피드백은 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~'" class="complete-button" ion-button (click)="goNextInterviewSlide(satisfiedContent.answerContent)" icon-only>
+        다음
+      </button>
+      <button *ngIf="currentInterviewSlide == 2" [disabled]="!interviewTimeSlide.value" class="complete-button" ion-button (click)="completeEditor()" icon-only>
+        완료
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="editor-modal interview-form-content" #contentRef *ngIf="openInterviewForm">
+  <ion-slides #interviewSlider pager="false">
+    <!-- 첫인상 평가 slide -->
+    <ion-slide>
+      <div class="editor-content flex-center" style="height: 100%;">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30 width100">
+          <div class="question-wrapper m-b-30">
+            <h3>첫인상 평가</h3>
+            <p>이 프로젝트를 경험해 본 첫 인상은 어떠셨나요?<br>점수로 나타낸다면 몇 점을 주고 싶으세요?</p>
+          </div>
+          <ion-grid class="rating-grid">
+            <ion-row>
+              <ion-col tappable col *ngFor="let stat of firstImpressionScoreNums; let i = index" (click)="clickImpression(stat, i)">
+                <!-- 비활성화 -->
+                <span class="unfill-stat" *ngIf="!stat">{{i+1}}</span>
+                <!-- 활성화 -->
+                <span class="fill-stat" *ngIf="stat">{{i+1}}</span>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="rating-summary m-t-5">
+            <span float-left>부정</span>
+            <span float-right>긍정</span>
+          </div>
+        </div> 
+      </div>
+    </ion-slide>
+
+    <!-- 만족스러운 점 slide -->
+    <ion-slide>
+      <div class="editor-content" style="height: 100%">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+          <div class="question-wrapper interview-question m-b-30">Q. <span [innerHTML]="satisfiedContent.interviewQuestion"></span></div>
+          <div class="buttons-wrapper m-b-30">
+            <span tappable class="editor-open-btn" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+            <!-- <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span> -->
+          </div>
+          <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(satisfiedContent.answerContent))}">
+            <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(satisfiedContent.answerContent)) > 0">+</span> {{rewardPoint(textCount(satisfiedContent.answerContent))}}p</div>
+            <div text-center class="point-notice">{{pointNotice(textCount(satisfiedContent.answerContent))}}</div>
+          </div>
+          <div class="interview-text-count-wrapper">
+            <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(satisfiedContent.answerContent, 50) + '%', 'margin-left': textCount(satisfiedContent.answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(satisfiedContent.answerContent))}">{{textCount(satisfiedContent.answerContent)}}</div>
+            <div class="progress-outer">
+              <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(satisfiedContent.answerContent))}" [style.width]="textCountPercent(satisfiedContent.answerContent, 50) + '%'"></div>
+            </div>
+          </div>
+        </div> 
+        <textarea class="m-t-0 h-30" [(ngModel)]="satisfiedContent.answerContent" [placeholder]="contentPlaceholder"></textarea>
+      </div>
+    </ion-slide>
+
+    <!-- 인터뷰 시간 -->
+    <ion-slide>
+      <div class="editor-content" style="height: 100%">
+        <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+          <div class="question-wrapper m-b-30">
+            <h3>인터뷰 선호 시간 선택</h3>
+            <p>인터뷰 선호 시간이란?<br>하루 중 인터뷰 요청에 따른 응답에 대하여<br>선호하는 시간을 말합니다.</p>
+          </div>
+          <div class="participation-condition-options-wrapper over-options">
+            <ion-list radio-group [(ngModel)]="interviewTimeSlide.value">
+              
+              <ion-item col-6 text-center *ngFor="let option of interviewTimeSlide.options">
+                <ion-label color="primary">{{option.option}}</ion-label>
+                <ion-radio [value]="option.option"></ion-radio>
+              </ion-item>
+              
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<!-- ProjectHomeIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon balloon-white">
+        <div class="inner-balloon">
+          축하합니다!<br>참여 보상으로 500p를 받게 되었어요!<br>참여한 프로젝트는 진행되는 기간 동안<br>인터뷰가 진행될 거에요!<br>인터뷰까지 모두 진행하면 튜토리얼 완료!<br>보상을 받기 위해 끝까지 파이팅~!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectHomePage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectHomeSecondIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openProjectHomeSecondIntro ? 'none' : 'flex'}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon balloon-white">
+        <div class="inner-balloon">
+          오! 마침 인터뷰가 도착했군요!<br>인터뷰는 질문에 대하여 그대의 생각이나 느낌을 자유롭고 솔직하게 답변해 주시면 됩니다.<br>기업과 소통하며 스토리를 들려주세요!
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openInterviewAnswerPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectHome -->
+<ion-content padding no-bounce class="project-home-page-content" *ngIf="openProjectHome">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button ion-button></button>
+    </ion-buttons>
+    <!-- 디데이 -->
+    <div end class="progress-state-wrapper">
+      <span class="project-state-icon">
+        <img src="assets/img/calendar.png" />
+      </span>
+      <span class="project-state">{{progressState}}</span>
+    </div>
+  </ion-navbar>
+  <div class="project-home-wrapper">
+    <div text-center padding>
+      <!-- 프로젝트 제목 -->
+      <h1 class="p-l-28 p-r-28 m-b-30">{{projectName}}</h1>
+      <!-- 현재 보상금액 -->
+      <h5>보상받을 포인트&nbsp;<span>( max {{maxReward}}&nbsp;p</span> )</h5>
+      <h2 class="m-b-10">{{totalReward}}&nbsp;<span class="p-tag">p</span></h2>
+      <!-- 최대 보상금액 -->
+      <!-- 대기 안내 -->
+      <p class="m-t-30 m-b-5"><안내></p>
+      <p class="p-l-16 p-r-16 m-t-5" [innerHTML]="waitingNotice"></p>
+    </div>
+  </div>
+</ion-content>
+
+<!-- InterviewAnswer -->
+<ion-header class="editor-header" *ngIf="openProjectInterviewAnswer">
+  <ion-navbar>
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button></button>
+    </ion-buttons>
+    <ion-title>
+      인터뷰 질문
+      <span tappable class="help-btn" (click)="help()">
+        <ion-icon name="ios-help-circle-outline"></ion-icon>
+      </span>
+    </ion-title>
+    <ion-buttons end>
+      <button [disabled]="answerContent != '인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.'" class="complete-button" ion-button (click)="completeAnswerEditor()" icon-only>
+        완료
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content class="editor-modal interview-form-content" #contentRef *ngIf="openProjectInterviewAnswer">
+  <div class="editor-content" style="height: 100%">
+    <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
+      <div class="question-wrapper interview-question m-b-30 pre-line">Q. <span [innerHTML]="interviewQuestion"></span></div>
+      <div class="buttons-wrapper m-b-30">
+        <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+      </div>
+      <div class="interview-point-wrapper m-b-10" [ngStyle]="{'color': countColor(textCount(answerContent))}">
+        <div text-center class="reward-point m-b-10"><span *ngIf="rewardPoint(textCount(answerContent)) > 0">+</span> {{rewardPoint(textCount(answerContent))}}p</div>
+        <div text-center class="point-notice">{{pointNotice(textCount(answerContent))}}</div>
+      </div>
+      <div class="interview-text-count-wrapper">
+        <div class="text-count-wrapper" [ngStyle]="{'left': textCountPercent(answerContent, 50) + '%', 'margin-left': textCount(answerContent) > 9 ? '-2%' : '-3px', 'color': countColor(textCount(answerContent))}">{{textCount(answerContent)}}</div>
+        <div class="progress-outer">
+          <div class="progress-inner" [ngStyle]="{'background-color': countColor(textCount(answerContent))}" [style.width]="textCountPercent(answerContent, 50) + '%'">
+              <!-- {{progress}}% -->
+          </div>
+        </div>
+      </div>
+    </div> 
+    <textarea class="m-t-0 h-30" [(ngModel)]="answerContent" [placeholder]="contentPlaceholder"></textarea>
+  </div>
+</ion-content>
+
+<!-- TutorialSecondIntro -->
+<div fullscreen="true" class="help tutorial-intro-content" [ngStyle]="{'display': !openTutorialSecondIntro ? 'none' : 'flex', 'z-index': 1000}">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon balloon-white">
+        <div class="inner-balloon">
+          축하해요!<br>튜토리얼 프로젝트를 성공적으로 마무리했습니다!<br>이제 포인트를 성과금으로 받아야겠죠?<br>포인트는 프로젝트 종료 후 ‘보상받기’를 누르고<br>추천지수를 입력하면 획득할 수 있습니다.<br>그럼 보상을 받으러 가볼까요?
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="openProjectSecondTabsPage()">다음으로 ></div>
+  </div>
+</div>
+
+<!-- ProjectSecondTabsHelp -->
+<div class="help cover-project-tabs" [ngStyle]="{'display': isSecondInfoHide ? 'none' : 'flex'}">
+  <div class="cover-card" text-center>
+    <ion-slides pager=false loop="false">
+      <ion-slide *ngFor="let rewardProject of rewardProjects">
+        <div tappable class="reward-project-card cropper m-l-28 m-t-5 m-b-5" (click)="openProjectRewardFormPage()">
+          <img [src]="rewardProject.project_main_image" />
+          <div class="card-content">
+            보상받기
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</div>
+
+<!-- ProjectSecondTabs -->
+<ion-header class="tabs-header"  *ngIf="openProjectSecondTabs">
+  <ion-navbar hideBackButton="true">
+    <ion-title>프로젝트</ion-title>
+    <ion-buttons end>
+      <button ion-button>
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content fullscreen="true" class="project-tabs-content project-page-content" no-bounce  *ngIf="openProjectSecondTabs">
+  <!-- 보상받을 프로젝트 -->
+  <section class="reward-section m-t-80 m-b-30" *ngIf = "rewardProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      보상받을 프로젝트
+      <p>프로젝트가 종료되었으니 보상을 획득하세요!</p>
+    </div>
+    <ion-slides pager=false loop="false" spaceBetween="-108" slidesPerView="1">
+      <ion-slide *ngFor="let rewardProject of rewardProjects">
+        <div tappable class="reward-project-card cropper m-t-5 m-b-5 m-l-28" (click)="accessProjectCard(rewardProject.project_id)">
+          <img [src]="rewardProject.project_main_image" />
+          <div class="card-content">
+            보상받기
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </section>
+  <!-- 추천 프로젝트 -->
+  <section class="recommended-section m-t-30 m-b-30" *ngIf = "recommendedProjects.length">
+    <div class="home-group-title p-r-28 p-l-28">
+      추천 프로젝트
+      <p>마음에 드는 프로젝트에 참여해보세요!</p>
+    </div>
+    <div class="p-r-16 p-l-16">
+      <div tappable class="vertical-project-card-wrapper" *ngFor="let recommendedProject of recommendedProjects">
+        <div class="vertical-project-card">
+          <span class="left-span">
+            <div class="project-card-main-image-wrapper cropper">
+              <img [src]="recommendedProject.project_main_image" />  
+            </div>
+            <div class="project-card-overlay-wrapper">
+              <span class="project-card-overlay">
+                <span class="project-card-overlay-item p-card-tag">max {{recommendedProject.project_max_reward}}p</span>
+              </span>
+            </div>
+          </span>
+          <span class="right-span height100">
+            <div text-left class="card-content">
+              <span class="project-card-summary-wrapper">
+                <p class="project-card-summary">{{recommendedProject.project_name}}</p>
+              </span>
+              <span class="summary-btn-wrapper">
+                <span tappable class="summary-btn">참여하기 ></span>
+              </span>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 모든 프로젝트 -->
+  <section class="all-projects-section p-b-60 m-t-20 p-r-28 p-l-28">
+    <div text-center class="home-group-title" [ngStyle]="{'border-top': '0.55px solid #f2f2f2', 'padding-top' : '24px'}">
+      <div>더 많은 프로젝트를<br>보고싶다면?</div>
+      <span tappable>모든 프로젝트 보기 ></span>
+    </div>
+  </section>
+</ion-content>
+<ion-footer class="project-tabs-footer"  *ngIf="openProjectSecondTabs">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-icon name="ios-globe"></ion-icon>
+        프로젝트
+      </ion-col>
+      <ion-col>
+        <ion-icon name="ios-notifications-outline"></ion-icon>
+        알림
+      </ion-col>
+      <ion-col>
+        <ion-icon name="ios-contact-outline"></ion-icon>
+        마이페이지
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
+
+
+<ion-header class="editor-header" *ngIf="openProjectRewardForm" style="z-index: -1">
+  <ion-navbar hideBackButton="true">
+    <ion-buttons start>
+      <button class="dismiss-button" ion-button></button>
+    </ion-buttons>
+    <ion-title>
+      보상받기
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="project-reward-page-content" no-bounce *ngIf="openProjectRewardForm" style="z-index: -1">
+  <ion-slides #rewardSlider class="reward-slides" pager="false">
+    <ion-slide>
+      <div class="reward-question">
+        이 제품이나 서비스를 동료나 친구들에게<br /><span class="color-primary">추천</span>할 의향이 얼마나 되시나요?
+      </div>
+      <!-- <rating [(ngModel)]="recommendation" max="10" emptyStarIconName="ios-star-outline" starIconName="ios-star" (ngModelChange)="onModelChange($event, 1)"></rating> -->
+      <ion-grid class="rating-grid">
+        <ion-row>
+          <ion-col col *ngFor="let stat of recommendationStats; let i = index" (click)="clickRecommendation(stat, i)">
+            <!-- 비활성화 -->
+            <span class="unfill-stat" *ngIf="!stat">{{i+1}}</span>
+            <!-- 활성화 -->
+            <span class="fill-stat" *ngIf="stat">{{i+1}}</span>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <div class="rating-summary p-l-23 p-r-23">
+        <span float-left>부정</span>
+        <span float-right>긍정</span>
+      </div>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear *ngIf="recommendationScore < 1" disabled>
+            <ion-icon color="semiDark" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+          <button ion-button clear *ngIf="recommendationScore > 0" (click)="goNextRewardSlide(0)">
+            <ion-icon color="default" name="ios-checkmark-circle-outline"></ion-icon>
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+    <ion-slide>
+      
+      <ion-list class="reward-list">
+        <div class="reward-item item-underline">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">인터뷰 보상금액</span>
+            <span class="item-point-box">
+              <span class="project-point">{{totalReward}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+        </div>
+        <div class="reward-item item-result">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">전체 보상 금액</span>
+            <span class="item-point-box">
+              <span class="project-point">{{totalReward}}</span><span class="point-tag">p</span>
+            </span>
+          </div>
+        </div>
+        <div class="reward-item">
+          <div class="div-flex">
+            <span class="item-title absolute-item-title">획득한 경험치</span>
+            <span class="item-point-box">
+              +<span class="project-point">{{exp}}</span><span class="point-tag">exp</span>
+            </span>
+          </div>
+        </div>
+      </ion-list>
+      <div class="slide-next-button-wrapper">
+        <span>
+          <button ion-button clear (click)="goNextRewardSlide(1)">
+            완료
+          </button>
+        </span>
+      </div>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<!-- TutorialEnd -->
+<ion-content fullscreen="true" class="tutorial-intro-content" no-bounce *ngIf="openTutorialEnd">
+  <div class="info-box">
+    <div class="info-div">
+      <img src="assets/img/tutorial-avatar.png" alt="">
+      <div class="balloon-shadow"></div>
+      <div class="balloon">
+        <div class="inner-balloon">
+          이번 사원은 정말 잘 뽑았구먼!<br>모든 튜토리얼을 완료하고 1000p를 획득했어요!<br>포인트 내역과 환전은 ‘마이페이지’에서<br>언제든지 확인할 수 있습니다.<br>다른 프로젝트에서는 우수 참여 보상과 인터뷰에 대하여 더 많은 보상을 획득할 수 있습니다.<br>보상에 따른 경험치를 쌓아서 승진도 할 수 있으니<br>많은 참여 부탁드립니다.
+        </div>
+      </div>
+    </div>
+    <div class="box-bottom" tappable (click)="endTurorial()">튜토리얼 종료 ></div>
   </div>
 </ion-content>
