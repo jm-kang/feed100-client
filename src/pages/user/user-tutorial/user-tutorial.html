@@ -21,7 +21,7 @@
 </ion-content>
 
 <!-- ProjectTabs -->
-<div class="help cover-project-tabs" [ngStyle]="{'display': isInfoHide ? 'none' : 'flex'}">
+<div class="help cover-project-tabs" [ngStyle]="{'display': isInfoHide ? 'none' : 'block'}">
   <div text-center class="cover-card-header">
     마음에 드는 프로젝트를 골라<br>
     <b>'참여하기'</b>를 누르면 참여할 수 있어요!
@@ -723,7 +723,7 @@
 </div>
 
 <!-- ProjectSecondTabsHelp -->
-<div class="help cover-project-tabs" [ngStyle]="{'display': isSecondInfoHide ? 'none' : 'flex'}">
+<div class="help cover-project-tabs" [ngStyle]="{'display': isSecondInfoHide ? 'none' : 'block'}">
   <div class="cover-card" text-center>
     <ion-slides pager=false loop="false">
       <ion-slide *ngFor="let rewardProject of rewardProjects">
@@ -925,6 +925,6 @@
         </div>
       </div>
     </div>
-    <div class="box-bottom" tappable (click)="endTurorial()">튜토리얼 종료 ></div>
+    <div class="box-bottom" tappable (click)="endTutorial()">튜토리얼 종료 ></div>
   </div>
 </ion-content>

@@ -166,7 +166,7 @@ export class UserServiceProvider {
 
   // 리뉴얼 후
   rewardTutorial() {
-    let url = this.commonService.getServerUrl() + '/user/api/project/reward/tutorial';
+    let url = this.commonService.getServerUrl() + '/user/api/tutorial/reward';
     return Observable.fromPromise(this.commonService.getHeaders('access'))
     .mergeMap((headers) => {
       return this.http.post(url, {}, { headers: headers }).map(res => res.json());
