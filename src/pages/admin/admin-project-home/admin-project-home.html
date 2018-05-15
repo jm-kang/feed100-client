@@ -12,7 +12,7 @@
           <ion-icon name="arrow-back"></ion-icon>
         </button>
       </ion-buttons>
-      <ion-title>{{project_name | slicetext:14}}</ion-title>
+      <ion-title>{{(project_name || "").split(' :')[0] | slicetext:20}}</ion-title>
       <ion-buttons end><button ion-button icon-only></button></ion-buttons>
     </ion-navbar>
   </ion-header>

@@ -11,14 +11,20 @@
       <img src="assets/img/tutorial-avatar.png" alt="">
       <div class="balloon-shadow"></div>
       <div class="balloon">
-        <div class="inner-balloon">
-          만나서 반갑습니다.<br>저는 FEED100 연구소장입니다.<br><br>그대는 이번 채용에서<br>가장 촉망받는 인턴 사원이니<br><br>이 튜토리얼만 잘 따라오면<br>금방 승진할 수 있을 것 같군요!<br><br>그럼 시작해볼까요?
+        <div class="inner-balloon" *ngIf="introFrontPart">
+          만나서 반갑습니다.<br>저는 FEED100 연구소장입니다.<br><br>그대는 이번 채용에서<br>가장 촉망받는 인턴 사원이니<br><br>이 튜토리얼만 잘 따라오면<br>금방 승진할 수 있을 것 같군요!
+        </div>
+        <div class="inner-balloon" *ngIf="!introFrontPart">
+          튜토리얼을 완료하면 특별 성과금으로<br><b class="text-highlight">1000p</b>를 드립니다!<br><br>포인트 1000p는 1000원의 가치를<br>가지고 있어요~<br><br>그럼 시작해볼까요?
         </div>
       </div>
     </div>
   </div>
-  <div class="box-bottom" tappable (click)="openProjectTabsPage()">
-    <span>시작하기 ></span>
+  <div class="box-bottom" *ngIf="introFrontPart" tappable (click)="nextIntroPart()">
+    <span>다음으로 ></span>
+  </div>
+  <div class="box-bottom" *ngIf="!introFrontPart" tappable (click)="openProjectTabsPage()">
+    <span>튜토리얼 시작하기 ></span>
   </div>
 </ion-content>
 
@@ -181,7 +187,7 @@
     <ion-title>
       <span class="project-header-title-wrapper">
         <span class="project-header-title" text-center>
-          {{projectName | slicetext:20}}
+          튜토리얼
         </span>
       </span>
     </ion-title>
@@ -269,7 +275,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon">
         <div class="inner-balloon">
-          역시~ 이해력이 남다르구먼!<br>매주 새롭고 다양한 서비스가 등록될테니<br>만약 떨어졌어도 너무 걱정하지 말아요~<br>이제 스토리를 보러 가볼까요?<br>퀴즈도 있으니 잘 봐야 합니다!
+          역시~ 이해력이 남다르구먼!<br>매주 새롭고 다양한 서비스가 등록될 테니<br>만약 떨어졌어도 너무 걱정하지 말아요~<br>이제 스토리를 보러 가볼까요?<br>스토리는 좌우 슬라이드로 넘길 수 있어요!
         </div>
       </div>
     </div>
@@ -287,7 +293,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon">
         <div class="inner-balloon">
-          좋아요!<br>다른 프로젝트에서도 테스트에 대하여<br>성실히 참여해 줄거라 믿습니다~!<br>이제 ‘인터뷰 하러가기’를 눌러주세요!
+          좋아요!<br>다른 프로젝트의 테스트도<br>성실히 참여해 줄 거라 믿습니다~!<br>이제 ‘인터뷰 하러가기’를 눌러주세요!
         </div>
       </div>
     </div>
@@ -428,7 +434,7 @@
     <ion-title>
       <span class="project-header-title-wrapper">
         <span class="project-header-title" text-center>
-          {{projectName | slicetext:20}}
+          튜토리얼
         </span>
       </span>
     </ion-title>
@@ -484,7 +490,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon balloon-white">
         <div class="inner-balloon">
-          정말 유능하구먼!<br>정말 어려운 문제였는데 잘 맞췄어요!<br>그럼 이제 서비스에 대한<br>첫인상 평가와 함께 인터뷰를 작성해주세요!<br>경험하면서 느낀점에 대하여<br>솔직하게 작성해 주시면 됩니다!
+          정말 유능하구먼!<br>정말 어려운 문제였는데 잘 맞췄어요!<br>그럼 이제 서비스에 대한<br>첫인상 평가와 함께 인터뷰를 작성해주세요!<br>인터뷰는 경험하면서 느낀 점에 대하여<br>솔직하게 작성해 주시면 됩니다!
         </div>
       </div>
     </div>
@@ -533,7 +539,7 @@
       <button *ngIf="currentInterviewSlide == 0" [disabled]="firstImpressionScore < 1" class="complete-button" ion-button (click)="goNext()" icon-only>
         다음
       </button>
-      <button *ngIf="currentInterviewSlide == 1" [disabled]="20 > textCount(satisfiedContent.answerContent)" class="complete-button" ion-button (click)="goNextInterviewSlide(satisfiedContent.answerContent)" icon-only>
+      <button *ngIf="currentInterviewSlide == 1" [disabled]="50 > textCount(satisfiedContent.answerContent)" class="complete-button" ion-button (click)="goNextInterviewSlide(satisfiedContent.answerContent)" icon-only>
         다음
       </button>
       <button *ngIf="currentInterviewSlide == 2" [disabled]="!interviewTimeSlide.value" class="complete-button" ion-button (click)="completeEditor()" icon-only>
@@ -574,7 +580,8 @@
     <ion-slide>
       <div class="editor-content" style="height: 100%">
         <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
-          <div class="question-wrapper interview-question m-b-30">Q. <span [innerHTML]="satisfiedContent.interviewQuestion"></span></div>
+          <div class="question-wrapper interview-question m-b-15">Q. <span [innerHTML]="satisfiedContent.interviewQuestion"></span></div>
+          <div class="follow-sentence-wrapper" [innerHTML]="satisfiedContent.followSentence"></div>
           <!-- <div class="buttons-wrapper m-b-30">
             <span tappable class="editor-open-btn" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
             <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 피드백 보기</span>
@@ -600,7 +607,7 @@
         <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
           <div class="question-wrapper m-b-30">
             <h3>인터뷰 선호 시간 선택</h3>
-            <p>인터뷰 선호 시간이란?<br>하루 중 인터뷰 요청에 따른 응답에 대하여<br>선호하는 시간을 말합니다.</p>
+            <p>인터뷰 선호 시간이란?<br>하루 중 인터뷰 요청에 따른<br>응답 선호 시간을 말합니다.<br><small>단, 인터뷰 요청은 선호 시간과 관계없이 도착할 수 있습니다.</small></p>
           </div>
           <div class="participation-condition-options-wrapper over-options">
             <ion-list radio-group [(ngModel)]="interviewTimeSlide.value">
@@ -626,7 +633,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon balloon-white">
         <div class="inner-balloon">
-          축하합니다!<br>참여 보상으로 500p를 받게 되었어요!<br>참여한 프로젝트는 진행되는 기간 동안<br>인터뷰가 진행될 거에요!<br>인터뷰까지 모두 진행하면 튜토리얼 완료!<br>보상을 받기 위해 끝까지 파이팅~!
+          축하합니다!<br>참여 보상으로 500p를 받게 되었어요!<br>인터뷰는 프로젝트가 진행되는 기간 동안<br>진행될 거예요!<br>인터뷰까지 모두 진행하면 튜토리얼 완료!<br>보상을 받기 위해 끝까지 파이팅~!
         </div>
       </div>
     </div>
@@ -644,7 +651,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon balloon-white">
         <div class="inner-balloon">
-          오! 마침 인터뷰가 도착했군요!<br>인터뷰는 질문에 대하여 그대의 생각이나 느낌을 자유롭고 솔직하게 답변해 주시면 됩니다.<br>기업과 소통하며 스토리를 들려주세요!
+          오! 마침 인터뷰가 도착했군요!<br>인터뷰는 질문에 대하여 그대의 생각이나 느낌을 자유롭고 솔직하게 답변해 주시면 됩니다.<br>기업에게 여러분의 이야기를 들려주세요!
         </div>
       </div>
     </div>
@@ -693,7 +700,7 @@
       인터뷰 질문
     </ion-title>
     <ion-buttons end>
-      <button [disabled]="20 > textCount(answerContent)" class="complete-button" ion-button (click)="completeAnswerEditor()" icon-only>
+      <button [disabled]="50 > textCount(answerContent)" class="complete-button" ion-button (click)="completeAnswerEditor()" icon-only>
         완료
       </button>
     </ion-buttons>
@@ -702,7 +709,8 @@
 <ion-content class="editor-modal interview-form-content" #contentRef *ngIf="openProjectInterviewAnswer">
   <div class="editor-content" style="height: 100%">
     <div text-center class="p-t-30 p-l-28 p-r-28 p-b-30">
-      <div class="question-wrapper interview-question m-b-30 pre-line">Q. <span [innerHTML]="interviewQuestion"></span></div>
+      <div class="question-wrapper interview-question m-b-15 pre-line">Q. <span [innerHTML]="interviewQuestion"></span></div>
+      <div class="follow-sentence-wrapper" [innerHTML]="followSentence"></div>
       <!-- <div class="buttons-wrapper m-b-30">
         <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
       </div> -->
@@ -731,7 +739,7 @@
       <div class="balloon-shadow"></div>
       <div class="balloon">
         <div class="inner-balloon">
-          축하해요!<br>튜토리얼 프로젝트를 성공적으로 마무리했습니다!<br>이제 포인트를 성과금으로 받아야겠죠?<br>포인트는 프로젝트 종료 후 ‘보상받기’를 누르고<br>추천지수를 입력하면 획득할 수 있습니다.<br>그럼 보상을 받으러 가볼까요?
+          축하해요!<br>튜토리얼을 성공적으로 마무리했습니다!<br>프로젝트에 대한 성과금이 지급되었습니다.<br>포인트는 프로젝트 종료 후<br>‘보상받기’를 누르고<br>추천지수를 입력하면 획득할 수 있습니다.<br>그럼 보상을 받으러 가볼까요?
         </div>
       </div>
     </div>
@@ -943,13 +951,19 @@
       <img src="assets/img/tutorial-avatar.png" alt="">
       <div class="balloon-shadow"></div>
       <div class="balloon">
-        <div class="inner-balloon">
-          이번 사원은 정말 잘 뽑았구먼!<br>모든 튜토리얼을 완료하고 1000p를 획득했어요!<br>포인트 내역과 환전은 ‘마이페이지’에서<br>언제든지 확인할 수 있습니다.<br>다른 프로젝트에서는 우수 참여 보상과 인터뷰에 대하여 더 많은 보상을 획득할 수 있습니다.<br>보상에 따른 경험치를 쌓아서 승진도 할 수 있으니<br>많은 참여 부탁드립니다.
+        <div class="inner-balloon" *ngIf="endFrontPart">
+          이번 사원은 정말 잘 뽑았구먼!<br>튜토리얼을 완료하고 1000p를 획득했어요!<br><br>포인트를 현금으로 환전하고 싶거나 포인트 내역을 확인하고 싶다면<br>우측 하단의 ‘마이페이지’를 눌러보세요!
+        </div>
+        <div class="inner-balloon" *ngIf="!endFrontPart">
+          실제 프로젝트에서는<br>우수 참여 보상과 인터뷰에 대한<br>더 많은 보상을 획득할 수 있으며<br>경험치를 쌓아 승진도 가능하니<br>많은 참여 부탁드립니다.<br>많은 참여 부탁드립니다.
         </div>
       </div>
     </div>
   </div>
-  <div class="box-bottom" tappable (click)="endTutorial()">
+  <div class="box-bottom" *ngIf="endFrontPart" tappable (click)="nextEndPart()">
+    <span>다음으로 ></span>
+  </div>
+  <div class="box-bottom" *ngIf="!endFrontPart" tappable (click)="endTutorial()">
     <span>튜토리얼 종료 ></span>
   </div>
 </ion-content>

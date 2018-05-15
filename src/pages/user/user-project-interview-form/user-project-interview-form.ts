@@ -24,6 +24,8 @@ export class UserProjectInterviewFormPage {
 
   project_id;
 
+  project_name;
+
   reward: number;
   totalReward: number;
   textcount: number;
@@ -39,12 +41,12 @@ export class UserProjectInterviewFormPage {
   helpReferances = ["나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다.", "나는 이런 문장이 마음에 든다."]
 
   satisfiedContent = {
-    interviewQuestion: "서비스를 경험했을 때 어떤 부분이 가장 매력적이셨나요? 가장 만족스러웠던 부분과 그 이유에 대해 말씀해주세요.",
+    interviewQuestion: "어떤 부분이 가장 매력적이셨나요? 가장 만족스러웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
   unsatisfiedContent = {
-    interviewQuestion: "서비스를 경험했을 때 불편사항이나 개선사항이 있던가요? 아쉬웠던 부분과 그 이유에 대해 말씀해주세요.",
+    interviewQuestion: "불편사항이나 개선사항이 있던가요? 아쉬웠던 부분과 그 이유에 대해 말씀해주세요.",
     answerContent: ""
   }
 
@@ -87,6 +89,29 @@ export class UserProjectInterviewFormPage {
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter UserProjectInterviewFormPage');    
+    let loading = this.commonService.presentLoading();
+
+    this.userService.getProject(this.project_id)
+    .finally(() => {
+      loading.dismiss();
+    })
+    .subscribe(
+      (data) => {
+        if(data.success == true) {
+          this.project_name = data.data.project_name;
+        }
+        else if(data.success == false) {
+          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+          .then(() => {
+            this.ionViewWillEnter();
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
+        this.commonService.showBasicAlert('오류가 발생했습니다.');
+      }
+    )
   }
 
   ionViewWillLeave() {

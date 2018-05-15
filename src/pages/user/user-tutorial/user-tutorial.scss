@@ -54,6 +54,7 @@ page-user-tutorial {
             color: #383838;
             font-weight: bold;
             line-height: 1.5;
+            word-break: keep-all;
         }
     }
     .balloon:after {
@@ -556,4 +557,28 @@ page-user-tutorial {
             padding: 0 20px;
         }
     }
+
+    .follow-sentence-wrapper {
+        font-size: 1.2rem;
+        text-align: left;
+        padding: 13px 20px;
+        border: 1px solid rgba(255,103,0,0.4);
+        margin-bottom: 10px;
+        border-radius: 10px;
+        background-color: rgba(255,103,0,0.05);
+        font-weight: normal;
+        word-break: keep-all;
+        line-height: 1.5;
+        color: #484848;
+    }
+
+}
+.text-highlight {
+    font-size: 105%;
+    color: #ff6700;
+    font-weight: bold;
+}
+
+.text-underline {
+    text-decoration: underline;
 }

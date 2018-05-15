@@ -17,7 +17,7 @@
     <ion-title>
       <span class="project-header-title-wrapper">
         <span class="project-header-title" text-center>
-          {{projectName | slicetext:20}}
+          {{(projectName || "").split(' :')[0] | slicetext:20}}
         </span>
       </span>
     </ion-title>
@@ -36,7 +36,7 @@
     <ion-title>
       <span class="project-header-title-wrapper">
         <span class="project-header-title" text-center>
-          {{projectName | slicetext:20}}
+          {{(projectName || "").split(' :')[0] | slicetext:20}}
         </span>
       </span>
     </ion-title>
