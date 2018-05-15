@@ -29,7 +29,7 @@ export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPages = [];
   
-  isDevMode = true;
+  isDevMode = false;
 
   constructor(
     public http: Http,

@@ -212,10 +212,10 @@ export class CompanyProjectHomePage {
       else {
         console.log('background');
         if(notification.additionalData.project_id) {
-          if(!notification.additionalData.coldstart) {
+          if(!notification.additionalData.coldstart) { // 새로고침 시
             this.zone.run(() => {
               this.commonService.dismissAllModal();
-              this.appCtrl.getRootNavs()[0].goToRoot({});
+              this.appCtrl.getRootNavs()[0].setRoot('CompanyProjectHome');
             }); 
           }
           if(notification.additionalData.project_participant_id) {

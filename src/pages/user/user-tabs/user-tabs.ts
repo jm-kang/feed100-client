@@ -85,10 +85,11 @@ export class UserTabsPage {
       else {
         console.log('background');
         if(notification.additionalData.project_id) {
-          if(!notification.additionalData.coldstart) {
+          if(!notification.additionalData.coldstart) { // 새로고침 아닐 시
             this.zone.run(() => {
+              console.log('cold');
               this.commonService.dismissAllModal();
-              this.appCtrl.getRootNavs()[0].goToRoot({});
+              this.appCtrl.getRootNavs()[0].setRoot('UserTabsPage');
             }); 
           }
           this.userService.accessProject(this, notification.additionalData.project_id);
