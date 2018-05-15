@@ -23,13 +23,19 @@
     <div text-center padding>
       <!-- 프로젝트 제목 -->
       <h1 class="p-l-28 p-r-28 m-b-30">{{projectName}}</h1>
+      <div class="editor-content">
+        <div class="buttons-wrapper m-b-30">
+          <span tappable class="editor-open-btn m-r-5" (click)="openUserProjectStoryVerticalPage()">&nbsp;스토리 다시보기&nbsp;</span>
+          <span tappable class="editor-open-btn m-l-5" (click)="openUserProjectInterviewDetailPage()">지난 인터뷰 보기</span>
+        </div>
+      </div>
       <!-- 현재 보상금액 -->
       <h5>보상받을 포인트&nbsp;<span>( max {{maxReward}}&nbsp;p</span> )</h5>
       <h2 class="m-b-10">{{currentReward}}&nbsp;<span class="p-tag">p</span></h2>
       <!-- 최대 보상금액 -->
       <!-- 대기 안내 -->
       <p class="m-t-30 m-b-5"><안내></p>
-      <p class="p-l-16 p-r-16 m-t-5" [innerHTML]="waitingNotice"></p>
+      <p class="p-l-16 p-r-16 m-t-5" style="word-break: keep-all" [innerHTML]="waitingNotice"></p>
     </div>
   </div>
 </ion-content>

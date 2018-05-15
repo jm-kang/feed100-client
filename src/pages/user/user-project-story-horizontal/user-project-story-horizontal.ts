@@ -133,7 +133,6 @@ export class UserProjectStoryHorizontalPage {
         this.commonService.showBasicAlert('오류가 발생했습니다.');
       }
     )
-    this.slideChanged();
   }
 
   back() {

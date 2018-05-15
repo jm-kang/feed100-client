@@ -326,12 +326,12 @@
 <ion-footer class="story-footer project-report-footer">
   <progress-bar [progress]="progressPercent"></progress-bar>
   <ion-navbar hideBackButton="true">
-    <ion-buttons class="story-back-button" start>
-      <button ion-button (click)="back()">
+    <ion-buttons class="story-back-button m-r-10" start>
+      <button ion-button (click)="back()" style="width: 40px;">
         <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-item class="avatar-span-wrapper item-flex p-l-30" *ngIf="isFirstSlide" (click)="help()" tappable>
+    <ion-item class="avatar-span-wrapper item-flex p-l-0" *ngIf="isFirstSlide" (click)="help()" tappable>
       <span item-start class="avatar-image avatar-span cropper">
         <img class="avatar-span-image" [src]="projectMainImage" />
       </span>
