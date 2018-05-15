@@ -148,9 +148,13 @@ export class UserProjectStoryQuizFormPage {
             (data) => {
               if(data.success == true) {                      
                 if(data.data) {
-                  this.navCtrl.pop({animate: false});
-                  this.navCtrl.pop({animate: false});                
-                  this.navCtrl.push('UserProjectInterviewFormPage', { "project_id" : this.project_id});          
+                  this.navCtrl.pop({animate: false})
+                  .then(() => {
+                    this.navCtrl.pop({animate: false})
+                    .then(() => {
+                      this.navCtrl.push('UserProjectInterviewFormPage', { "project_id" : this.project_id});          
+                    });
+                  });
                 }
                 else {
                   if(data.message == 'project is not proceeding') {
