@@ -144,7 +144,11 @@ export class UserProjectParticipationConditionFormPage {
             });
           }
           else {
-            if(data.message == 'project is not proceeding') {
+            if(data.message == 'already participated') {
+              this.back();
+              this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+            }
+            else if(data.message == 'project is not proceeding') {
               this.back();
               this.commonService.showBasicAlert('이런! 프로젝트가 이미 종료되었습니다.');
             }
