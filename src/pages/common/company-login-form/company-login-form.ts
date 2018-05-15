@@ -60,9 +60,13 @@ export class CompanyLoginFormPage {
         (data) => {
           console.log(JSON.stringify(data));
           if(data.success == true) {
-            this.storage.set('accessToken', data.data.accessToken);
-            this.storage.set('refreshToken', data.data.refreshToken);
-            this.navCtrl.setRoot('AdminTabsPage', {}, {animate: true, direction: 'forward'});
+            this.storage.set('accessToken', data.data.accessToken)
+            .then(() => {
+              this.storage.set('refreshToken', data.data.refreshToken)
+              .then(() => {
+                this.navCtrl.setRoot('AdminTabsPage', {}, {animate: true, direction: 'forward'});
+              });
+            });
           }
           else if(data.success == false) {
             if(data.message == 'username is unregistered') {
@@ -91,9 +95,13 @@ export class CompanyLoginFormPage {
         (data) => {
           console.log(JSON.stringify(data));
           if(data.success == true) {
-            this.storage.set('accessToken', data.data.accessToken);
-            this.storage.set('refreshToken', data.data.refreshToken);
-            this.navCtrl.setRoot('CompanyProjectHomePage', {}, {animate: true, direction: 'forward'});
+            this.storage.set('accessToken', data.data.accessToken)
+            .then(() => {
+              this.storage.set('refreshToken', data.data.refreshToken)
+              .then(() => {
+                this.navCtrl.setRoot('CompanyProjectHomePage', {}, {animate: true, direction: 'forward'});
+              });
+            });
           }
           else if(data.success == false) {
             if(data.message == 'username is unregistered') {

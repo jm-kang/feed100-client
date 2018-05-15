@@ -69,9 +69,13 @@ export class UserLoginFormPage {
     .subscribe(
       (data) => {
         if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+          this.storage.set('accessToken', data.data.accessToken)
+          .then(() => {
+            this.storage.set('refreshToken', data.data.refreshToken)
+            .then(() => {
+              this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+            });
+          });
         }
         else if(data.success == false) {
           if(data.message == 'username is unregistered') {
