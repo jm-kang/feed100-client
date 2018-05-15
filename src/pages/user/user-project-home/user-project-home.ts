@@ -24,7 +24,7 @@ export class UserProjectHomePage {
   // currentReward: string = "1000";
   // maxReward: string = "5500";
   // progressState: string = "2018-03-31 00:00:00";
-  waitingNotice: string = "현재 인터뷰 대기 중입니다.<br>인터뷰는 프로젝트 기간 동안 진행되며<br>1회 당 최대 500P로<br>총 5회까지 추가 지급됩니다.<br>인터뷰에 성실히 응답하지 않을 시<br>프로젝트에서 제외 될 수 있습니다.<br>만족스러웠던 유저를 선정하여<br>2000P를 지급해 드립니다.<br>도전해 보세요!";
+  waitingNotice: string = "현재 인터뷰 대기 중입니다.<br>인터뷰는 프로젝트 기간 동안 진행되며 1회 당 최대<br>500P로 총 5회까지 추가 지급됩니다.<br>인터뷰에 성실히 응답하지 않을 시 프로젝트에서<br>제외 될 수 있습니다.<br>만족스러웠던 유저를 선정하여 2000P를<br>지급해 드립니다.";
   projectName;
   currentReward;
   maxReward;
@@ -96,6 +96,18 @@ export class UserProjectHomePage {
         }
       }
     )
+  }
+
+  openUserProjectStoryVerticalPage() {
+    console.log('story open');
+    let userProjectStoryVerticalModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectStoryVerticalPage', params: { "project_id" : this.project_id }});
+    userProjectStoryVerticalModal.present();
+  }
+
+  openUserProjectInterviewDetailPage() {
+    console.log('detail open');
+    let userProjectInterviewDetailModal = this.modalCtrl.create('ModalWrapperPage', {page: 'UserProjectInterviewDetailPage', params: { "project_participant_id" : this.project_participant_id }});
+    userProjectInterviewDetailModal.present();
   }
 
 }

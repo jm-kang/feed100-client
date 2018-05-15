@@ -226,6 +226,9 @@ ion-spinner {
 }
 
 // padding value
+.p-l-0 {
+    padding-left: 0px !important;
+}
 .p-t-4 {
     padding-top: 4px !important;
 }
@@ -1382,6 +1385,11 @@ p {
 // notification-page-style //
 
 // slide //
+    .project-header-title-wrapper {
+        .project-header-title {
+            color: #fff;
+        }
+    }
     .slide-question-content {
         ion-buttons[start] {
             order: 1;
@@ -2819,7 +2827,7 @@ p {
         .interview-point-wrapper {
             .reward-point {
                 font-size: 1.3rem;
-                font-weight: 100;
+                font-weight: 300;
             }
             .reward-point.max {
                 font-size: 1.3rem;

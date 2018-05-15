@@ -55,12 +55,15 @@ export class UserTutorialPage {
   openProjectRewardForm;
   openTutorialEnd;
 
+  introFrontPart;
+  endFrontPart;
+
   // 추천 프로젝트
   recommendedProjects = [
     {
       project_id: 1,
       project_main_image:"assets/img/project-story-tutorial-image1.png",
-      project_name: "FEED100 : 1:1 온라인 인터뷰 기반의 고객반응조사 서비스 FEED100",
+      project_name: "FEED100 : 1:1 온라인 인터뷰 기반의 고객반응조사 서비스",
       project_max_reward: 5500,
     },
   ];
@@ -100,15 +103,16 @@ export class UserTutorialPage {
   textcount;
 
   // 프로젝트 홈
-  waitingNotice: string = "현재 인터뷰 대기 중입니다.<br>인터뷰는 프로젝트 기간 동안 진행되며<br>1회 당 최대 500P로<br>총 5회까지 추가 지급됩니다.<br>인터뷰에 성실히 응답하지 않을 시<br>프로젝트에서 제외 될 수 있습니다.<br>만족스러웠던 유저를 선정하여<br>2000P를 지급해 드립니다.<br>도전해 보세요!";
+  waitingNotice: string = "현재 인터뷰 대기 중입니다.<br>인터뷰는 프로젝트 기간 동안 진행되며 1회 당 최대<br>500P로 총 5회까지 추가 지급됩니다.<br>인터뷰에 성실히 응답하지 않을 시 프로젝트에서<br>제외 될 수 있습니다.<br>만족스러웠던 유저를 선정하여 2000P를<br>지급해 드립니다.";
 
-  contentPlaceholder = '이 부분을 터치하여 인터뷰 질문에 답변해 주세요.';
+  contentPlaceholder = '이 부분을 터치하여 위 문구를 따라서 써주세요.';
   minTextLength = 20;
   isInterviewHelpHide;
   firstImpressionScore = 0;
   currentInterviewSlide;
   satisfiedContent = {
-    interviewQuestion: "아래 문구를 따라서 써주세요~<br><br>인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~",
+    interviewQuestion: "아래 문구를 <b class='text-highlight text-underline'>따라서 써주세요</b>~",
+    followSentence: "<b class='text-highlight'>></b>&ensp;인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~",
     answerContent: ""
   }
   interviewTimeSlide =  {
@@ -125,7 +129,8 @@ export class UserTutorialPage {
     "value" : ""
   };
 
-  interviewQuestion =  "아래 문구를 따라서 써주세요~<br><br>인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.";
+  interviewQuestion =  "아래 문구를 <b class='text-highlight text-underline'>따라서 써주세요</b>~";
+  followSentence = "<b class='text-highlight'>></b>&ensp;인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.";
   answerContent: string = "";
   rewardProjects = [];
   exp = 10;
@@ -154,6 +159,9 @@ export class UserTutorialPage {
   
   ionViewWillEnter() {
     console.log('ionViewDidLoad UserTutorialPage');
+    this.introFrontPart = true;
+    this.endFrontPart = true;
+
     this.isInfoHide = true;
     this.isSecondInfoHide = true;
     this.openTutorialIntro = true;
@@ -179,8 +187,8 @@ export class UserTutorialPage {
     this.openTestIntro = false;
 
     this.isCheck = false;
-    this.project_notice = "프로젝트에 참여하기 전 꼭 확인해주세요!<br><br>1. 이 프로젝트는 튜토리얼입니다.<br>끝까지 완료하신 경우 1000P가 지급됩니다.<br><br>2. 이 프로젝트는 반복하여 진행할 수 있습니다.<br>단, 보상은 첫 1회에 한합니다.<br><br>3. 프로젝트 중간에 그만 둘 경우 불이익이 있을 수 있습니다.<br>끝까지 참여해주세요!";
-    this.projectName = "FEED100 : 1:1 온라인 인터뷰 기반의 고객반응조사 서비스 FEED100";
+    this.project_notice = "1. 이 프로젝트는 튜토리얼입니다.<br>끝까지 완료하신 경우 1000P가 지급됩니다.<br><br>2. 프로젝트 중간에 그만 둘 경우<br>불이익이 있을 수 있습니다.<br>끝까지 참여해주세요!";
+    this.projectName = "FEED100 : 1:1 온라인 인터뷰 기반의 고객반응조사 서비스";
     this.projectMainImage = "assets/img/project-story-tutorial-image1.png";
     this.participationConditionSlides = [
       {question : "프로젝트에 참여하기 위한<br>조건이 있다는 것을 이해하셨나요?",options : [{option : "예"},{option : "아니오"}], value : ""},
@@ -373,7 +381,7 @@ export class UserTutorialPage {
       this.openTutorialEnd = false;
     }
     else {
-      this.commonService.showBasicAlert('이해하기 어려웠나요?<br>각 프로젝트에는 참여 대상이 맞는지<br>확인하기 위한 참여 조건이 존재합니다.<br>실제 프로젝트에서는 조건에 맞지 않으면<br>참여하지 못하니 신중하게 선택하셔야 합니다!<br>다시 선택해주세요!');
+      this.commonService.showBasicAlert('이해하기 어려웠나요?<br>각 프로젝트에는 참여 대상이 맞는지<br>확인하기 위한 참여 조건이 존재합니다. 실제 프로젝트에서는 조건에 맞지 않으면 참여하지 못하니 신중하게 선택하셔야 합니다!<br>다시 선택해주세요!');
     }
   }
 
@@ -677,15 +685,14 @@ export class UserTutorialPage {
   }
 
   goNextInterviewSlide(content) {
-    console.log(content);
-    if(content == "인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~") {
+    // if(content == "인터뷰는 최소 20자 이상 작성해야 하며 글자 수에 따라 보상이 달라져요! 직접 서비스를 경험하면서 느낀 생각과 감정을 솔직하게 작성해주세요~") {
       this.interviewSlider.lockSwipeToNext(false);
       this.interviewSlider.slideNext(300);
       this.interviewSlider.lockSwipeToNext(true);
       this.currentInterviewSlide = this.interviewSlider.getActiveIndex();
-    } else {
-      this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
-    }
+    // } else {
+    //   this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
+    // }
   }
   goPrevSlide() {
     this.interviewSlider.lockSwipeToPrev(false);
@@ -733,7 +740,7 @@ export class UserTutorialPage {
     setTimeout(() => {
       this.openProjectHomeSecondIntro = true;
       this.commonService.showToast('새로운 인터뷰가 도착했어요!');
-    }, 1000);
+    }, 2000);
   }
 
   openInterviewAnswerPage() {
@@ -763,7 +770,7 @@ export class UserTutorialPage {
   completeAnswerEditor() {
     this.commonService.showConfirmAlert('작성을 완료하시겠습니까?<br>작성 후에는 수정할 수 없으며,<br>부적절한 글을 작성할 경우 삭제 및 프로젝트에서 제외될 수 있습니다.', 
       () => {
-        if(this.answerContent == "인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.") {
+        // if(this.answerContent == "인터뷰는 프로젝트가 진행되는 동안 기업의 질문에 답변을 해야 합니다. 성실히 참여하지 않을 시 프로젝트에서 제외될 수 있습니다.") {
           this.isInfoHide = true;
           this.isSecondInfoHide = false;
           this.openTutorialIntro = false;
@@ -788,9 +795,9 @@ export class UserTutorialPage {
           this.commonService.showToast('+ 500 포인트가 적립되었습니다.');
           this.totalReward = 1000;
           // this.commonService.showBasicAlert('축하합니다! 프로젝트에 성공적으로 참여했습니다. 안내 내용을 확인해주세요!');
-        } else {
-          this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
-        }
+        // } else {
+        //   this.commonService.showBasicAlert('이런 이런 오타가 있네요. 다시 한번 확인해주세요.');
+        // }
       }
     );
   }
@@ -849,41 +856,41 @@ export class UserTutorialPage {
   goNextRewardSlide(index) {
     switch(index) {
       case 0:
-        this.commonService.isLoadingActive = true;
-        let loading = this.commonService.presentLoading();
+        // this.commonService.isLoadingActive = true;
+        // let loading = this.commonService.presentLoading();
 
-        this.userService.rewardTutorial()
-        .finally(() => {
-          loading.dismiss();
-        })
-        .subscribe(
-          (data) => {
-            if(data.success == true) {
-              if(data.data) {
+        // this.userService.rewardTutorial()
+        // .finally(() => {
+        //   loading.dismiss();
+        // })
+        // .subscribe(
+        //   (data) => {
+        //     if(data.success == true) {
+        //       if(data.data) {
                 this.rewardSlider.lockSwipeToPrev(true);
                 this.rewardSlider.lockSwipeToNext(false);
                 this.rewardSlider.slideNext(300);
                 this.rewardSlider.lockSwipeToNext(true);
-                      }
-              else {
-                if(data.message == 'is already rewarded') {
-                  this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
-                  this.navCtrl.setRoot('UserTabsPage');
-                }
-              }
-            }
-            else if(data.success == false) {
-              this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-              .then(() => {
-                this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
-              });
-            }
-          },
-          (err) => {
-            console.log(err);
-            this.commonService.showBasicAlert('오류가 발생했습니다.');
-          }
-        );
+        //               }
+        //       else {
+        //         if(data.message == 'is already rewarded') {
+        //           this.commonService.showBasicAlert('이미 보상을 받으셨습니다.');
+        //           this.navCtrl.setRoot('UserTabsPage');
+        //         }
+        //       }
+        //     }
+        //     else if(data.success == false) {
+        //       this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+        //       .then(() => {
+        //         this.commonService.showBasicAlert('잠시 후 다시 시도해주세요.');
+        //       });
+        //     }
+        //   },
+        //   (err) => {
+        //     console.log(err);
+        //     this.commonService.showBasicAlert('오류가 발생했습니다.');
+        //   }
+        // );
         break;
       case 1:
         this.isInfoHide = true;
@@ -914,5 +921,21 @@ export class UserTutorialPage {
   endTutorial() {
     this.navCtrl.setRoot('UserTabsPage');
     this.commonService.showToast('튜토리얼을 완료하였습니다. 다양한 프로젝트에 참여해보세요!')
+  }
+
+  nextIntroPart() {
+    if(this.introFrontPart) {
+      this.introFrontPart = false;
+    } else {
+      this.introFrontPart = true;
+    }
+  }
+
+  nextEndPart() {
+    if(this.endFrontPart) {
+      this.endFrontPart = false;
+    } else {
+      this.endFrontPart = true;
+    }
   }
 }
