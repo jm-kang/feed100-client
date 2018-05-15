@@ -137,9 +137,11 @@ export class UserProjectParticipationConditionFormPage {
       (data) => {
         if(data.success == true) {
           if(data.data) {
-            this.navCtrl.pop({animate: false});
-            this.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : this.project_id, "isFeedback" : true });
-            this.commonService.showBasicAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 인터뷰에 응답해주세요!');
+            this.navCtrl.pop({animate: false})
+            .then(() => {
+              this.navCtrl.push('UserProjectStoryHorizontalPage', { "project_id" : this.project_id, "isFeedback" : true });
+              this.commonService.showBasicAlert('축하합니다! 조건이 충족되어 프로젝트에 참여하실 수 있습니다. 스토리를 자세히 보시고 인터뷰에 응답해주세요!');
+            });
           }
           else {
             if(data.message == 'project is not proceeding') {

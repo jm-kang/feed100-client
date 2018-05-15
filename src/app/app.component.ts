@@ -47,7 +47,7 @@ export class MyApp {
           this.openAppIntroPage();
           localStorage.setItem('isAppIntroChecked', 'true');
         }
-      }, 1000);
+      }, 1500);
     });
   }
 

@@ -274,9 +274,13 @@ export class CommonServiceProvider {
             (data) => {
               console.log(JSON.stringify(data));
               if(data.success == true) {
-                this.storage.set('accessToken', data.data.accessToken);
-                this.storage.set('refreshToken', data.data.refreshToken);
-                resolve();
+                this.storage.set('accessToken', data.data.accessToken)
+                .then(() => {
+                  this.storage.set('refreshToken', data.data.refreshToken)
+                  .then(() => {
+                    resolve();
+                  });
+                });
               }
               else if(data.success == false) {
                 this.logout(navCtrl);

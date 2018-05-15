@@ -184,11 +184,15 @@ export class UserRegistrationFormPage {
       .subscribe(
       (data) => {
         if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.googlePlus.logout()
+          this.storage.set('accessToken', data.data.accessToken)
           .then(() => {
-            this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+            this.storage.set('refreshToken', data.data.refreshToken)
+            .then(() => {
+              this.googlePlus.logout()
+              .then(() => {
+                this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+              });    
+            });
           });
         }
         else if(data.success == false) {
@@ -232,9 +236,13 @@ export class UserRegistrationFormPage {
       .subscribe(
       (data) => {
         if(data.success == true) {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+          this.storage.set('accessToken', data.data.accessToken)
+          .then(() => {
+            this.storage.set('refreshToken', data.data.refreshToken)
+            .then(() => {
+              this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+            });
+          });
         }
         else if(data.success == false) {
           if(data.message == 'app_id is unregistered') {
@@ -279,9 +287,13 @@ export class UserRegistrationFormPage {
     (data) => {
       if(data.success == true) {
         this.zone.run(() => {
-          this.storage.set('accessToken', data.data.accessToken);
-          this.storage.set('refreshToken', data.data.refreshToken);
-          this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+          this.storage.set('accessToken', data.data.accessToken)
+          .then(() => {
+            this.storage.set('refreshToken', data.data.refreshToken)
+            .then(() => {
+              this.navCtrl.setRoot('UserTabsPage', {}, {animate: true, direction: 'forward'});
+            });
+          });
         });
       }
       else if(data.success == false) {
