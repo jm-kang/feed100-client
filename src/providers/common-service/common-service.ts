@@ -29,7 +29,7 @@ export class CommonServiceProvider {
   isLoadingActive = true;
   modalWrapperPages = [];
   
-  isDevMode = false;
+  isDevMode = true;
 
   constructor(
     public http: Http,
@@ -416,8 +416,7 @@ export class CommonServiceProvider {
 
   presentLoading() {
     let loading = this.loadingCtrl.create({
-      spinner: "dots",
-      duration: 5000
+      spinner: "dots"
     });
     if(this.isLoadingActive) {
       loading.present();

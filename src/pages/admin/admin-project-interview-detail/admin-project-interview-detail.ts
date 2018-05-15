@@ -150,10 +150,16 @@ export class AdminProjectInterviewDetailPage {
           }, 500);
         }
         else if(data.success == false) {
-          this.commonService.apiRequestErrorHandler(data, this.navCtrl)
-          .then(() => {
-            this.ionViewWillEnter();
-          })
+          if(data.message == 'not participated') {
+            this.back();           
+            this.commonService.showBasicAlert('오류가 발생했습니다.');            
+          }
+          else {
+            this.commonService.apiRequestErrorHandler(data, this.navCtrl)
+            .then(() => {
+              this.ionViewWillEnter();
+            })
+          }
         }
       },
       (err) => {
